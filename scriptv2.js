@@ -1,4 +1,6 @@
 const mapSize = 8192;
+const mapSize05 = [mapSize, mapSize];
+const mapSize10 = [[0, 0], [mapSize, mapSize]];
 const mapBorder = 1024;
 const mapWidth = 8192;
 const mapHeight = 8192;
@@ -21,7 +23,7 @@ const map = L.map('map', {
   //maxBounds: [[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]],
   //maxBounds: boundsHW,
   maxBoundsViscosity: 0.5,
-  center: [4096, 4096],
+  center: [[0, 0], [8192, 8192]],
   zoomControl: true
 });
 
@@ -35,7 +37,7 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
   maxZoom: 2,
   zoom: -3,
   tileSize: 256,
-  center: [4096, 4096],
+  center: [[0, -8192], [8192, 0]],
   //bounds: [[-mapHeight, -mapWidth], [2048, 2048]],
   noWrap: true
 }).addTo(map);
