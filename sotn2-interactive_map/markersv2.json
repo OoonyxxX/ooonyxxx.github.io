@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Forbidden Crypt",
+    "coords": [2800, 600],
+    "category": "Crypt",
+    "description": "Placeholder",
+  },
+  {
+    "name": "Obelisk",
+    "coords": [1500, 1800],
+    "category": "Obelisk",
+    "description": "Placeholder1",
+  },
+  {
+    "name": "Fox Home",
+    "coords": [3500, 2800],
+    "category": "Home",
+    "description": "Placeholder2",
+  }
+]
