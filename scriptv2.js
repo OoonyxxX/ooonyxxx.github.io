@@ -14,7 +14,7 @@ const boundstest = [[mapHeight, 0], [0, mapWidth]];
 const map = L.map('map', {
   crs: L.CRS.Simple,
   minZoom: -6,
-  maxZoom: -1,
+  maxZoom: -1.1,
   zoomSnap: 0.2,
   zoomDelta: 0.2,
   zoom: -6,
@@ -31,7 +31,7 @@ const map = L.map('map', {
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png', {
   zoomOffset: 6,
   minZoom: -6,
-  maxZoom: -1,
+  maxZoom: -1.1,
   zoom: -6,
   tileSize: 256,
   center: [0, -8192],
