@@ -1,5 +1,8 @@
+
+const mapTile = 512;
 const mapSize = 8192;
-const mapSize05 = [mapSize, mapSize];
+const mapTileSize = [mapTile / 2, mapTile / 2];
+const mapSize05 = [mapSize / 2, mapSize / 2];
 const mapSize10 = [[0, 0], [mapSize, mapSize]];
 const mapBorder = 1024;
 const mapWidth = 8192;
@@ -23,7 +26,7 @@ const map = L.map('map', {
   //maxBounds: [[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]],
   //maxBounds: boundsHW,
   maxBoundsViscosity: 0.5,
-  center: [[0, 0], [8192, 8192]],
+  center: mapTileSize,
   zoomControl: true
 });
 
