@@ -1,4 +1,3 @@
-
 const mapTile = 2048;
 const mapSize = 8192;
 const mapTileBorder = 256;
@@ -31,7 +30,7 @@ const map = L.map('map', {
   zoomDelta: 0.2,
   zoom: 5,
   //maxBounds: [[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]],
-  maxBounds: [[mapTileHeightHY, mapTileWidthWY], [mapTileHeightHX, mapTileWidthWX]],
+  //maxBounds: [[mapTileHeightHY, mapTileWidthWY], [mapTileHeightHX, mapTileWidthWX]],
   //maxBounds: boundsHW,
   maxBoundsViscosity: 0.5,
   center: mapTileSize,
@@ -49,7 +48,7 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
   zoom: 5,
   tileSize: 256,
   center: mapTileSize,
-  //bounds: [[-mapHeight, -mapWidth], [2048, 2048]],
+  bounds: [[-mapHeight, -mapWidth], [2048, 2048]],
   noWrap: true
 }).addTo(map);
 
