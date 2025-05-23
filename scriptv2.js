@@ -21,7 +21,7 @@ const map = L.map('map', {
   //maxBounds: [[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]],
   //maxBounds: boundsHW,
   maxBoundsViscosity: 0.5,
-  center: [-8192, -8192],
+  center: [0, -8192],
   zoomControl: true
 });
 
