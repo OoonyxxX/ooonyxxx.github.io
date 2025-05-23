@@ -28,7 +28,6 @@ const map = L.map('map', {
 //const image = L.imageOverlay('WorldMap_NoBack.png', bounds).addTo(map);
 map.fitBounds([[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]]);
 
-// huyaka
 
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png', {
   zoomOffset: 3,
@@ -36,7 +35,7 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png', {
   maxZoom: 2,
   zoom: -3,
   tileSize: 256,
-  //center: [0, -8192],
+  center: [4096, 4096],
   //bounds: [[-mapHeight, -mapWidth], [2048, 2048]],
   noWrap: true
 }).addTo(map);
