@@ -40,7 +40,7 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
   maxZoom: 2,
   zoom: -3,
   tileSize: 256,
-  center: [[0, -8192], [8192, 0]],
+  center: [[0, -256], [256, 0]],
   //bounds: [[-mapHeight, -mapWidth], [2048, 2048]],
   noWrap: true
 }).addTo(map);
