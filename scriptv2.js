@@ -26,7 +26,7 @@ const map = L.map('map', {
 });
 
 //const image = L.imageOverlay('WorldMap_NoBack.png', bounds).addTo(map);
-//map.fitBounds([[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]]);
+map.fitBounds([[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]]);
 
 // huyaka
 
