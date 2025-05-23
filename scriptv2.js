@@ -13,11 +13,11 @@ const boundstest = [[mapHeight, 0], [0, mapWidth]];
 
 const map = L.map('map', {
   crs: L.CRS.Simple,
-  minZoom: -4,
-  maxZoom: 1,
+  minZoom: -3,
+  maxZoom: 2,
   zoomSnap: 0.2,
   zoomDelta: 0.2,
-  zoom: -4,
+  zoom: -3,
   //maxBounds: [[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]],
   //maxBounds: boundsHW,
   maxBoundsViscosity: 0.5,
@@ -29,10 +29,10 @@ const map = L.map('map', {
 //map.fitBounds([[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]]);
 
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png', {
-  zoomOffset: 4,
-  minZoom: -4,
-  maxZoom: 1,
-  zoom: -4,
+  zoomOffset: 3,
+  minZoom: -3,
+  maxZoom: 2,
+  zoom: -3,
   tileSize: 256,
   center: [0, -8192],
   //bounds: [[-mapHeight, -mapWidth], [2048, 2048]],
