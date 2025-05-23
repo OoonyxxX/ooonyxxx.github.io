@@ -31,6 +31,7 @@ const map = L.map('map', {
   zoomDelta: 0.2,
   zoom: 5,
   //maxBounds: [[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]],
+  maxBounds: [[mapTileHeightHY, mapTileWidthWY], [mapTileHeightHX, mapTileWidthWX]],
   //maxBounds: boundsHW,
   maxBoundsViscosity: 0.5,
   center: mapTileSize,
