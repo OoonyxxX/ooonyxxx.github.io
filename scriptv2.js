@@ -28,6 +28,8 @@ const map = L.map('map', {
 //const image = L.imageOverlay('WorldMap_NoBack.png', bounds).addTo(map);
 //map.fitBounds([[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]]);
 
+// huyaka
+
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png', {
   zoomOffset: 3,
   minZoom: -3,
