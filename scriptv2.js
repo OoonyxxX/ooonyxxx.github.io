@@ -29,7 +29,7 @@ const map = L.map('map', {
 map.fitBounds([[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]]);
 
 
-L.tileLayer('MapTilestest/{z}/{x}/{y}.png', {
+L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
   zoomOffset: 3,
   minZoom: -3,
   maxZoom: 2,
