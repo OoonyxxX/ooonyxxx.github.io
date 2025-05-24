@@ -10,11 +10,11 @@ const mapWidth = 8192;
 const mapHeight = 8192;
 const screen_frame_mult = 1;
 
-const mapTileWidthWR = mapTile + mapTileBorder + ((window.innerWidth / 16) * screen_frame_mult);
-const mapTileHeightHT = mapTile + mapTileBorder + ((window.innerHeight / 9) * screen_frame_mult);
-const mapTileWidthWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult);
-const mapTileHeightHB = -mapTileBorder - ((window.innerHeight / 9) * screen_frame_mult);
-//1920x1080
+const mapTileWR = mapTile + mapTileBorder + ((window.innerWidth / 16) * screen_frame_mult);
+const mapTileHT = mapTile + mapTileBorder + ((window.innerHeight / 9) * screen_frame_mult);
+const mapTileWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult);
+const mapTileHB = -mapTileBorder - ((window.innerHeight / 9) * screen_frame_mult);
+//1920x1080 120px
 
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 
@@ -26,7 +26,8 @@ const map = L.map('map', {
   zoomDelta: 0.025,
   zoom: 2,
   zoomControl: true,
-  maxBounds: [[mapTileHeightHB, mapTileWidthWL], [mapTileHeightHT, mapTileWidthWR]],
+  //maxBounds: [[mapTileHB, mapTileWL], [mapTileHT, mapTileWR]],
+  maxBounds: [[-248, -248], [248 + 256, 248 + 256]],
   maxBoundsViscosity: 0.5,
   center: [128, 128]
 });
@@ -34,6 +35,15 @@ const map = L.map('map', {
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
   noWrap: true,
 }).addTo(map);
+
+
+
+map.on('zoomend', function () {
+  const z = map.getZoom();
+  const borderShift = Math.pow(2, (z - 2));
+  const shiftedBounds = [[mapTileHB / borderShift, mapTileWL / borderShift], [mapTileHT / borderShift, mapTileWR / borderShift]];
+  map.setMaxBounds(shiftedBounds);
+});
 
 
 
