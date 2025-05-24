@@ -8,11 +8,12 @@ const mapSize10 = [[0, 0], [mapSize, mapSize]];
 const mapBorder = 1024;
 const mapWidth = 8192;
 const mapHeight = 8192;
+const screen_frame_mult = 1.2;
 
-const mapTileWidthWR = mapTile + mapTileBorder + ((window.innerWidth / 16) * 2);
-const mapTileHeightHB = mapTile + ((window.innerHeight / 9) * 2);
-const mapTileWidthWL = -mapTileBorder - ((window.innerWidth / 16) * 2);
-const mapTileHeightHT = (-window.innerHeight / 9) * 2;
+const mapTileWidthWR = mapTile + mapTileBorder + ((window.innerWidth / 16) * screen_frame_mult);
+const mapTileHeightHB = mapTile + ((window.innerHeight / 9) * screen_frame_mult);
+const mapTileWidthWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult);
+const mapTileHeightHT = (-window.innerHeight / 9) * screen_frame_mult;
 //1920x1080
 
 const mapWidthWX = mapSize + mapBorder + (window.innerWidth / 4);
