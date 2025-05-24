@@ -27,7 +27,7 @@ const map = L.map('map', {
   maxZoom: 5,
   zoomSnap: 0.2,
   zoomDelta: 0.2,
-  zoom: 5,
+  zoom: 0,
   maxBounds: [[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]],
   maxBoundsViscosity: 0.5,
   center: [-256, 256],
@@ -37,11 +37,11 @@ const map = L.map('map', {
 //const image = L.imageOverlay('WorldMap_NoBack.png', bounds).addTo(map);
 //map.fitBounds([[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]]);
 //map.fitBounds([[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]]);
-map.setView([4096, 4096], 5);
+map.setView([4096, 4096], 0);
 
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
-  bounds: bounds,
-  noWrap: [[0, 0], [256, 256]]
+  bounds: [[0, 0], [256, 256]],
+  noWrap: true
 }).addTo(map);
 
 
