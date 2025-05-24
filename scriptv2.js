@@ -28,6 +28,7 @@ const map = L.map('map', {
   zoomSnap: 0.2,
   zoomDelta: 0.2,
   zoom: 0,
+  tms: true
   maxBounds: [[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]],
   maxBoundsViscosity: 0.5,
   center: [-256, 256],
@@ -39,10 +40,9 @@ const map = L.map('map', {
 //map.fitBounds([[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]]);
 //map.setView([4096, 4096], 0);
 
-L.tileLayer(`MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}`, {
+L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
   //bounds: [[0, 0], [256, 256]],
   noWrap: true
-  tms: true
 }).addTo(map);
 
 
