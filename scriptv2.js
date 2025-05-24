@@ -41,7 +41,9 @@ map.on('zoomend', function () {
   const z0 = map.getZoom();
   const z = z0 - 2;
   const borderShift = Math.pow(2, z);
-  const shiftedBounds = [[mapTileHB / borderShift, mapTileWL / borderShift], [mapTileHT / borderShift, mapTileWR / borderShift]];
+  const mapTileWRE = (mapTileBorder + ((window.innerWidth / 16) * screen_frame_mult)) / borderShift;
+  const mapTileHTE = ((window.innerHeight / 9) * screen_frame_mult) / borderShift;
+  const shiftedBounds = [[mapTileHB / borderShift, mapTileWL / borderShift], [mapTileHTE + mapTile, mapTileWRE + mapTile]];
   map.setMaxBounds(shiftedBounds);
 });
 
