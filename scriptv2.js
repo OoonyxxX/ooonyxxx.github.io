@@ -37,10 +37,10 @@ const map = L.map('map', {
 //const image = L.imageOverlay('WorldMap_NoBack.png', bounds).addTo(map);
 //map.fitBounds([[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]]);
 //map.fitBounds([[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]]);
-map.setView([4096, 4096], 0);
+//map.setView([4096, 4096], 0);
 
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
-  bounds: [[0, 0], [256, 256]],
+  //bounds: [[0, 0], [256, 256]],
   noWrap: true
 }).addTo(map);
 
