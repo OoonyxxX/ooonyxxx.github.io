@@ -39,7 +39,7 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
 
 map.on('zoomend', function () {
   const z = map.getZoom();
-  const borderShift = Math.pow(2, (z - 2));
+  const borderShift = Math.pow(2, z);
   const shiftedBounds = [[mapTileHB / borderShift, mapTileWL / borderShift], [mapTileHT / borderShift, mapTileWR / borderShift]];
   map.setMaxBounds(shiftedBounds);
 });
