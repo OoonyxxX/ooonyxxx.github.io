@@ -24,8 +24,8 @@ const bounds = [[0, 0], [mapHeight, mapWidth]];
 
 const map = L.map('map', {
   crs: L.CRS.Simple,
-  minZoom: 0,
-  maxZoom: 5,
+  minZoom: 2,
+  maxZoom: 7,
   zoomSnap: 0.2,
   zoomDelta: 0.2,
   zoom: 0,
@@ -41,6 +41,7 @@ const map = L.map('map', {
 //map.setView([4096, 4096], 0);
 
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
+  zoomOffset: -2,
   //bounds: [[0, 0], [256, 256]],
   noWrap: true,
 }).addTo(map);
