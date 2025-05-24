@@ -18,11 +18,18 @@ const map = L.map('map', {
 map.setView([mapPixelSize / 2, mapPixelSize / 2], 2);
 
 // Подключаем тайлы
-L.tileLayer('MapTilestest/{z}/{x}/{y}.jpg', {
-  tileSize: 256,
+L.tileLayer('', {
+  tileSize: tileSize,
   minZoom: 0,
   maxZoom: maxZoom,
-  noWrap: true
+  noWrap: true,
+  getTileUrl: function(coords) {
+    const z = coords.z;
+    const x = coords.x;
+    const yMax = Math.pow(2, z) - 1;
+    const y = yMax - coords.y; // инвертируем Y
+    return `MapTilestest/${z}/${x}/${y}.jpg`;
+  }
 }).addTo(map);
 
 L.marker([0, 0]).addTo(map).bindPopup("Левый верхний угол");
