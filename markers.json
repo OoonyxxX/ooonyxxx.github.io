@@ -1,21 +1,21 @@
 [
   {
     "name": "Forbidden Crypt",
-    "coords": [34, 89],
+    "coords": [280, 60],
     "category": "Crypt",
     "description": "Placeholder",
     "icon": "Crypticon"
   },
   {
     "name": "Obelisk",
-    "coords": [150, 60],
+    "coords": [150, 180],
     "category": "Obelisk",
     "description": "Placeholder1",
     "icon": "Obeliskicon"
   },
   {
     "name": "Fox Home",
-    "coords": [100, 200],
+    "coords": [350, 280],
     "category": "Home",
     "description": "Placeholder2",
     "icon": "PlayerHomeicon"
