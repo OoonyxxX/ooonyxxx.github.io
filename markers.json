@@ -8,14 +8,14 @@
   },
   {
     "name": "Obelisk",
-    "coords": [15, 18],
+    "coords": [1, 28],
     "category": "Obelisk",
     "description": "Placeholder1",
     "icon": "Obeliskicon"
   },
   {
     "name": "Fox Home",
-    "coords": [35, 28],
+    "coords": [0.35, 28],
     "category": "Home",
     "description": "Placeholder2",
     "icon": "PlayerHomeicon"
