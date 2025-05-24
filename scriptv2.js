@@ -8,15 +8,13 @@ const mapSize10 = [[0, 0], [mapSize, mapSize]];
 const mapBorder = 1024;
 const mapWidth = 8192;
 const mapHeight = 8192;
-const screen_frame_mult = 0.8;
+const screen_frame_mult = 1;
 
 const mapTileWidthWR = mapTile + mapTileBorder + ((window.innerWidth / 16) * screen_frame_mult);
-const mapTileHeightHB = mapTile + ((window.innerHeight / 9) * screen_frame_mult);
+const mapTileHeightHT = mapTile + mapTileBorder + ((window.innerHeight / 9) * screen_frame_mult);
 const mapTileWidthWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult);
-const mapTileHeightHT = (-window.innerHeight / 9) * screen_frame_mult;
+const mapTileHeightHB = -mapTileBorder - (-window.innerHeight / 9) * screen_frame_mult;
 //1920x1080
-const mapViewHeightHT = (-window.innerHeight / 9) * screen_frame_mult;
-const mapViewWidthWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult);
 
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 
@@ -32,17 +30,22 @@ const map = L.map('map', {
   maxBoundsViscosity: 0.5,
   center: [128, 128]
 });
-//(mapTile / 2)
-
-//const image = L.imageOverlay('WorldMap_NoBack.png', bounds).addTo(map);
-//map.fitBounds([[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]]);
-//map.setView([(mapTile / 2), (mapTile / 2)], 2);
 
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
-  //zoomOffset: 2,
-  //bounds: [[0, 0], [256, 256]],
   noWrap: true,
 }).addTo(map);
+
+
+
+map.on('zoomend', function () {
+  const z = map.getZoom();
+  const borderShift = Math.pow(2, z) * mapTile;
+  const bounds = [
+    [-shift, -shift],
+    [mapSize + shift, mapSize + shift]
+  ];
+  map.setMaxBounds(bounds);
+});
 
 
 
