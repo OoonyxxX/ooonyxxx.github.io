@@ -1,6 +1,6 @@
 
 const mapTile = 1024;
-const mapSize = 8192;
+const mapSize = 1024;
 const mapTileBorder = 256;
 const mapTileSize = [mapTile / 2, mapTile / 2];
 const mapSize05 = [mapSize / 2, mapSize / 2];
