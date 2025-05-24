@@ -37,18 +37,6 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
 
 
 
-map.on('zoomend', function () {
-  const z = map.getZoom();
-  const borderShift = Math.pow(2, z) * mapTile;
-  const bounds = [
-    [-shift, -shift],
-    [mapSize + shift, mapSize + shift]
-  ];
-  map.setMaxBounds(bounds);
-});
-
-
-
 const layers = {
   "Crypt": L.layerGroup().addTo(map),
   "Obelisk": L.layerGroup().addTo(map),
