@@ -42,6 +42,7 @@ const map = L.map('map', {
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
   //bounds: [[0, 0], [256, 256]],
   noWrap: true
+  tms: true
 }).addTo(map);
 
 
