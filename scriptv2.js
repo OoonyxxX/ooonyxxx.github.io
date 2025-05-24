@@ -11,9 +11,9 @@ const mapHeight = 8192;
 const screen_frame_mult = 1;
 
 const mapTileWR = mapTile + mapTileBorder + ((window.innerWidth / 16) * screen_frame_mult);
-const mapTileHT = mapTile + mapTileBorder + ((window.innerHeight / 9) * screen_frame_mult);
+const mapTileHT = mapTile + ((window.innerHeight / 9) * screen_frame_mult);
 const mapTileWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult);
-const mapTileHB = -mapTileBorder - ((window.innerHeight / 9) * screen_frame_mult);
+const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 //1920x1080 120px
 
 const bounds = [[0, 0], [mapHeight, mapWidth]];
@@ -27,7 +27,6 @@ const map = L.map('map', {
   zoom: 2,
   zoomControl: true,
   //maxBounds: [[mapTileHB, mapTileWL], [mapTileHT, mapTileWR]],
-  maxBounds: [[-120, -248], [120 + 256, 248 + 256]],
   maxBoundsViscosity: 0.5,
   center: [128, 128]
 });
