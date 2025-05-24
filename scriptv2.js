@@ -33,7 +33,7 @@ const map = L.map('map', {
   zoom: 5,
   maxBounds: [[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]],
   maxBoundsViscosity: 0.5,
-  center: [-256, 256],
+  //center: [-256, 256],
   zoomControl: true
 });
 
@@ -43,12 +43,7 @@ const map = L.map('map', {
 //map.setView([centerY, centerX], 5);
 
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
-  //zoomOffset: 3,
-  minZoom: 0,
-  maxZoom: 5,
-  //zoom: 5,
-  tileSize: 256,
-  //bounds: [[-mapHeight, -mapWidth], [2048, 2048]],
+  bounds: bounds,
   noWrap: true
 }).addTo(map);
 
