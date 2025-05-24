@@ -29,7 +29,7 @@ const map = L.map('map', {
   zoomDelta: 0.2,
   zoom: 0,
   tms: true
-  maxBounds: [[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]],
+  //maxBounds: [[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]],
   maxBoundsViscosity: 0.5,
   center: [-256, 256],
   zoomControl: true
