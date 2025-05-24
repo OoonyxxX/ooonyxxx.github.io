@@ -1,31 +1,29 @@
-const mapTileSize = 256;
-const zoomLevels = 6; // от 0 до 5
-const fullTileCount = Math.pow(2, zoomLevels - 1); // уровень 5
+const tileSize = 256;
+const maxZoom = 5;
 
-// Размер всей карты в пикселях на максимальном зуме
-const mapWidth = 8192;
-const mapHeight = 8192;
-const centerX = 4096;
-const centerY = 4096;
-// Инициализация карты
+// Размер карты на максимальном зуме
+const mapPixelSize = tileSize * Math.pow(2, maxZoom); // 256 * 32 = 8192
+
 const map = L.map('map', {
   crs: L.CRS.Simple,
   minZoom: 0,
-  maxZoom: 5,
+  maxZoom: maxZoom,
   zoomSnap: 0.25,
-  maxBounds: [[-256, -256], [mapHeight + 256, mapWidth + 256]],
-  center: [4096, 4096],
+  maxBounds: [[-512, -512], [mapPixelSize + 512, mapPixelSize + 512]],
   maxBoundsViscosity: 1.0,
   zoomControl: true
 });
 
-// Центр карты (в пикселях) — ставим посередине изображения
-map.setView([centerY, centerX], 0); // zoom = 2 как пример
+// Центрируем карту по середине
+map.setView([mapPixelSize / 2, mapPixelSize / 2], 2);
 
 // Подключаем тайлы
-L.tileLayer('MapTilestest/{z}/{x}/{y}.png', {
+L.tileLayer('MapTilestest/{z}/{x}/{y}.jpg', {
   tileSize: 256,
   minZoom: 0,
-  maxZoom: 5,
+  maxZoom: maxZoom,
   noWrap: true
 }).addTo(map);
+
+L.marker([0, 0]).addTo(map).bindPopup("Левый верхний угол");
+L.marker([8192, 8192]).addTo(map).bindPopup("Правый нижний угол");
