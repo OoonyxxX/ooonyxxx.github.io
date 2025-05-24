@@ -19,7 +19,7 @@ const mapWidthWX = mapSize + mapBorder + (window.innerWidth / 4);
 const mapHeightHX = mapSize + mapBorder + (window.innerHeight / 4);
 const mapWidthWY = -mapBorder - (window.innerHeight / 4);
 const mapHeightHY = -mapBorder - (window.innerWidth / 4);
-//const bounds = [[0, 0], [mapHeight, mapWidth]];
+const bounds = [[0, 0], [mapHeight, mapWidth]];
 const boundsHW = [[0, 0], [mapHeightHX, mapWidthWX]];
 const boundstest = [[mapHeight, 0], [0, mapWidth]];
 
@@ -39,10 +39,14 @@ const map = L.map('map', {
 
 //const image = L.imageOverlay('WorldMap_NoBack.png', bounds).addTo(map);
 //map.fitBounds([[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]]);
-//map.fitBounds([[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]]);
+map.fitBounds([[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]]);
 //map.setView([centerY, centerX], 5);
 
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
+  //zoomOffset: 3,
+  minZoom: 0,
+  maxZoom: 5,
+  //zoom: 5,
   tileSize: 256,
   //bounds: [[-mapHeight, -mapWidth], [2048, 2048]],
   noWrap: true
