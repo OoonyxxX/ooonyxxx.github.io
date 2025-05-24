@@ -3,8 +3,8 @@ const zoomLevels = 6; // от 0 до 5
 const fullTileCount = Math.pow(2, zoomLevels - 1); // уровень 5
 
 // Размер всей карты в пикселях на максимальном зуме
-const mapWidth = mapTileSize * fullTileCount;
-const mapHeight = mapTileSize * fullTileCount;
+const mapWidth = 8192;
+const mapHeight = 8192;
 
 // Инициализация карты
 const map = L.map('map', {
@@ -18,9 +18,9 @@ const map = L.map('map', {
 });
 
 // Центр карты (в пикселях) — ставим посередине изображения
-const centerX = mapWidth / 2;
-const centerY = mapHeight / 2;
-map.setView([centerY, centerX], 2); // zoom = 2 как пример
+const centerX = 4096;
+const centerY = 4096;
+map.setView([centerY, centerX], 0); // zoom = 2 как пример
 
 // Подключаем тайлы
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png', {
