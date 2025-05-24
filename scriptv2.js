@@ -36,7 +36,7 @@ const map = L.map('map', {
 
 //const image = L.imageOverlay('WorldMap_NoBack.png', bounds).addTo(map);
 //map.fitBounds([[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]]);
-map.setView([(mapTile / 2), (mapTile / 2)], 2);
+//map.setView([(mapTile / 2), (mapTile / 2)], 2);
 
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
   //zoomOffset: 2,
