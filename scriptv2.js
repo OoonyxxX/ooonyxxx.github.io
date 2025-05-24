@@ -29,10 +29,9 @@ const map = L.map('map', {
   zoomDelta: 0.2,
   zoom: 0,
   zoomControl: true
-  //maxBounds: [[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]],
-  //maxBoundsViscosity: 0.5,
-  //center: [-256, 256],
-  tms: true
+  maxBounds: [[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]],
+  maxBoundsViscosity: 0.5,
+  center: [-256, 256],
 });
 
 //const image = L.imageOverlay('WorldMap_NoBack.png', bounds).addTo(map);
@@ -43,6 +42,7 @@ const map = L.map('map', {
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
   //bounds: [[0, 0], [256, 256]],
   noWrap: true
+  tms: true
 }).addTo(map);
 
 
