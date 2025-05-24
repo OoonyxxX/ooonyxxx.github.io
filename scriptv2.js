@@ -10,9 +10,9 @@ const mapWidth = 8192;
 const mapHeight = 8192;
 
 const mapTileWidthWR = mapTile + mapTileBorder + (window.innerWidth / 8);
-const mapTileHeightHB = mapTile + mapTileBorder + (window.innerHeight / 4);
+const mapTileHeightHB = mapTile + mapTileBorder + (window.innerHeight / 8);
 const mapTileWidthWL = -mapTileBorder - (window.innerWidth / 8);
-const mapTileHeightHT = -mapTileBorder - (window.innerHeight / 4);
+const mapTileHeightHT = -mapTileBorder - (window.innerHeight / 8);
 //1920x1080
 
 const mapWidthWX = mapSize + mapBorder + (window.innerWidth / 4);
