@@ -1,5 +1,5 @@
 
-const mapTile = 2048;
+const mapTile = 1024;
 const mapSize = 8192;
 const mapTileBorder = 256;
 const mapTileSize = [mapTile / 2, mapTile / 2];
@@ -9,10 +9,11 @@ const mapBorder = 1024;
 const mapWidth = 8192;
 const mapHeight = 8192;
 
-const mapTileWidthWX = mapTile + mapTileBorder + (window.innerWidth / 16);
-const mapTileHeightHX = mapTile + mapTileBorder + (window.innerHeight / 16);
-const mapTileWidthWY = -mapTileBorder - (window.innerHeight / 16);
-const mapTileHeightHY = -mapTileBorder - (window.innerWidth / 16);
+const mapTileWidthWR = mapTile + mapTileBorder + (window.innerWidth / 8);
+const mapTileHeightHB = mapTile + mapTileBorder + (window.innerHeight / 4);
+const mapTileWidthWL = -mapTileBorder - (window.innerWidth / 8);
+const mapTileHeightHT = -mapTileBorder - (window.innerHeight / 4);
+//1920x1080
 
 const mapWidthWX = mapSize + mapBorder + (window.innerWidth / 4);
 const mapHeightHX = mapSize + mapBorder + (window.innerHeight / 4);
@@ -30,10 +31,8 @@ const map = L.map('map', {
   zoomSnap: 0.2,
   zoomDelta: 0.2,
   zoom: 5,
-
-  maxBounds: [[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]],
-
-  maxBounds: [[mapTileHeightHY, mapTileWidthWY], [mapTileHeightHX, mapTileWidthWX]],
+  //maxBounds: [[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]],
+  maxBounds: [[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]],
   //maxBounds: boundsHW,
   maxBoundsViscosity: 0.5,
   center: mapTileSize,
@@ -42,7 +41,7 @@ const map = L.map('map', {
 
 //const image = L.imageOverlay('WorldMap_NoBack.png', bounds).addTo(map);
 //map.fitBounds([[mapHeightHY, mapWidthWY], [mapHeightHX, mapWidthWX]]);
-map.fitBounds([[mapTileHeightHY, mapTileWidthWY], [mapTileHeightHX, mapTileWidthWX]]);
+map.fitBounds([[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]]);
 
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
   //zoomOffset: 3,
