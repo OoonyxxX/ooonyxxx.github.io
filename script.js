@@ -27,8 +27,8 @@ L.tileLayer('', {
     const z = coords.z;
     const x = coords.x;
     const yMax = Math.pow(2, z) - 1;
-    const y = yMax - coords.y; // инвертируем Y
-    return `MapTilestest/${z}/${x}/${y}.png`;
+    const y = coords.y * -1; // инвертируем Y
+    return 'MapTilestest/${z}/${x}/${y}.png';
   }
 }).addTo(map);
 
