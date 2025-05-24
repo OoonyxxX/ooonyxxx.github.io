@@ -26,7 +26,7 @@ const map = L.map('map', {
   zoomDelta: 0.025,
   zoom: 2,
   zoomControl: true,
-  //maxBounds: [[mapTileHB, mapTileWL], [mapTileHT, mapTileWR]],
+  maxBounds: [[mapTileHB, mapTileWL], [mapTileHT, mapTileWR]],
   maxBoundsViscosity: 0.5,
   center: [128, 128]
 });
@@ -38,7 +38,8 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
 
 
 map.on('zoomend', function () {
-  const z = map.getZoom();
+  const z0 = map.getZoom();
+  const z = z0 - 2;
   const borderShift = Math.pow(2, z);
   const shiftedBounds = [[mapTileHB / borderShift, mapTileWL / borderShift], [mapTileHT / borderShift, mapTileWR / borderShift]];
   map.setMaxBounds(shiftedBounds);
