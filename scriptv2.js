@@ -13,7 +13,7 @@ const screen_frame_mult = 1;
 const mapTileWidthWR = mapTile + mapTileBorder + ((window.innerWidth / 16) * screen_frame_mult);
 const mapTileHeightHT = mapTile + mapTileBorder + ((window.innerHeight / 9) * screen_frame_mult);
 const mapTileWidthWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult);
-const mapTileHeightHB = -mapTileBorder - (-window.innerHeight / 9) * screen_frame_mult;
+const mapTileHeightHB = -mapTileBorder - ((window.innerHeight / 9) * screen_frame_mult);
 //1920x1080
 
 const bounds = [[0, 0], [mapHeight, mapWidth]];
@@ -35,6 +35,17 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
   noWrap: true,
 }).addTo(map);
 
+
+
+map.on('zoomend', function () {
+  const z = map.getZoom();
+  const borderShift = Math.pow(2, z) * mapTile;
+  const bounds = [
+    [-shift, -shift],
+    [mapSize + shift, mapSize + shift]
+  ];
+  map.setMaxBounds(bounds);
+});
 
 
 
