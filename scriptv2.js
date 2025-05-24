@@ -39,7 +39,7 @@ const map = L.map('map', {
 //map.fitBounds([[mapTileHeightHT, mapTileWidthWL], [mapTileHeightHB, mapTileWidthWR]]);
 //map.setView([4096, 4096], 0);
 
-L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=${Date.now()}', {
+L.tileLayer('MapTilestest/{z}/{x}/{y}.png', {
   //bounds: [[0, 0], [256, 256]],
   noWrap: true
   tms: true
