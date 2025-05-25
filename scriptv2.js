@@ -119,7 +119,7 @@ Promise.all([
 const loginButton = document.getElementById("login-button");
 const usernameDisplay = document.getElementById("username-display");
 //const allowedEditors = whiteList;
-const allowedEditors = ["OoonyxxX", "333tripleit"];
+//const allowedEditors = ["OoonyxxX", "333tripleit"];
 
 function checkAuth() {
   fetch("http://localhost:8000/auth/me", {
