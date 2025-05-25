@@ -1,0 +1,22 @@
+[
+  {
+    "id": "crypt",
+    "name": "Crypt Icon",
+    "url": "icons/T_Icon_Map_Cryptv2.png"
+  },
+  {
+    "id": "obelisk",
+    "name": "Obelisk Icon",
+    "url": "icons/T_Icon_Map_Obelisk.png"
+  },
+  {
+    "id": "home",
+    "name": "Player Home Icon",
+    "url": "icons/T_Icon_Map_PlayerHome.png"
+  },
+  {
+    "id": "default",
+    "name": "Default Icon",
+    "url": "icons/T_Icon_Map_Generic.png"
+  }
+]

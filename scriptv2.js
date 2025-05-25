@@ -1,4 +1,3 @@
-
 const mapTile = 256;
 const mapSize = 8192;
 const mapTileBorder = 128;
@@ -9,15 +8,24 @@ const mapBorder = 1024;
 const mapWidth = 8192;
 const mapHeight = 8192;
 const screen_frame_mult = 1;
-
 const mapTileWR = mapTile + mapTileBorder + ((window.innerWidth / 16) * screen_frame_mult);
 const mapTileHT = mapTile + ((window.innerHeight / 9) * screen_frame_mult);
 const mapTileWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult);
 const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 //1920x1080 120px
-
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 
+//Editors WhiteList
+//START
+const whiteList = [
+"OoonyxxX", 
+"333tripleit"
+];
+//END
+//Editors WhiteList
+
+//Инициализация Карты
+//START
 const map = L.map('map', {
   crs: L.CRS.Simple,
   minZoom: 2,
@@ -30,13 +38,21 @@ const map = L.map('map', {
   maxBoundsViscosity: 0.5,
   center: [128, 128]
 });
+//END
+//Инициализация Карты
 
+
+//Тайловая карта
+//START
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
   noWrap: true,
 }).addTo(map);
+//END
+//Тайловая карта
 
 
-
+//Адаптивный зумм для карты
+//START
 map.on('zoomend', function () {
   const z0 = map.getZoom();
   const z = z0 - 2;
@@ -46,57 +62,90 @@ map.on('zoomend', function () {
   const shiftedBounds = [[mapTileHB / borderShift, mapTileWL / borderShift], [mapTileHTE + mapTile, mapTileWRE + mapTile]];
   map.setMaxBounds(shiftedBounds);
 });
+//END
+//Адаптивный зумм для карты
 
 
+//Слои меток + Фильтры
+//START
+Promise.all([
+  fetch("categories.json").then(res => res.json()),
+  fetch("icons.json").then(res => res.json()),
+  fetch("markers.json").then(res => res.json())
+])
+.then(([categories, iconsData, markers]) => {
+  // Работа с категориями и иконками
+})
+.catch(error => console.error("JSON reading error:", error));
 
-const layers = {
-  "Crypt": L.layerGroup().addTo(map),
-  "Obelisk": L.layerGroup().addTo(map),
-  "Home": L.layerGroup().addTo(map),
-};
+const layers = {};
+categories.forEach(cat => {
+  layers[cat.id] = L.layerGroup().addTo(map);
+});
 
-const icons = {
-    Crypticon: L.icon({
-    iconUrl: 'icons/T_Icon_Map_Cryptv2.png',
+const icons = {};
+iconsData.forEach(icon => {
+  icons[icon.id] = L.icon({
+    iconUrl: icon.url,
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
-  }),
-    Obeliskicon: L.icon({
-    iconUrl: 'icons/T_Icon_Map_Obelisk.png',
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
-  }),
-    PlayerHomeicon: L.icon({
-    iconUrl: 'icons/T_Icon_Map_PlayerHome.png',
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
-  }),
-    default: L.icon({
-    iconUrl: 'icons/T_Icon_Map_Generic.png',
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
-  })
-};
-
-fetch('markers.json')
-  .then(response => response.json())
-  .then(data => {
-    data.forEach(marker => {
-	  const icon = icons[marker.icon] || icons.default;
-
-      const m = L.marker(marker.coords, { icon })
-        .bindPopup(`<b>${marker.name}</b><br>${marker.description}`);
-
-      if (!layers[marker.category]) {
-        layers[marker.category] = L.layerGroup().addTo(map);
-      }
-
-      layers[marker.category].addLayer(m);
-    });
-
-    L.control.layers(null, layers).addTo(map);
   });
+});
+
+markers.forEach(marker => {
+  const icon = icons[marker.icon_id] || icons.default;
+  const layer = layers[marker.category_id];
+
+  const m = L.marker(marker.coords, { icon })
+    .bindPopup(`<b>${marker.name}</b><br>${marker.description}`);
+
+  if (layer) {
+    layer.addLayer(m);
+  } else {
+    console.warn(`No layer for category_id="${marker.category_id}"`);
+  }
+});
+
+L.control.layers(null, layers).addTo(map);
+//END
+//Слои меток + Фильтры
+
+
+//Блок авторизации
+//START
+const loginButton = document.getElementById("login-button");
+const usernameDisplay = document.getElementById("username-display");
+const allowedEditors = whiteList;
+
+function checkAuth() {
+  fetch("http://localhost:8000/auth/me", {
+    credentials: "include"
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.authorized) {
+        const username = data.username;
+        usernameDisplay.textContent = `Привет, ${username}`;
+        loginButton.style.display = "none";
+
+        if (allowedEditors.includes(username)) {
+          console.log("Редактор подтверждён. Можем открыть режим редактирования.");
+          // здесь можно включить UI редактирования
+        } else {
+          console.log("Пользователь не в списке редакторов.");
+        }
+      } else {
+        loginButton.onclick = () => {
+          window.location.href = "http://localhost:8000/auth/login";
+        };
+      }
+    })
+    .catch(err => {
+      console.error("Ошибка авторизации:", err);
+    });
+}
+
+checkAuth();
+//END
+//Блок авторизации

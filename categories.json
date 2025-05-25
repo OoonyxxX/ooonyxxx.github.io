@@ -1,0 +1,18 @@
+[
+  {
+    "id": "crypt",
+    "label": "Crypt"
+  },
+  {
+    "id": "obelisk",
+    "label": "Obelisk"
+  },
+  {
+    "id": "home",
+    "label": "Home"
+  },
+  {
+    "id": "portal",
+    "label": "Portal"
+  }
+]
