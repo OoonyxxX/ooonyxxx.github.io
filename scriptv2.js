@@ -18,7 +18,7 @@ const bounds = [[0, 0], [mapHeight, mapWidth]];
 //Editors WhiteList
 //START
 const whiteList = [
-"ooonyxxx", 
+"OoonyxxX", 
 "333tripleit"
 ];
 //END
