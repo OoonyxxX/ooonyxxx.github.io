@@ -15,12 +15,14 @@ const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 //1920x1080 120px
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 
+
+const allowedEditors = ["OoonyxxX", "333tripleit"];
 //Editors WhiteList
 //START
-const whiteList = [
-"OoonyxxX", 
-"333tripleit"
-];
+//const whiteList = [
+//"OoonyxxX", 
+//"333tripleit"
+//];
 //END
 //Editors WhiteList
 
@@ -116,7 +118,8 @@ Promise.all([
 //START
 const loginButton = document.getElementById("login-button");
 const usernameDisplay = document.getElementById("username-display");
-const allowedEditors = whiteList;
+//const allowedEditors = whiteList;
+const allowedEditors = ["OoonyxxX", "333tripleit"];
 
 function checkAuth() {
   fetch("http://localhost:8000/auth/me", {
