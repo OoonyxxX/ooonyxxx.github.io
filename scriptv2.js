@@ -140,7 +140,7 @@ function checkAuth() {
         }
       } else {
         loginButton.onclick = () => {
-          window.location.href = "http://localhost:8000/auth/login";
+          window.location.href = "https://sotn2-auth-proxy.onrender.com/auth/login";
         };
       }
     })
