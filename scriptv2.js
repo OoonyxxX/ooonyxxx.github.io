@@ -122,7 +122,7 @@ const usernameDisplay = document.getElementById("username-display");
 //const allowedEditors = ["OoonyxxX", "333tripleit"];
 
 function checkAuth() {
-  fetch("http://localhost:8000/auth/me", {
+  fetch("https://sotn2-auth-proxy.onrender.com/auth/me", {
     credentials: "include"
   })
     .then(res => res.json())
