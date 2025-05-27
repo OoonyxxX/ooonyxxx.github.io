@@ -114,12 +114,33 @@ Promise.all([
 //Слои меток + Фильтры
 
 
+//Переменные блока MET
+//START
+const metControls = document.getElementById('met-controls');
+const btnActivate = document.getElementById('activate-met');
+const btnExit     = document.getElementById('exit-met');
+const btnAdd      = document.getElementById('add-marker');
+const btnSave     = document.getElementById('save-changes');
+
+metControls.style.display = 'none';
+btnActivate.style.display = 'none';
+btnExit.style.display = 'none';
+btnAdd.style.display = 'none';
+btnSave.style.display = 'none';
+
+btnActivate.disabled = true;
+btnExit.disabled     = true;
+btnAdd.disabled      = true;
+btnSave.disabled     = true;
+//END
+//Переменные блока MET
+
+
+
 //Блок авторизации
 //START
 const loginButton = document.getElementById("login-button");
 const usernameDisplay = document.getElementById("username-display");
-//const allowedEditors = whiteList;
-//const allowedEditors = ["OoonyxxX", "333tripleit"];
 
 function checkAuth() {
   fetch("https://sotn2-auth-proxy.onrender.com/auth/me", {
@@ -134,12 +155,9 @@ function checkAuth() {
 
         if (allowedEditors.includes(username)) {
           console.log("Editor acepted");
-          // показать весь блок кнопок
-          const metControls = document.getElementById('met-controls');
-          metControls.style.display = 'block';
 		  
-          // включить только кнопку активации MET
-          const btnActivate = document.getElementById('activate-met');
+          metControls.style.display = 'block';
+		  btnActivate.style.display = 'block';
           btnActivate.disabled = false;
 		  initMET();
         } else {
@@ -172,11 +190,6 @@ function initMET() {
 	  let addingMarker = false;
 	  const diff = { added: [], updated: [], deleted: [] };
 
-	  // Элементы управления
-	  const btnActivate = document.getElementById('activate-met');
-	  const btnExit     = document.getElementById('exit-met');
-	  const btnAdd      = document.getElementById('add-marker');
-	  const btnSave     = document.getElementById('save-changes');
 
 	  // Активация MET
 	  btnActivate.addEventListener('click', () => {
@@ -184,6 +197,9 @@ function initMET() {
 		btnActivate.disabled = true;
 		btnExit.disabled     = false;
 		btnAdd.disabled      = false;
+		btnExit.style.display = 'block';
+		btnAdd.style.display = 'block';
+		btnSave.style.display = 'block';
 		console.log('MET activated');
 		map.on('click', onMapClick);
 	  });
