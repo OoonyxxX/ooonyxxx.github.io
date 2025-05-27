@@ -69,7 +69,7 @@ map.on('zoomend', function () {
 //Переменные для редактирования существующих меток
 //START
 //const m = L.marker(mData.coords, { icon, id: mData.id })
-//const existingMarkers = new Map();
+const existingMarkers = new Map();
 
 //END
 //Переменные для редактирования существующих меток
@@ -139,6 +139,7 @@ Promise.all([
     marker.options.icon_id     = icon_id;
 
     layer.addLayer(marker);
+	existingMarkers.set(marker.options.id, marker);
   });
   L.control
     .layers(null, overlays, {collapsed: true}).addTo(map);
@@ -211,8 +212,6 @@ function checkAuth() {
 checkAuth();
 //END
 //Блок авторизации
-
-
 
 
 //Блок MET
