@@ -16,11 +16,15 @@ const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 
 
-const allowedEditors = [
-"OoonyxxX", 
-"333tripleit"
-];
-
+const allowedEditors = ["OoonyxxX", "333tripleit"];
+//Editors WhiteList
+//START
+//const whiteList = [
+//"OoonyxxX", 
+//"333tripleit"
+//];
+//END
+//Editors WhiteList
 
 //Инициализация Карты
 //START
@@ -64,19 +68,6 @@ map.on('zoomend', function () {
 //Адаптивный зумм для карты
 
 
-
-
-//Переменные для редактирования существующих меток
-//START
-//const m = L.marker(mData.coords, { icon, id: mData.id })
-//const existingMarkers = new Map();
-
-//END
-//Переменные для редактирования существующих меток
-
-
-
-
 //Слои меток + Фильтры
 //START
 Promise.all([
@@ -84,64 +75,39 @@ Promise.all([
   fetch("icons.json").then(res => res.json()),
   fetch("markers.json").then(res => res.json())
 ])
-
-.then(([categories, iconsData, markersData]) => {
-  // 1) Готовим слои (по категориям)
-  const layers   = {};     // id категории → L.LayerGroup
-  const overlays = {};     // label категории → L.LayerGroup (для UI)
-
+.then(([categories, iconsData, markers]) => {
+    // Работа с категориями и иконками
+  
+  const layers = {};
   categories.forEach(cat => {
-    const layer = L.layerGroup().addTo(map);
-    layers[cat.id]     = layer;
-    overlays[cat.label] = layer;
+    layers[cat.id] = L.layerGroup().addTo(map);
   });
-
-  // 2) Готовим иконки
+  
   const icons = {};
-  iconsData.forEach(ic => {
-    icons[ic.id] = L.icon({
-      iconUrl:    ic.url,
-      iconSize:   [32, 32],
+  iconsData.forEach(icon => {
+    icons[icon.id] = L.icon({
+      iconUrl: icon.url,
+      iconSize: [32, 32],
       iconAnchor: [16, 32],
-      popupAnchor:[0, -32]
+      popupAnchor: [0, -32]
     });
   });
-  // Если в JSON есть default–иконка, назначим её как fallback
-  if (icons["default"]) {
-    icons.default = icons["default"];
-  } else {
-    // можно вписать свою картинку или оставить первую
-    icons.default = Object.values(icons)[0];
-  }
-  // 3) Создаём маркеры из markersData
-  markersData.forEach(m => {
-    const {
-      id,
-      name,
-      description,
-      coords,        // [lat, lng]
-      category_id,
-      icon_id
-    } = m;
-	
-    // выбираем иконку, fallback → icons.default
-    const icon  = icons[icon_id] || icons.default;
-    const layer = layers[category_id];
-	
-    const marker = L.marker(coords, { icon })
-      .bindPopup(`<b>${name}</b><br>${description}`);
-	  
-    // опционально сохраняем id и данные в options
-    marker.options.id          = id;
-    marker.options.name        = name;
-    marker.options.description = description;
-    marker.options.category_id = category_id;
-    marker.options.icon_id     = icon_id;
-
-    layer.addLayer(marker);
+  
+  markers.forEach(marker => {
+    const icon = icons[marker.icon_id] || icons.default;
+    const layer = layers[marker.category_id];
+  
+    const m = L.marker(marker.coords, { icon })
+      .bindPopup(`<b>${marker.name}</b><br>${marker.description}`);
+  
+    if (layer) {
+      layer.addLayer(m);
+    } else {
+      console.warn(`No layer for category_id="${marker.category_id}"`);
+    }
   });
-  L.control
-    .layers(null, overlays, {collapsed: true}).addTo(map);
+  
+  L.control.layers(null, layers).addTo(map);
 })
 .catch(error => console.error("JSON reading error:", error));
 //END
@@ -236,10 +202,6 @@ function initMET() {
 		btnSave.style.display = 'block';
 		console.log('MET activated');
 		map.on('click', onMapClick);
-		existingMarkers.forEach(marker => {
-          marker.off('click');              // сбросить старый popup
-          marker.on('click', () => openEditPopup(marker, false));
-        });
 	  });
 
 	  // Выход из MET
