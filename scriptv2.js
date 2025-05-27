@@ -253,6 +253,10 @@ function initMET() {
 		btnSave.style.display = 'none';
 		console.log('MET exited');
 		map.off('click', onMapClick);
+		existingMarkers.forEach(marker => {
+			marker.unbindPopup();
+			marker.bindPopup(`<b>${marker.options.name}</b><br>${marker.options.description}`);
+        });
 	  });
 
 	  // Включение режима добавления маркера
