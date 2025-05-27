@@ -248,6 +248,7 @@ function initMET() {
 		console.log('MET exited');
 		map.off('click', onMapClick);
 		existingMarkers.forEach(marker => {
+			marker.unbindPopup();
 			marker.off('click');
 			marker.bindPopup(`<b>${marker.options.name}</b><br>${marker.options.description}`);
         });
