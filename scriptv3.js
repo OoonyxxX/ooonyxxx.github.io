@@ -143,43 +143,6 @@ Promise.all([
   L.control
     .layers(null, overlays, {collapsed: false}).addTo(map);
 })
-.catch(error => console.error("JSON reading:", error));
-
-
-.then(([categories, iconsData, markers]) => {
-    // Работа с категориями и иконками
-  
-  const layers = {};
-  categories.forEach(cat => {
-    layers[cat.id] = L.layerGroup().addTo(map);
-  });
-  
-  const icons = {};
-  iconsData.forEach(icon => {
-    icons[icon.id] = L.icon({
-      iconUrl: icon.url,
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, -32]
-    });
-  });
-  
-  markers.forEach(marker => {
-    const icon = icons[marker.icon_id] || icons.default;
-    const layer = layers[marker.category_id];
-  
-    const m = L.marker(marker.coords, { icon })
-      .bindPopup(`<b>${marker.name}</b><br>${marker.description}`);
-  
-    if (layer) {
-      layer.addLayer(m);
-    } else {
-      console.warn(`No layer for category_id="${marker.category_id}"`);
-    }
-  });
-  
-  L.control.layers(null, layers).addTo(map);
-})
 .catch(error => console.error("JSON reading error:", error));
 //END
 //Слои меток + Фильтры
