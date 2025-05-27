@@ -2,7 +2,7 @@
   {
 	"id": "Forbidden_Crypt_63467918_028000_006000",
     "name": "Forbidden Crypt",
-    "coords": [28, 6],
+    "coords": [028.000, 006.000],
     "description": "Placeholder",
 	"category_id": "crypt",
     "icon_id": "crypt"
@@ -10,7 +10,7 @@
     {
 	"id": "Mosswood_Mine_94624154_098000_158000",
     "name": "Mosswood Mine",
-    "coords": [98, 158],
+    "coords": [098.000, 158.000],
     "description": "Placeholder7",
 	"category_id": "crypt",
     "icon_id": "crypt"
@@ -18,7 +18,7 @@
   {
 	"id": "Obelisk_32469571_012000_028000",
     "name": "Obelisk",
-    "coords": [12, 28],
+    "coords": [012.000, 028.000],
     "description": "Placeholder1",
 	"category_id": "obelisk",
     "icon_id": "obelisk"
@@ -26,7 +26,7 @@
   {
 	"id": "Fox_Home_826348245_035000_028000",
     "name": "Fox Home",
-    "coords": [35, 28],
+    "coords": [035.000, 028.000],
     "description": "Placeholder2",
     "category_id": "home",
     "icon_id": "home"
@@ -34,7 +34,7 @@
     {
 	"id": "Raven_Home_86424168_095000_037000",
     "name": "Raven Home",
-    "coords": [95, 37],
+    "coords": [095.000, 037.000],
     "description": "Placeholder3",
     "category_id": "home",
     "icon_id": "home"
