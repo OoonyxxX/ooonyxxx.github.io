@@ -134,7 +134,14 @@ function checkAuth() {
 
         if (allowedEditors.includes(username)) {
           console.log("Editor acepted");
-          // здесь можно включить UI редактирования
+          // показать весь блок кнопок
+          const metControls = document.getElementById('met-controls');
+          metControls.style.display = 'block';
+		  
+          // включить только кнопку активации MET
+          const btnActivate = document.getElementById('activate-met');
+          btnActivate.disabled = false;
+		  initMET();
         } else {
           console.log(`The ${username} is not an editor`);
         }
@@ -158,116 +165,118 @@ checkAuth();
 
 //Блок MET
 //START
-(function() {
-  // Состояние MET
-  let metActive = false;
-  let addingMarker = false;
-  const diff = { added: [], updated: [], deleted: [] };
+function initMET() {
+	(function() {
+	  // Состояние MET
+	  let metActive = false;
+	  let addingMarker = false;
+	  const diff = { added: [], updated: [], deleted: [] };
 
-  // Элементы управления
-  const btnActivate = document.getElementById('activate-met');
-  const btnExit     = document.getElementById('exit-met');
-  const btnAdd      = document.getElementById('add-marker');
-  const btnSave     = document.getElementById('save-changes');
+	  // Элементы управления
+	  const btnActivate = document.getElementById('activate-met');
+	  const btnExit     = document.getElementById('exit-met');
+	  const btnAdd      = document.getElementById('add-marker');
+	  const btnSave     = document.getElementById('save-changes');
 
-  // Активация MET
-  btnActivate.addEventListener('click', () => {
-    metActive = true;
-    btnActivate.disabled = true;
-    btnExit.disabled     = false;
-    btnAdd.disabled      = false;
-    console.log('MET activated');
-    map.on('click', onMapClick);
-  });
+	  // Активация MET
+	  btnActivate.addEventListener('click', () => {
+		metActive = true;
+		btnActivate.disabled = true;
+		btnExit.disabled     = false;
+		btnAdd.disabled      = false;
+		console.log('MET activated');
+		map.on('click', onMapClick);
+	  });
 
-  // Выход из MET
-  btnExit.addEventListener('click', () => {
-    metActive = false;
-    btnActivate.disabled = false;
-    btnExit.disabled     = true;
-    btnAdd.disabled      = true;
-    btnSave.disabled     = !(diff.added.length || diff.updated.length || diff.deleted.length);
-    console.log('MET exited');
-    map.off('click', onMapClick);
-  });
+	  // Выход из MET
+	  btnExit.addEventListener('click', () => {
+		metActive = false;
+		btnActivate.disabled = false;
+		btnExit.disabled     = true;
+		btnAdd.disabled      = true;
+		btnSave.disabled     = !(diff.added.length || diff.updated.length || diff.deleted.length);
+		console.log('MET exited');
+		map.off('click', onMapClick);
+	  });
 
-  // Включение режима добавления маркера
-  btnAdd.addEventListener('click', () => {
-    if (!metActive) return;
-    addingMarker = true;
-    console.log('Click on map to add marker');
-  });
+	  // Включение режима добавления маркера
+	  btnAdd.addEventListener('click', () => {
+		if (!metActive) return;
+		addingMarker = true;
+		console.log('Click on map to add marker');
+	  });
 
-  // Обработчик клика по карте
-  function onMapClick(e) {
-    if (!addingMarker) return;
-    const marker = L.marker(e.latlng, { draggable: true }).addTo(map);
-    openEditPopup(marker, true);
-    addingMarker = false;
-  }
+	  // Обработчик клика по карте
+	  function onMapClick(e) {
+		if (!addingMarker) return;
+		const marker = L.marker(e.latlng, { draggable: true }).addTo(map);
+		openEditPopup(marker, true);
+		addingMarker = false;
+	  }
 
-  // Открытие popup для создания/редактирования
-  function openEditPopup(marker, isNew) {
-    const latlng = marker.getLatLng();
-    const formHtml = `
-      <form id="marker-form">
-        <label>Title: <input name="title" required /></label><br/>
-        <label>Description: <textarea name="description"></textarea></label><br/>
-        <label>Coords: <input name="lat" value="${latlng.lat.toFixed(5)}" required/> , <input name="lng" value="${latlng.lng.toFixed(5)}" required/></label><br/>
-        <button type="submit">${isNew ? 'Create' : 'Update'}</button>
-        ${!isNew ? '<button id="delete-marker" type="button">Delete</button>' : ''}
-      </form>`;
-    marker.bindPopup(formHtml).openPopup();
+	  // Открытие popup для создания/редактирования
+	  function openEditPopup(marker, isNew) {
+		const latlng = marker.getLatLng();
+		const formHtml = `
+		  <form id="marker-form">
+			<label>Title: <input name="title" required /></label><br/>
+			<label>Description: <textarea name="description"></textarea></label><br/>
+			<label>Coords: <input name="lat" value="${latlng.lat.toFixed(5)}" required/> , <input name="lng" value="${latlng.lng.toFixed(5)}" required/></label><br/>
+			<button type="submit">${isNew ? 'Create' : 'Update'}</button>
+			${!isNew ? '<button id="delete-marker" type="button">Delete</button>' : ''}
+		  </form>`;
+		marker.bindPopup(formHtml).openPopup();
 
-    // Сохранение или обновление
-    document.getElementById('marker-form').addEventListener('submit', (ev) => {
-      ev.preventDefault();
-      const data = new FormData(ev.target);
-      const obj = {
-        id: isNew ? generateTempId() : marker.options.id,
-        title: data.get('title'),
-        description: data.get('description'),
-        coords: { lat: parseFloat(data.get('lat')), lng: parseFloat(data.get('lng')) }
-      };
-      if (isNew) {
-        diff.added.push(obj);
-        marker.options.id = obj.id;
-      } else {
-        diff.updated.push(obj);
-      }
-      marker.closePopup();
-      btnSave.disabled = false;
-    });
+		// Сохранение или обновление
+		document.getElementById('marker-form').addEventListener('submit', (ev) => {
+		  ev.preventDefault();
+		  const data = new FormData(ev.target);
+		  const obj = {
+			id: isNew ? generateTempId() : marker.options.id,
+			title: data.get('title'),
+			description: data.get('description'),
+			coords: { lat: parseFloat(data.get('lat')), lng: parseFloat(data.get('lng')) }
+		  };
+		  if (isNew) {
+			diff.added.push(obj);
+			marker.options.id = obj.id;
+		  } else {
+			diff.updated.push(obj);
+		  }
+		  marker.closePopup();
+		  btnSave.disabled = false;
+		});
 
-    // Удаление существующего маркера
-    if (!isNew) {
-      document.getElementById('delete-marker').addEventListener('click', () => {
-        diff.deleted.push(marker.options.id);
-        map.removeLayer(marker);
-        btnSave.disabled = false;
-      });
-    }
+		// Удаление существующего маркера
+		if (!isNew) {
+		  document.getElementById('delete-marker').addEventListener('click', () => {
+			diff.deleted.push(marker.options.id);
+			map.removeLayer(marker);
+			btnSave.disabled = false;
+		  });
+		}
 
-    // Обновление координат после перетаскивания
-    marker.on('dragend', (e) => {
-      const newCoords = e.target.getLatLng();
-      // при необходимости обновить поля формы или сразу добавить в diff.updated
-    });
-  }
+		// Обновление координат после перетаскивания
+		marker.on('dragend', (e) => {
+		  const newCoords = e.target.getLatLng();
+		  // при необходимости обновить поля формы или сразу добавить в diff.updated
+		});
+	  }
 
-  // Генерация временного ID для новых маркеров
-  function generateTempId() {
-    return 'tmp_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-  }
+	  // Генерация временного ID для новых маркеров
+	  function generateTempId() {
+		return 'tmp_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+	  }
 
-  // Отправка изменений на сервер (заглушка)
-  btnSave.addEventListener('click', () => {
-    btnSave.disabled = true;
-    console.log('Diff to send:', diff);
-    // TODO: Реализовать fetch POST '/markers/update'
-    // fetch('/markers/update', { method: 'POST', credentials: 'include', headers: {'Content-Type':'application/json'}, body: JSON.stringify(diff) })
-    //   .then(r => r.json()).then(console.log).catch(console.error);
-  });
-})();
+	  // Отправка изменений на сервер (заглушка)
+	  btnSave.addEventListener('click', () => {
+		btnSave.disabled = true;
+		console.log('Diff to send:', diff);
+		// TODO: Реализовать fetch POST '/markers/update'
+		// fetch('/markers/update', { method: 'POST', credentials: 'include', headers: {'Content-Type':'application/json'}, body: JSON.stringify(diff) })
+		//   .then(r => r.json()).then(console.log).catch(console.error);
+	  });
+	})();
+}
 //END
 //Блок MET
