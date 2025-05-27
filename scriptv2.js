@@ -115,14 +115,7 @@ Promise.all([
   }
   // 3) Создаём маркеры из markersData
   markersData.forEach(m => {
-    const {
-      id,
-      name,
-      description,
-      coords,        // [lat, lng]
-      category_id,
-      icon_id
-    } = m;
+    const {id, name, description, coords, category_id, icon_id} = m;
 	
     // выбираем иконку, fallback → icons.default
     const icon  = icons[icon_id] || icons.default;
@@ -132,11 +125,11 @@ Promise.all([
       .bindPopup(`<b>${name}</b><br>${description}`);
 	  
     // опционально сохраняем id и данные в options
-    marker.options.id          = id;
-    marker.options.name        = name;
+    marker.options.id = id;
+    marker.options.name = name;
     marker.options.description = description;
     marker.options.category_id = category_id;
-    marker.options.icon_id     = icon_id;
+    marker.options.icon_id = icon_id;
 
     layer.addLayer(marker);
 	existingMarkers.set(marker.options.id, marker);
@@ -240,6 +233,8 @@ function initMET() {
           marker.on('click', () => openEditPopup(marker, false));
         });
 	  });
+	  
+	  console.log(existingMarkers);
 
 	  // Выход из MET
 	  btnExit.addEventListener('click', () => {
