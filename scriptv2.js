@@ -227,14 +227,13 @@ function initMET() {
 		btnAdd.style.display = 'block';
 		btnSave.style.display = 'block';
 		console.log('MET activated');
+		console.log(existingMarkers);
 		map.on('click', onMapClick);
 		existingMarkers.forEach(marker => {
           marker.off('click');              // сбросить старый popup
           marker.on('click', () => openEditPopup(marker, false));
         });
 	  });
-	  
-	  console.log(existingMarkers);
 
 	  // Выход из MET
 	  btnExit.addEventListener('click', () => {
