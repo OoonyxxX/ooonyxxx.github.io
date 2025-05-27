@@ -141,7 +141,7 @@ Promise.all([
     layer.addLayer(marker);
   });
   L.control
-    .layers(null, overlays, {collapsed: false}).addTo(map);
+    .layers(null, overlays, {collapsed: true}).addTo(map);
 })
 .catch(error => console.error("JSON reading error:", error));
 //END
