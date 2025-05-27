@@ -211,6 +211,9 @@ function initMET() {
 		btnExit.disabled     = true;
 		btnAdd.disabled      = true;
 		btnSave.disabled     = !(diff.added.length || diff.updated.length || diff.deleted.length);
+		btnExit.style.display = 'none';
+		btnAdd.style.display = 'none';
+		btnSave.style.display = 'none';
 		console.log('MET exited');
 		map.off('click', onMapClick);
 	  });
