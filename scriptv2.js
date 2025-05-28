@@ -289,6 +289,7 @@ function initMET(categories, iconsData) {
 		marker.unbindPopup();
 		//marker.off('click');  ???
         marker.off('popupopen');
+		const oldCategoryId = marker.options.category_id;
 		const latlng = isNew
 		  ? marker.getLatLng()   // для новых берём клик-координаты
 		  : marker.getLatLng();  // для старых — тоже из самого маркера
@@ -375,6 +376,7 @@ function initMET(categories, iconsData) {
 				const icon_id     = data.get('icon')        || 'default';
 				const lat         = parseFloat(data.get('lat'));
 				const lng         = parseFloat(data.get('lng'));
+				const newCategoryId = category_id;
 
 				if (isNew) {
 					const newId = genId(title, lat, lng);
@@ -384,26 +386,31 @@ function initMET(categories, iconsData) {
 					marker.options.description = description;
 					marker.options.category_id = category_id;
 					marker.options.icon_id     = icon_id;
+					marker.options.coords = [lat, lng];
 					diff.added.push({ id: newId, title, description, category_id, icon_id, coords:[lat,lng] });
+					btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
 				} else {
 					// — обновляем marker.options, пушим/обновляем diff.updated
 					marker.options.name        = title;
 					marker.options.description = description;
 					marker.options.category_id = category_id;
 					marker.options.icon_id     = icon_id;
+					marker.options.coords = [lat, lng];
 					diff.updated.push({ id: marker.options.id, title, description, category_id, icon_id, coords:[lat,lng] });
 					marker.setLatLng([lat, lng]);
 					const newIcon = iconsData.find(ic => ic.id == icon_id);
 					marker.setIcon(L.icon({
-					  iconUrl:    ic.url,
+					  iconUrl:    newIcon.url,
 					  iconSize:   [32, 32],
 					  iconAnchor: [16, 32],
 					  popupAnchor:[0, -32]
 					}));
+					marker.options.category_id = newCategoryId;
 					const oldLayer = layers[oldCategoryId];
 					const newLayer = layers[newCategoryId];
 					oldLayer.removeLayer(marker);
 					newLayer.addLayer(marker);
+					btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
 				}
 
 				  // 8) Закрыть попап и обновить слой
@@ -417,10 +424,12 @@ function initMET(categories, iconsData) {
 				map.removeLayer(marker);
 				// и из diff.added
 				diff.added = diff.added.filter(o => o.id !== marker.options.id);
+				btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
 			  } else {
 				// — помечаем на удаление
 				diff.deleted.push(marker.options.id);
 				map.removeLayer(marker);
+				btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
 			  }
 			  marker.closePopup();
 			});
