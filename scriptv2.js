@@ -137,6 +137,7 @@ Promise.all([
   });
   L.control
     .layers(null, overlays, {collapsed: true}).addTo(map);
+  checkAuth(categories, iconsData);
 })
 .catch(error => console.error("JSON reading error:", error));
 //END
@@ -171,7 +172,7 @@ btnSave.disabled     = true;
 const loginButton = document.getElementById("login-button");
 const usernameDisplay = document.getElementById("username-display");
 
-function checkAuth() {
+function checkAuth(categories, iconsData) {
   fetch("https://sotn2-auth-proxy.onrender.com/auth/me", {
     credentials: "include"
   })
@@ -188,7 +189,7 @@ function checkAuth() {
           metControls.style.display = 'block';
 		  btnActivate.style.display = 'block';
           btnActivate.disabled = false;
-		  initMET();
+		  initMET(categories, iconsData);
         } else {
           console.log(`The ${username} is not an editor`);
         }
@@ -202,11 +203,24 @@ function checkAuth() {
       console.error("Auth Error:", err);
     });
 }
-
-checkAuth();
 //END
 //Блок авторизации
 
+
+function genId(title, lat, lng) {
+  // 1) Title: пробелы → нижнее подчёркивание, оборвать лишние пробелы
+  const safeTitle = title.trim().replace(/\s+/g, '_');
+
+  // 2) Рандом 8 цифр
+  const rand = String(Math.floor(Math.random() * 1e8))
+	.padStart(8, '0');
+
+  // 3) Координаты ×1000, 6-значным числом, с ведущими нулями
+  const latPart = String(Math.round(lat * 1000)).padStart(6, '0');
+  const lngPart = String(Math.round(lng * 1000)).padStart(6, '0');
+
+  return `${safeTitle}_${rand}_${latPart}_${lngPart}`;
+}
 
 //Блок MET
 //START
@@ -279,6 +293,7 @@ function initMET(categories, iconsData) {
 		  ? marker.getLatLng()   // для новых берём клик-координаты
 		  : marker.getLatLng();  // для старых — тоже из самого маркера
 		const formHtml = `
+		<form id="marker-form">
 			<label>Title:
 				<input name="title"
 					value="${isNew ? '' : marker.options.name}"
@@ -305,25 +320,19 @@ function initMET(categories, iconsData) {
 					).join('')}
 				</select>
 			</label>
-			
-			
-			
 			<label>Icon
 				<select name="icon">
 					${isNew
-						? `<option value="" selected>none</option>`
-						: `<option value="">none</option>`
+						? `<option value="" selected>default</option>`
+						: `<option value="">default</option>`
 					}
-					${categories.map(icon =>
-						`<option value="${icon.id}"
-						${!isNew && icon.id == marker.options.icon_id ? 'selected' : ''}
-						>${icon.label}</option>`
+					${iconsData.map(ic =>
+						`<option value="${ic.id}"
+						${!isNew && ic.id == marker.options.icon_id ? 'selected' : ''}
+						>${ic.name}</option>`
 					).join('')}
 				</select>
 			</label>
-			
-			
-			
 			<label>Y
 				<input type="number" name="lat"
 				value="${isNew ? latlng.lat : marker.getLatLng().lat}"
@@ -343,14 +352,18 @@ function initMET(categories, iconsData) {
 			</button>
 		</form>`;
 		marker.bindPopup(formHtml).openPopup();
-	
-		  // 5) Повесить обработчик открытия попапа, чтобы внутри найти форму и кнопки
-		marker.on('popupopen', () => {
-			const container = marker.getPopup().getContentNode(); // DOM-элемент попапа
-    
+		
+		
+		// 5) Повесить обработчик открытия попапа, чтобы внутри найти форму и кнопки
+		marker.on('popupopen', e => {
+			//const container = marker.getPopup().getContentNode(); // DOM-элемент попапа
+			const popupEl = e.popup.getElement();
+			const contentEl = popupEl.querySelector('.leaflet-popup-content');
 			// 6) Найти элементы формы
-			const form      = container.querySelector('#marker-form');
-			const cancelBtn = container.querySelector('#cancel-btn');
+			const form      = contentEl.querySelector('#marker-form');
+			const cancelBtn = contentEl.querySelector('#cancel-btn');
+			//const form      = container.querySelector('#marker-form');
+			//const cancelBtn = container.querySelector('#cancel-btn');
 
 			// 7) Обработчик submit
 			form.addEventListener('submit', e => {
@@ -364,9 +377,14 @@ function initMET(categories, iconsData) {
 				const lng         = parseFloat(data.get('lng'));
 
 				if (isNew) {
-					// — генерируем новый ID, пушим в diff.added,
-					// — оставляем marker в map и в existingMarkers
-					diff.added.push({ id: newId(), title, description, category_id, icon_id, coords:[lat,lng] });
+					const newId = genId(title, lat, lng);
+					existingMarkers.set(newId, marker);
+					marker.options.id = newId;
+					marker.options.name        = title;
+					marker.options.description = description;
+					marker.options.category_id = category_id;
+					marker.options.icon_id     = icon_id;
+					diff.added.push({ id: newId, title, description, category_id, icon_id, coords:[lat,lng] });
 				} else {
 					// — обновляем marker.options, пушим/обновляем diff.updated
 					marker.options.name        = title;
@@ -374,28 +392,40 @@ function initMET(categories, iconsData) {
 					marker.options.category_id = category_id;
 					marker.options.icon_id     = icon_id;
 					diff.updated.push({ id: marker.options.id, title, description, category_id, icon_id, coords:[lat,lng] });
+					marker.setLatLng([lat, lng]);
+					const newIcon = iconsData.find(ic => ic.id == icon_id);
+					marker.setIcon(L.icon({
+					  iconUrl:    ic.url,
+					  iconSize:   [32, 32],
+					  iconAnchor: [16, 32],
+					  popupAnchor:[0, -32]
+					}));
+					const oldLayer = layers[oldCategoryId];
+					const newLayer = layers[newCategoryId];
+					oldLayer.removeLayer(marker);
+					newLayer.addLayer(marker);
 				}
 
 				  // 8) Закрыть попап и обновить слой
 				  marker.closePopup();
 			});
 
-				// 9) Обработчик Cancel/Delete
-				cancelBtn.addEventListener('click', () => {
-				  if (isNew) {
-					// — удаляем маркер совсем
-					map.removeLayer(marker);
-					// и из diff.added
-					diff.added = diff.added.filter(o => o.marker !== marker);
-				  } else {
-					// — помечаем на удаление
-					diff.deleted.push(marker.options.id);
-					map.removeLayer(marker);
-				  }
-				  marker.closePopup();
-				});
+			// 9) Обработчик Cancel/Delete
+			cancelBtn.addEventListener('click', () => {
+			  if (isNew) {
+				// — удаляем маркер совсем
+				map.removeLayer(marker);
+				// и из diff.added
+				diff.added = diff.added.filter(o => o.id !== marker.options.id);
+			  } else {
+				// — помечаем на удаление
+				diff.deleted.push(marker.options.id);
+				map.removeLayer(marker);
+			  }
+			  marker.closePopup();
 			});
 		});
+	  }
 	})();
 }
 //END
