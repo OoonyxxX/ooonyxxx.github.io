@@ -344,7 +344,7 @@ function initMET(categories, iconsData) {
 				step="any" required />
 			</label>
 			
-			<button type="submit" id="submit-btn">
+			<button type="button" id="submit-btn">
 				${isNew ? 'Create' : 'Save'}
 			</button>
 			<button type="button" id="cancel-btn">
@@ -353,20 +353,17 @@ function initMET(categories, iconsData) {
 		</form>`;
 		marker.bindPopup(formHtml).openPopup();
 		
-		
-		// 5) Повесить обработчик открытия попапа, чтобы внутри найти форму и кнопки
 		marker.on('popupopen', e => {
-			//const container = marker.getPopup().getContentNode(); // DOM-элемент попапа
 			const popupEl = e.popup.getElement();
 			const contentEl = popupEl.querySelector('.leaflet-popup-content');
-			// 6) Найти элементы формы
 			const form      = contentEl.querySelector('#marker-form');
 			const cancelBtn = contentEl.querySelector('#cancel-btn');
+			const submitBtn = contentEl.querySelector('#submit-btn');
 			//const form      = container.querySelector('#marker-form');
 			//const cancelBtn = container.querySelector('#cancel-btn');
 
 			// 7) Обработчик submit
-			form.addEventListener('submit', ev => {
+			submitBtn.addEventListener('click', ev => {
 				ev.preventDefault();
 				const data = new FormData(form);
 				const title       = data.get('title')       || 'Name_PlaceHolder';
