@@ -128,6 +128,7 @@ Promise.all([
     marker.options.id = id;
     marker.options.name = name;
     marker.options.description = description;
+	marker.options.coords = coords;
     marker.options.category_id = category_id;
     marker.options.icon_id = icon_id;
 
@@ -209,7 +210,7 @@ checkAuth();
 
 //Блок MET
 //START
-function initMET() {
+function initMET(categories, iconsData) {
 	(function() {
 	  // Состояние MET
 	  let metActive = false;
@@ -228,10 +229,10 @@ function initMET() {
 		btnSave.style.display = 'block';
 		console.log('MET activated');
 		console.log(existingMarkers);
-		map.on('click', onMapClick);
+		map.on('click', METOnMapClick);
 		existingMarkers.forEach(marker => {
           marker.off('click');              // сбросить старый popup
-          marker.on('click', () => openEditPopup(marker, false));
+          marker.on('click', () => openEditPopup(marker, false, categories, iconsData));
         });
 	  });
 
@@ -246,7 +247,7 @@ function initMET() {
 		btnAdd.style.display = 'none';
 		btnSave.style.display = 'none';
 		console.log('MET exited');
-		map.off('click', onMapClick);
+		map.off('click', METOnMapClick);
 		existingMarkers.forEach(marker => {
 			marker.unbindPopup();
 			marker.off('click');
@@ -262,75 +263,139 @@ function initMET() {
 	  });
 
 	  // Обработчик клика по карте
-	  function onMapClick(e) {
+	  function METOnMapClick(e) {
 		if (!addingMarker) return;
 		const marker = L.marker(e.latlng, { draggable: true }).addTo(map);
-		openEditPopup(marker, true);
+		openEditPopup(marker, true, categories, iconsData);
 		addingMarker = false;
 	  }
-
+	  
 	  // Открытие popup для создания/редактирования
-	  function openEditPopup(marker, isNew) {
-		const latlng = marker.getLatLng();
+	  function openEditPopup(marker, isNew, categories, iconsData) {
+		marker.unbindPopup();
+		//marker.off('click');  ???
+        marker.off('popupopen');
+		const latlng = isNew
+		  ? marker.getLatLng()   // для новых берём клик-координаты
+		  : marker.getLatLng();  // для старых — тоже из самого маркера
 		const formHtml = `
-		  <form id="marker-form">
-			<label>Title: <input name="title" required /></label><br/>
-			<label>Description: <textarea name="description"></textarea></label><br/>
-			<label>Coords: <input name="lat" value="${latlng.lat.toFixed(5)}" required/> , <input name="lng" value="${latlng.lng.toFixed(5)}" required/></label><br/>
-			<button type="submit">${isNew ? 'Create' : 'Update'}</button>
-			${!isNew ? '<button id="delete-marker" type="button">Delete</button>' : ''}
-		  </form>`;
+			<label>Title:
+				<input name="title"
+					value="${isNew ? '' : marker.options.name}"
+					placeholder="${isNew ? 'Name_PlaceHolder' : ''}"
+					required
+				/>
+			</label>
+			<label>Description
+					<textarea name="description"
+					maxlength="60"
+					placeholder="${isNew ? 'Description_PlaceHolder' : ''}"
+				>${isNew ? '' : marker.options.description}</textarea>
+			</label>
+			<label>Category
+				<select name="category">
+					${isNew
+						? `<option value="" selected>none</option>`
+						: `<option value="">none</option>`
+					}
+					${categories.map(cat =>
+						`<option value="${cat.id}"
+						${!isNew && cat.id == marker.options.category_id ? 'selected' : ''}
+						>${cat.label}</option>`
+					).join('')}
+				</select>
+			</label>
+			
+			
+			
+			<label>Icon
+				<select name="icon">
+					${isNew
+						? `<option value="" selected>none</option>`
+						: `<option value="">none</option>`
+					}
+					${categories.map(icon =>
+						`<option value="${icon.id}"
+						${!isNew && icon.id == marker.options.icon_id ? 'selected' : ''}
+						>${icon.label}</option>`
+					).join('')}
+				</select>
+			</label>
+			
+			
+			
+			<label>Y
+				<input type="number" name="lat"
+				value="${isNew ? latlng.lat : marker.getLatLng().lat}"
+				step="any" required />
+			</label>
+			<label>X
+				<input type="number" name="lng"
+				value="${isNew ? latlng.lng : marker.getLatLng().lng}"
+				step="any" required />
+			</label>
+			
+			<button type="submit" id="submit-btn">
+				${isNew ? 'Create' : 'Save'}
+			</button>
+			<button type="button" id="cancel-btn">
+				${isNew ? 'Cancel' : 'Delete'}
+			</button>
+		</form>`;
 		marker.bindPopup(formHtml).openPopup();
+	
+		  // 5) Повесить обработчик открытия попапа, чтобы внутри найти форму и кнопки
+		marker.on('popupopen', () => {
+			const container = marker.getPopup().getContentNode(); // DOM-элемент попапа
+    
+			// 6) Найти элементы формы
+			const form      = container.querySelector('#marker-form');
+			const cancelBtn = container.querySelector('#cancel-btn');
 
-		// Сохранение или обновление
-		document.getElementById('marker-form').addEventListener('submit', (ev) => {
-		  ev.preventDefault();
-		  const data = new FormData(ev.target);
-		  const obj = {
-			id: isNew ? generateTempId() : marker.options.id,
-			title: data.get('title'),
-			description: data.get('description'),
-			coords: { lat: parseFloat(data.get('lat')), lng: parseFloat(data.get('lng')) }
-		  };
-		  if (isNew) {
-			diff.added.push(obj);
-			marker.options.id = obj.id;
-		  } else {
-			diff.updated.push(obj);
-		  }
-		  marker.closePopup();
-		  btnSave.disabled = false;
+			// 7) Обработчик submit
+			form.addEventListener('submit', e => {
+				e.preventDefault();
+				const data = new FormData(form);
+				const title       = data.get('title')       || 'Name_PlaceHolder';
+				const description = data.get('description') || 'Description_PlaceHolder';
+				const category_id = data.get('category')    || null;
+				const icon_id     = data.get('icon')        || 'default';
+				const lat         = parseFloat(data.get('lat'));
+				const lng         = parseFloat(data.get('lng'));
+
+				if (isNew) {
+					// — генерируем новый ID, пушим в diff.added,
+					// — оставляем marker в map и в existingMarkers
+					diff.added.push({ id: newId(), title, description, category_id, icon_id, coords:[lat,lng] });
+				} else {
+					// — обновляем marker.options, пушим/обновляем diff.updated
+					marker.options.name        = title;
+					marker.options.description = description;
+					marker.options.category_id = category_id;
+					marker.options.icon_id     = icon_id;
+					diff.updated.push({ id: marker.options.id, title, description, category_id, icon_id, coords:[lat,lng] });
+				}
+
+				  // 8) Закрыть попап и обновить слой
+				  marker.closePopup();
+			});
+
+				// 9) Обработчик Cancel/Delete
+				cancelBtn.addEventListener('click', () => {
+				  if (isNew) {
+					// — удаляем маркер совсем
+					map.removeLayer(marker);
+					// и из diff.added
+					diff.added = diff.added.filter(o => o.marker !== marker);
+				  } else {
+					// — помечаем на удаление
+					diff.deleted.push(marker.options.id);
+					map.removeLayer(marker);
+				  }
+				  marker.closePopup();
+				});
+			});
 		});
-
-		// Удаление существующего маркера
-		if (!isNew) {
-		  document.getElementById('delete-marker').addEventListener('click', () => {
-			diff.deleted.push(marker.options.id);
-			map.removeLayer(marker);
-			btnSave.disabled = false;
-		  });
-		}
-
-		// Обновление координат после перетаскивания
-		marker.on('dragend', (e) => {
-		  const newCoords = e.target.getLatLng();
-		  // при необходимости обновить поля формы или сразу добавить в diff.updated
-		});
-	  }
-
-	  // Генерация временного ID для новых маркеров
-	  function generateTempId() {
-		return 'tmp_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-	  }
-
-	  // Отправка изменений на сервер (заглушка)
-	  btnSave.addEventListener('click', () => {
-		btnSave.disabled = true;
-		console.log('Diff to send:', diff);
-		// TODO: Реализовать fetch POST '/markers/update'
-		// fetch('/markers/update', { method: 'POST', credentials: 'include', headers: {'Content-Type':'application/json'}, body: JSON.stringify(diff) })
-		//   .then(r => r.json()).then(console.log).catch(console.error);
-	  });
 	})();
 }
 //END
