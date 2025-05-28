@@ -344,7 +344,7 @@ function initMET(categories, iconsData) {
 				step="any" required />
 			</label>
 			
-			<button type="submit" id="submit-btn">
+			<button type="create-save" id="submit-btn">
 				${isNew ? 'Create' : 'Save'}
 			</button>
 			<button type="button" id="cancel-btn">
@@ -366,7 +366,7 @@ function initMET(categories, iconsData) {
 			//const cancelBtn = container.querySelector('#cancel-btn');
 
 			// 7) Обработчик submit
-			form.addEventListener('submit', e => {
+			form.addEventListener('create-save', e => {
 				e.preventDefault();
 				const data = new FormData(form);
 				const title       = data.get('title')       || 'Name_PlaceHolder';
