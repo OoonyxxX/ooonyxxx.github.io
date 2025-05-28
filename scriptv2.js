@@ -289,7 +289,6 @@ function initMET(categories, iconsData) {
 		marker.unbindPopup();
 		//marker.off('click');  ???
         marker.off('popupopen');
-		const oldCategoryId = marker.options.category_id;
 		const latlng = isNew
 		  ? marker.getLatLng()   // для новых берём клик-координаты
 		  : marker.getLatLng();  // для старых — тоже из самого маркера
@@ -376,27 +375,38 @@ function initMET(categories, iconsData) {
 				const icon_id     = data.get('icon')        || 'default';
 				const lat         = parseFloat(data.get('lat'));
 				const lng         = parseFloat(data.get('lng'));
-				const newCategoryId = category_id;
 
 				if (isNew) {
 					const newId = genId(title, lat, lng);
-					existingMarkers.set(newId, marker);
-					marker.options.id = newId;
+					marker.options.id 		   = newId;
 					marker.options.name        = title;
 					marker.options.description = description;
 					marker.options.category_id = category_id;
 					marker.options.icon_id     = icon_id;
 					marker.options.coords = [lat, lng];
-					diff.added.push({ id: newId, title, description, category_id, icon_id, coords:[lat,lng] });
+					existingMarkers.set(marker.options.id, marker);
+					diff.added.push({
+					  id:            marker.options.id,
+					  title:         marker.options.name,
+					  description:   marker.options.description,
+					  category_id:   marker.options.category_id,
+					  icon_id:       marker.options.icon_id,
+					  coords:        marker.options.coords
+					});
 					btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
 				} else {
-					// — обновляем marker.options, пушим/обновляем diff.updated
+					const oldCategoryId = marker.options.category_id;
+					const newCategoryId = category_id;
+					const oldLayer = layers[oldCategoryId];
+					const newLayer = layers[newCategoryId];
+					oldLayer.removeLayer(marker);
+					newLayer.addLayer(marker);
+					
 					marker.options.name        = title;
 					marker.options.description = description;
 					marker.options.category_id = category_id;
 					marker.options.icon_id     = icon_id;
 					marker.options.coords = [lat, lng];
-					diff.updated.push({ id: marker.options.id, title, description, category_id, icon_id, coords:[lat,lng] });
 					marker.setLatLng([lat, lng]);
 					const newIcon = iconsData.find(ic => ic.id == icon_id);
 					marker.setIcon(L.icon({
@@ -405,11 +415,7 @@ function initMET(categories, iconsData) {
 					  iconAnchor: [16, 32],
 					  popupAnchor:[0, -32]
 					}));
-					marker.options.category_id = newCategoryId;
-					const oldLayer = layers[oldCategoryId];
-					const newLayer = layers[newCategoryId];
-					oldLayer.removeLayer(marker);
-					newLayer.addLayer(marker);
+					diff.updated.push({ id: marker.options.id, title, description, category_id, icon_id, coords:[lat,lng] });
 					btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
 				}
 
