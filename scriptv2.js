@@ -286,10 +286,6 @@ function initMET(categories, iconsData) {
 	  // Открытие popup для создания/редактирования
 	  function openEditPopup(marker, isNew, categories, iconsData) {
 		marker.unbindPopup();
-		marker.bindPopup(clone, {
-		  autoClose:   false,  // не закрывать при клике вне
-		  closeOnClick:false   // не закрывать при клике на карту
-		});
 		const clone = tpl.content.cloneNode(true);
 		const form      = clone.querySelector('#marker-form');
 		const titleIn   = form.querySelector('input[name="title"]');
@@ -337,6 +333,11 @@ function initMET(categories, iconsData) {
 		  submitBtn.textContent = 'Save';
 		  cancelBtn.textContent = 'Delete';
 		}
+		
+		marker.bindPopup(clone, {
+		  autoClose:   false,  // не закрывать при клике вне
+		  closeOnClick:false   // не закрывать при клике на карту
+		});
 		
 		marker.on('click', () => {
 		  if (!marker.isPopupOpen()) {
