@@ -70,7 +70,7 @@ map.on('zoomend', function () {
 //START
 //const m = L.marker(mData.coords, { icon, id: mData.id })
 const existingMarkers = new Map();
-
+const layers   = {};     // id категории → L.LayerGroup
 //END
 //Переменные для редактирования существующих меток
 
@@ -84,8 +84,6 @@ Promise.all([
   fetch("icons.json").then(res => res.json()),
   fetch("markers.json").then(res => res.json())
 ])
-
-const layers   = {};     // id категории → L.LayerGroup
 
 .then(([categories, iconsData, markersData]) => {
   // 1) Готовим слои (по категориям)
