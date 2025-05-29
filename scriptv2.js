@@ -336,6 +336,8 @@ function initMET(categories, iconsData) {
 		}
 		marker.bindPopup(clone).openPopup();
 		
+		console.log(form);
+		
 		marker.on('popupopen', e => {
 			const popupEl = e.popup.getElement();
 			const contentEl = popupEl.querySelector('.leaflet-popup-content');
