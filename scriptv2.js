@@ -359,7 +359,9 @@ function initMET(categories, iconsData) {
 			const form      = contentEl.querySelector('#marker-form');
 			const cancelBtn = contentEl.querySelector('#cancel-btn');
 			const submitBtn = contentEl.querySelector('#submit-btn');
-
+			console.log(submitBtn);
+			console.log(contentEl);
+			console.log(form);
 			// 7) Обработчик submit
 			submitBtn.addEventListener('click', ev => {
 				ev.preventDefault();
