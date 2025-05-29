@@ -288,7 +288,6 @@ function initMET(categories, iconsData) {
 	  // Открытие popup для создания/редактирования
 	  function openEditPopup(marker, isNew, categories, iconsData) {
 		marker.unbindPopup();
-        marker.off('popupopen');
 		const clone = tpl.content.cloneNode(true);
 		const form      = clone.querySelector('#marker-form');
 		const titleIn   = form.querySelector('input[name="title"]');
@@ -338,93 +337,91 @@ function initMET(categories, iconsData) {
 		
 		console.log(form);
 		
-		marker.on('popupopen', e => {
-			const popupEl = e.popup.getElement();
-			const contentEl = popupEl.querySelector('.leaflet-popup-content');
-			const form      = contentEl.querySelector('#marker-form');
-			const cancelBtn = contentEl.querySelector('#cancel-btn');
-			const submitBtn = contentEl.querySelector('#submit-btn');
-			console.log(submitBtn);
-			console.log(contentEl);
-			console.log(form);
-			// 7) Обработчик submit
-			submitBtn.addEventListener('click', ev => {
-				ev.preventDefault();
-				const data		  = new FormData(form);
-				const title       = data.get('title')       || 'Name_PlaceHolder';
-				const description = data.get('description') || 'Description_PlaceHolder';
-				const category_id = data.get('category')    || null;
-				const icon_id     = data.get('icon')        || 'default';
-				const lat         = parseFloat(data.get('lat'));
-				const lng         = parseFloat(data.get('lng'));
-				console.log(data);
-				
-				if (isNew) {
-					const newId = genId(title, lat, lng);
-					marker.options.id 		   = newId;
-					marker.options.name        = title;
-					marker.options.description = description;
-					marker.options.category_id = category_id;
-					marker.options.icon_id     = icon_id;
-					marker.options.coords = [lat, lng];
-					existingMarkers.set(marker.options.id, marker);
-					diff.added.push({
-					  id:            marker.options.id,
-					  title:         marker.options.name,
-					  description:   marker.options.description,
-					  category_id:   marker.options.category_id,
-					  icon_id:       marker.options.icon_id,
-					  coords:        marker.options.coords
-					});
-					btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
-					console.log(newId);
-				} else {
-					const oldCategoryId = marker.options.category_id;
-					const newCategoryId = category_id;
-					const oldLayer = layers[oldCategoryId];
-					const newLayer = layers[newCategoryId];
-					oldLayer.removeLayer(marker);
-					newLayer.addLayer(marker);
-					console.log(oldCategoryId);
-					console.log(newCategoryId);
-					marker.options.name        = title;
-					marker.options.description = description;
-					marker.options.category_id = category_id;
-					marker.options.icon_id     = icon_id;
-					marker.options.coords = [lat, lng];
-					marker.setLatLng([lat, lng]);
-					console.log(marker.options.icon_id);
-					const newIcon = iconsData.find(ic => ic.id == icon_id);
-					marker.setIcon(L.icon({
-					  iconUrl:    newIcon.url,
-					  iconSize:   [32, 32],
-					  iconAnchor: [16, 32],
-					  popupAnchor:[0, -32]
-					}));
-					diff.updated.push({ id: marker.options.id, title, description, category_id, icon_id, coords:[lat,lng] });
-					btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
-				}
-
-				  // 8) Закрыть попап и обновить слой
-				  marker.closePopup();
-			});
-
-			// 9) Обработчик Cancel/Delete
-			cancelBtn.addEventListener('click', () => {
-			  if (isNew) {
-				// — удаляем маркер совсем
-				map.removeLayer(marker);
-				// и из diff.added
-				diff.added = diff.added.filter(o => o.id !== marker.options.id);
+		const popupEl = e.popup.getElement();
+		const contentEl = popupEl.querySelector('.leaflet-popup-content');
+		const form      = contentEl.querySelector('#marker-form');
+		const cancelBtn = contentEl.querySelector('#cancel-btn');
+		const submitBtn = contentEl.querySelector('#submit-btn');
+		console.log(submitBtn);
+		console.log(contentEl);
+		console.log(form);
+		// 7) Обработчик submit
+		submitBtn.addEventListener('click', ev => {
+			ev.preventDefault();
+			const data		  = new FormData(form);
+			const title       = data.get('title')       || 'Name_PlaceHolder';
+			const description = data.get('description') || 'Description_PlaceHolder';
+			const category_id = data.get('category')    || null;
+			const icon_id     = data.get('icon')        || 'default';
+			const lat         = parseFloat(data.get('lat'));
+			const lng         = parseFloat(data.get('lng'));
+			console.log(data);
+			
+			if (isNew) {
+				const newId = genId(title, lat, lng);
+				marker.options.id 		   = newId;
+				marker.options.name        = title;
+				marker.options.description = description;
+				marker.options.category_id = category_id;
+				marker.options.icon_id     = icon_id;
+				marker.options.coords = [lat, lng];
+				existingMarkers.set(marker.options.id, marker);
+				diff.added.push({
+				  id:            marker.options.id,
+				  title:         marker.options.name,
+				  description:   marker.options.description,
+				  category_id:   marker.options.category_id,
+				  icon_id:       marker.options.icon_id,
+				  coords:        marker.options.coords
+				});
 				btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
-			  } else {
-				// — помечаем на удаление
-				diff.deleted.push(marker.options.id);
-				map.removeLayer(marker);
+				console.log(newId);
+			} else {
+				const oldCategoryId = marker.options.category_id;
+				const newCategoryId = category_id;
+				const oldLayer = layers[oldCategoryId];
+				const newLayer = layers[newCategoryId];
+				oldLayer.removeLayer(marker);
+				newLayer.addLayer(marker);
+				console.log(oldCategoryId);
+				console.log(newCategoryId);
+				marker.options.name        = title;
+				marker.options.description = description;
+				marker.options.category_id = category_id;
+				marker.options.icon_id     = icon_id;
+				marker.options.coords = [lat, lng];
+				marker.setLatLng([lat, lng]);
+				console.log(marker.options.icon_id);
+				const newIcon = iconsData.find(ic => ic.id == icon_id);
+				marker.setIcon(L.icon({
+				  iconUrl:    newIcon.url,
+				  iconSize:   [32, 32],
+				  iconAnchor: [16, 32],
+				  popupAnchor:[0, -32]
+				}));
+				diff.updated.push({ id: marker.options.id, title, description, category_id, icon_id, coords:[lat,lng] });
 				btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
-			  }
+			}
+
+			  // 8) Закрыть попап и обновить слой
 			  marker.closePopup();
-			});
+		});
+
+		// 9) Обработчик Cancel/Delete
+		cancelBtn.addEventListener('click', () => {
+		  if (isNew) {
+			// — удаляем маркер совсем
+			map.removeLayer(marker);
+			// и из diff.added
+			diff.added = diff.added.filter(o => o.id !== marker.options.id);
+			btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
+		  } else {
+			// — помечаем на удаление
+			diff.deleted.push(marker.options.id);
+			map.removeLayer(marker);
+			btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
+		  }
+		  marker.closePopup();
 		});
 	  }
 	})();
