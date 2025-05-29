@@ -351,7 +351,7 @@ function initMET(categories, iconsData) {
 		marker.on('mousedown', () => {
 		  dragTimer = setTimeout(() => {
 			marker.dragging.enable();         // включили перетаскивание
-		  }, 2000);                            // 2000 мс удержания
+		  }, 400);                            // 2000 мс удержания
 		});
 		
 		marker.on('mouseup mouseleave', () => {
@@ -361,12 +361,13 @@ function initMET(categories, iconsData) {
 		marker.on('drag',  () => {
 		  const { lat, lng } = target.getLatLng();
 		  // здесь form — та же константа из клона
-		  form.querySelector('input[name="lat"]').value = lat.toFixed(6);
-		  form.querySelector('input[name="lng"]').value = lng.toFixed(6);
+		  latIn.value = lat.toFixed(6);
+		  lngIn.value = lng.toFixed(6);
 		});
 		
 		marker.on('dragend', () => {
 		  marker.dragging.disable();
+		  marker.openPopup();
 		});
 		
 		const popup = marker.getPopup();
