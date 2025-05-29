@@ -358,7 +358,7 @@ function initMET(categories, iconsData) {
 		  clearTimeout(dragTimer);
 		});
 		
-		marker.on('drag',  => {
+		marker.on('drag',  () => {
 		  const { lat, lng } = target.getLatLng();
 		  // здесь form — та же константа из клона
 		  form.querySelector('input[name="lat"]').value = lat.toFixed(6);
