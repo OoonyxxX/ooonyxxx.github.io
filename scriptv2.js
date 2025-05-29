@@ -85,9 +85,10 @@ Promise.all([
   fetch("markers.json").then(res => res.json())
 ])
 
+const layers   = {};     // id категории → L.LayerGroup
+
 .then(([categories, iconsData, markersData]) => {
   // 1) Готовим слои (по категориям)
-  const layers   = {};     // id категории → L.LayerGroup
   const overlays = {};     // label категории → L.LayerGroup (для UI)
 
   categories.forEach(cat => {
@@ -225,7 +226,7 @@ function genId(title, lat, lng) {
 
 //Блок MET
 //START
-function initMET(categories, iconsData, layers) {
+function initMET(categories, iconsData) {
 	(function() {
 	  // Состояние MET
 	  let metActive = false;
@@ -286,7 +287,7 @@ function initMET(categories, iconsData, layers) {
 	  }
 	  
 	  // Открытие popup для создания/редактирования
-	  function openEditPopup(marker, isNew, categories, iconsData, layers) {
+	  function openEditPopup(marker, isNew, categories, iconsData) {
 		marker.unbindPopup();
 		const clone = tpl.content.cloneNode(true);
 		const form      = clone.querySelector('#marker-form');
