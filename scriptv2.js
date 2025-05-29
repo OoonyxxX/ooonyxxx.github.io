@@ -142,11 +142,6 @@ Promise.all([
 //END
 //Слои меток + Фильтры
 
-marker.bindPopup(clone, {
-  autoClose:   false,  // не закрывать при клике вне
-  closeOnClick:false   // не закрывать при клике на карту
-});
-
 //Переменные блока MET
 //START
 const metControls = document.getElementById('met-controls');
@@ -291,6 +286,10 @@ function initMET(categories, iconsData) {
 	  // Открытие popup для создания/редактирования
 	  function openEditPopup(marker, isNew, categories, iconsData) {
 		marker.unbindPopup();
+		marker.bindPopup(clone, {
+		  autoClose:   false,  // не закрывать при клике вне
+		  closeOnClick:false   // не закрывать при клике на карту
+		});
 		const clone = tpl.content.cloneNode(true);
 		const form      = clone.querySelector('#marker-form');
 		const titleIn   = form.querySelector('input[name="title"]');
