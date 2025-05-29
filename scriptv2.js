@@ -344,7 +344,7 @@ function initMET(categories, iconsData) {
 		const submitBtn = contentEl.querySelector('#submit-btn');
 		console.log(submitBtn);
 		console.log(contentEl);
-		console.log(form);
+		console.log(formN);
 		// 7) Обработчик submit
 		submitBtn.addEventListener('click', ev => {
 			ev.preventDefault();
