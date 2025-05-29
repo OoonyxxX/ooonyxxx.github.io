@@ -334,7 +334,10 @@ function initMET(categories, iconsData) {
 		  submitBtn.textContent = 'Save';
 		  cancelBtn.textContent = 'Delete';
 		}
-		marker.bindPopup(clone).openPopup();
+		marker.bindPopup(clone, {
+		  autoClose:   false,  // не закрывать при клике вне
+		  closeOnClick:false   // не закрывать при клике на карту
+		}).openPopup();
 		iconSel.addEventListener('change', e => {
 		  const selectedId = e.target.value;
 		  const newIc      = iconsData.find(ic => ic.id == selectedId) || icons.default;
