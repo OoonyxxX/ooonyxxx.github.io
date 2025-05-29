@@ -403,6 +403,7 @@ function initMET(categories, iconsData) {
 				}));
 				diff.updated.push({ id: marker.options.id, title, description, category_id, icon_id, coords:[lat,lng] });
 				btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
+				console.log(marker.options.id);
 			}
 
 			  // 8) Закрыть попап и обновить слой
