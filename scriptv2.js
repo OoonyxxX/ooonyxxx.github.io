@@ -225,7 +225,7 @@ function genId(title, lat, lng) {
 
 //Блок MET
 //START
-function initMET(categories, iconsData) {
+function initMET(categories, iconsData, layers) {
 	(function() {
 	  // Состояние MET
 	  let metActive = false;
