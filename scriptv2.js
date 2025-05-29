@@ -383,6 +383,7 @@ function initMET(categories, iconsData, layers) {
 				console.log(oldCategoryId);
 				const newCategoryId = category_id;
 				console.log(newCategoryId);
+				console.log(layers);
 				const oldLayer = layers[oldCategoryId];
 				const newLayer = layers[newCategoryId];
 				oldLayer.removeLayer(marker);
