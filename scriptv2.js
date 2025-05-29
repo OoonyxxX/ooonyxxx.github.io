@@ -338,6 +338,13 @@ function initMET(categories, iconsData) {
 		  submitBtn.textContent = 'Save';
 		  cancelBtn.textContent = 'Delete';
 		}
+		
+		marker.on('click', () => {
+		  if (!marker.isPopupOpen()) {
+			marker.openPopup();
+		  }
+		});
+		
 		iconSel.addEventListener('change', e => {
 		  const selectedId = e.target.value;
 		  const newIc      = iconsData.find(ic => ic.id == selectedId) || icons.default;
@@ -349,12 +356,6 @@ function initMET(categories, iconsData) {
 		  }));
 		});
 		console.log(form);
-		
-		marker.on('click', () => {
-		  if (!marker.isPopupOpen()) {
-			marker.openPopup();
-		  }
-		});
 		
 		let dragTimer;
 		marker.on('mousedown', () => {
