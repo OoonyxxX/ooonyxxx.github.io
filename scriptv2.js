@@ -70,10 +70,6 @@ map.on('zoomend', function () {
 //START
 //const m = L.marker(mData.coords, { icon, id: mData.id })
 const existingMarkers = new Map();
-marker.bindPopup(clone, {
-  autoClose:   false,  // не закрывать при клике вне
-  closeOnClick:false   // не закрывать при клике на карту
-});
 const layers   = {};     // id категории → L.LayerGroup
 //END
 //Переменные для редактирования существующих меток
@@ -146,6 +142,10 @@ Promise.all([
 //END
 //Слои меток + Фильтры
 
+marker.bindPopup(clone, {
+  autoClose:   false,  // не закрывать при клике вне
+  closeOnClick:false   // не закрывать при клике на карту
+});
 
 //Переменные блока MET
 //START
