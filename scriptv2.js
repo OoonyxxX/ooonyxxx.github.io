@@ -341,13 +341,14 @@ function initMET(categories, iconsData) {
 		const popupEl = popup.getElement();
 		const contentEl = popupEl.querySelector('.leaflet-popup-content');
 		const formN      = contentEl.querySelector('#marker-form');
-		cancelBtn = contentEl.querySelector('#cancel-btn');
-		submitBtn = contentEl.querySelector('#submit-btn');
-		console.log(submitBtn);
+		const cancelBtnN = contentEl.querySelector('#cancel-btn');
+		const submitBtnN = contentEl.querySelector('#submit-btn');
+		console.log(submitBtnN);
+		console.log(cancelBtnN);
 		console.log(contentEl);
 		console.log(formN);
 		// 7) Обработчик submit
-		submitBtn.addEventListener('click', ev => {
+		submitBtnN.addEventListener('click', ev => {
 			ev.preventDefault();
 			const data		  = new FormData(formN);
 			const title       = data.get('title')       || 'Name_PlaceHolder';
@@ -409,7 +410,7 @@ function initMET(categories, iconsData) {
 		});
 
 		// 9) Обработчик Cancel/Delete
-		cancelBtn.addEventListener('click', () => {
+		cancelBtnN.addEventListener('click', () => {
 		  if (isNew) {
 			// — удаляем маркер совсем
 			map.removeLayer(marker);
