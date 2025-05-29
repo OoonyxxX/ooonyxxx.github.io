@@ -70,6 +70,10 @@ map.on('zoomend', function () {
 //START
 //const m = L.marker(mData.coords, { icon, id: mData.id })
 const existingMarkers = new Map();
+marker.bindPopup(clone, {
+  autoClose:   false,  // не закрывать при клике вне
+  closeOnClick:false   // не закрывать при клике на карту
+});
 const layers   = {};     // id категории → L.LayerGroup
 //END
 //Переменные для редактирования существующих меток
@@ -334,10 +338,6 @@ function initMET(categories, iconsData) {
 		  submitBtn.textContent = 'Save';
 		  cancelBtn.textContent = 'Delete';
 		}
-		marker.bindPopup(clone, {
-		  autoClose:   false,  // не закрывать при клике вне
-		  closeOnClick:false   // не закрывать при клике на карту
-		}).openPopup();
 		iconSel.addEventListener('change', e => {
 		  const selectedId = e.target.value;
 		  const newIc      = iconsData.find(ic => ic.id == selectedId) || icons.default;
@@ -349,6 +349,12 @@ function initMET(categories, iconsData) {
 		  }));
 		});
 		console.log(form);
+		
+		marker.on('click', () => {
+		  if (!marker.isPopupOpen()) {
+			marker.openPopup();
+		  }
+		});
 		
 		let dragTimer;
 		marker.on('mousedown', () => {
