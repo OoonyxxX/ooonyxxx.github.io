@@ -206,6 +206,7 @@ function checkAuth(categories, iconsData) {
 //END
 //Блок авторизации
 
+const tpl = document.getElementById('marker-form-template');
 
 function genId(title, lat, lng) {
   // 1) Title: пробелы → нижнее подчёркивание, оборвать лишние пробелы
@@ -287,85 +288,64 @@ function initMET(categories, iconsData) {
 	  // Открытие popup для создания/редактирования
 	  function openEditPopup(marker, isNew, categories, iconsData) {
 		marker.unbindPopup();
-		//marker.off('click');  ???
         marker.off('popupopen');
+		const clone = tpl.content.cloneNode(true);
+		const form      = clone.querySelector('#marker-form');
+		const titleIn   = form.querySelector('input[name="title"]');
+		const descIn    = form.querySelector('textarea[name="description"]');
+		const catSel    = form.querySelector('select[name="category"]');
+		const iconSel   = form.querySelector('select[name="icon"]');
+		const latIn     = form.querySelector('input[name="lat"]');
+		const lngIn     = form.querySelector('input[name="lng"]');
+		const submitBtn = form.querySelector('#submit-btn');
+		const cancelBtn = form.querySelector('#cancel-btn');
 		const latlng = isNew
 		  ? marker.getLatLng()   // для новых берём клик-координаты
 		  : marker.getLatLng();  // для старых — тоже из самого маркера
-		const formHtml = `
-		<form id="marker-form">
-			<label>Title:
-				<input name="title"
-					value="${isNew ? '' : marker.options.name}"
-					placeholder="${isNew ? 'Name_PlaceHolder' : ''}"
-					required
-				/>
-			</label>
-			<label>Description
-					<textarea name="description"
-					maxlength="60"
-					placeholder="${isNew ? 'Description_PlaceHolder' : ''}"
-				>${isNew ? '' : marker.options.description}</textarea>
-			</label>
-			<label>Category
-				<select name="category">
-					${isNew
-						? `<option value="" selected>none</option>`
-						: `<option value="">none</option>`
-					}
-					${categories.map(cat =>
-						`<option value="${cat.id}"
-						${!isNew && cat.id == marker.options.category_id ? 'selected' : ''}
-						>${cat.label}</option>`
-					).join('')}
-				</select>
-			</label>
-			<label>Icon
-				<select name="icon">
-					${isNew
-						? `<option value="" selected>default</option>`
-						: `<option value="">default</option>`
-					}
-					${iconsData.map(ic =>
-						`<option value="${ic.id}"
-						${!isNew && ic.id == marker.options.icon_id ? 'selected' : ''}
-						>${ic.name}</option>`
-					).join('')}
-				</select>
-			</label>
-			<label>Y
-				<input type="number" name="lat"
-				value="${isNew ? latlng.lat : marker.getLatLng().lat}"
-				step="any" required />
-			</label>
-			<label>X
-				<input type="number" name="lng"
-				value="${isNew ? latlng.lng : marker.getLatLng().lng}"
-				step="any" required />
-			</label>
-			
-			<button type="button" id="submit-btn">
-				${isNew ? 'Create' : 'Save'}
-			</button>
-			<button type="button" id="cancel-btn">
-				${isNew ? 'Cancel' : 'Delete'}
-			</button>
-		</form>`;
-		marker.bindPopup(formHtml).openPopup();
+		
+		categories.forEach(cat => {
+		  const opt = document.createElement('option');
+		  opt.value = cat.id;
+		  opt.textContent = cat.label;
+		  catSel.append(opt);
+		});
+		  iconsData.forEach(ic => {
+		  const opt = document.createElement('option');
+		  opt.value = ic.id;
+		  opt.textContent = ic.name;
+		  iconSel.append(opt);
+		});
+		if (isNew) {
+		  titleIn.value       = 'Name_PlaceHolder';
+		  descIn.value        = 'Description_PlaceHolder';
+		  catSel.value        = 'none';
+		  iconSel.value       = 'default';
+		  latIn.value         = latlng.lat;
+		  lngIn.value         = latlng.lng;
+		  submitBtn.textContent = 'Create';
+		  cancelBtn.textContent = 'Cancel';
+		} else {
+		  titleIn.value       = marker.options.name;
+		  descIn.value        = marker.options.description;
+		  catSel.value        = marker.options.category_id || 'none';
+		  iconSel.value       = marker.options.icon_id || 'default';
+		  latIn.value         = marker.options.coords[0];
+		  lngIn.value         = marker.options.coords[1];
+		  submitBtn.textContent = 'Save';
+		  cancelBtn.textContent = 'Delete';
+		}
+		marker.bindPopup(clone).openPopup();
 		
 		marker.on('popupopen', e => {
 			const popupEl = e.popup.getElement();
 			const contentEl = popupEl.querySelector('.leaflet-popup-content');
-			const form      = contentEl.querySelector('#marker-form');
-			const cancelBtn = contentEl.querySelector('#cancel-btn');
-			const submitBtn = contentEl.querySelector('#submit-btn');
 			console.log(submitBtn);
 			console.log(contentEl);
 			console.log(form);
 			// 7) Обработчик submit
 			submitBtn.addEventListener('click', ev => {
 				ev.preventDefault();
-				const data = new FormData(form);
+				const data		  = new FormData(form);
 				const title       = data.get('title')       || 'Name_PlaceHolder';
 				const description = data.get('description') || 'Description_PlaceHolder';
 				const category_id = data.get('category')    || null;

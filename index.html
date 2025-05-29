@@ -21,64 +21,39 @@
   
   <div id="map"></div>
   <template id="marker-form-template">
-	<form id="marker-form">
-		<label>Title:
-			<input name="title"
-				value="${isNew ? '' : marker.options.name}"
-				placeholder="${isNew ? 'Name_PlaceHolder' : ''}"
-				required
-			/>
-		</label>
+	  <form id="marker-form">
+		<label>Title
+		  <input name="title" placeholder="Name_PlaceHolder" required />
+		</label><br/>
+
 		<label>Description
-				<textarea name="description"
-				maxlength="60"
-				placeholder="${isNew ? 'Description_PlaceHolder' : ''}"
-			>${isNew ? '' : marker.options.description}</textarea>
-		</label>
+		  <textarea name="description" maxlength="60" placeholder="Description_PlaceHolder"></textarea>
+		</label><br/>
+
 		<label>Category
-			<select name="category">
-				${isNew
-					? `<option value="" selected>none</option>`
-					: `<option value="">none</option>`
-				}
-				${categories.map(cat =>
-					`<option value="${cat.id}"
-					${!isNew && cat.id == marker.options.category_id ? 'selected' : ''}
-					>${cat.label}</option>`
-				).join('')}
-			</select>
-		</label>
+		  <select name="category">
+			<option value="" selected>none</option>
+			<!-- JS вставит сюда остальные опции -->
+		  </select>
+		</label><br/>
+
 		<label>Icon
-			<select name="icon">
-				${isNew
-					? `<option value="" selected>default</option>`
-					: `<option value="">default</option>`
-				}
-				${iconsData.map(ic =>
-					`<option value="${ic.id}"
-					${!isNew && ic.id == marker.options.icon_id ? 'selected' : ''}
-					>${ic.name}</option>`
-				).join('')}
-			</select>
-		</label>
+		  <select name="icon">
+			<option value="" selected>default</option>
+			<!-- JS вставит сюда остальные опции -->
+		  </select>
+		</label><br/>
+
 		<label>Y
-			<input type="number" name="lat"
-			value="${isNew ? latlng.lat : marker.getLatLng().lat}"
-			step="any" required />
+		  <input type="number" name="lat" step="any" required />
 		</label>
 		<label>X
-			<input type="number" name="lng"
-			value="${isNew ? latlng.lng : marker.getLatLng().lng}"
-			step="any" required />
-		</label>
-		
-		<button type="button" id="submit-btn">
-			${isNew ? 'Create' : 'Save'}
-		</button>
-		<button type="button" id="cancel-btn">
-			${isNew ? 'Cancel' : 'Delete'}
-		</button>
-	</form>
+		  <input type="number" name="lng" step="any" required />
+		</label><br/>
+
+		<button type="button" id="submit-btn">Save</button>
+		<button type="button" id="cancel-btn">Cancel</button>
+	  </form>
   </template>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="scriptv2.js"></script>
