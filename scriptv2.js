@@ -123,15 +123,15 @@ Promise.all([
     const marker = L.marker(coords, { icon })
       .bindPopup(`<b>${name}</b><br>${description}`);
 	  
-    // опционально сохраняем id и данные в options
-    marker.options.id = id;
-    marker.options.name = name;
-    marker.options.description = description;
+	// опционально сохраняем id и данные в options
+	marker.options.id = id;
+	marker.options.name = name;
+	marker.options.description = description;
 	marker.options.coords = coords;
-    marker.options.category_id = category_id;
-    marker.options.icon_id = icon_id;
-
-    layer.addLayer(marker);
+	marker.options.category_id = category_id;
+	marker.options.icon_id = icon_id;
+	
+	layer.addLayer(marker);
 	existingMarkers.set(marker.options.id, marker);
   });
   L.control
@@ -181,7 +181,7 @@ function checkAuth(categories, iconsData) {
         const username = data.username;
         usernameDisplay.textContent = `Hello, ${username}`;
         loginButton.style.display = "none";
-
+		
         if (allowedEditors.includes(username)) {
           console.log("Editor acepted");
 		  
@@ -230,8 +230,8 @@ function initMET(categories, iconsData) {
 	  let metActive = false;
 	  let addingMarker = false;
 	  const diff = { added: [], updated: [], deleted: [] };
-
-
+	
+	
 	  // Активация MET
 	  btnActivate.addEventListener('click', () => {
 		metActive = true;
@@ -249,7 +249,7 @@ function initMET(categories, iconsData) {
           marker.on('click', () => openEditPopup(marker, false, categories, iconsData));
         });
 	  });
-
+		
 	  // Выход из MET
 	  btnExit.addEventListener('click', () => {
 		metActive = false;
@@ -268,14 +268,14 @@ function initMET(categories, iconsData) {
 			marker.bindPopup(`<b>${marker.options.name}</b><br>${marker.options.description}`);
         });
 	  });
-
+		
 	  // Включение режима добавления маркера
 	  btnAdd.addEventListener('click', () => {
 		if (!metActive) return;
 		addingMarker = true;
 		console.log('Click on map to add marker');
 	  });
-
+		
 	  // Обработчик клика по карте
 	  function METOnMapClick(e) {
 		if (!addingMarker) return;
@@ -438,11 +438,11 @@ function initMET(categories, iconsData) {
 				btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
 				console.log(marker.options.id);
 			}
-
+			
 			  // 8) Закрыть попап и обновить слой
 			  marker.closePopup();
 		});
-
+		
 		// 9) Обработчик Cancel/Delete
 		cancelBtnN.addEventListener('click', () => {
 		  if (isNew) {
