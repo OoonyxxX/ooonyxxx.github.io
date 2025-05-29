@@ -339,6 +339,9 @@ function initMET(categories, iconsData) {
 		marker.on('popupopen', e => {
 			const popupEl = e.popup.getElement();
 			const contentEl = popupEl.querySelector('.leaflet-popup-content');
+			const form      = contentEl.querySelector('#marker-form');
+			const cancelBtn = contentEl.querySelector('#cancel-btn');
+			const submitBtn = contentEl.querySelector('#submit-btn');
 			console.log(submitBtn);
 			console.log(contentEl);
 			console.log(form);
