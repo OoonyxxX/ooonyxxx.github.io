@@ -359,8 +359,6 @@ function initMET(categories, iconsData) {
 			const form      = contentEl.querySelector('#marker-form');
 			const cancelBtn = contentEl.querySelector('#cancel-btn');
 			const submitBtn = contentEl.querySelector('#submit-btn');
-			//const form      = container.querySelector('#marker-form');
-			//const cancelBtn = container.querySelector('#cancel-btn');
 
 			// 7) Обработчик submit
 			submitBtn.addEventListener('click', ev => {
@@ -372,7 +370,8 @@ function initMET(categories, iconsData) {
 				const icon_id     = data.get('icon')        || 'default';
 				const lat         = parseFloat(data.get('lat'));
 				const lng         = parseFloat(data.get('lng'));
-
+				console.log(data);
+				
 				if (isNew) {
 					const newId = genId(title, lat, lng);
 					marker.options.id 		   = newId;
@@ -391,6 +390,7 @@ function initMET(categories, iconsData) {
 					  coords:        marker.options.coords
 					});
 					btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
+					console.log(newId);
 				} else {
 					const oldCategoryId = marker.options.category_id;
 					const newCategoryId = category_id;
@@ -398,13 +398,15 @@ function initMET(categories, iconsData) {
 					const newLayer = layers[newCategoryId];
 					oldLayer.removeLayer(marker);
 					newLayer.addLayer(marker);
-					
+					console.log(oldCategoryId);
+					console.log(newCategoryId);
 					marker.options.name        = title;
 					marker.options.description = description;
 					marker.options.category_id = category_id;
 					marker.options.icon_id     = icon_id;
 					marker.options.coords = [lat, lng];
 					marker.setLatLng([lat, lng]);
+					console.log(marker.options.icon_id);
 					const newIcon = iconsData.find(ic => ic.id == icon_id);
 					marker.setIcon(L.icon({
 					  iconUrl:    newIcon.url,
