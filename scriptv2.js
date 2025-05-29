@@ -286,7 +286,7 @@ function initMET(categories, iconsData) {
 	  }
 	  
 	  // Открытие popup для создания/редактирования
-	  function openEditPopup(marker, isNew, categories, iconsData) {
+	  function openEditPopup(marker, isNew, categories, iconsData, layers) {
 		marker.unbindPopup();
 		const clone = tpl.content.cloneNode(true);
 		const form      = clone.querySelector('#marker-form');
