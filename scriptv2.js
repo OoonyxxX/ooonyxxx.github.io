@@ -339,7 +339,7 @@ function initMET(categories, iconsData) {
 		
 		const popupEl = popup.getElement();
 		const contentEl = popupEl.querySelector('.leaflet-popup-content');
-		const form      = contentEl.querySelector('#marker-form');
+		const formN      = contentEl.querySelector('#marker-form');
 		const cancelBtn = contentEl.querySelector('#cancel-btn');
 		const submitBtn = contentEl.querySelector('#submit-btn');
 		console.log(submitBtn);
@@ -348,7 +348,7 @@ function initMET(categories, iconsData) {
 		// 7) Обработчик submit
 		submitBtn.addEventListener('click', ev => {
 			ev.preventDefault();
-			const data		  = new FormData(form);
+			const data		  = new FormData(formN);
 			const title       = data.get('title')       || 'Name_PlaceHolder';
 			const description = data.get('description') || 'Description_PlaceHolder';
 			const category_id = data.get('category')    || null;
