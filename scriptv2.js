@@ -301,13 +301,15 @@ function initMET(categories, iconsData) {
 		  ? marker.getLatLng()   // для новых берём клик-координаты
 		  : marker.getLatLng();  // для старых — тоже из самого маркера
 		
+		
+		
 		categories.forEach(cat => {
 		  const opt = document.createElement('option');
 		  opt.value = cat.id;
 		  opt.textContent = cat.label;
 		  catSel.append(opt);
 		});
-		  iconsData.forEach(ic => {
+		iconsData.forEach(ic => {
 		  const opt = document.createElement('option');
 		  opt.value = ic.id;
 		  opt.textContent = ic.name;
@@ -333,8 +335,39 @@ function initMET(categories, iconsData) {
 		  cancelBtn.textContent = 'Delete';
 		}
 		marker.bindPopup(clone).openPopup();
-		
+		iconSel.addEventListener('change', e => {
+		  const selectedId = e.target.value;
+		  const newIc      = iconsData.find(ic => ic.id == selectedId) || icons.default;
+		  marker.setIcon(L.icon({
+			iconUrl:    newIc.url,
+			iconSize:   [32, 32],
+			iconAnchor: [16, 32],
+			popupAnchor:[0, -32]
+		  }));
+		});
 		console.log(form);
+		
+		let dragTimer;
+		marker.on('mousedown', () => {
+		  dragTimer = setTimeout(() => {
+			marker.dragging.enable();         // включили перетаскивание
+		  }, 2000);                            // 2000 мс удержания
+		});
+		
+		marker.on('mouseup mouseleave', () => {
+		  clearTimeout(dragTimer);
+		});
+		
+		marker.on('drag',  => {
+		  const { lat, lng } = target.getLatLng();
+		  // здесь form — та же константа из клона
+		  form.querySelector('input[name="lat"]').value = lat.toFixed(6);
+		  form.querySelector('input[name="lng"]').value = lng.toFixed(6);
+		});
+		
+		marker.on('dragend', () => {
+		  marker.dragging.disable();
+		});
 		
 		const popup = marker.getPopup();
 		const popupEl = popup.getElement();
