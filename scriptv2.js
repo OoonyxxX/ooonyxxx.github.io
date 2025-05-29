@@ -380,13 +380,13 @@ function initMET(categories, iconsData, layers) {
 				console.log(newId);
 			} else {
 				const oldCategoryId = marker.options.category_id;
+				console.log(oldCategoryId);
 				const newCategoryId = category_id;
+				console.log(newCategoryId);
 				const oldLayer = layers[oldCategoryId];
 				const newLayer = layers[newCategoryId];
 				oldLayer.removeLayer(marker);
 				newLayer.addLayer(marker);
-				console.log(oldCategoryId);
-				console.log(newCategoryId);
 				marker.options.name        = title;
 				marker.options.description = description;
 				marker.options.category_id = category_id;
