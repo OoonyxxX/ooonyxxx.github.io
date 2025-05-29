@@ -366,11 +366,14 @@ function initMET(categories, iconsData) {
 		  // здесь form — та же константа из клона
 		  latIn.value = lat.toFixed(6);
 		  lngIn.value = lng.toFixed(6);
+		  const popup = marker.getPopup();
+		  if (popup && marker.isPopupOpen()) {
+		    popup.setLatLng(latlng).update();
+		  }
 		});
 		
 		marker.on('dragend', () => {
 		  marker.dragging.disable();
-		  marker.openPopup();
 		});
 		
 		const popup = marker.getPopup();
