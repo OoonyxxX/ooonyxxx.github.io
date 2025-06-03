@@ -1,0 +1,62 @@
+/* CUSTOM CURSORS */
+/* START */
+#custom-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 52px;
+  height: 52px;
+  pointer-events: none;
+  z-index: 9999;
+  /* любая базовая трансформация, transition для плавности */
+  transition: 
+    filter 0.2s, 
+    transform 0.2s,
+    opacity 0.2s;
+}
+/* cursor mode */
+.cursor-base {
+	
+}
+.cursor-base--hover {
+	
+}
+.cursor-base--active {
+	
+}
+.cursor-input {
+	
+}
+.cursor-background{
+	
+}
+.cursor-grab-map{
+	
+}
+.cursor-grab-marker{
+	
+}
+/* cursor modifier */
+.cursor-blink-blue{
+	
+}
+.cursor-blink-red{
+	
+}
+.cursor-timer-blue{
+	
+}
+.cursor-btimer-red{
+	
+}
+.cursor-scale-up{
+	
+}
+.cursor-scale-down{
+	
+}
+.cursor-attenuation{
+	
+}
+/* END */
+/* CUSTOM CURSORS */

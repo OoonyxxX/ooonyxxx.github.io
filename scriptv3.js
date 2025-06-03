@@ -1,29 +1,17 @@
-const mapTile = 256;
-const mapSize = 8192;
-const mapTileBorder = 128;
-const mapTileSize = [mapTile / 2, mapTile / 2];
-const mapSize05 = [mapSize / 2, mapSize / 2];
-const mapSize10 = [[0, 0], [mapSize, mapSize]];
-const mapBorder = 1024;
-const mapWidth = 8192;
-const mapHeight = 8192;
-const screen_frame_mult = 1;
-const mapTileWR = mapTile + mapTileBorder + ((window.innerWidth / 16) * screen_frame_mult);
-const mapTileHT = mapTile + ((window.innerHeight / 9) * screen_frame_mult);
-const mapTileWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult);
-const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
-//1920x1080 120px
-const bounds = [[0, 0], [mapHeight, mapWidth]];
-
-
 const allowedEditors = [
 "OoonyxxX", 
 "333tripleit"
 ];
 
-
 //Инициализация Карты
 //START
+const screen_frame_mult = 1;
+const mapTile = 256;
+const mapTileBorder = 128;
+const mapTileWR = mapTile + mapTileBorder + ((window.innerWidth / 16) * screen_frame_mult);
+const mapTileHT = mapTile + ((window.innerHeight / 9) * screen_frame_mult);
+const mapTileWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult);
+const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 const map = L.map('map', {
   crs: L.CRS.Simple,
   minZoom: 2,
@@ -36,18 +24,12 @@ const map = L.map('map', {
   maxBoundsViscosity: 0.5,
   center: [128, 128]
 });
-//END
-//Инициализация Карты
 
-
-//Тайловая карта
-//START
 L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
   noWrap: true,
 }).addTo(map);
 //END
-//Тайловая карта
-
+//Инициализация Карты
 
 //Адаптивный зумм для карты
 //START
@@ -63,19 +45,8 @@ map.on('zoomend', function () {
 //END
 //Адаптивный зумм для карты
 
-
-
-
-//Переменные для редактирования существующих меток
-//START
-//const m = L.marker(mData.coords, { icon, id: mData.id })
 const existingMarkers = new Map();
-const layers   = {};     // id категории → L.LayerGroup
-//END
-//Переменные для редактирования существующих меток
-
-
-
+const layers   = {};
 
 //Слои меток + Фильтры
 //START
@@ -115,15 +86,11 @@ Promise.all([
   // 3) Создаём маркеры из markersData
   markersData.forEach(m => {
     const {id, name, description, coords, category_id, icon_id} = m;
-	
-    // выбираем иконку, fallback → icons.default
     const icon  = icons[icon_id] || icons.default;
     const layer = layers[category_id];
-	
     const marker = L.marker(coords, { icon })
       .bindPopup(`<b>${name}</b><br>${description}`);
-	  
-	// опционально сохраняем id и данные в options
+
 	marker.options.id = id;
 	marker.options.name = name;
 	marker.options.description = description;
@@ -207,17 +174,11 @@ function checkAuth(categories, iconsData) {
 const tpl = document.getElementById('marker-form-template');
 
 function genId(title, lat, lng) {
-  // 1) Title: пробелы → нижнее подчёркивание, оборвать лишние пробелы
   const safeTitle = title.trim().replace(/\s+/g, '_');
-
-  // 2) Рандом 8 цифр
-  const rand = String(Math.floor(Math.random() * 1e8))
-	.padStart(8, '0');
-
-  // 3) Координаты ×1000, 6-значным числом, с ведущими нулями
+  const rand = String(Math.floor(Math.random() * 1e8)).padStart(8, '0');
   const latPart = String(Math.round(lat * 1000)).padStart(6, '0');
   const lngPart = String(Math.round(lng * 1000)).padStart(6, '0');
-
+  
   return `${safeTitle}_${rand}_${latPart}_${lngPart}`;
 }
 
@@ -229,8 +190,8 @@ function initMET(categories, iconsData) {
 	  let metActive = false;
 	  let addingMarker = false;
 	  const diff = { added: [], updated: [], deleted: [] };
-	
-	
+	  
+	  
 	  // Активация MET
 	  btnActivate.addEventListener('click', () => {
 		metActive = true;
@@ -335,15 +296,17 @@ function initMET(categories, iconsData) {
 		}
 		
 		marker.bindPopup(clone, {
-		  autoClose:   false,  // не закрывать при клике вне
-		  closeOnClick:false   // не закрывать при клике на карту
+		  autoClose:   false,
+		  closeOnClick:false 
 		});
-		
 		marker.on('click', () => {
 		  if (!marker.isPopupOpen()) {
 			marker.openPopup();
+			console.log(!marker.isPopupOpen());
 		  }
 		});
+		
+		console.log(!marker.isPopupOpen());
 		
 		iconSel.addEventListener('change', e => {
 		  const selectedId = e.target.value;
@@ -360,8 +323,8 @@ function initMET(categories, iconsData) {
 		let dragTimer;
 		marker.on('mousedown', () => {
 		  dragTimer = setTimeout(() => {
-			marker.dragging.enable();         // включили перетаскивание
-		  }, 400);                            // 2000 мс удержания
+			marker.dragging.enable();
+		  }, 400);
 		});
 		
 		marker.on('mouseup mouseleave', () => {

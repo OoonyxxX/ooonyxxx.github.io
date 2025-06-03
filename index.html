@@ -5,6 +5,7 @@
   <title>SOTN2 Interactive Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="cursor.css" />
 </head>
 <body>
   <h2>Interactive Map SOTN2</h2>
@@ -55,7 +56,136 @@
 		<button type="button" id="cancel-btn">Cancel</button>
 	  </form>
   </template>
+  <div id="custom-cursor">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" class="custom-cursor-svg">
+	  <defs>
+		<clipPath id="clipTimer">
+		  <path d="M26,26 L26,0 A24,24 0 0,1 52,26 Z" fill="#FFFFFF"/>
+		</clipPath>
+		<mask id="timerMask">
+		  <circle cx="26" cy="26" r="24" stroke="white" fill="none" stroke-width="48" stroke-dasharray="150" stroke-dashoffset="0">
+			<!-- <animate attributeName="stroke-dashoffset" to="0" dur="3s" fill="freeze"/> -->
+		  </circle>
+		</mask>
+		<clipPath id="clipL1">
+		  <circle cx="26" cy="26" r="24"/>
+		</clipPath>
+		<filter id="layerBlur80" x="-400%" y="-400%" width="900%" height="900%">
+		  <feGaussianBlur stdDeviation="8"/>
+		</filter>
+		<filter id="layerBlur60" x="-400%" y="-400%" width="900%" height="900%">
+		  <feGaussianBlur stdDeviation="6"/>
+		</filter>
+		<filter id="layerBlur40" x="-50%" y="-50%" width="200%" height="200%">
+		  <feGaussianBlur stdDeviation="4"/>
+		</filter>
+		<filter id="layerBlur20" x="-200%" y="-200%" width="500%" height="500%">
+		  <feGaussianBlur stdDeviation="2"/>
+		</filter>
+		<filter id="layerBlur14" x="-400%" y="-400%" width="900%" height="900%">
+		  <feGaussianBlur stdDeviation="1.4"/>
+		</filter>
+		<filter id="layerBlur10" x="-200%" y="-200%" width="500%" height="500%">
+		  <feGaussianBlur stdDeviation="1"/>
+		</filter>
+		<filter id="layerBlur06" x="-400%" y="-400%" width="900%" height="900%">
+		  <feGaussianBlur stdDeviation="0.6"/>
+		</filter>
+	  </defs>
+	  <g id="Cursor" class="CursorStack">
+		  <g id="base" class="baseStack" style="mix-blend-mode: color;"> <!-- style="mix-blend-mode: none;  -->
+			  <circle class="base_anim_borderCircle" cx="26" cy="26" r="24" fill="none" stroke="#D9D9D9" stroke-opacity="0.85" stroke-width="6" filter="url(#layerBlur40)" clip-path="url(#clipL1)"/>
+			  <!-- from class="base_anim_borderCircle" to stroke-width="4" filter="url(#layerBlur14)"  -->
+			  <circle base_anim_innerCircle1 cx="26" cy="26" r="24" fill="#D9D9D9" fill-opacity="0.4" filter="url(#layerBlur06)"/>
+			  <!-- noanim  -->
+			  <circle class="base_anim_innerCircle2" cx="26" cy="26" r="2" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="2" filter="url(#layerBlur20)"/>
+			  <!-- from class="base_anim_innerCircle" to r="12" stroke-width="1" filter="url(#layerBlur10)"  -->
+			  <circle base_anim_centerCircle cx="26" cy="26" r="1" fill="none" stroke="#FFFFFF" stroke-opacity="1" stroke-width="2" filter="url(#layerBlur10)"/>
+			  <!-- noanim  -->
+			  <g id="pointArrayToHover" class="hoverAnimPointArray"> <!-- transform: rotate Ndeg -->
+				  <circle class="Point5" cx="26" cy="43" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+				  <circle class="Point5" cx="26" cy="43" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+				  <circle class="Point3" cx="43" cy="26" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+				  <circle class="Point3" cx="43" cy="26" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+				  <circle class="Point7" cx="9" cy="26" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+				  <circle class="Point7" cx="9" cy="26" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+				  <circle class="Point1" cx="26" cy="9" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+				  <circle class="Point1" cx="26" cy="9" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+				  <circle class="Point4" cx="38" cy="38" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+				  <circle class="Point4" cx="38" cy="38" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+				  <circle class="Point8" cx="14" cy="14" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+				  <circle class="Point8" cx="14" cy="14" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+				  <circle class="Point2" cx="38" cy="14" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+				  <circle class="Point2" cx="38" cy="14" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+				  <circle class="Point6" cx="14" cy="38" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+				  <circle class="Point6" cx="14" cy="38" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+			  </g>
+		  </g>
+		  <g id="Timer" class="TimerEffect" mask="url(#timerMask)" > <!-- clip-path="url(#clipTimer)" -->
+			  <g id="TimerBlue" class="TimerBlueEffect">
+				  <circle class="base_anim_borderCircle" cx="26" cy="26" r="24" fill="none" stroke="#00897a" stroke-opacity="0.85" stroke-width="6" filter="url(#layerBlur40)" clip-path="url(#clipL1)"/>
+				  <circle base_anim_innerCircle1 cx="26" cy="26" r="24" fill="#067F72" fill-opacity="0.4" filter="url(#layerBlur06)"/>
+				  <circle class="base_anim_innerCircle2" cx="26" cy="26" r="2" fill="none" stroke="#0ce7d0" stroke-opacity="0.5" stroke-width="2" filter="url(#layerBlur20)"/>
+				  <circle base_anim_centerCircle cx="26" cy="26" r="1" fill="none" stroke="#0ce7d0" stroke-opacity="1" stroke-width="2" filter="url(#layerBlur10)"/>
+				  <g id="pointMaskArrayToHover" class="hoverMaskAnimPointArray"> <!-- transform: rotate Ndeg -->
+					  <circle class="Point5" cx="26" cy="43" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point5" cx="26" cy="43" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point3" cx="43" cy="26" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point3" cx="43" cy="26" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point7" cx="9" cy="26" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point7" cx="9" cy="26" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point1" cx="26" cy="9" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point1" cx="26" cy="9" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point4" cx="38" cy="38" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point4" cx="38" cy="38" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point8" cx="14" cy="14" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point8" cx="14" cy="14" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point2" cx="38" cy="14" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point2" cx="38" cy="14" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point6" cx="14" cy="38" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point6" cx="14" cy="38" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+				  </g>
+			  </g>
+			  <g id="TimerRed" class="TimerRedEffect">
+				  <circle class="base_anim_borderCircle" cx="26" cy="26" r="24" fill="none" stroke="#e32525" stroke-opacity="0.85" stroke-width="6" filter="url(#layerBlur40)" clip-path="url(#clipL1)"/>
+				  <circle base_anim_innerCircle1 cx="26" cy="26" r="24" fill="#b11c1c" fill-opacity="0.4" filter="url(#layerBlur06)"/>
+				  <circle class="base_anim_innerCircle2" cx="26" cy="26" r="2" fill="none" stroke="#b11c1c" stroke-opacity="0.5" stroke-width="2" filter="url(#layerBlur20)"/>
+				  <circle base_anim_centerCircle cx="26" cy="26" r="1" fill="none" stroke="#ff2b2b" stroke-opacity="1" stroke-width="2" filter="url(#layerBlur10)"/>
+				  <g id="pointArrayToHover" class="hoverAnimPointArray"> <!-- transform: rotate Ndeg -->
+					  <circle class="Point5" cx="26" cy="43" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point5" cx="26" cy="43" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point3" cx="43" cy="26" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point3" cx="43" cy="26" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point7" cx="9" cy="26" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point7" cx="9" cy="26" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point1" cx="26" cy="9" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point1" cx="26" cy="9" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point4" cx="38" cy="38" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point4" cx="38" cy="38" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point8" cx="14" cy="14" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point8" cx="14" cy="14" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point2" cx="38" cy="14" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point2" cx="38" cy="14" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+					  <circle class="Point6" cx="14" cy="38" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+					  <circle class="Point6" cx="14" cy="38" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+				  </g>
+			  </g>
+		  </g>
+	  </g>
+	  <g id="blink" class="blink_effect">
+		  <g id="blueBlink" class="blueBlinkEffect">
+			  <circle cx="26" cy="26" r="16" fill="#0EFBE2" fill-opacity="0.5" filter="url(#layerBlur60)" clip-path="url(#clipL1)"/>
+			  <circle cx="26" cy="26" r="10" fill="#0EFBE2" fill-opacity="0.8" filter="url(#layerBlur80)" clip-path="url(#clipL1)"/>
+		  </g>
+		  <g id="redBlink" class="redBlinkEffect">
+			  <circle cx="26" cy="26" r="16" fill="#DF2323" fill-opacity="0.5" filter="url(#layerBlur60)" clip-path="url(#clipL1)"/>
+			  <circle cx="26" cy="26" r="10" fill="#DF2323" fill-opacity="0.8" filter="url(#layerBlur80)" clip-path="url(#clipL1)"/>
+		  </g>
+	  </g>
+	</svg>
+  </div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="scriptv2.js"></script>
+  <script src="cursor.js"></script>
 </body>
 </html>
