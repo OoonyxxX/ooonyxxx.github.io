@@ -14,7 +14,6 @@
     transform 0.2s,
     opacity 0.2s;
   transform-origin: center;
-  transform: scale(0.7);
 }
 /* cursor mode */
 .TimerEffect,
@@ -23,12 +22,13 @@
 .blink_effect,
 .blueBlinkEffect,
 .redBlinkEffect,
-.baseStack {
+.hoverAnimPointArray {
   display: none;
 }
 
 .cursor-base {
   display: block;
+  transform: scale(0.7);
 }
 .cursor-base .baseStack {
   display: inline;
