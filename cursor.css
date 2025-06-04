@@ -16,10 +16,13 @@
 }
 /* cursor mode */
 .cursor-base {
-	
+  display: block;
 }
-.cursor-base--hover {
-	
+.cursor-base .hoverAnimPointArray {
+  display: none;
+}
+.cursor-base--hover .hoverAnimPointArray {
+  display: inline;
 }
 .cursor-base--active {
 	
