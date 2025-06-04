@@ -15,6 +15,15 @@
     opacity 0.2s;
 }
 /* cursor mode */
+.TimerEffect,
+.TimerBlueEffect,
+.TimerRedEffect,
+.blink_effect,
+.blueBlinkEffect,
+.redBlinkEffect {
+  display: none;
+}
+
 .cursor-base {
   display: block;
 }
