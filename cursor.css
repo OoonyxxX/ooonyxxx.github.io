@@ -13,6 +13,8 @@
     filter 0.2s, 
     transform 0.2s,
     opacity 0.2s;
+  transform-origin: center;
+  transform: scale(0.7);
 }
 /* cursor mode */
 .TimerEffect,
@@ -20,17 +22,28 @@
 .TimerRedEffect,
 .blink_effect,
 .blueBlinkEffect,
-.redBlinkEffect {
+.redBlinkEffect,
+.baseStack {
   display: none;
 }
 
 .cursor-base {
   display: block;
 }
-.cursor-base .hoverAnimPointArray {
+.cursor-base .baseStack {
+  display: inline;
+}
+.cursor-base .baseStack .hoverAnimPointArray {
   display: none;
 }
-.cursor-base--hover .hoverAnimPointArray {
+.cursor-base--hover {
+  display: block;
+  transform: scale(1);
+}
+.cursor-base--hover .baseStack {
+  display: inline;
+}
+.cursor-base--hover .baseStack .hoverAnimPointArray {
   display: inline;
 }
 .cursor-base--active {
