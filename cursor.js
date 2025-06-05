@@ -9,14 +9,14 @@ document.addEventListener('mousemove', e => {
 const mapContainer = document.getElementById('map');
 
 // показываем базовый курсор при наведении на карту
-mapContainer.addEventListener('mouseenter', () => {
-  customCursor.classList.remove('cursor-base--hover');
-});
+//mapContainer.addEventListener('mouseenter', () => {
+//  customCursor.classList.remove('cursor-base--hover');
+//});
 
 // скрываем кастомный курсор при уходе с карты
-mapContainer.addEventListener('mouseleave', () => {
-  customCursor.classList.remove('cursor-base--hover');
-});
+//mapContainer.addEventListener('mouseleave', () => {
+//  customCursor.classList.remove('cursor-base--hover');
+//});
 
 // активные элементы, для которых нужно показывать анимацию hover
 const activeSelectors = '.leaflet-marker-icon, a, button, .leaflet-popup-close-button';
