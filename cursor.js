@@ -1,4 +1,4 @@
-const targetGroup = document.getElementById('baseStack');
+const targetGroup = document.getElementById('base');
 
 let angle = 0;
 let scale = 0.7;
