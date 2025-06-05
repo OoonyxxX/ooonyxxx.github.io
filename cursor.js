@@ -26,6 +26,7 @@ document.addEventListener('mouseover', e => {
 	customCursor.classList.remove('cursor-base');
     customCursor.classList.add('cursor-base--hover');
 	customCursor.classList.add('scaleup');
+	customCursor.classList.remove('scaledown');
   }
 });
 
