@@ -16,6 +16,12 @@
   transform-origin: 26px 26px;
 }
 
+#scaleSup {
+  transform: scale(0.7);
+  transform-origin: 26px 26px;
+  transition: transform 0.2s ease;
+}
+
 @keyframes spin-hover {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
@@ -47,7 +53,6 @@
 }
 .cursor-base .baseStack {
   display: inline;
-  transform: scale(0.7);
   transform-origin: 26px 26px;
 }
 .cursor-base .hoverAnimPointArray {
@@ -67,12 +72,14 @@
 }
 .scaleup .baseScaleAnchor {
   display: inline;
-  animation: scaleup-hover 0.2s ease forwards;
+  transform: scale(1);
+  transition: transform 0.2s ease;
   transform-origin: 26px 26px;
 }
 .scaledown .baseScaleAnchor {
   display: inline;
-  animation: scaledown-hover 0.2s ease forwards;
+  transform: scale(0.7);
+  transition: transform 0.2s ease;
   transform-origin: 26px 26px;
 }
 

@@ -1,4 +1,5 @@
 const customCursor = document.getElementById('custom-cursor');
+const scaleGroup = document.getElementById('scaleSup');
 // обновление позиции курсора
 document.addEventListener('mousemove', e => {
   customCursor.style.left = (e.clientX - 26) + 'px';
@@ -25,18 +26,14 @@ document.addEventListener('mouseover', e => {
   if (e.target.closest(activeSelectors) && !e.relatedTarget?.closest(activeSelectors)) {
 	customCursor.classList.remove('cursor-base');
     customCursor.classList.add('cursor-base--hover');
-	customCursor.classList.add('scaleup');
+	scaleGroup.style.transform = 'scale(1)';
   }
 });
 
 document.addEventListener('mouseout', e => {
   if (e.target.closest(activeSelectors) && !e.relatedTarget?.closest(activeSelectors)) {
     customCursor.classList.remove('cursor-base--hover');
-	customCursor.classList.remove('scaleup');
-	customCursor.classList.add('scaledown');
-    setTimeout(() => {
-      customCursor.classList.remove('scaledown');
-      customCursor.classList.add('cursor-base');
-    }, 200); // 0.2s = 200ms
+    customCursor.classList.add('cursor-base');
+    scaleGroup.style.transform = 'scale(0.7)';
   }
 });
