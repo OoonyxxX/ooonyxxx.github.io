@@ -1,4 +1,4 @@
-const targetGroup = document.getElementById('base');
+const targetGroup = document.getElementById('pointArrayToHover');
 
 let angle = 0;
 let scale = 0.7;
