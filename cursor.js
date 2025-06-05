@@ -26,12 +26,14 @@ document.addEventListener('mouseover', e => {
   if (e.target.closest(activeSelectors)) {
 	customCursor.classList.remove('cursor-base');
     customCursor.classList.add('cursor-base--hover');
+	customCursor.classList.add('scaleup');
   }
 });
 
 document.addEventListener('mouseout', e => {
   if (e.target.closest(activeSelectors)) {
     customCursor.classList.remove('cursor-base--hover');
+	customCursor.classList.remove('scaleup');
 	customCursor.classList.add('scaledown');
     setTimeout(() => {
       customCursor.classList.remove('scaledown');
