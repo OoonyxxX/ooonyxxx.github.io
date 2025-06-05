@@ -48,6 +48,7 @@
 .cursor-base .baseStack {
   display: inline;
   transform: scale(0.7);
+  transform-origin: 26px 26px;
 }
 .cursor-base .baseStack .hoverAnimPointArray {
   display: none;
@@ -58,10 +59,12 @@
 .cursor-base--hover .baseStack {
   display: inline;
   transform: scale(1);
+  transform-origin: 26px 26px;
 }
 .cursor-base--hover .hoverAnimPointArray {
   display: inline;
   animation: spin-hover 8s linear infinite, scaleup-hover 0.2s ease forwards;
+  transform-origin: 26px 26px;
 }
 .scaledown {
   display: block;
@@ -69,10 +72,12 @@
 .scaledown .baseStack {
   display: inline;
   transform: scale(0.7);
+  transform-origin: 26px 26px;
 }
 .scaledown .hoverAnimPointArray {
   display: inline;
   animation: scaledown-hover 0.2s ease forwards;
+  transform-origin: 26px 26px;
 }
 
 .cursor-base--active {
