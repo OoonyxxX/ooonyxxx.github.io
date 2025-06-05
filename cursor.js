@@ -1,4 +1,4 @@
-const targetGroup = document.getElementById('cursor-base--hover');
+const targetGroup = document.getElementById('baseStack');
 
 let angle = 0;
 let scale = 0.7;
