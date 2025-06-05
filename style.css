@@ -10,29 +10,29 @@ body {
   height: 90vh;
 }
 
-* {
+.custom-cursor-on * {
   cursor: none;
 }
 
 /* cursors */
 /* START */
-.leaflet-interactive {
+.custom-cursor-on .leaflet-interactive {
 	cursor: none;
 	}
-.leaflet-grab {
+.custom-cursor-on .leaflet-grab {
 	cursor: none;
 	}
-.leaflet-crosshair,
-.leaflet-crosshair .leaflet-interactive {
+.custom-cursor-on .leaflet-crosshair,
+.custom-cursor-on .leaflet-crosshair .leaflet-interactive {
 	cursor: none;
 	}
-.leaflet-popup-pane,
-.leaflet-control {
+.custom-cursor-on .leaflet-popup-pane,
+.custom-cursor-on .leaflet-control {
 	cursor: none;
 	}
-.leaflet-dragging .leaflet-grab,
-.leaflet-dragging .leaflet-grab .leaflet-interactive,
-.leaflet-dragging .leaflet-marker-draggable {
+.custom-cursor-on .leaflet-dragging .leaflet-grab,
+.custom-cursor-on .leaflet-dragging .leaflet-grab .leaflet-interactive,
+.custom-cursor-on .leaflet-dragging .leaflet-marker-draggable {
 	cursor: none;
 	cursor: none;
 	cursor: none;

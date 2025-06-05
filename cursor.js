@@ -1,10 +1,28 @@
 const customCursor = document.getElementById('custom-cursor');
 const scaleGroup = document.getElementById('scaleSup');
+const customCursorMode   = document.getElementById('toggle-cursor');
 // обновление позиции курсора
+let customCursorEnabled = true;
+
 document.addEventListener('mousemove', e => {
-  customCursor.style.left = (e.clientX - 26) + 'px';
-  customCursor.style.top  = (e.clientY - 26) + 'px';
+  if (customCursorEnabled) {
+    customCursor.style.left = (e.clientX - 26) + 'px';
+    customCursor.style.top  = (e.clientY - 26) + 'px';
+  }
 });
+
+customCursorMode.addEventListener('click', () => {
+  customCursorEnabled = !customCursorEnabled;
+  customCursor.style.display = customCursorEnabled ? 'block' : 'none';
+  customCursorMode.textContent = customCursorEnabled ? 'Disable Cursor' : 'Enable Cursor';
+  if (customCursorEnabled) {
+    customCursor.classList.add('custom-cursor-on');
+  }
+  else {
+	customCursor.classList.remove('custom-cursor-on');
+  }
+});
+customCursorMode.textContent = 'Disable Cursor';
 
 // элемент карты из scriptv2.js
 const mapContainer = document.getElementById('map');

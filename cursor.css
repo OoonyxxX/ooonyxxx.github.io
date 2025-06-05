@@ -38,86 +38,86 @@
 }
 
 /* cursor mode */
-.TimerEffect,
-.TimerBlueEffect,
-.TimerRedEffect,
-.blink_effect,
-.blueBlinkEffect,
-.redBlinkEffect,
-.hoverAnimPointArray {
+.custom-cursor-on .TimerEffect,
+.custom-cursor-on .TimerBlueEffect,
+.custom-cursor-on .TimerRedEffect,
+.custom-cursor-on .blink_effect,
+.custom-cursor-on .blueBlinkEffect,
+.custom-cursor-on .redBlinkEffect,
+.custom-cursor-on .hoverAnimPointArray {
   display: none;
 }
 
-.cursor-base {
+.custom-cursor-on .cursor-base {
   display: block;
 }
-.cursor-base .baseStack {
+.custom-cursor-on .cursor-base .baseStack {
   display: inline;
   transform-origin: 26px 26px;
 }
-.cursor-base .hoverAnimPointArray {
+.custom-cursor-on .cursor-base .hoverAnimPointArray {
   display: none;
 }
-.cursor-base--hover {
+.custom-cursor-on .cursor-base--hover {
   display: block;
 }
-.cursor-base--hover .baseStack {
+.custom-cursor-on .cursor-base--hover .baseStack {
   display: inline;
   transform-origin: 26px 26px;
 }
-.cursor-base--hover .hoverAnimPointArray {
+.custom-cursor-on .cursor-base--hover .hoverAnimPointArray {
   display: inline;
   animation: spin-hover 8s linear infinite;
   transform-origin: 26px 26px;
 }
-.scaleup .baseScaleAnchor {
+.custom-cursor-on .scaleup .baseScaleAnchor {
   display: inline;
   transform: scale(1);
   transition: transform 0.2s ease;
   transform-origin: 26px 26px;
 }
-.scaledown .baseScaleAnchor {
+.custom-cursor-on .scaledown .baseScaleAnchor {
   display: inline;
   transform: scale(0.7);
   transition: transform 0.2s ease;
   transform-origin: 26px 26px;
 }
 
-.cursor-base--active {
+.custom-cursor-on .cursor-base--active {
 	
 }
-.cursor-input {
+.custom-cursor-on .cursor-input {
 	
 }
-.cursor-background{
+.custom-cursor-on .cursor-background{
 	
 }
-.cursor-grab-map{
+.custom-cursor-on .cursor-grab-map{
 	
 }
-.cursor-grab-marker{
+.custom-cursor-on .cursor-grab-marker{
 	
 }
 /* cursor modifier */
-.cursor-blink-blue{
+.custom-cursor-on .cursor-blink-blue{
 	
 }
-.cursor-blink-red{
+.custom-cursor-on .cursor-blink-red{
 	
 }
 .cursor-timer-blue{
 	
 }
-.cursor-timer-red{
+.custom-cursor-on .cursor-timer-red{
 	
 }
-.cursor-scale-up{
+.custom-cursor-on .cursor-scale-up{
 	
 }
-.cursor-scale-down{
+.custom-cursor-on .cursor-scale-down{
 	
 }
-.cursor-attenuation{
+.custom-cursor-on .cursor-attenuation{
 	
 }
 /* END */
