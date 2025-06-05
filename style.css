@@ -4,16 +4,9 @@ body {
   background: #1e1e1e;
   color: white;
   text-align: center;
-  cursor: none;
 }
 
-p, span, label {
-  cursor: none;
-}
-.draggable {
-  cursor: none;
-}
-button, .btn {
+* {
   cursor: none;
 }
 
@@ -21,29 +14,3 @@ button, .btn {
   width: 100%;
   height: 90vh;
 }
-/* cursors */
-/* START */
-.leaflet-interactive {
-	cursor: none;
-	}
-.leaflet-grab {
-	cursor: none;
-	}
-.leaflet-crosshair,
-.leaflet-crosshair .leaflet-interactive {
-	cursor: none;
-	}
-.leaflet-popup-pane,
-.leaflet-control {
-	cursor: none;
-	}
-.leaflet-dragging .leaflet-grab,
-.leaflet-dragging .leaflet-grab .leaflet-interactive,
-.leaflet-dragging .leaflet-marker-draggable {
-	cursor: none;
-	cursor: none;
-	cursor: none;
-	cursor: none;
-	}
-/* END */
-/* cursors */
