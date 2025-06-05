@@ -7,6 +7,16 @@ body {
   cursor: none;
 }
 
+p, span, label {
+  cursor: none;
+}
+.draggable {
+  cursor: none;
+}
+button, .btn {
+  cursor: none;
+}
+
 #map {
   width: 100%;
   height: 90vh;
