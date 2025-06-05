@@ -55,6 +55,7 @@
 }
 .cursor-base--hover {
   display: block;
+  animation: spin-hover 8s linear infinite, scaleup-hover 0.2s ease forwards;
 }
 .cursor-base--hover .baseStack {
   display: inline;
@@ -63,11 +64,11 @@
 }
 .cursor-base--hover .hoverAnimPointArray {
   display: inline;
-  animation: spin-hover 8s linear infinite, scaleup-hover 0.2s ease forwards;
   transform-origin: 26px 26px;
 }
 .scaledown {
   display: block;
+  animation: scaledown-hover 0.2s ease forwards;
 }
 .scaledown .baseStack {
   display: inline;
@@ -76,7 +77,6 @@
 }
 .scaledown .hoverAnimPointArray {
   display: inline;
-  animation: scaledown-hover 0.2s ease forwards;
   transform-origin: 26px 26px;
 }
 
