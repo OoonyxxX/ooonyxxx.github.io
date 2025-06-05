@@ -15,12 +15,7 @@ customCursorMode.addEventListener('click', () => {
   customCursorEnabled = !customCursorEnabled;
   customCursor.style.display = customCursorEnabled ? 'block' : 'none';
   customCursorMode.textContent = customCursorEnabled ? 'Disable Cursor' : 'Enable Cursor';
-  if (customCursorEnabled) {
-    customCursor.classList.add('custom-cursor-on');
-  }
-  else {
-	customCursor.classList.remove('custom-cursor-on');
-  }
+  document.body.classList.toggle('custom-cursor-on', customCursorEnabled);
 });
 customCursorMode.textContent = 'Disable Cursor';
 
