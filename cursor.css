@@ -55,7 +55,7 @@
 }
 .cursor-base--hover {
   display: block;
-  animation: spin-hover 8s linear infinite, scaleup-hover 0.2s ease forwards;
+  animation: spin-hover 8s linear infinite;
 }
 .cursor-base--hover .baseStack {
   display: inline;
