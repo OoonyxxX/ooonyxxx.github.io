@@ -1,57 +1,3 @@
-const targetGroup = document.getElementById('pointArrayToHover');
-
-let angle = 0;
-let scale = 0.7;
-let targetScale = 0.7;
-let isAnimating = false;
-
-// Константы
-const rotationDuration = 8000;  // 8s (в мс)
-const scaleDuration    = 200;   // 0.2s (в мс)
-
-let lastTimestamp = null;
-
-function animateCursor(timestamp) {
-  if (!isAnimating) return;
-
-  if (!lastTimestamp) lastTimestamp = timestamp;
-  const delta = timestamp - lastTimestamp;
-  lastTimestamp = timestamp;
-
-  // Обновляем угол
-  const degreesPerMs = 360 / rotationDuration;
-  angle = (angle + delta * degreesPerMs) % 360;
-
-  // Обновляем масштаб — через линейное приближение
-  const scaleDiff = targetScale - scale;
-  const maxStep = delta / scaleDuration;  // прогресс от 0 до 1
-  scale += scaleDiff * Math.min(1, maxStep);
-
-  // Применяем трансформацию
-  targetGroup.setAttribute('transform', `rotate(${angle},26,26) scale(${scale})`);
-
-  requestAnimationFrame(animateCursor);
-}
-
-function startHoverEffect() {
-  if (!isAnimating) {
-    isAnimating = true;
-    requestAnimationFrame(animateCursor) // запускаем цикл
-  }
-  targetScale = 1.0; // хотим увеличить
-}
-
-function stopHoverEffect() {
-  targetScale = 0.7; // хотим уменьшить
-  setTimeout(() => {
-    if (Math.abs(scale - 0.7) < 0.01) {
-      isAnimating = false; // останавливаем цикл, когда закончит
-    } else {
-      requestAnimationFrame(animateCursor); // продолжаем пока не закончит
-    }
-  }, 200); // немного подождать перед остановкой
-}
-
 const customCursor = document.getElementById('custom-cursor');
 // обновление позиции курсора
 document.addEventListener('mousemove', e => {
@@ -78,14 +24,18 @@ const activeSelectors = '.leaflet-marker-icon, a, button, .leaflet-popup-close-b
 
 document.addEventListener('mouseover', e => {
   if (e.target.closest(activeSelectors)) {
+	cursor.classList.remove('cursor-base');
     customCursor.classList.add('cursor-base--hover');
-	startHoverEffect();
   }
 });
 
 document.addEventListener('mouseout', e => {
   if (e.target.closest(activeSelectors)) {
     customCursor.classList.remove('cursor-base--hover');
-	stopHoverEffect();
+	customCursor.classList.add('scaledown');
+    setTimeout(() => {
+      cursor.classList.remove('scaledown');
+      cursor.classList.add('cursor-base');
+    }, 200); // 0.2s = 200ms
   }
 });

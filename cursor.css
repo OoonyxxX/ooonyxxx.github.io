@@ -13,19 +13,22 @@
     filter 0.2s, 
     transform 0.2s,
     opacity 0.2s;
-  transform-origin: center;
+  transform-origin: 26px 26px;
 }
 
-@keyframes rotate-hover {
-  0% {
-    transform: rotate(0deg) scale(0.7);
-  }
-  2.5% {
-    transform: rotate(9deg) scale(1);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
+@keyframes spin-hover {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes scaleup-hover {
+  from { transform: scale(0.7); }
+  to   { transform: scale(1); }
+}
+
+@keyframes scaledown-hover {
+  from { transform: scale(1); }
+  to   { transform: scale(0.7); }
 }
 
 /* cursor mode */
@@ -41,25 +44,37 @@
 
 .cursor-base {
   display: block;
-  transform: scale(0.7);
 }
 .cursor-base .baseStack {
   display: inline;
+  transform: scale(0.7);
 }
 .cursor-base .baseStack .hoverAnimPointArray {
   display: none;
 }
 .cursor-base--hover {
   display: block;
-  transform: scale(1);
 }
 .cursor-base--hover .baseStack {
   display: inline;
+  transform: scale(1);
 }
-.cursor-base--hover .baseStack .hoverAnimPointArray {
+.cursor-base--hover .hoverAnimPointArray {
   display: inline;
-  animation: rotate-hover 8s linear infinite;
+  animation: spin-hover 8s linear infinite, scaleup-hover 0.2s ease forwards;
 }
+.scaledown {
+  display: block;
+}
+.scaledown .baseStack {
+  display: inline;
+  transform: scale(0.7);
+}
+.scaledown .hoverAnimPointArray {
+  display: inline;
+  animation: scaledown-hover 0.2s ease forwards;
+}
+
 .cursor-base--active {
 	
 }
