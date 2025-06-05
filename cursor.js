@@ -24,7 +24,7 @@ const activeSelectors = '.leaflet-marker-icon, a, button, .leaflet-popup-close-b
 
 document.addEventListener('mouseover', e => {
   if (e.target.closest(activeSelectors)) {
-	cursor.classList.remove('cursor-base');
+	customCursor.classList.remove('cursor-base');
     customCursor.classList.add('cursor-base--hover');
   }
 });
@@ -34,8 +34,8 @@ document.addEventListener('mouseout', e => {
     customCursor.classList.remove('cursor-base--hover');
 	customCursor.classList.add('scaledown');
     setTimeout(() => {
-      cursor.classList.remove('scaledown');
-      cursor.classList.add('cursor-base');
+      customCursor.classList.remove('scaledown');
+      customCursor.classList.add('cursor-base');
     }, 200); // 0.2s = 200ms
   }
 });
