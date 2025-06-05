@@ -4,10 +4,7 @@ body {
   background: #1e1e1e;
   color: white;
   text-align: center;
-}
-
-* {
-  cursor: none;
+  cursor: none !important;
 }
 
 #map {
