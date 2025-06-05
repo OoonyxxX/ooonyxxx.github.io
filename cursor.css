@@ -13,7 +13,7 @@
     filter 0.2s, 
     transform 0.2s,
     opacity 0.2s;
-  transform-origin: center;
+  transform-origin: 26px 26px;
 }
 /* cursor mode */
 .TimerEffect,

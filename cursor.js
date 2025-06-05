@@ -28,7 +28,7 @@ function animateCursor(timestamp) {
   scale += scaleDiff * Math.min(1, maxStep);
 
   // Применяем трансформацию
-  targetGroup.setAttribute('transform', `rotate(${angle},26,26) scale(${scale})`);
+  targetGroup.setAttribute('transform', `translate(26,26) rotate(${angle},26,26) scale(${scale}) translate(-26,-26)`);
 
   requestAnimationFrame(animateCursor);
 }
