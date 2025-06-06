@@ -3,6 +3,7 @@ const scaleGroup = document.getElementById('scaleSup');
 const customCursorMode   = document.getElementById('toggle-cursor');
 // обновление позиции курсора
 let customCursorEnabled = true;
+document.body.classList.add('custom-cursor-on');
 
 document.addEventListener('mousemove', e => {
   if (customCursorEnabled) {
@@ -11,7 +12,7 @@ document.addEventListener('mousemove', e => {
   }
 });
 
-customCursorMode.addEventListener('click', () => {
+customCursorMode.addEventListener('change', () => {
   customCursorEnabled = !customCursorEnabled;
   customCursor.style.display = customCursorEnabled ? 'block' : 'none';
   customCursorMode.textContent = customCursorEnabled ? 'Disable Cursor' : 'Enable Cursor';
