@@ -378,19 +378,31 @@ function initMET(categories, iconsData) {
 	  
 	  // Функция активации перемещения иконки
 	  let dragTimer;
+	  let cancelOnMove;
 	  marker.on('mousedown', () => {
 		timerProgress.classList.remove('timer-progress');
-	  	void timerProgress.offsetWidth;
-	  	timerProgress.classList.add('timer-progress');
+		void timerProgress.offsetWidth;
+		timerProgress.classList.add('timer-progress');
 		blueTimer.style.display = 'inline';
-	    dragTimer = setTimeout(() => {
-	  	  marker.dragging.enable();
-	    }, 400);
+
+		cancelOnMove = () => {
+		  clearTimeout(dragTimer);
+		  timerProgress.classList.remove('timer-progress');
+		  blueTimer.style.display = 'none';
+		  marker.off('mousemove', cancelOnMove);
+		};
+
+		marker.on('mousemove', cancelOnMove);
+		dragTimer = setTimeout(() => {
+		  marker.off('mousemove', cancelOnMove);
+		  marker.dragging.enable();
+		}, 400);
 	  });
 	  marker.on('mouseup mouseleave', () => {
-	    clearTimeout(dragTimer);
-	    timerProgress.classList.remove('timer-progress');
+		clearTimeout(dragTimer);
+		timerProgress.classList.remove('timer-progress');
 		blueTimer.style.display = 'none';
+		marker.off('mousemove', cancelOnMove);
 	  });
 	  
 	  // Функция перемещения иконки
