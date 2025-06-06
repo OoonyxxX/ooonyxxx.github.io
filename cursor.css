@@ -37,6 +37,11 @@
   to   { transform: scale(0.7); }
 }
 
+@keyframes fill-timer {
+  from { stroke-dashoffset: 150; }
+  to   { stroke-dashoffset: 0; }
+}
+
 /* cursor mode */
 .custom-cursor-on .TimerBlueEffect,
 .custom-cursor-on .TimerRedEffect,
@@ -103,11 +108,14 @@
 .custom-cursor-on .cursor-blink-red{
 	
 }
-.cursor-timer-blue{
-	
+.TimerEffect {
+	animation: fill-timer 3s linear forwards;
 }
-.custom-cursor-on .cursor-timer-red{
-	
+.custom-cursor-on .cursor-timer .TimerEffect .TimerBlueEffect{
+	display: inline;
+}
+.custom-cursor-on .cursor-timer .TimerEffect .TimerRedEffect{
+	display: inline;
 }
 .custom-cursor-on .cursor-scale-up{
 	
