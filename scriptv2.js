@@ -350,13 +350,13 @@ function initMET(categories, iconsData) {
 	  	  marker.dragging.enable();
 	  	  timerProgress.classList.remove('timer-progress');
 	  	  void timerProgress.offsetWidth;
-	  	  timerProgress.classList.add(timer-progress);
+	  	  timerProgress.classList.add('timer-progress');
 		  blueTimer.style.display = 'inline';
 	    }, 400);
 	  });
 	  marker.on('mouseup mouseleave', () => {
 	    clearTimeout(dragTimer);
-	    timerProgress.classList.remove(timer-progress);
+	    timerProgress.classList.remove('timer-progress');
 		blueTimer.style.display = 'none';
 	  });
 
