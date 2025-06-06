@@ -38,10 +38,8 @@
 }
 
 /* cursor mode */
-.custom-cursor-on .TimerEffect,
 .custom-cursor-on .TimerBlueEffect,
 .custom-cursor-on .TimerRedEffect,
-.custom-cursor-on .blink_effect,
 .custom-cursor-on .blueBlinkEffect,
 .custom-cursor-on .redBlinkEffect,
 .custom-cursor-on .hoverAnimPointArray {
