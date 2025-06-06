@@ -108,14 +108,14 @@
 .custom-cursor-on .cursor-blink-red{
 	
 }
-.TimerEffect {
+.timer-progress {
 	animation: fill-timer 3s linear forwards;
 }
 .custom-cursor-on .cursor-timer .TimerEffect .TimerBlueEffect{
-	display: inline;
+	
 }
 .custom-cursor-on .cursor-timer .TimerEffect .TimerRedEffect{
-	display: inline;
+	
 }
 .custom-cursor-on .cursor-scale-up{
 	

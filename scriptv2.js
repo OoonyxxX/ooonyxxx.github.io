@@ -222,6 +222,8 @@ function genId(title, lat, lng) {
 }
 
 const timerProgress = document.getElementById('timerProgressCircle');
+const blueTimer = document.getElementById('TimerBlue');
+
 
 //Блок MET
 //START
@@ -346,14 +348,16 @@ function initMET(categories, iconsData) {
 	  marker.on('mousedown', () => {
 	    dragTimer = setTimeout(() => {
 	  	  marker.dragging.enable();
-	  	  timerProgress.classList.remove('TimerBlueEffect');
+	  	  timerProgress.classList.remove('timer-progress');
 	  	  void timerProgress.offsetWidth;
-	  	  timerProgress.classList.add('TimerBlueEffect');
+	  	  timerProgress.classList.add(timer-progress);
+		  blueTimer.style.display = 'inline';
 	    }, 400);
 	  });
 	  marker.on('mouseup mouseleave', () => {
 	    clearTimeout(dragTimer);
-	    timerProgress.classList.remove('TimerBlueEffect');
+	    timerProgress.classList.remove(timer-progress);
+		blueTimer.style.display = 'none';
 	  });
 
       marker.on('drag', e => {
