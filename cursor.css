@@ -68,7 +68,9 @@
   display: inline;
   transform-origin: 26px 26px;
 }
-.custom-cursor-on .cursor-base--hover .hoverAnimPointArray {
+.custom-cursor-on .cursor-base--hover .hoverAnimPointArray,
+.custom-cursor-on .cursor-base--hover .hoverAnimPointArrayB,
+.custom-cursor-on .cursor-base--hover .hoverAnimPointArrayR {
   display: inline;
   animation: spin-hover 8s linear infinite;
   transform-origin: 26px 26px;
@@ -128,3 +130,6 @@
 }
 /* END */
 /* CUSTOM CURSORS */
+.btnAddActive {	
+	background: #067F72;
+}

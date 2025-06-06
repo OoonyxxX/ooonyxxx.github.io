@@ -232,6 +232,7 @@ function initMET(categories, iconsData) {
     const iconsById = Object.fromEntries(iconsData.map(i => [i.id, i]));
     let metActive = false;
     let addingMarker = false;
+	let currentPopup = null;
     const diff = { added: [], updated: [], deleted: [] };
 
     function updateSaveState() {
@@ -240,6 +241,17 @@ function initMET(categories, iconsData) {
 
     function onMarkerClick(e) {
       openEditPopup(e.target, false);
+    }
+	
+    function setAddMode(active) {
+      addingMarker = active;
+      if (active) {
+        btnAdd.classList.add('btnAddActive');
+        map.on('click', onMapClick);
+      } else {
+        btnAdd.classList.remove('btnAddActive');
+        map.off('click', onMapClick);
+      }
     }
 
     btnActivate.addEventListener('click', () => {
@@ -250,7 +262,7 @@ function initMET(categories, iconsData) {
       btnExit.style.display = 'block';
       btnAdd.style.display = 'block';
       btnSave.style.display = 'block';
-      map.on('click', onMapClick);
+      setAddMode(true);
       existingMarkers.forEach(m => {
         m.off('click');
         m.on('click', onMarkerClick);
@@ -265,7 +277,7 @@ function initMET(categories, iconsData) {
       btnExit.style.display = 'none';
       btnAdd.style.display = 'none';
       btnSave.style.display = 'none';
-      map.off('click', onMapClick);
+      setAddMode(false);
       existingMarkers.forEach(m => {
         m.closePopup();
         m.off('click', onMarkerClick);
@@ -275,17 +287,23 @@ function initMET(categories, iconsData) {
 
     btnAdd.addEventListener('click', () => {
       if (!metActive) return;
-      addingMarker = true;
+      setAddMode(!addingMarker);
     });
 
     function onMapClick(e) {
       if (!addingMarker) return;
       const marker = L.marker(e.latlng, { draggable: true }).addTo(map);
       openEditPopup(marker, true);
-      addingMarker = false;
     }
 
     function openEditPopup(marker, isNew) {
+      if (currentPopup && currentPopup !== marker) {
+        currentPopup.closePopup();
+      }
+      currentPopup = marker;
+      marker.once('popupclose', () => {
+        if (currentPopup === marker) currentPopup = null;
+      });
       marker.unbindPopup();
       const clone = tpl.content.cloneNode(true);
       const form = clone.querySelector('#marker-form');
