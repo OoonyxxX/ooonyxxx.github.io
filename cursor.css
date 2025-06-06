@@ -109,7 +109,7 @@
 	
 }
 .timer-progress {
-	animation: fill-timer 3s linear forwards;
+	animation: fill-timer 0.4s linear forwards;
 }
 .custom-cursor-on .cursor-timer .TimerEffect .TimerBlueEffect{
 	

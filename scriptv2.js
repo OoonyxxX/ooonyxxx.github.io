@@ -223,7 +223,7 @@ function genId(title, lat, lng) {
 
 const timerProgress = document.getElementById('timerProgressCircle');
 const blueTimer = document.getElementById('TimerBlue');
-
+const redTimer = document.getElementById('TimerRed');
 
 //Блок MET
 //START
@@ -346,12 +346,12 @@ function initMET(categories, iconsData) {
 
 	  let dragTimer;
 	  marker.on('mousedown', () => {
+		timerProgress.classList.remove('timer-progress');
+	  	void timerProgress.offsetWidth;
+	  	timerProgress.classList.add('timer-progress');
+		blueTimer.style.display = 'inline';
 	    dragTimer = setTimeout(() => {
 	  	  marker.dragging.enable();
-	  	  timerProgress.classList.remove('timer-progress');
-	  	  void timerProgress.offsetWidth;
-	  	  timerProgress.classList.add('timer-progress');
-		  blueTimer.style.display = 'inline';
 	    }, 400);
 	  });
 	  marker.on('mouseup mouseleave', () => {
