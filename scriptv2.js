@@ -226,263 +226,210 @@ const timerProgress = document.getElementById('timerProgressCircle');
 //Блок MET
 //START
 function initMET(categories, iconsData) {
-	(function() {
-	  // Состояние MET
-	  let metActive = false;
-	  let addingMarker = false;
-	  const diff = { added: [], updated: [], deleted: [] };
-	
-	
-	  // Активация MET
-	  btnActivate.addEventListener('click', () => {
-		metActive = true;
-		btnActivate.disabled = true;
-		btnExit.disabled     = false;
-		btnAdd.disabled      = false;
-		btnExit.style.display = 'block';
-		btnAdd.style.display = 'block';
-		btnSave.style.display = 'block';
-		console.log('MET activated');
-		console.log(existingMarkers);
-		map.on('click', METOnMapClick);
-		existingMarkers.forEach(marker => {
-          marker.off('click');              // сбросить старый popup
-          marker.on('click', () => openEditPopup(marker, false, categories, iconsData));
-        });
+  (function () {
+    const iconsById = Object.fromEntries(iconsData.map(i => [i.id, i]));
+    let metActive = false;
+    let addingMarker = false;
+    const diff = { added: [], updated: [], deleted: [] };
+
+    function updateSaveState() {
+      btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
+    }
+
+    function onMarkerClick(e) {
+      openEditPopup(e.target, false);
+    }
+
+    btnActivate.addEventListener('click', () => {
+      metActive = true;
+      btnActivate.disabled = true;
+      btnExit.disabled = false;
+      btnAdd.disabled = false;
+      btnExit.style.display = 'block';
+      btnAdd.style.display = 'block';
+      btnSave.style.display = 'block';
+      map.on('click', onMapClick);
+      existingMarkers.forEach(m => {
+        m.off('click');
+        m.on('click', onMarkerClick);
+      });
+    });
+
+    btnExit.addEventListener('click', () => {
+      metActive = false;
+      btnActivate.disabled = false;
+      btnExit.disabled = true;
+      btnAdd.disabled = true;
+      btnExit.style.display = 'none';
+      btnAdd.style.display = 'none';
+      btnSave.style.display = 'none';
+      map.off('click', onMapClick);
+      existingMarkers.forEach(m => {
+        m.closePopup();
+        m.off('click', onMarkerClick);
+        m.bindPopup(`<b>${m.options.name}</b><br>${m.options.description}`);
+      });
+    });
+
+    btnAdd.addEventListener('click', () => {
+      if (!metActive) return;
+      addingMarker = true;
+    });
+
+    function onMapClick(e) {
+      if (!addingMarker) return;
+      const marker = L.marker(e.latlng, { draggable: true }).addTo(map);
+      openEditPopup(marker, true);
+      addingMarker = false;
+    }
+
+    function openEditPopup(marker, isNew) {
+      marker.unbindPopup();
+      const clone = tpl.content.cloneNode(true);
+      const form = clone.querySelector('#marker-form');
+      const titleIn = form.querySelector('input[name="title"]');
+      const descIn = form.querySelector('textarea[name="description"]');
+      const catSel = form.querySelector('select[name="category"]');
+      const iconSel = form.querySelector('select[name="icon"]');
+      const latIn = form.querySelector('input[name="lat"]');
+      const lngIn = form.querySelector('input[name="lng"]');
+      const latlng = marker.getLatLng();
+
+      categories.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat.id;
+        opt.textContent = cat.label;
+        catSel.append(opt);
+      });
+
+      iconsData.forEach(ic => {
+        const opt = document.createElement('option');
+        opt.value = ic.id;
+        opt.textContent = ic.name;
+        iconSel.append(opt);
+      });
+
+      if (isNew) {
+        titleIn.value = 'Name_PlaceHolder';
+        descIn.value = 'Description_PlaceHolder';
+        catSel.value = 'none';
+        iconSel.value = 'default';
+        latIn.value = latlng.lat;
+        lngIn.value = latlng.lng;
+      } else {
+        titleIn.value = marker.options.name;
+        descIn.value = marker.options.description;
+        catSel.value = marker.options.category_id || 'none';
+        iconSel.value = marker.options.icon_id || 'default';
+        latIn.value = marker.options.coords[0];
+        lngIn.value = marker.options.coords[1];
+      }
+
+      marker.bindPopup(clone, { autoClose: false, closeOnClick: false }).openPopup();
+
+      const popupEl = marker.getPopup().getElement();
+      const formEl = popupEl.querySelector('#marker-form');
+      const submitBtn = popupEl.querySelector('#submit-btn');
+      const cancelBtn = popupEl.querySelector('#cancel-btn');
+
+      iconSel.addEventListener('change', e => {
+        const ic = iconsById[e.target.value] || iconsById.default;
+        marker.setIcon(L.icon({
+          iconUrl: ic.url,
+          iconSize: [32, 32],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
+        }));
+      });
+
+	  let dragTimer;
+	  marker.on('mousedown', () => {
+	    dragTimer = setTimeout(() => {
+	  	  marker.dragging.enable();
+	  	  timerProgress.classList.remove('TimerBlueEffect');
+	  	  void timerProgress.offsetWidth;
+	  	  timerProgress.classList.add('TimerBlueEffect');
+	    }, 400);
 	  });
-		
-	  // Выход из MET
-	  btnExit.addEventListener('click', () => {
-		metActive = false;
-		btnActivate.disabled = false;
-		btnExit.disabled     = true;
-		btnAdd.disabled      = true;
-		btnSave.disabled     = !(diff.added.length || diff.updated.length || diff.deleted.length);
-		btnExit.style.display = 'none';
-		btnAdd.style.display = 'none';
-		btnSave.style.display = 'none';
-		console.log('MET exited');
-		map.off('click', METOnMapClick);
-		existingMarkers.forEach(marker => {
-			marker.unbindPopup();
-			marker.off('click');
-			marker.bindPopup(`<b>${marker.options.name}</b><br>${marker.options.description}`);
-        });
+	  marker.on('mouseup mouseleave', () => {
+	    clearTimeout(dragTimer);
+	    timerProgress.classList.remove('TimerBlueEffect');
 	  });
-		
-	  // Включение режима добавления маркера
-	  btnAdd.addEventListener('click', () => {
-		if (!metActive) return;
-		addingMarker = true;
-		console.log('Click on map to add marker');
-	  });
-		
-	  // Обработчик клика по карте
-	  function METOnMapClick(e) {
-		if (!addingMarker) return;
-		const marker = L.marker(e.latlng, { draggable: true }).addTo(map);
-		openEditPopup(marker, true, categories, iconsData);
-		addingMarker = false;
-	  }
-	  
-	  // Открытие popup для создания/редактирования
-	  function openEditPopup(marker, isNew, categories, iconsData) {
-		marker.unbindPopup();
-		const clone = tpl.content.cloneNode(true);
-		const form      = clone.querySelector('#marker-form');
-		const titleIn   = form.querySelector('input[name="title"]');
-		const descIn    = form.querySelector('textarea[name="description"]');
-		const catSel    = form.querySelector('select[name="category"]');
-		const iconSel   = form.querySelector('select[name="icon"]');
-		const latIn     = form.querySelector('input[name="lat"]');
-		const lngIn     = form.querySelector('input[name="lng"]');
-		const submitBtn = form.querySelector('#submit-btn');
-		const cancelBtn = form.querySelector('#cancel-btn');
-		const latlng = isNew
-		  ? marker.getLatLng()   // для новых берём клик-координаты
-		  : marker.getLatLng();  // для старых — тоже из самого маркера
-		
-		
-		
-		categories.forEach(cat => {
-		  const opt = document.createElement('option');
-		  opt.value = cat.id;
-		  opt.textContent = cat.label;
-		  catSel.append(opt);
-		});
-		iconsData.forEach(ic => {
-		  const opt = document.createElement('option');
-		  opt.value = ic.id;
-		  opt.textContent = ic.name;
-		  iconSel.append(opt);
-		});
-		if (isNew) {
-		  titleIn.value       = 'Name_PlaceHolder';
-		  descIn.value        = 'Description_PlaceHolder';
-		  catSel.value        = 'none';
-		  iconSel.value       = 'default';
-		  latIn.value         = latlng.lat;
-		  lngIn.value         = latlng.lng;
-		  submitBtn.textContent = 'Create';
-		  cancelBtn.textContent = 'Cancel';
-		} else {
-		  titleIn.value       = marker.options.name;
-		  descIn.value        = marker.options.description;
-		  catSel.value        = marker.options.category_id || 'none';
-		  iconSel.value       = marker.options.icon_id || 'default';
-		  latIn.value         = marker.options.coords[0];
-		  lngIn.value         = marker.options.coords[1];
-		  submitBtn.textContent = 'Save';
-		  cancelBtn.textContent = 'Delete';
-		}
-		
-		marker.bindPopup(clone, {
-		  autoClose:   false,  // не закрывать при клике вне
-		  closeOnClick:false   // не закрывать при клике на карту
-		});
-		
-		marker.on('click', () => {
-		  if (!marker.isPopupOpen()) {
-			marker.openPopup();
-		  }
-		});
-		
-		iconSel.addEventListener('change', e => {
-		  const selectedId = e.target.value;
-		  const newIc      = iconsData.find(ic => ic.id == selectedId) || icons.default;
-		  marker.setIcon(L.icon({
-			iconUrl:    newIc.url,
-			iconSize:   [32, 32],
-			iconAnchor: [16, 32],
-			popupAnchor:[0, -32]
-		  }));
-		});
-		console.log(form);
-		
-		
-		
-		let dragTimer;
-		marker.on('mousedown', () => {
-		  dragTimer = setTimeout(() => {
-			marker.dragging.enable();
-			timerProgress.classList.remove('TimerBlueEffect');
-			void timerProgress.offsetWidth;
-			timerProgress.classList.add('TimerBlueEffect');
-		  }, 400);
-		});
-		
-		marker.on('mouseup mouseleave', () => {
-		  clearTimeout(dragTimer);
-		  timerProgress.classList.remove('TimerBlueEffect');
-		});
-		
-		marker.on('drag',  e => {
-		  const { lat, lng } = e.target.getLatLng();
-		  // здесь form — та же константа из клона
-		  latIn.value = lat.toFixed(6);
-		  lngIn.value = lng.toFixed(6);
-		  const dragpopup = marker.getPopup();
-		  if (dragpopup && marker.isPopupOpen()) {
-		    dragpopup.setLatLng(latlng).update();
-		  }
-		});
-		
-		marker.on('dragend', () => {
-		  marker.dragging.disable();
-		});
-		
-		const popup = marker.getPopup();
-		const popupEl = popup.getElement();
-		const contentEl = popupEl.querySelector('.leaflet-popup-content');
-		const formN      = contentEl.querySelector('#marker-form');
-		const cancelBtnN = contentEl.querySelector('#cancel-btn');
-		const submitBtnN = contentEl.querySelector('#submit-btn');
-		console.log(submitBtnN);
-		console.log(cancelBtnN);
-		console.log(contentEl);
-		console.log(formN);
-		// 7) Обработчик submit
-		submitBtnN.addEventListener('click', ev => {
-			ev.preventDefault();
-			const data		  = new FormData(formN);
-			const title       = data.get('title')       || 'Name_PlaceHolder';
-			const description = data.get('description') || 'Description_PlaceHolder';
-			const category_id = data.get('category')    || null;
-			const icon_id     = data.get('icon')        || 'default';
-			const lat         = parseFloat(data.get('lat'));
-			const lng         = parseFloat(data.get('lng'));
-			console.log(data);
-			
-			if (isNew) {
-				const newId = genId(title, lat, lng);
-				marker.options.id 		   = newId;
-				marker.options.name        = title;
-				marker.options.description = description;
-				marker.options.category_id = category_id;
-				marker.options.icon_id     = icon_id;
-				marker.options.coords = [lat, lng];
-				existingMarkers.set(marker.options.id, marker);
-				diff.added.push({
-				  id:            marker.options.id,
-				  title:         marker.options.name,
-				  description:   marker.options.description,
-				  category_id:   marker.options.category_id,
-				  icon_id:       marker.options.icon_id,
-				  coords:        marker.options.coords
-				});
-				btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
-				console.log(newId);
-			} else {
-				const oldCategoryId = marker.options.category_id;
-				console.log(oldCategoryId);
-				const newCategoryId = category_id;
-				console.log(newCategoryId);
-				console.log(layers);
-				const oldLayer = layers[oldCategoryId];
-				const newLayer = layers[newCategoryId];
-				oldLayer.removeLayer(marker);
-				newLayer.addLayer(marker);
-				marker.options.name        = title;
-				marker.options.description = description;
-				marker.options.category_id = category_id;
-				marker.options.icon_id     = icon_id;
-				marker.options.coords = [lat, lng];
-				marker.setLatLng([lat, lng]);
-				console.log(marker.options.icon_id);
-				const newIcon = iconsData.find(ic => ic.id == icon_id);
-				marker.setIcon(L.icon({
-				  iconUrl:    newIcon.url,
-				  iconSize:   [32, 32],
-				  iconAnchor: [16, 32],
-				  popupAnchor:[0, -32]
-				}));
-				diff.updated.push({ id: marker.options.id, title, description, category_id, icon_id, coords:[lat,lng] });
-				btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
-				console.log(marker.options.id);
-			}
-			
-			  // 8) Закрыть попап и обновить слой
-			  marker.closePopup();
-		});
-		
-		// 9) Обработчик Cancel/Delete
-		cancelBtnN.addEventListener('click', () => {
-		  if (isNew) {
-			// — удаляем маркер совсем
-			map.removeLayer(marker);
-			// и из diff.added
-			diff.added = diff.added.filter(o => o.id !== marker.options.id);
-			btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
-		  } else {
-			// — помечаем на удаление
-			diff.deleted.push(marker.options.id);
-			map.removeLayer(marker);
-			btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
-		  }
-		  marker.closePopup();
-		});
-	  }
-	})();
+
+      marker.on('drag', e => {
+        const { lat, lng } = e.target.getLatLng();
+        latIn.value = lat.toFixed(6);
+        lngIn.value = lng.toFixed(6);
+        if (marker.isPopupOpen()) {
+          marker.getPopup().setLatLng(latlng).update();
+        }
+      });
+      marker.on('dragend', () => marker.dragging.disable());
+
+      submitBtn.addEventListener('click', ev => {
+        ev.preventDefault();
+        const data = new FormData(formEl);
+        const name = data.get('title') || 'Name_PlaceHolder';
+        const description = data.get('description') || 'Description_PlaceHolder';
+        const category_id = data.get('category') || null;
+        const icon_id = data.get('icon') || 'default';
+        const lat = parseFloat(data.get('lat'));
+        const lng = parseFloat(data.get('lng'));
+
+        if (isNew) {
+          const newId = genId(name, lat, lng);
+          marker.options.id = newId;
+          existingMarkers.set(newId, marker);
+          diff.added.push({ id: newId, name, description, category_id, icon_id, coords: [lat, lng] });
+        } else {
+          if (marker.options.category_id !== category_id) {
+            layers[marker.options.category_id].removeLayer(marker);
+            layers[category_id].addLayer(marker);
+          }
+          diff.updated.push({ id: marker.options.id, name, description, category_id, icon_id, coords: [lat, lng] });
+        }
+
+        marker.options.name = name;
+        marker.options.description = description;
+        marker.options.category_id = category_id;
+        marker.options.icon_id = icon_id;
+        marker.options.coords = [lat, lng];
+        marker.setLatLng([lat, lng]);
+        const ic = iconsById[icon_id] || iconsById.default;
+        marker.setIcon(L.icon({
+          iconUrl: ic.url,
+          iconSize: [32, 32],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
+        }));
+
+        marker.closePopup();
+        updateSaveState();
+      });
+
+      cancelBtn.addEventListener('click', () => {
+        if (isNew) {
+          map.removeLayer(marker);
+          diff.added = diff.added.filter(o => o.id !== marker.options.id);
+        } else {
+          diff.deleted.push(marker.options.id);
+          map.removeLayer(marker);
+        }
+        marker.closePopup();
+        updateSaveState();
+      });
+    }
+
+    btnSave.addEventListener('click', () => {
+      btnSave.disabled = true;
+      fetch('/markers/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(diff)
+      }).then(r => r.json()).then(r => console.log('Save result', r)).catch(console.error);
+    });
+
+  })();
 }
 //END
 //Блок MET
