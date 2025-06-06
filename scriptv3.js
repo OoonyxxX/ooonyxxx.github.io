@@ -251,10 +251,10 @@ function initMET(categories, iconsData) {
     function setAddMode(active) {
       addingMarker = active;
       if (active) {
-        btnAdd.classList.add('btnAddActive');
+        btnAdd.classList.add('btnAddMode');
         map.on('click', onMapClick);
       } else {
-        btnAdd.classList.remove('btnAddActive');
+        btnAdd.classList.remove('btnAddMode');
         map.off('click', onMapClick);
       }
     }
