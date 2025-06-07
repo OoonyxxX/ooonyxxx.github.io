@@ -408,7 +408,6 @@ function initMET(categories, iconsData) {
 		clearTimeout(dragTimer);
 		timerProgress.classList.remove('timer-progress');
 		blueTimer.style.display = 'none';
-		marker.dragging.disable();
 		marker.off('mousemove', cancelOnMove);
 	  });
 	  
