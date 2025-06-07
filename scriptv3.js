@@ -382,7 +382,7 @@ function initMET(categories, iconsData) {
       });
 	  
 	  // Функция активации перемещения иконки
-	  
+	  marker.dragging.enable();
 	  let dragTimer;
 	  let cancelOnMove;
 	  marker.on('mousedown', () => {
@@ -390,7 +390,6 @@ function initMET(categories, iconsData) {
 		void timerProgress.offsetWidth;
 		timerProgress.classList.add('timer-progress');
 		blueTimer.style.display = 'inline';
-		marker.dragging.enable();
 
 		cancelOnMove = () => {
 		  clearTimeout(dragTimer);
