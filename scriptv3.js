@@ -382,6 +382,7 @@ function initMET(categories, iconsData) {
       });
 	  
 	  // Функция активации перемещения иконки
+	  
 	  let dragTimer;
 	  let cancelOnMove;
 	  marker.on('mousedown', () => {
@@ -389,6 +390,7 @@ function initMET(categories, iconsData) {
 		void timerProgress.offsetWidth;
 		timerProgress.classList.add('timer-progress');
 		blueTimer.style.display = 'inline';
+		marker.dragging.disable();
 
 		cancelOnMove = () => {
 		  clearTimeout(dragTimer);
@@ -419,8 +421,10 @@ function initMET(categories, iconsData) {
           marker.getPopup().setLatLng(latlng).update();
         }
       });
-      marker.on('dragend', () => marker.dragging.disable());
-	  
+      marker.on('dragend', () => { 
+	    marker.dragging.disable();
+		blueTimer.style.display = 'none';
+	  });
 	  //Функция обработчик изменений маркера
 	  //START
       submitBtn.addEventListener('click', ev => {
