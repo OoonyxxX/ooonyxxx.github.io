@@ -382,7 +382,14 @@ function initMET(categories, iconsData) {
       });
 	  
 	  // Функция активации перемещения иконки
-	  
+	  const containerPoint = map.latLngToContainerPoint(latlng);
+	  const downEvent = new MouseEvent('mousedown', {
+		bubbles: true,
+		cancelable: true,
+		clientX: containerPoint.x,
+		clientY: containerPoint.y,
+		buttons: 1 // ЛКМ
+	  });
 	  let dragTimer;
 	  let cancelOnMove;
 	  marker.on('mousedown', () => {
@@ -404,14 +411,6 @@ function initMET(categories, iconsData) {
 		  marker.off('mousemove', cancelOnMove);
 		  marker.dragging.enable();
 		  //const latlng = marker.getLatLng();
-		  const containerPoint = map.latLngToContainerPoint(latlng);
-		  const downEvent = new MouseEvent('mousedown', {
-			bubbles: true,
-			cancelable: true,
-			clientX: containerPoint.x,
-			clientY: containerPoint.y,
-			buttons: 1 // ЛКМ
-		  });
 		  map.getContainer().dispatchEvent(downEvent);
 		}, 400);
 	  });
