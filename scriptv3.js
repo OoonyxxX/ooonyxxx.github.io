@@ -360,8 +360,10 @@ function initMET(categories, iconsData) {
 		editPopupOpen = !editPopupOpen
 		marker.openPopup();
 	  }
-	  marker.once('popupclose', () => {
-		editPopupOpen = !editPopupOpen
+	  marker.on('popupclose', () => {
+		if (editPopupOpen) {
+		  editPopupOpen = !editPopupOpen
+	    }
 	  });
       const popupEl = marker.getPopup().getElement();
       const formEl = popupEl.querySelector('#marker-form');
