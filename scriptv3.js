@@ -403,6 +403,16 @@ function initMET(categories, iconsData) {
 		dragTimer = setTimeout(() => {
 		  marker.off('mousemove', cancelOnMove);
 		  marker.dragging.enable();
+		  //const latlng = marker.getLatLng();
+		  const containerPoint = map.latLngToContainerPoint(latlng);
+		  const downEvent = new MouseEvent('mousedown', {
+			bubbles: true,
+			cancelable: true,
+			clientX: containerPoint.x,
+			clientY: containerPoint.y,
+			buttons: 1 // ЛКМ
+		  });
+		  map.getContainer().dispatchEvent(downEvent);
 		}, 400);
 	  });
 	  marker.on('mouseup mouseleave', () => {
@@ -412,7 +422,7 @@ function initMET(categories, iconsData) {
 		marker.off('mousemove', cancelOnMove);
 	  });
 	  
-	  // Функция перемещения иконки
+	  // Функция перемещения маркера
       marker.on('drag', e => {
         const { lat, lng } = e.target.getLatLng();
         latIn.value = lat.toFixed(6);
