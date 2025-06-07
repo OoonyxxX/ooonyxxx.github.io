@@ -390,35 +390,26 @@ function initMET(categories, iconsData) {
 		void timerProgress.offsetWidth;
 		timerProgress.classList.add('timer-progress');
 		blueTimer.style.display = 'inline';
-		marker.dragging.disable();
+		marker.dragging.enable();
 
 		cancelOnMove = () => {
 		  clearTimeout(dragTimer);
 		  timerProgress.classList.remove('timer-progress');
 		  blueTimer.style.display = 'none';
 		  marker.off('mousemove', cancelOnMove);
+		  marker.dragging.disable();
 		};
 
 		marker.on('mousemove', cancelOnMove);
 		dragTimer = setTimeout(() => {
 		  marker.off('mousemove', cancelOnMove);
-		  marker.dragging.enable();
-		  //const latlng = marker.getLatLng();
-		  const containerPoint = map.latLngToContainerPoint(latlng);
-		  const downEvent = new MouseEvent('mousedown', {
-			bubbles: true,
-			cancelable: true,
-			clientX: containerPoint.x,
-			clientY: containerPoint.y,
-			buttons: 1 // ЛКМ
-		  });
-		  map.getContainer().dispatchEvent(downEvent);
 		}, 400);
 	  });
 	  marker.on('mouseup mouseleave', () => {
 		clearTimeout(dragTimer);
 		timerProgress.classList.remove('timer-progress');
 		blueTimer.style.display = 'none';
+		marker.dragging.disable();
 		marker.off('mousemove', cancelOnMove);
 	  });
 	  
