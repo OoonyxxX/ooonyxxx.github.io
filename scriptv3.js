@@ -397,6 +397,7 @@ function initMET(categories, iconsData) {
 		  blueTimer.style.display = 'none';
 		  marker.off('mousemove', cancelOnMove);
 		  marker.dragging.disable();
+		  marker.dragging.enable();
 		};
 
 		marker.on('mousemove', cancelOnMove);
@@ -409,6 +410,7 @@ function initMET(categories, iconsData) {
 		timerProgress.classList.remove('timer-progress');
 		blueTimer.style.display = 'none';
 		marker.off('mousemove', cancelOnMove);
+		marker.dragging.enable();
 	  });
 	  
 	  // Функция перемещения маркера
@@ -421,7 +423,7 @@ function initMET(categories, iconsData) {
         }
       });
       marker.on('dragend', () => { 
-	    marker.dragging.disable();
+	    marker.dragging.enable();
 		blueTimer.style.display = 'none';
 	  });
 	  //Функция обработчик изменений маркера
