@@ -245,6 +245,7 @@ function initMET(categories, iconsData) {
     }
 
     function onMarkerClick(e) {
+	  if (editPopupOpen) return;
       openEditPopup(e.target, false);
     }
 	
@@ -411,6 +412,7 @@ function initMET(categories, iconsData) {
 		blueTimer.style.display = 'none';
 		marker.off('mousemove', cancelOnMove);
 		marker.dragging.enable();
+		
 	  });
 	  
 	  // Функция перемещения маркера
@@ -419,13 +421,14 @@ function initMET(categories, iconsData) {
         latIn.value = lat.toFixed(6);
         lngIn.value = lng.toFixed(6);
         if (marker.isPopupOpen()) {
-          marker.getPopup().setLatLng(latlng).update();
+          marker.getPopup().setLatLng(e.target.getLatLng()).update();
         }
       });
       marker.on('dragend', () => { 
 	    marker.dragging.enable();
 		blueTimer.style.display = 'none';
 	  });
+	  
 	  //Функция обработчик изменений маркера
 	  //START
       submitBtn.addEventListener('click', ev => {
