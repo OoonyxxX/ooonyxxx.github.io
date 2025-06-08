@@ -425,9 +425,7 @@ function initMET(categories, iconsData) {
         const { lat, lng } = e.target.getLatLng();
         latIn.value = lat.toFixed(6);
         lngIn.value = lng.toFixed(6);
-        if (marker.isPopupOpen()) {
-          marker.getPopup().setLatLng(e.target.getLatLng()).update();
-        }
+
       });
       marker.on('dragend', () => { 
 	    marker.dragging.enable();
