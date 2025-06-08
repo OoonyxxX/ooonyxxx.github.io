@@ -365,6 +365,7 @@ function initMET(categories, iconsData) {
 		if (editPopupOpen) {
 		  editPopupOpen = !editPopupOpen
 		  marker.off('mousedown', draggingEnable);
+		  marker.dragging.disable();
 	    }
 	  });
       const popupEl = marker.getPopup().getElement();
@@ -425,7 +426,9 @@ function initMET(categories, iconsData) {
         const { lat, lng } = e.target.getLatLng();
         latIn.value = lat.toFixed(6);
         lngIn.value = lng.toFixed(6);
-
+        if (marker.isPopupOpen()) {
+          marker.getPopup().setLatLng(e.target.getLatLng()).update();
+        }
       });
       marker.on('dragend', () => { 
 	    marker.dragging.enable();
