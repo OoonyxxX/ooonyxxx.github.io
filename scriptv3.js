@@ -364,6 +364,7 @@ function initMET(categories, iconsData) {
 	  marker.on('popupclose', () => {
 		if (editPopupOpen) {
 		  editPopupOpen = !editPopupOpen
+		  marker.off('mousedown', draggingEnable);
 	    }
 	  });
       const popupEl = marker.getPopup().getElement();
@@ -386,12 +387,12 @@ function initMET(categories, iconsData) {
 	  marker.dragging.enable();
 	  let dragTimer;
 	  let cancelOnMove;
-	  marker.on('mousedown', () => {
+	  
+	  draggingEnable = () => {
 		timerProgress.classList.remove('timer-progress');
 		void timerProgress.offsetWidth;
 		timerProgress.classList.add('timer-progress');
 		blueTimer.style.display = 'inline';
-
 		cancelOnMove = () => {
 		  clearTimeout(dragTimer);
 		  timerProgress.classList.remove('timer-progress');
@@ -400,20 +401,24 @@ function initMET(categories, iconsData) {
 		  marker.dragging.disable();
 		  marker.dragging.enable();
 		};
-
 		marker.on('mousemove', cancelOnMove);
 		dragTimer = setTimeout(() => {
 		  marker.off('mousemove', cancelOnMove);
 		}, 400);
-	  });
-	  marker.on('mouseup mouseleave', () => {
+	  };
+	  
+	  draggingCancel = () => {
 		clearTimeout(dragTimer);
 		timerProgress.classList.remove('timer-progress');
 		blueTimer.style.display = 'none';
 		marker.off('mousemove', cancelOnMove);
 		marker.dragging.enable();
-		
-	  });
+	  };
+	  
+	  marker.on('mousedown', draggingEnable);
+	  marker.on('mouseup mouseleave', draggingCancel);
+	  
+	  
 	  
 	  // Функция перемещения маркера
       marker.on('drag', e => {
@@ -427,7 +432,11 @@ function initMET(categories, iconsData) {
       marker.on('dragend', () => { 
 	    marker.dragging.enable();
 		blueTimer.style.display = 'none';
+		marker.off('mouseup mouseleave', draggingCancel);
 	  });
+	  
+	  
+	  
 	  
 	  //Функция обработчик изменений маркера
 	  //START
