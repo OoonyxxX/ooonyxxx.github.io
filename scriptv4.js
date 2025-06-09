@@ -312,6 +312,12 @@ function initMET(categories, iconsData) {
 	  className: 'edit-popup-class'
 	});
 	
+	function shiftLatLng(latlng, offsetYInPixels) {
+	  const point = map.latLngToLayerPoint(latlng);
+	  point.y -= offsetYInPixels;
+	  return map.layerPointToLatLng(point);
+	}
+	
 	/////////////////////////////////////
 	/////////////////////////////////////
 	//Функция открытия и обработки попапа
@@ -362,7 +368,8 @@ function initMET(categories, iconsData) {
 	  //Сборка попапа
       
 	  //Создание и открытие попапа
-	  editPopup.setLatLng(latlng);
+	  const defShiftedLatLng = shiftLatLng(marker.getLatLng(), 40);
+	  editPopup.setLatLng(defShiftedLatLng);
 	  editPopup.setContent(content);
 	  if (!editPopupOpen) {
 		editPopupOpen = true;
@@ -431,8 +438,9 @@ function initMET(categories, iconsData) {
         const { lat, lng } = e.target.getLatLng();
         latIn.value = lat.toFixed(6);
         lngIn.value = lng.toFixed(6);
-        if (marker.isPopupOpen()) {
-          editPopup.setLatLng(e.target.getLatLng()).update();
+        if (editPopupOpen) {
+		  const dragShiftedLatLng = shiftLatLng(e.target.getLatLng(), 40);
+		  editPopup.setLatLng(dragShiftedLatLng).update();
         }
       });
       marker.on('dragend', () => { 
