@@ -332,10 +332,10 @@ function initMET(categories, iconsData) {
 	}
 	
 	/////////////////////////////////////
-	console.log(marker._leaflet_id, map.hasLayer(marker));
 	/////////////////////////////////////
 	//Функция открытия и обработки попапа
     function openEditPopup(marker, isNew) { 
+	  console.log(marker._leaflet_id, map.hasLayer(marker));
       marker.unbindPopup();
       const content = tpl.content.cloneNode(true);
       const form = content.querySelector('#marker-form');
