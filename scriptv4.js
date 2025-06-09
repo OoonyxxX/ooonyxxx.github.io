@@ -249,9 +249,8 @@ function initMET(categories, iconsData) {
       openEditPopup(e.target, false);
     }
 	
-    function setAddMode(active) {
-      addingMarker = active;
-      if (active) {
+    function setAddMode(addingMarker) {
+      if (addingMarker) {
         btnAdd.classList.add('btnAddMode');
         map.on('click', onMapClick);
       } else {
@@ -301,7 +300,7 @@ function initMET(categories, iconsData) {
 	
 	//Функция добаления маркера
     function onMapClick(e) {
-      if (addingMarker) return;
+      if (!addingMarker) return;
       const marker = L.marker(e.latlng, { draggable: true }).addTo(map);
       openEditPopup(marker, true);
     }
