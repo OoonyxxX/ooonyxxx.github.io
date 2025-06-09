@@ -536,16 +536,28 @@ function initMET(categories, iconsData) {
         editPopup.remove();
         updateSaveState();
       });
+	  const modal = document.getElementById('confirm-modal');
+	  const btnYes = document.getElementById('confirm-yes');
+	  const btnNo  = document.getElementById('confirm-no');
       deleteBtn.addEventListener('click', () => {
-        if (isNew) {
-          map.removeLayer(marker);
-          diff.added = diff.added.filter(o => o.id !== marker.options.id);
-        } else {
-          diff.deleted.push(marker.options.id);
-          map.removeLayer(marker);
-        }
-		editPopup.remove();
-        updateSaveState();
+		modal.classList.remove('hidden');
+		btnYes.onclick = () => {
+			
+		  modal.classList.add('hidden');
+		  
+		  if (isNew) {
+		    map.removeLayer(marker);
+		    diff.added = diff.added.filter(o => o.id !== marker.options.id);
+		  } else {
+		    diff.deleted.push(marker.options.id);
+		    map.removeLayer(marker);
+		  }
+		  editPopup.remove();
+		  updateSaveState();
+		};
+		btnNo.onclick = () => {
+		  modal.classList.add('hidden');
+		};
       });
     }
 	/////////////////////////////////////
