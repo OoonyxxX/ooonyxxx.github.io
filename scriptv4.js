@@ -377,6 +377,7 @@ function initMET(categories, iconsData) {
 	  editPopup.on('remove', () => {
 		editPopupOpen = false;
 		marker.off('mousedown', draggingEnable);
+		marker.off('mouseup mouseleave', draggingCancel);
 		marker.dragging.disable();
 	  });
       const popupEl = editPopup.getElement();
@@ -446,7 +447,6 @@ function initMET(categories, iconsData) {
       marker.on('dragend', () => { 
 	    marker.dragging.enable();
 		blueTimer.style.display = 'none';
-		marker.off('mouseup mouseleave', draggingCancel);
 	  });
 	  
 	  
