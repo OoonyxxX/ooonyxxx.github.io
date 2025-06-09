@@ -14,6 +14,10 @@ body {
   cursor: none;
 }
 
+body.custom-cursor-on {
+  cursor: none;
+}
+
 /* cursors */
 /* START */
 .custom-cursor-on .leaflet-interactive {
