@@ -301,7 +301,7 @@ function initMET(categories, iconsData) {
 	
 	//Функция добаления маркера
     function onMapClick(e) {
-      if (!addingMarker) return;
+      if (addingMarker) return;
       const marker = L.marker(e.latlng, { draggable: true }).addTo(map);
       openEditPopup(marker, true);
     }
