@@ -424,13 +424,13 @@ function initMET(categories, iconsData) {
 		  clearTimeout(dragTimer);
 		  timerProgress.classList.remove('timer-progress');
 		  blueTimer.style.display = 'none';
-		  marker.off('mousemove', cancelOnMove);
+		  marker.off('mouseleave', cancelOnMove);
 		  marker.dragging.disable();
 		  marker.dragging.enable();
 		};
-		marker.on('mousemove', cancelOnMove);
+		marker.on('mouseleave', cancelOnMove);
 		dragTimer = setTimeout(() => {
-		  marker.off('mousemove', cancelOnMove);
+		  marker.off('mouseleave', cancelOnMove);
 		}, 400);
 	  };
 	  
@@ -438,7 +438,7 @@ function initMET(categories, iconsData) {
 		clearTimeout(dragTimer);
 		timerProgress.classList.remove('timer-progress');
 		blueTimer.style.display = 'none';
-		marker.off('mousemove', cancelOnMove);
+		marker.off('mouseleave', cancelOnMove);
 		marker.dragging.enable();
 	  };
 	  
