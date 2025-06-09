@@ -249,7 +249,7 @@ function initMET(categories, iconsData) {
       openEditPopup(e.target, false);
     }
 	
-    function setAddMode(addingMarker) {
+    function setAddMode() {
       if (addingMarker) {
         btnAdd.classList.add('btnAddMode');
         map.on('click', onMapClick);
@@ -268,7 +268,8 @@ function initMET(categories, iconsData) {
       btnExit.style.display = 'block';
       btnAdd.style.display = 'block';
       btnSave.style.display = 'block';
-      setAddMode(true);
+	  addingMarker = false;
+      setAddMode();
       existingMarkers.forEach(m => {
         m.off('click');
         m.on('click', onMarkerClick);
@@ -284,7 +285,8 @@ function initMET(categories, iconsData) {
       btnExit.style.display = 'none';
       btnAdd.style.display = 'none';
       btnSave.style.display = 'none';
-      setAddMode(false);
+	  addingMarker = false;
+	  setAddMode();
       existingMarkers.forEach(m => {
         m.closePopup();
         m.off('click', onMarkerClick);
@@ -295,7 +297,8 @@ function initMET(categories, iconsData) {
 	//Переключатель кнопки btnAdd
     btnAdd.addEventListener('click', () => {
       if (!metActive) return;
-      setAddMode(!addingMarker);
+	  addingMarker = !addingMarker;
+      setAddMode();
     });
 	
 	//Функция добаления маркера
@@ -303,6 +306,8 @@ function initMET(categories, iconsData) {
       if (!addingMarker) return;
       const marker = L.marker(e.latlng, { draggable: true }).addTo(map);
       openEditPopup(marker, true);
+	  addingMarker = !addingMarker;
+	  setAddMode();
     }
 	
 	const editPopup = L.popup({
@@ -379,6 +384,7 @@ function initMET(categories, iconsData) {
 		editPopupOpen = false;
 		marker.off('mousedown', draggingEnable);
 		marker.off('mouseup mouseleave', draggingCancel);
+		map.off('zoom')
 		marker.dragging.disable();
 	  });
       const popupEl = editPopup.getElement();
@@ -450,7 +456,12 @@ function initMET(categories, iconsData) {
 		blueTimer.style.display = 'none';
 	  });
 	  
-	  
+	  map.on('zoom', () => {
+        if (!editPopupOpen) return;
+		const zoomShiftedLatLng = shiftLatLng(marker.getLatLng(), 40);
+		editPopup.setLatLng(zoomShiftedLatLng);
+	  });
+		  
 	  
 	  
 	  //Функция обработчик изменений маркера
