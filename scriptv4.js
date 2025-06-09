@@ -523,6 +523,14 @@ function initMET(categories, iconsData) {
           map.removeLayer(marker);
           diff.added = diff.added.filter(o => o.id !== marker.options.id);
         } else {
+		  marker.setLatLng(marker.options.coords);
+		  const ic = iconsById[marker.options.icon_id] || iconsById.default;
+          marker.setIcon(L.icon({
+            iconUrl: ic.url,
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+          }));
           diff.deleted.push(marker.options.id);
         }
         editPopup.remove();
