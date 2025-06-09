@@ -308,6 +308,7 @@ function initMET(categories, iconsData) {
 	const editPopup = L.popup({
 	  autoClose: false,
 	  closeOnClick: false,
+	  autoPan: false,
 	  className: 'edit-popup-class'
 	});
 	
@@ -440,8 +441,8 @@ function initMET(categories, iconsData) {
         lngIn.value = lng.toFixed(6);
         if (editPopupOpen) {
 		  const dragShiftedLatLng = shiftLatLng(e.target.getLatLng(), 40);
-		  editPopup.setLatLng(dragShiftedLatLng).update();
-		  editPopup.setContent(content).update();
+		  editPopup.setLatLng(dragShiftedLatLng)//.update();
+		  //editPopup.setContent(content).update();
         }
       });
       marker.on('dragend', () => { 
