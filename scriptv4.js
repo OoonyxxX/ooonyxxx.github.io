@@ -379,7 +379,7 @@ function initMET(categories, iconsData) {
       }
 	  //END
 	  //Сборка попапа
-      console.log(content);
+      console.log(form);
 	  //Создание и открытие попапа
 	  const defShiftedLatLng = shiftLatLng(marker.getLatLng(), 40);
 	  editPopup.setLatLng(defShiftedLatLng);
@@ -489,6 +489,7 @@ function initMET(categories, iconsData) {
           const newId = genId(name, lat, lng);
           marker.options.id = newId;
           existingMarkers.set(newId, marker);
+		  marker.on('click', onMarkerClick);
           diff.added.push({ id: newId, name, description, category_id, icon_id, coords: [lat, lng] });
         } else {
           if (marker.options.category_id !== category_id) {
