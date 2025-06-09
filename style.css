@@ -18,6 +18,11 @@ body.custom-cursor-on {
   cursor: none;
 }
 
+html.custom-cursor-on {
+  cursor: none;
+}
+
+
 /* cursors */
 /* START */
 .custom-cursor-on .leaflet-interactive {
