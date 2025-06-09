@@ -318,13 +318,6 @@ function initMET(categories, iconsData) {
 	  setAddMode();
     }
 	
-	const editPopup = L.popup({
-	  autoClose: false,
-	  closeOnClick: false,
-	  autoPan: false,
-	  className: 'edit-popup-class'
-	});
-	
 	function shiftLatLng(latlng, offsetYInPixels) {
 	  const point = map.latLngToLayerPoint(latlng);
 	  point.y -= offsetYInPixels;
@@ -334,8 +327,13 @@ function initMET(categories, iconsData) {
 	/////////////////////////////////////
 	/////////////////////////////////////
 	//Функция открытия и обработки попапа
-    function openEditPopup(marker, isNew) { 
-	  console.log(marker._leaflet_id, map.hasLayer(marker));
+    function openEditPopup(marker, isNew) {
+	  const editPopup = L.popup({
+	    autoClose: false,
+	    closeOnClick: false,
+	    autoPan: false,
+	    className: 'edit-popup-class'
+	  });
       marker.unbindPopup();
       const content = tpl.content.cloneNode(true);
       const form = content.querySelector('#marker-form');
