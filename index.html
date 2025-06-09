@@ -37,14 +37,12 @@
 		<label>Category
 		  <select name="category">
 			<option value="" selected>none</option>
-			<!-- JS вставит сюда остальные опции -->
 		  </select>
 		</label><br/>
 
 		<label>Icon
 		  <select name="icon">
 			<option value="" selected>default</option>
-			<!-- JS вставит сюда остальные опции -->
 		  </select>
 		</label><br/>
 
@@ -55,8 +53,9 @@
 		  <input type="number" name="lng" step="any" required />
 		</label><br/>
 
-		<button type="button" id="submit-btn">Save</button>
-		<button type="button" id="cancel-btn">Cancel</button>
+		<button type="button" id="submit-btn" class="btn-submit">Save</button>
+		<button type="button" id="discard-btn" class="btn-discard">Discard</button>
+		<button type="button" id="delete-btn" class="btn-delete">Delete</button>
 	  </form>
   </template>
   <div id="custom-cursor" class="cursor-base">

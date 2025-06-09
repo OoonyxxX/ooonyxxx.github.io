@@ -304,7 +304,15 @@ function initMET(categories, iconsData) {
 	//Функция добаления маркера
     function onMapClick(e) {
       if (!addingMarker) return;
-      const marker = L.marker(e.latlng, { draggable: true }).addTo(map);
+	  const ic = iconsById.default || iconsById["default"];
+      const marker = L.marker(e.latlng, {
+		icon: L.icon({
+		  iconUrl: ic.url,
+		  iconSize: [32, 32],
+		  iconAnchor: [16, 32],
+		  popupAnchor: [0, -32]
+		})
+	  }).addTo(map);
       openEditPopup(marker, true);
 	  addingMarker = !addingMarker;
 	  setAddMode();
@@ -337,7 +345,6 @@ function initMET(categories, iconsData) {
       const latIn = form.querySelector('input[name="lat"]');
       const lngIn = form.querySelector('input[name="lng"]');
       const latlng = marker.getLatLng();
-	  
 	  //Сборка попапа
 	  //START
       categories.forEach(cat => {
@@ -390,7 +397,8 @@ function initMET(categories, iconsData) {
       const popupEl = editPopup.getElement();
       const formEl = popupEl.querySelector('#marker-form');
       const submitBtn = popupEl.querySelector('#submit-btn');
-      const cancelBtn = popupEl.querySelector('#cancel-btn');
+      const discardBtn = popupEl.querySelector('#discard-btn');
+	  const deleteBtn = popupEl.querySelector('#delete-btn');
 	  
 	  //Динамическое изменение иконки
       iconSel.addEventListener('change', e => {
@@ -503,14 +511,24 @@ function initMET(categories, iconsData) {
           popupAnchor: [0, -32]
         }));
 
-        marker.closePopup();
+        editPopup.remove();
         updateSaveState();
       });
 	  //END
 	  //Функция обработчик изменений маркера
 	  
 	  //Функция обработчик отмены изменений маркера
-      cancelBtn.addEventListener('click', () => {
+      discardBtn.addEventListener('click', () => {
+        if (isNew) {
+          map.removeLayer(marker);
+          diff.added = diff.added.filter(o => o.id !== marker.options.id);
+        } else {
+          diff.deleted.push(marker.options.id);
+        }
+        editPopup.remove();
+        updateSaveState();
+      });
+      deleteBtn.addEventListener('click', () => {
         if (isNew) {
           map.removeLayer(marker);
           diff.added = diff.added.filter(o => o.id !== marker.options.id);
@@ -518,7 +536,7 @@ function initMET(categories, iconsData) {
           diff.deleted.push(marker.options.id);
           map.removeLayer(marker);
         }
-        marker.closePopup();
+		editPopup.remove();
         updateSaveState();
       });
     }
