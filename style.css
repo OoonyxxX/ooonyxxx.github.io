@@ -60,8 +60,15 @@ body {
 }
 
 .modal-content {
-  background: white;
+  background: #061d25e5;
   padding: 20px;
   border-radius: 6px;
   text-align: center;
 }
+
+.modal-text {
+  color: #e5e5e5;
+  background: none;
+}
+/*#e5e5e5*/
+/*background: #061d25e5*/
