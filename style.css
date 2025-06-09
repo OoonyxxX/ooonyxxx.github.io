@@ -47,6 +47,10 @@ html.custom-cursor-on {
 	cursor: none;
 	cursor: none;
 	}
+	
+.leaflet-tooltip.leaflet-interactive {
+	cursor: none;
+	}
 /* END */
 /* cursors */
 
