@@ -441,6 +441,7 @@ function initMET(categories, iconsData) {
         if (editPopupOpen) {
 		  const dragShiftedLatLng = shiftLatLng(e.target.getLatLng(), 40);
 		  editPopup.setLatLng(dragShiftedLatLng).update();
+		  editPopup.setContent(content).update();
         }
       });
       marker.on('dragend', () => { 
