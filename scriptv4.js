@@ -328,10 +328,12 @@ function initMET(categories, iconsData) {
 	/////////////////////////////////////
 	//Функция открытия и обработки попапа
     function openEditPopup(marker, isNew) {
+	  console.log("Edit Popap Open");
 	  const editPopup = L.popup({
 	    autoClose: false,
 	    closeOnClick: false,
 	    autoPan: false,
+		closeButton: false,
 	    className: 'edit-popup-class'
 	  });
       marker.unbindPopup();
@@ -377,7 +379,7 @@ function initMET(categories, iconsData) {
       }
 	  //END
 	  //Сборка попапа
-      
+      console.log(content);
 	  //Создание и открытие попапа
 	  const defShiftedLatLng = shiftLatLng(marker.getLatLng(), 40);
 	  editPopup.setLatLng(defShiftedLatLng);
