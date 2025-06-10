@@ -289,6 +289,7 @@ function initMET(categories, iconsData) {
 	  setAddMode();
       existingMarkers.forEach(m => {
         m.closePopup();
+		m.unbindPopup();
         m.off('click', onMarkerClick);
         m.bindPopup(`<b>${m.options.name}</b><br>${m.options.description}`);
       });
