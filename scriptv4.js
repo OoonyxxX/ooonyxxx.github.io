@@ -74,7 +74,7 @@ const layers   = {};
 //END
 //Переменные для редактирования существующих меток
 
-
+let originalMarkersData = [];
 
 
 //Слои меток + Фильтры
@@ -112,6 +112,17 @@ Promise.all([
     // можно вписать свою картинку или оставить первую
     icons.default = Object.values(icons)[0];
   }
+  
+  originalMarkersData = markersData.map(m => ({
+    id: m.id,
+    name: m.name,
+    description: m.description,
+    category_id: m.category_id,
+    icon_id: m.icon_id,
+    // клонируем массив координат, чтобы при мутации исходный не менялся
+    coords: [m.coords[0], m.coords[1]]
+  }));
+  
   // 3) Создаём маркеры из markersData
   markersData.forEach(m => {
     const {id, name, description, coords, category_id, icon_id} = m;
@@ -224,7 +235,40 @@ function genId(title, lat, lng) {
   return `${safeTitle}_${rand}_${latPart}_${lngPart}`;
 }
 
+let exitSave = false;
 
+
+function discardChanges() {
+  // 1) убираем все текущие метки
+  existingMarkers.forEach(marker => {
+    const cat = marker.options.category_id;
+    layers[cat].removeLayer(marker);
+  });
+  existingMarkers.clear();
+
+  // 2) пересоздаём их «как было»
+  originalMarkersData.forEach(m => {
+    const icon = icons[m.icon_id] || icons.default;
+    const layer = layers[m.category_id];
+    const marker = L.marker(m.coords, { icon });
+    // записываем обратно все опции, чтобы bindPopup / onMarkerClick дальше работали
+    marker.options.id           = m.id;
+    marker.options.name         = m.name;
+    marker.options.description  = m.description;
+    marker.options.category_id  = m.category_id;
+    marker.options.icon_id      = m.icon_id;
+    marker.options.coords       = m.coords;
+    marker.bindPopup(`<b>${m.name}</b><br>${m.description}`);
+    layer.addLayer(marker);
+    existingMarkers.set(m.id, marker);
+  });
+
+  // чистим «журнал» изменений
+  diff.added   = [];
+  diff.updated = [];
+  diff.deleted = [];
+  updateSaveState();
+}
 //Блок MET
 //START
 function initMET(categories, iconsData) {
@@ -278,21 +322,26 @@ function initMET(categories, iconsData) {
 	
 	//Кнопка выключения МЕТ
     btnExit.addEventListener('click', () => {
-      metActive = false;
-      btnActivate.disabled = false;
-      btnExit.disabled = true;
-      btnAdd.disabled = true;
+	  metActive = false;
+	  btnActivate.disabled = false;
+	  btnExit.disabled = true;
+	  btnAdd.disabled = true;
       btnExit.style.display = 'none';
       btnAdd.style.display = 'none';
       btnSave.style.display = 'none';
 	  addingMarker = false;
 	  setAddMode();
-      existingMarkers.forEach(m => {
-        m.closePopup();
-		m.unbindPopup();
-        m.off('click', onMarkerClick);
-        m.bindPopup(`<b>${m.options.name}</b><br>${m.options.description}`);
-      });
+	  
+	  if (exitSave) {
+		fetch('/markers/update', {
+		  method: 'POST',
+		  headers: { 'Content-Type': 'application/json' },
+		  body: JSON.stringify(diff)
+		}).then(r => r.json()).then(r => console.log('Save result', r)).catch(console.error);
+	    exitSave = false;
+	  } else {
+	    discardChanges();
+	  }
     });
 	
 	//Переключатель кнопки btnAdd
@@ -568,12 +617,9 @@ function initMET(categories, iconsData) {
 	
 	//Сохранение изменений в json
     btnSave.addEventListener('click', () => {
+	  exitSave = true;
       btnSave.disabled = true;
-      fetch('/markers/update', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(diff)
-      }).then(r => r.json()).then(r => console.log('Save result', r)).catch(console.error);
+	  btnExit.textContent = 'Exit and save';
     });
 
   })();
