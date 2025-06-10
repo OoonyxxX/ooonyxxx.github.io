@@ -238,14 +238,30 @@ function genId(title, lat, lng) {
 let exitSave = false;
 
 
-function discardChanges() {
+function discardChanges(iconsData) {
   // 1) убираем все текущие метки
   existingMarkers.forEach(marker => {
     const cat = marker.options.category_id;
     layers[cat].removeLayer(marker);
   });
   existingMarkers.clear();
-
+  
+  const icons = {};
+  iconsData.forEach(ic => {
+    icons[ic.id] = L.icon({
+      iconUrl:    ic.url,
+      iconSize:   [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor:[0, -32]
+    });
+  });
+  // Если в JSON есть default–иконка, назначим её как fallback
+  if (icons["default"]) {
+    icons.default = icons["default"];
+  } else {
+    // можно вписать свою картинку или оставить первую
+    icons.default = Object.values(icons)[0];
+  }
   // 2) пересоздаём их «как было»
   originalMarkersData.forEach(m => {
     const icon = icons[m.icon_id] || icons.default;
@@ -340,7 +356,7 @@ function initMET(categories, iconsData) {
 		}).then(r => r.json()).then(r => console.log('Save result', r)).catch(console.error);
 	    exitSave = false;
 	  } else {
-	    discardChanges();
+	    discardChanges(iconsData);
 	  }
     });
 	
