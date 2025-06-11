@@ -113,8 +113,8 @@ Promise.all([
     icons[ic.id] = L.icon({
       iconUrl:    ic.url,
       iconSize:   [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor:[0, -32]
+      iconAnchor: [16, 16],
+      popupAnchor:[0, -16]
     });
   });
   if (icons["default"]) {
