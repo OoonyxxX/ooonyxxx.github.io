@@ -59,7 +59,7 @@
     "name": "Test",
     "description": "Description_PlaceHolder",
     "category_id": null,
-    "icon_id": "warGate",
+    "icon_id": "tree",
     "coords": [
       203.500283,
       155.25
@@ -85,6 +85,17 @@
     "coords": [
       134.9668738428987,
       136.75
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_62829166_162212_184250",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "lake",
+    "coords": [
+      162.031105,
+      184.53125
     ]
   }
 ]
