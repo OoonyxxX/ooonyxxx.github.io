@@ -401,8 +401,8 @@ function initMET(categories, iconsData) {
 
 		    if (status === 'built') {
 			  clearInterval(intervalId);
-			  exitLoaderText.innerHTML += '<br style="color:green">Page will refresh in 10 seconds...';
-			  setTimeout(() => location.reload(), 10_000);
+			  exitLoaderText.innerHTML += '<br style="color:green">Page will refresh in 20 seconds...';
+			  setTimeout(() => location.reload(), 20_000);
 		    }
 		    else if (status === 'errored') {
 			  clearInterval(intervalId);
