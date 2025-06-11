@@ -364,7 +364,6 @@ function initMET(categories, iconsData) {
 	  } else {
 		// --------------------------------------------------
 		// 2B) Выход С сохранением
-		// вычислим примерное время обработки в зависимости от часа
 		const h = new Intl.DateTimeFormat('en-US', {
 		  hour:     'numeric',
 		  hour12:   false,
@@ -409,12 +408,10 @@ function initMET(categories, iconsData) {
 			  clearInterval(intervalId);
 			  exitLoaderText.innerHTML += '<br style="color:red">Error during deployment. Please try again later.';
 		    }
-		    // Для статусов 'queued' и 'building' — просто ждём следующего цикла
 		  }
 		  catch (err) {
 		    console.error('Deploy status check failed:', err);
 		    exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>unknown (error)</em>';
-		    // можно не сбрасывать интервал, чтобы попробовать ещё
 		  }
 	    }, 5_000);
 	  }
@@ -451,12 +448,6 @@ function initMET(categories, iconsData) {
 	  //END
 	  //Exit Modal
 	  
-//	  if (exitSave) {
-//		fetch('/markers/update', {
-//		  method: 'POST',
-//		  headers: { 'Content-Type': 'application/json' },
-//		  body: JSON.stringify(diff)
-//		}).then(r => r.json()).then(r => console.log('Save result', r)).catch(console.error);
     });
 	
 	//Переключатель кнопки btnAdd
