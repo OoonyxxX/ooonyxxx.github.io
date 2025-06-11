@@ -41,7 +41,7 @@
     ],
     "description": "Placeholder2",
     "category_id": "home",
-    "icon_id": "home"
+    "icon_id": "playerHome"
   },
   {
     "id": "Raven_Home_86424168_095000_037000",
@@ -52,7 +52,7 @@
     ],
     "description": "Placeholder3",
     "category_id": "home",
-    "icon_id": "home"
+    "icon_id": "playerHome"
   },
   {
     "id": "Test_82345330_156462_085500",
@@ -70,7 +70,7 @@
     "name": "Name_PlaceHolder",
     "description": "Description_PlaceHolder",
     "category_id": "home",
-    "icon_id": "home",
+    "icon_id": "playerHome",
     "coords": [
       191.46117807080515,
       104.75
