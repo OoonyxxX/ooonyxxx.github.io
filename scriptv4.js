@@ -435,7 +435,7 @@ function initMET(categories, iconsData) {
 
 		  exitLoaderText.textContent = baseMessage + 'Deploy status: <em>checking…</em>';
 		  startDeployPolling();
-		  fetch('/api/markers/update', {
+		  fetch('/api/update-markers', {
 		    method: 'POST',
 		    credentials: 'include',               // чтобы прокси взял куки с сессией OAuth
 		    headers: { 'Content-Type': 'application/json' },
