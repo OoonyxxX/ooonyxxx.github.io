@@ -81,7 +81,7 @@
     "name": "Name_PlaceHolder",
     "description": "Description_PlaceHolder",
     "category_id": null,
-    "icon_id": "waterfall",
+    "icon_id": "wispCollector",
     "coords": [
       176.96174481429705,
       140.75
