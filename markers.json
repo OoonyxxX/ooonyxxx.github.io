@@ -77,14 +77,14 @@
     ]
   },
   {
-    "id": "Name_PlaceHolder_86301575_176962_140750",
-    "name": "Name_PlaceHolder",
+    "id": "Test2_84550568_134967_136750",
+    "name": "Test2",
     "description": "Description_PlaceHolder",
     "category_id": null,
-    "icon_id": "wispCollector",
+    "icon_id": "snakeShrine",
     "coords": [
-      176.96174481429705,
-      140.75
+      134.9668738428987,
+      136.75
     ]
   }
 ]
