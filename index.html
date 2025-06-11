@@ -188,13 +188,35 @@
 	  </g>
 	</svg>
   </div>
-  <div id="confirm-modal" class="modal hidden">
-    <div class="modal-content">
-      <p class="modal-text">Are you sure you want to remove this marker?</p>
+  <div id="confirm-modal" class="confirm-modal-style confirm-hidden">
+    <div class="confirm-modal-content">
+      <p class="confirm-modal-text">Are you sure you want to remove this marker?</p>
       <button id="confirm-yes">Yes</button>
       <button id="confirm-no">NO</button>
     </div>
   </div>
+  
+  <div id="exit-modal" class="exit-modal-style exit-hidden">
+  <div class="exit-modal-content">
+    <p id="exit-modal-text"></p>
+
+    <!-- Кнопки Да/Нет -->
+    <div id="exit-modal-buttons" class="modal-buttons">
+	  <p id="exit-modal-text" class="modal-text"></p>
+      <button id="exit-yes">Yes</button>
+      <button id="exit-no">NO</button>
+    </div>
+
+    <!-- Лоадер и поясняющий текст -->
+    <div id="exit-modal-loader" class="modal-loader exit-hidden">
+      <!-- любая SVG-анимация спиннера, например: -->
+      <svg width="50" height="50" viewBox="0 0 50 50" class="spinner">
+        <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"/>
+      </svg>
+      <p id="exit-modal-loader-text" class="modal-loader-text"></p>
+    </div>
+  </div>
+</div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="scriptv4.js"></script>
   <script src="cursor.js"></script>

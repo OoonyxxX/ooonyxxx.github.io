@@ -238,53 +238,6 @@ function genId(title, lat, lng) {
 let exitSave = false;
 
 
-function discardChanges(iconsData) {
-  // 1) убираем все текущие метки
-  existingMarkers.forEach(marker => {
-    const cat = marker.options.category_id;
-    layers[cat].removeLayer(marker);
-  });
-  existingMarkers.clear();
-  
-  const icons = {};
-  iconsData.forEach(ic => {
-    icons[ic.id] = L.icon({
-      iconUrl:    ic.url,
-      iconSize:   [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor:[0, -32]
-    });
-  });
-  // Если в JSON есть default–иконка, назначим её как fallback
-  if (icons["default"]) {
-    icons.default = icons["default"];
-  } else {
-    // можно вписать свою картинку или оставить первую
-    icons.default = Object.values(icons)[0];
-  }
-  // 2) пересоздаём их «как было»
-  originalMarkersData.forEach(m => {
-    const icon = icons[m.icon_id] || icons.default;
-    const layer = layers[m.category_id];
-    const marker = L.marker(m.coords, { icon });
-    // записываем обратно все опции, чтобы bindPopup / onMarkerClick дальше работали
-    marker.options.id           = m.id;
-    marker.options.name         = m.name;
-    marker.options.description  = m.description;
-    marker.options.category_id  = m.category_id;
-    marker.options.icon_id      = m.icon_id;
-    marker.options.coords       = m.coords;
-    marker.bindPopup(`<b>${m.name}</b><br>${m.description}`);
-    layer.addLayer(marker);
-    existingMarkers.set(m.id, marker);
-  });
-
-  // чистим «журнал» изменений
-  diff.added   = [];
-  diff.updated = [];
-  diff.deleted = [];
-  updateSaveState();
-}
 //Блок MET
 //START
 function initMET(categories, iconsData) {
@@ -298,6 +251,54 @@ function initMET(categories, iconsData) {
     const diff = { added: [], updated: [], deleted: [] };
 	//END
 	//Переменные внутри блока MET
+	
+	function discardChanges(iconsData) {
+	  // 1) убираем все текущие метки
+	  existingMarkers.forEach(marker => {
+		const cat = marker.options.category_id;
+		layers[cat].removeLayer(marker);
+	  });
+	  existingMarkers.clear();
+	  
+	  const icons = {};
+	  iconsData.forEach(ic => {
+		icons[ic.id] = L.icon({
+		  iconUrl:    ic.url,
+		  iconSize:   [32, 32],
+		  iconAnchor: [16, 32],
+		  popupAnchor:[0, -32]
+		});
+	  });
+	  // Если в JSON есть default–иконка, назначим её как fallback
+	  if (icons["default"]) {
+		icons.default = icons["default"];
+	  } else {
+		// можно вписать свою картинку или оставить первую
+		icons.default = Object.values(icons)[0];
+	  }
+	  // 2) пересоздаём их «как было»
+	  originalMarkersData.forEach(m => {
+		const icon = icons[m.icon_id] || icons.default;
+		const layer = layers[m.category_id];
+		const marker = L.marker(m.coords, { icon });
+		// записываем обратно все опции, чтобы bindPopup / onMarkerClick дальше работали
+		marker.options.id           = m.id;
+		marker.options.name         = m.name;
+		marker.options.description  = m.description;
+		marker.options.category_id  = m.category_id;
+		marker.options.icon_id      = m.icon_id;
+		marker.options.coords       = m.coords;
+		marker.bindPopup(`<b>${m.name}</b><br>${m.description}`);
+		layer.addLayer(marker);
+		existingMarkers.set(m.id, marker);
+	  });
+
+	  // чистим «журнал» изменений
+	  diff.added   = [];
+	  diff.updated = [];
+	  diff.deleted = [];
+	  updateSaveState();
+	}
 	
 	//Обновление состояния кнопки btnSave
     function updateSaveState() {
@@ -336,28 +337,122 @@ function initMET(categories, iconsData) {
       });
     });
 	
+
+	
+	
 	//Кнопка выключения МЕТ
     btnExit.addEventListener('click', () => {
-	  metActive = false;
-	  btnActivate.disabled = false;
-	  btnExit.disabled = true;
-	  btnAdd.disabled = true;
-      btnExit.style.display = 'none';
-      btnAdd.style.display = 'none';
-      btnSave.style.display = 'none';
-	  addingMarker = false;
-	  setAddMode();
+	  const exitModal      = document.getElementById('exit-modal');
+	  const exitText       = document.getElementById('exit-modal-text');
+	  const exitButtons    = document.getElementById('exit-modal-buttons');
+	  const exitYes        = document.getElementById('exit-modal-yes');
+	  const exitNo         = document.getElementById('exit-modal-no');
+	  const exitLoader     = document.getElementById('exit-modal-loader');
+	  const exitLoaderText = document.getElementById('exit-modal-loader-text');
+	  //Exit Modal
+	  //START
+	  exitLoader.classList.add('exit-hidden');
+	  exitButtons.classList.remove('exit-hidden');
 	  
-	  if (exitSave) {
-		fetch('/markers/update', {
-		  method: 'POST',
-		  headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify(diff)
-		}).then(r => r.json()).then(r => console.log('Save result', r)).catch(console.error);
-	    exitSave = false;
+	  if (!exitSave) {
+		// --------------------------------------------------
+		// 2A) Выход БЕЗ сохранения
+		exitText.textContent = 'Are you sure you want to exit without saving the changes? ' + 'All edits will be lost.';
 	  } else {
-	    discardChanges(iconsData);
+		// --------------------------------------------------
+		// 2B) Выход С сохранением
+		// вычислим примерное время обработки в зависимости от часа
+		const h = new Intl.DateTimeFormat('en-US', {
+		  hour:     'numeric',
+		  hour12:   false,
+		  timeZone: 'Europe/Kiev'
+		}).format(new Date());
+		const peakStart = 16, peakEnd = 22;
+		const waitMin   = (h >= peakStart && h < peakEnd) ? 7 : 2;
+		const minutesWord = waitMin === 1 ? 'minute' :
+							(waitMin >= 2 && waitMin <= 4) ? 'minutes' : 'minutes';
+
+		exitText.innerHTML = 'Are you sure you want to save the changes and exit?<br>' +
+							 `Processing time can take up to ${waitMin} ${minutesWord}.`;
 	  }
+	  
+	  exitModal.classList.remove('exit-hidden');
+	  const baseMessage = 'The changes you make are sent to the server, ' + 'please don`t close the tab.<br>' + 'Once the server processes the changes, the page will refresh automatically and they will take effect. ' + 'Please note: during peak hours (18:00-22:00) processing time can be up to 7 minutes.<br>';
+	  exitNo.addEventListener('click', () => {
+	    exitModal.classList.add('exit-hidden');
+	  });
+	  
+	  function startDeployPolling() {
+	    const intervalId = setInterval(async () => {
+		  try {
+		    const res = await fetch('/api/deploy-status', {
+			  method: 'GET',
+			  credentials: 'include'
+		    });
+		    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+		    const { status } = await res.json();
+
+		    // Обновляем текст
+		    exitLoaderText.textContent = baseMessage + `Deploy status: <strong>${status}</strong>`;
+
+		    if (status === 'built') {
+			  clearInterval(intervalId);
+			  exitLoaderText.textContent += '<br style="color:green">Page will refresh in 10 seconds...';
+			  setTimeout(() => location.reload(), 10_000);
+		    }
+		    else if (status === 'errored') {
+			  clearInterval(intervalId);
+			  exitLoaderText.textContent += '<br style="color:red">Error during deployment. Please try again later.';
+		    }
+		    // Для статусов 'queued' и 'building' — просто ждём следующего цикла
+		  }
+		  catch (err) {
+		    console.error('Deploy status check failed:', err);
+		    exitLoaderText.textContent = baseMessage + 'Deploy status: <em>unknown (error)</em>';
+		    // можно не сбрасывать интервал, чтобы попробовать ещё
+		  }
+	    }, 5_000);
+	  }
+	  
+	  exitYes.addEventListener('click', () => {
+	    if (!exitSave) {
+		  // Выход без сохранения
+		  exitModal.classList.add('exit-hidden');
+		  metActive = false;
+		  btnActivate.disabled = false;
+		  btnExit.disabled = true;
+		  btnAdd.disabled = true;
+		  btnExit.style.display = 'none';
+		  btnAdd.style.display = 'none';
+		  btnSave.style.display = 'none';
+		  addingMarker = false;
+		  setAddMode();
+		  discardChanges(iconsData);
+	    } else {
+		  exitButtons.classList.add('exit-hidden');
+		  exitLoader.classList.remove('exit-hidden');
+
+		  exitLoaderText.textContent = baseMessage + 'Deploy status: <em>checking…</em>';
+		  startDeployPolling();
+		  fetch('/api/markers/update', {
+		    method: 'POST',
+		    credentials: 'include',               // чтобы прокси взял куки с сессией OAuth
+		    headers: { 'Content-Type': 'application/json' },
+		    body: JSON.stringify(diff)
+		  })
+		  .catch(err => console.error(err));
+	    }
+	  });
+	  //END
+	  //Exit Modal
+	  
+//	  if (exitSave) {
+//		fetch('/markers/update', {
+//		  method: 'POST',
+//		  headers: { 'Content-Type': 'application/json' },
+//		  body: JSON.stringify(diff)
+//		}).then(r => r.json()).then(r => console.log('Save result', r)).catch(console.error);
     });
 	
 	//Переключатель кнопки btnAdd
@@ -599,19 +694,18 @@ function initMET(categories, iconsData) {
             iconAnchor: [16, 32],
             popupAnchor: [0, -32]
           }));
-          diff.deleted.push(marker.options.id);
         }
         editPopup.remove();
         updateSaveState();
       });
-	  const modal = document.getElementById('confirm-modal');
-	  const btnYes = document.getElementById('confirm-yes');
-	  const btnNo  = document.getElementById('confirm-no');
+	  const confirmModal = document.getElementById('confirm-modal');
+	  const btnConfirmYes = document.getElementById('confirm-yes');
+	  const btnConfirmNo  = document.getElementById('confirm-no');
       deleteBtn.addEventListener('click', () => {
-		modal.classList.remove('hidden');
-		btnYes.onclick = () => {
+		confirmModal.classList.remove('confirm-hidden');
+		btnConfirmYes.onclick = () => {
 			
-		  modal.classList.add('hidden');
+		  confirmModal.classList.add('confirm-hidden');
 		  
 		  if (isNew) {
 		    map.removeLayer(marker);
@@ -623,8 +717,8 @@ function initMET(categories, iconsData) {
 		  editPopup.remove();
 		  updateSaveState();
 		};
-		btnNo.onclick = () => {
-		  modal.classList.add('hidden');
+		btnConfirmNo.onclick = () => {
+		  confirmModal.classList.add('confirm-hidden');
 		};
       });
     }
