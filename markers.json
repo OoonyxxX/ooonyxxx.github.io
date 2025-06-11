@@ -86,5 +86,27 @@
       168.21140476820193,
       180.5
     ]
+  },
+  {
+    "id": "Name_PlaceHolder_64804399_209208_094500",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "default",
+    "coords": [
+      209.2081176559489,
+      94.5
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_43480411_191461_104750",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      191.46117807080515,
+      104.75
+    ]
   }
 ]
