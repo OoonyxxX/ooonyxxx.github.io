@@ -717,11 +717,8 @@ function initMET(categories, iconsData) {
 		    diff.deleted.push(marker.options.id);
 		    map.removeLayer(marker);
 		  }
-		  editPopup.remove();
-		  console.log('>>> перед updateSaveState, diff =', diff);
-		  console.log('   added:', diff.added.length, 'updated:', diff.updated.length, 'deleted:', diff.deleted.length);
 		  updateSaveState();
-		  btnSave.disabled = false;
+		  editPopup.remove();
 		};
 		btnConfirmNo.onclick = () => {
 		  confirmModal.classList.add('confirm-hidden');
