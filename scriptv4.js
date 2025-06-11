@@ -86,8 +86,7 @@ Promise.all([
 ])
 
 .then(([categories, iconsData, markersData]) => {
-  // 1) Готовим слои (по категориям)
-  const overlays = {};     // label категории → L.LayerGroup (для UI)
+  const overlays = {};
 
   categories.forEach(cat => {
     const layer = L.layerGroup().addTo(map);
@@ -95,10 +94,14 @@ Promise.all([
     overlays[cat.label] = layer;
   });
   const defaultLayer = L.layerGroup().addTo(map);
-  layers[null] = defaultLayer;               // layers["null"]
-  overlays['Uncategorized'] = defaultLayer;  // если вы хотите отобразить его в контроле слоёв
-
-  // 2) Готовим иконки
+  layers[null] = defaultLayer;
+  overlays['Uncategorized'] = defaultLayer;
+  
+  iconsData.forEach(ic => {
+    const img = new Image();
+    img.src = ic.url;
+  });
+  
   const icons = {};
   iconsData.forEach(ic => {
     icons[ic.id] = L.icon({
@@ -108,11 +111,9 @@ Promise.all([
       popupAnchor:[0, -32]
     });
   });
-  // Если в JSON есть default–иконка, назначим её как fallback
   if (icons["default"]) {
     icons.default = icons["default"];
   } else {
-    // можно вписать свою картинку или оставить первую
     icons.default = Object.values(icons)[0];
   }
   
@@ -122,22 +123,18 @@ Promise.all([
     description: m.description,
     category_id: m.category_id,
     icon_id: m.icon_id,
-    // клонируем массив координат, чтобы при мутации исходный не менялся
     coords: [m.coords[0], m.coords[1]]
   }));
   
-  // 3) Создаём маркеры из markersData
   markersData.forEach(m => {
     const {id, name, description, coords, category_id, icon_id} = m;
 	
-    // выбираем иконку, fallback → icons.default
     const icon  = icons[icon_id] || icons.default;
     const layer = layers[category_id];
 	
     const marker = L.marker(coords, { icon })
       .bindPopup(`<b>${name}</b><br>${description}`);
 	  
-	// опционально сохраняем id и данные в options
 	marker.options.id = id;
 	marker.options.name = name;
 	marker.options.description = description;
@@ -379,7 +376,7 @@ function initMET(categories, iconsData) {
 	  }
 	  
 	  exitModal.classList.remove('exit-hidden');
-	  const baseMessage = 'The changes you make are sent to the server, ' + 'please don`t close the tab.<br>' + 'Once the server processes the changes, the page will refresh automatically and they will take effect. ' + 'Please note: during peak hours (18:00-22:00) processing time can be up to 7 minutes.<br>';
+	  const baseMessage = 'The changes you make are sent to the server, ' + 'please don`t close the tab.<br>' + 'Once the server processes the changes, the page will refresh automatically and they will take effect. ' + 'Please note: during peak hours processing time can be up to 7 minutes.<br>';
 	  exitNo.addEventListener('click', () => {
 	    exitModal.classList.add('exit-hidden');
 	  });
@@ -402,12 +399,12 @@ function initMET(categories, iconsData) {
 		    if (status === 'built') {
 			  clearInterval(intervalId);
 			  exitLoaderText.innerHTML += '<br style="color:green">Page will refresh in 5 seconds...';
-			  //setTimeout(() => location.reload(), 5_000);
+			  //setTimeout(() => location.reload(), 15_000);
 			  setTimeout(() => {
 			    const url = new URL(window.location.href);
 			    url.searchParams.set('_', Date.now());
 			    window.location.replace(url.toString());
-			  }, 5_000);
+			  }, 15_000);
 		    }
 		    else if (status === 'errored') {
 			  clearInterval(intervalId);
