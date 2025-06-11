@@ -113,8 +113,8 @@ Promise.all([
     icons[ic.id] = L.icon({
       iconUrl:    ic.url,
       iconSize:   [32, 32],
-      iconAnchor: [16, 16],
-      popupAnchor:[0, -16]
+      iconAnchor: [16, 32],
+      popupAnchor:[0, -32]
     });
   });
   if (icons["default"]) {
@@ -271,8 +271,8 @@ function initMET(categories, iconsData) {
 		icons[ic.id] = L.icon({
 		  iconUrl:    ic.url,
 		  iconSize:   [32, 32],
-		  iconAnchor: [16, 16],
-		  popupAnchor:[0, -16]
+		  iconAnchor: [16, 32],
+		  popupAnchor:[0, -32]
 		});
 	  });
 	  // Если в JSON есть default–иконка, назначим её как fallback
@@ -476,8 +476,8 @@ function initMET(categories, iconsData) {
 		icon: L.icon({
 		  iconUrl: ic.url,
 		  iconSize: [32, 32],
-		  iconAnchor: [16, 16],
-		  popupAnchor: [0, -16]
+		  iconAnchor: [16, 32],
+		  popupAnchor: [0, -32]
 		})
 	  }).addTo(map);
       openEditPopup(marker, true);
@@ -574,8 +574,8 @@ function initMET(categories, iconsData) {
         marker.setIcon(L.icon({
           iconUrl: ic.url,
           iconSize: [32, 32],
-          iconAnchor: [16, 16],
-          popupAnchor: [0, -16]
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
         }));
       });
 	  
@@ -677,8 +677,8 @@ function initMET(categories, iconsData) {
         marker.setIcon(L.icon({
           iconUrl: ic.url,
           iconSize: [32, 32],
-          iconAnchor: [16, 16],
-          popupAnchor: [0, -16]
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
         }));
 
         editPopup.remove();
@@ -698,8 +698,8 @@ function initMET(categories, iconsData) {
           marker.setIcon(L.icon({
             iconUrl: ic.url,
             iconSize: [32, 32],
-            iconAnchor: [16, 16],
-            popupAnchor: [0, -16]
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
           }));
         }
         editPopup.remove();
