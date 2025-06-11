@@ -394,22 +394,22 @@ function initMET(categories, iconsData) {
 		    const { status } = await res.json();
 
 		    // Обновляем текст
-		    exitLoaderText.textContent = baseMessage + `Deploy status: <strong>${status}</strong>`;
+		    exitLoaderText.innerHTML = baseMessage + `Deploy status: <strong>${status}</strong>`;
 
 		    if (status === 'built') {
 			  clearInterval(intervalId);
-			  exitLoaderText.textContent += '<br style="color:green">Page will refresh in 10 seconds...';
+			  exitLoaderText.innerHTML += '<br style="color:green">Page will refresh in 10 seconds...';
 			  setTimeout(() => location.reload(), 10_000);
 		    }
 		    else if (status === 'errored') {
 			  clearInterval(intervalId);
-			  exitLoaderText.textContent += '<br style="color:red">Error during deployment. Please try again later.';
+			  exitLoaderText.innerHTML += '<br style="color:red">Error during deployment. Please try again later.';
 		    }
 		    // Для статусов 'queued' и 'building' — просто ждём следующего цикла
 		  }
 		  catch (err) {
 		    console.error('Deploy status check failed:', err);
-		    exitLoaderText.textContent = baseMessage + 'Deploy status: <em>unknown (error)</em>';
+		    exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>unknown (error)</em>';
 		    // можно не сбрасывать интервал, чтобы попробовать ещё
 		  }
 	    }, 5_000);
@@ -433,7 +433,7 @@ function initMET(categories, iconsData) {
 		  exitButtons.classList.add('exit-hidden');
 		  exitLoader.classList.remove('exit-hidden');
 
-		  exitLoaderText.textContent = baseMessage + 'Deploy status: <em>checking…</em>';
+		  exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>checking…</em>';
 		  startDeployPolling();
 		  fetch('/api/update-markers', {
 		    method: 'POST',
