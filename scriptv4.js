@@ -402,7 +402,12 @@ function initMET(categories, iconsData) {
 		    if (status === 'built') {
 			  clearInterval(intervalId);
 			  exitLoaderText.innerHTML += '<br style="color:green">Page will refresh in 20 seconds...';
-			  setTimeout(() => location.reload(), 20_000);
+			  //setTimeout(() => location.reload(), 20_000);
+			  setTimeout(() => {
+			    const url = new URL(window.location.href);
+			    url.searchParams.set('_', Date.now());
+			    window.location.replace(url.toString());
+			  }, 20_000);
 		    }
 		    else if (status === 'errored') {
 			  clearInterval(intervalId);
@@ -654,6 +659,7 @@ function initMET(categories, iconsData) {
             layers[marker.options.category_id].removeLayer(marker);
             layers[category_id].addLayer(marker);
           }
+		  diff.updated = diff.updated.filter(u => u.id !== marker.options.id);
           diff.updated.push({ id: marker.options.id, name, description, category_id, icon_id, coords: [lat, lng] });
         }
 
