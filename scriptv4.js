@@ -401,13 +401,13 @@ function initMET(categories, iconsData) {
 
 		    if (status === 'built') {
 			  clearInterval(intervalId);
-			  exitLoaderText.innerHTML += '<br style="color:green">Page will refresh in 20 seconds...';
-			  //setTimeout(() => location.reload(), 20_000);
+			  exitLoaderText.innerHTML += '<br style="color:green">Page will refresh in 5 seconds...';
+			  //setTimeout(() => location.reload(), 5_000);
 			  setTimeout(() => {
 			    const url = new URL(window.location.href);
 			    url.searchParams.set('_', Date.now());
 			    window.location.replace(url.toString());
-			  }, 20_000);
+			  }, 5_000);
 		    }
 		    else if (status === 'errored') {
 			  clearInterval(intervalId);
