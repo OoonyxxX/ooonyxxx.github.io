@@ -433,12 +433,14 @@ function initMET(categories, iconsData) {
 	    } else {
 		  exitButtons.classList.add('exit-hidden');
 		  exitLoader.classList.remove('exit-hidden');
-
+		  
+		  console.log('Diff перед отправкой:', diff);
+		  
 		  exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>checking…</em>';
 		  startDeployPolling();
 		  fetch('https://sotn2-auth-proxy.onrender.com/api/update-markers', {
 		    method: 'POST',
-		    credentials: 'include',               // чтобы прокси взял куки с сессией OAuth
+		    credentials: 'include',
 		    headers: { 'Content-Type': 'application/json' },
 		    body: JSON.stringify(diff)
 		  })
