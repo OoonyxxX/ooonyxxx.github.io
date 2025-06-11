@@ -79,10 +79,16 @@ let originalMarkersData = [];
 
 //Слои меток + Фильтры
 //START
+//Promise.all([
+//  fetch("categories.json").then(res => res.json()),
+//  fetch("icons.json").then(res => res.json()),
+//  fetch("markers.json").then(res => res.json())
+//])
+
 Promise.all([
-  fetch("categories.json").then(res => res.json()),
-  fetch("icons.json").then(res => res.json()),
-  fetch("markers.json").then(res => res.json())
+  fetch(`categories.json?_=${Date.now()}`).then(r => r.json()),
+  fetch(`icons.json?_=${Date.now()}`).then(r => r.json()),
+  fetch(`markers.json?_=${Date.now()}`).then(r => r.json())
 ])
 
 .then(([categories, iconsData, markersData]) => {
@@ -382,7 +388,6 @@ function initMET(categories, iconsData) {
 	  });
 	  
 	  function startDeployPolling() {
-
 	    const intervalId = setInterval(async () => {
 		  try {
 		    const res = await fetch('https://sotn2-auth-proxy.onrender.com/api/deploy-status', {
@@ -433,6 +438,7 @@ function initMET(categories, iconsData) {
 		  setAddMode();
 		  discardChanges(iconsData);
 	    } else {
+		  exitText.innerHTML = '';
 		  exitButtons.classList.add('exit-hidden');
 		  exitLoader.classList.remove('exit-hidden');
 		  
