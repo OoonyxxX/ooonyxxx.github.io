@@ -70,7 +70,7 @@
     "name": "Name_PlaceHolder",
     "description": "Description_PlaceHolder",
     "category_id": "home",
-    "icon_id": "playerHome",
+    "icon_id": "wispCollector",
     "coords": [
       191.46117807080515,
       104.75
