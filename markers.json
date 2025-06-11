@@ -86,5 +86,16 @@
       168.21140476820193,
       180.5
     ]
+  },
+  {
+    "id": "Name_PlaceHolder_64804399_209208_094500",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "default",
+    "coords": [
+      209.2081176559489,
+      94.5
+    ]
   }
 ]
