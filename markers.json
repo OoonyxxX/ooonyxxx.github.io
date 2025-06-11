@@ -56,10 +56,10 @@
   },
   {
     "id": "Test_82345330_156462_085500",
-    "name": "ObelistHuyni",
+    "name": "Test",
     "description": "Description_PlaceHolder",
-    "category_id": "obelisk",
-    "icon_id": "obelisk",
+    "category_id": null,
+    "icon_id": "warGate",
     "coords": [
       203.500283,
       155.25
@@ -69,11 +69,22 @@
     "id": "Name_PlaceHolder_43480411_191461_104750",
     "name": "Name_PlaceHolder",
     "description": "Description_PlaceHolder",
-    "category_id": "home",
-    "icon_id": "playerHome",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
     "coords": [
       191.46117807080515,
       104.75
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_86301575_176962_140750",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "wispCollector",
+    "coords": [
+      176.96174481429705,
+      140.75
     ]
   }
 ]
