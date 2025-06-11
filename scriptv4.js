@@ -719,6 +719,7 @@ function initMET(categories, iconsData) {
 		  }
 		  editPopup.remove();
 		  updateSaveState();
+		  btnSave.disabled = false;
 		};
 		btnConfirmNo.onclick = () => {
 		  confirmModal.classList.add('confirm-hidden');
