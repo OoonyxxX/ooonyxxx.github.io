@@ -386,6 +386,18 @@ function initMET(categories, iconsData) {
 	  });
 	  
 	  function startDeployPolling() {
+	    try {
+		  exitLoaderText.innerHTML = baseMessage + 'Triggering deploy…';
+		  const triggerRes = await fetch('https://sotn2-auth-proxy.onrender.com/api/trigger-deploy', {
+		    method: 'POST',
+		    credentials: 'include'
+		  });
+		  exitLoaderText.innerHTML = baseMessage + 'Deploy triggered. Checking status…';
+	    } catch (err) {
+		  console.error(err);
+		  exitLoaderText.innerHTML = baseMessage + '<span style="color:red">Error triggering deploy.</span>';
+		  return;
+	    }
 	    const intervalId = setInterval(async () => {
 		  try {
 		    const res = await fetch('https://sotn2-auth-proxy.onrender.com/api/deploy-status', {
