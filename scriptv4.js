@@ -385,7 +385,7 @@ function initMET(categories, iconsData) {
 	  function startDeployPolling() {
 	    const intervalId = setInterval(async () => {
 		  try {
-		    const res = await fetch('/api/deploy-status', {
+		    const res = await fetch('https://sotn2-auth-proxy.onrender.com/api/deploy-status', {
 			  method: 'GET',
 			  credentials: 'include'
 		    });
@@ -435,7 +435,7 @@ function initMET(categories, iconsData) {
 
 		  exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>checking…</em>';
 		  startDeployPolling();
-		  fetch('/api/update-markers', {
+		  fetch('https://sotn2-auth-proxy.onrender.com/api/update-markers', {
 		    method: 'POST',
 		    credentials: 'include',               // чтобы прокси взял куки с сессией OAuth
 		    headers: { 'Content-Type': 'application/json' },
