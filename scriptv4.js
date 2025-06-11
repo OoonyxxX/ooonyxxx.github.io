@@ -345,8 +345,8 @@ function initMET(categories, iconsData) {
 	  const exitModal      = document.getElementById('exit-modal');
 	  const exitText       = document.getElementById('exit-modal-text');
 	  const exitButtons    = document.getElementById('exit-modal-buttons');
-	  const exitYes        = document.getElementById('exit-modal-yes');
-	  const exitNo         = document.getElementById('exit-modal-no');
+	  const exitYes        = document.getElementById('exit-yes');
+	  const exitNo         = document.getElementById('exit-no');
 	  const exitLoader     = document.getElementById('exit-modal-loader');
 	  const exitLoaderText = document.getElementById('exit-modal-loader-text');
 	  //Exit Modal
