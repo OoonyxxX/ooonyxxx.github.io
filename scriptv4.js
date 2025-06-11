@@ -94,6 +94,9 @@ Promise.all([
     layers[cat.id]     = layer;
     overlays[cat.label] = layer;
   });
+  const defaultLayer = L.layerGroup().addTo(map);
+  layers[null] = defaultLayer;               // layers["null"]
+  overlays['Uncategorized'] = defaultLayer;  // если вы хотите отобразить его в контроле слоёв
 
   // 2) Готовим иконки
   const icons = {};
