@@ -251,5 +251,137 @@
       135.841602824,
       130.65231266517966
     ]
+  },
+  {
+    "id": "Obelisk_71115043_210138_016594",
+    "name": "Obelisk",
+    "description": "Sablenest's lone obelisk",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      210.13816327708378,
+      16.59375
+    ]
+  },
+  {
+    "id": "Obelisk_85877704_204684_037563",
+    "name": "Obelisk",
+    "description": "One of Misthaven's obelisks",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      202.6836352434492,
+      37
+    ]
+  },
+  {
+    "id": "Seer's_Crypt_41431982_196871_039750",
+    "name": "Seer's Crypt",
+    "description": "Ancient burial mound of Runa",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      196.87050828901548,
+      39.75
+    ]
+  },
+  {
+    "id": "Misthaven_Portal_64551732_200058_044000",
+    "name": "Misthaven Portal",
+    "description": "Fast travel to Misthaven",
+    "category_id": "portal",
+    "icon_id": "portal",
+    "coords": [
+      200.0576893121983,
+      44
+    ]
+  },
+  {
+    "id": "Ruins_of_Nûmhjûk_85210503_191187_037188",
+    "name": "Ruins of Nûmhjûk",
+    "description": "Ancient ruins said to be the birthplace of Thought.",
+    "category_id": null,
+    "icon_id": "ruins",
+    "coords": [
+      191.18650603480373,
+      37.1875
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_94538524_190034_032594",
+    "name": "Raccoon Grotto",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      192.03417175021445,
+      32.59375
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_25288420_190203_045813",
+    "name": "Hermit Lake",
+    "description": "A large peaceful lake blanketed in mist.",
+    "category_id": null,
+    "icon_id": "lake",
+    "coords": [
+      190.1032407270316,
+      45.8125
+    ]
+  },
+  {
+    "id": "Pieth_Homestead_62253183_181286_037563",
+    "name": "Pieth Homestead",
+    "description": "Dwelling of Pieth, the raven shaman. ",
+    "category_id": null,
+    "icon_id": "dwellingWood",
+    "coords": [
+      181.28620660232397,
+      37.5625
+    ]
+  },
+  {
+    "id": "Ancient_Tree_87138532_178099_047688",
+    "name": "Ancient Tree",
+    "description": "Mother of forests",
+    "category_id": null,
+    "icon_id": "tree",
+    "coords": [
+      178.09873959992575,
+      47.6875
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_73699039_181086_049813",
+    "name": "Obelisk",
+    "description": "One of Misthaven's obelisks",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      181.08640458793465,
+      49.8125
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_45200436_176276_054656",
+    "name": "Vault of Sorrows",
+    "description": "Description_PlaceHolder",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      176.17631341286426,
+      54.65625
+    ]
+  },
+  {
+    "id": "Misthaven_Monestary_22715357_174787_054344",
+    "name": "Misthaven Monestary",
+    "description": "Once a safe haven for the Raven Tribe.",
+    "category_id": null,
+    "icon_id": "dwellingsStone",
+    "coords": [
+      174.78695454796423,
+      54.34375
+    ]
   }
 ]
