@@ -229,5 +229,16 @@
       52.30476977498249,
       95.10924860167134
     ]
+  },
+  {
+    "id": "Name_PlaceHolder_09234262_237957_231750",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "cave",
+    "coords": [
+      237.95729587788566,
+      231.75
+    ]
   }
 ]
