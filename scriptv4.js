@@ -504,6 +504,13 @@ function initMET(categories, iconsData) {
 	//Функция открытия и обработки попапа
     function openEditPopup(marker, isNew) {
 	  console.log("Edit Popap Open");
+	  const editPopup = L.popup({
+	    autoClose: false,
+	    closeOnClick: false,
+	    autoPan: false,
+		closeButton: false,
+	    className: 'edit-popup-class'
+	  });
       marker.unbindPopup();
       const content = tpl.content.cloneNode(true);
       const form = content.querySelector('#marker-form');
