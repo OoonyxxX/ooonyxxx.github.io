@@ -180,6 +180,16 @@
     "url": "icons/T_Icon_Map_AnceintTower_V2.png"
   },
   {
+    "id": "extraWisp",
+    "name": "Wisp",
+    "url": "icons/UI_SkillTree_Tile_Icon_ExtraWisp.png"
+  },
+  {
+    "id": "loreSeeker",
+    "name": "Lore Scroll",
+    "url": "icons/UI_SkillTree_Tile_Icon_LoreSeeker1.png"
+  },
+  {
     "id": "anceintTowerV1",
     "name": "Anceint Tower V1",
     "url": "icons/T_Icon_Map_AnceintTower.png"
