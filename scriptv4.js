@@ -249,6 +249,13 @@ let exitSave = false;
 //START
 function initMET(categories, iconsData) {
   (function () {
+	const editPopup = L.popup({
+	  autoClose: false,
+	  closeOnClick: false,
+	  autoPan: false,
+	  closeButton: false,
+	  className: 'edit-popup-class'
+	});
 	//Переменные внутри блока MET
 	//START
     const iconsById = Object.fromEntries(iconsData.map(i => [i.id, i]));
@@ -497,13 +504,6 @@ function initMET(categories, iconsData) {
 	//Функция открытия и обработки попапа
     function openEditPopup(marker, isNew) {
 	  console.log("Edit Popap Open");
-	  const editPopup = L.popup({
-	    autoClose: false,
-	    closeOnClick: false,
-	    autoPan: false,
-		closeButton: false,
-	    className: 'edit-popup-class'
-	  });
       marker.unbindPopup();
       const content = tpl.content.cloneNode(true);
       const form = content.querySelector('#marker-form');
