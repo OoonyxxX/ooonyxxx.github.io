@@ -18,7 +18,8 @@ const bounds = [[0, 0], [mapHeight, mapWidth]];
 
 const allowedEditors = [
 "OoonyxxX", 
-"333tripleit"
+"333tripleit",
+"MiscFlower"
 ];
 
 
