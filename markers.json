@@ -229,5 +229,27 @@
       52.30476977498249,
       95.10924860167134
     ]
+  },
+  {
+    "id": "Name_PlaceHolder_74534965_136884_140555",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "extraWisp",
+    "coords": [
+      134.822304,
+      142.987837
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_84505389_135842_130652",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      135.841602824,
+      130.65231266517966
+    ]
   }
 ]
