@@ -1,16 +1,5 @@
 [
   {
-    "id": "Forbidden_Crypt_63467918_028000_006000",
-    "name": "Forbidden Crypt",
-    "coords": [
-      28,
-      6
-    ],
-    "description": "Placeholder",
-    "category_id": "crypt",
-    "icon_id": "crypt"
-  },
-  {
     "id": "Mosswood_Mine_94624154_098000_158000",
     "name": "Mosswood Mine",
     "coords": [
@@ -20,39 +9,6 @@
     "description": "Placeholder7",
     "category_id": "crypt",
     "icon_id": "crypt"
-  },
-  {
-    "id": "Obelisk_32469571_012000_028000",
-    "name": "Obelisk",
-    "coords": [
-      12,
-      28
-    ],
-    "description": "Placeholder1",
-    "category_id": "obelisk",
-    "icon_id": "obelisk"
-  },
-  {
-    "id": "Fox_Home_826348245_035000_028000",
-    "name": "Fox Home",
-    "coords": [
-      35,
-      28
-    ],
-    "description": "Placeholder2",
-    "category_id": "home",
-    "icon_id": "playerHome"
-  },
-  {
-    "id": "Raven_Home_86424168_095000_037000",
-    "name": "Raven Home",
-    "coords": [
-      95,
-      37
-    ],
-    "description": "Placeholder3",
-    "category_id": "home",
-    "icon_id": "playerHome"
   },
   {
     "id": "Test_82345330_156462_085500",
@@ -107,6 +63,171 @@
     "coords": [
       156.2379215334273,
       74.25
+    ]
+  },
+  {
+    "id": "Ruins_of_Kindred_Spire_10706540_069122_069438",
+    "name": "Ruins of Kindred Spire",
+    "description": "Once a monument to the kinship between tribes.",
+    "category_id": null,
+    "icon_id": "ruins",
+    "coords": [
+      69.12166320507762,
+      69.4375
+    ]
+  },
+  {
+    "id": "Obelisk_01975004_071558_064969",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      71.5580962826202,
+      64.96875
+    ]
+  },
+  {
+    "id": "Fox_Island_Portal_24403007_060344_055156",
+    "name": "Fox Island Portal",
+    "description": "Description_PlaceHolder",
+    "category_id": "portal",
+    "icon_id": "portal",
+    "coords": [
+      60.344229927683045,
+      55.15625
+    ]
+  },
+  {
+    "id": "Foxy_Home_82921186_058752_052875",
+    "name": "Foxy Home",
+    "description": "There is no place like home.",
+    "category_id": "home",
+    "icon_id": "playerHome",
+    "coords": [
+      58.751568848541645,
+      52.875
+    ]
+  },
+  {
+    "id": "Gardens_of_43556526_048441_048406",
+    "name": "Gardens of Némara",
+    "description": "A place of legend.",
+    "category_id": null,
+    "icon_id": "ruins",
+    "coords": [
+      48.44127968786063,
+      48.40625
+    ]
+  },
+  {
+    "id": "Mount_Aurora_94033814_035754_048875",
+    "name": "Mount Aurora ",
+    "description": "Gathering place of the spirit fox.",
+    "category_id": null,
+    "icon_id": "mountainPeak",
+    "coords": [
+      35.754472637497926,
+      48.875
+    ]
+  },
+  {
+    "id": "Palace_of_Peace_74793012_038622_055156",
+    "name": "Palace of Peace",
+    "description": "Where turmoil is calmed and sorrow finds solace.",
+    "category_id": null,
+    "icon_id": "ruins",
+    "coords": [
+      38.62210317310131,
+      55.15625
+    ]
+  },
+  {
+    "id": "Obelisk_23942491_039030_041500",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      39.02998105478892,
+      41.5
+    ]
+  },
+  {
+    "id": "Fox_Village_36793276_031442_038531",
+    "name": "Fox Village",
+    "description": "A secluded safe haven for foxes.",
+    "category_id": null,
+    "icon_id": "dwellingsStone",
+    "coords": [
+      31.442214619910956,
+      38.53125
+    ]
+  },
+  {
+    "id": "Foundling_Shore_86893610_019098_042156",
+    "name": "Foundling Shore",
+    "description": "Where the last becomes the first.",
+    "category_id": null,
+    "icon_id": "default",
+    "coords": [
+      19.097947657483132,
+      42.15625
+    ]
+  },
+  {
+    "id": "City_of_Foxhaven_26820090_048722_059688",
+    "name": "City of Foxhaven",
+    "description": "The beautiful garden city of the mystic Fox Tribe.",
+    "category_id": null,
+    "icon_id": "anceintTowerV1",
+    "coords": [
+      48.722067721435764,
+      59.6875
+    ]
+  },
+  {
+    "id": "Raccoon_Grotto_01629968_047692_061125",
+    "name": "Raccoon Grotto",
+    "description": "Placeholder",
+    "category_id": null,
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      47.59188464389319,
+      61.125
+    ]
+  },
+  {
+    "id": "Obelisk_54162550_049842_063750",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      49.84244805718714,
+      63.75
+    ]
+  },
+  {
+    "id": "Foxhaven_Harbor_91306177_046442_066625",
+    "name": "Foxhaven Harbor",
+    "description": "Last farewell of the Northguard.",
+    "category_id": null,
+    "icon_id": "shipyard",
+    "coords": [
+      46.4421486247074,
+      66.625
+    ]
+  },
+  {
+    "id": "Obelisk_57275402_052305_095109",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      52.30476977498249,
+      95.10924860167134
     ]
   }
 ]
