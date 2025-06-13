@@ -97,5 +97,16 @@
       162.031105,
       184.53125
     ]
+  },
+  {
+    "id": "TestfromFF_10250644_156238_074250",
+    "name": "TestfromFF",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      156.2379215334273,
+      74.25
+    ]
   }
 ]
