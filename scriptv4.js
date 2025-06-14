@@ -472,6 +472,12 @@ function initMET(categories, iconsData) {
 	//Переключатель кнопки btnAdd
     btnAdd.addEventListener('click', () => {
       if (!metActive) return;
+	  if (editPopupOpen) {
+		  editPopup.remove();
+		  existingMarkers.forEach(m => {
+			m.off('click', onMarkerClick);
+		  });
+	  };
 	  addingMarker = !addingMarker;
       setAddMode();
     });
@@ -490,6 +496,9 @@ function initMET(categories, iconsData) {
 	  }).addTo(map);
       openEditPopup(marker, true);
 	  addingMarker = !addingMarker;
+	  existingMarkers.forEach(m => {
+		m.on('click', onMarkerClick);
+	  });
 	  setAddMode();
     }
 	
