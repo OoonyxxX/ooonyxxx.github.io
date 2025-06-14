@@ -259,7 +259,7 @@ function initMET(categories, iconsData) {
 	});
 	//Переменные внутри блока MET
 	//START
-	let exitchecker = falsel;
+	let exitchecker = false;
 	let popapsaved = false;
     const iconsById = Object.fromEntries(iconsData.map(i => [i.id, i]));
     let metActive = false;
