@@ -182,16 +182,31 @@
   {
     "id": "extraWisp",
     "name": "Wisp",
-    "url": "icons/UI_SkillTree_Tile_Icon_ExtraWisp.png"
+    "url": "icons/T_Icon_Map_ExtraWisp.png"
   },
   {
     "id": "loreSeeker",
     "name": "Lore Scroll",
-    "url": "icons/UI_SkillTree_Tile_Icon_LoreSeeker1.png"
+    "url": "icons/T_Icon_Map_LoreSeeker1.png"
   },
   {
     "id": "anceintTowerV1",
     "name": "Anceint Tower V1",
     "url": "icons/T_Icon_Map_AnceintTower.png"
+  },
+  {
+    "id": "chest",
+    "name": "Common Chest",
+    "url": "icons/T_Icon_Map_Chest.png"
+  },
+  {
+    "id": "skinChest",
+    "name": "Skin Chest",
+    "url": "icons/T_Icon_Map_SkinChest.png"
+  },
+  {
+    "id": "runeChest",
+    "name": "Rune Chest",
+    "url": "icons/T_Icon_Map_RuneChest.png"
   }
 ]
