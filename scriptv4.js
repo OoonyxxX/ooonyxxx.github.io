@@ -259,6 +259,8 @@ function initMET(categories, iconsData) {
 	});
 	//Переменные внутри блока MET
 	//START
+	let exitchecker = falsel;
+	let popapsaved = false;
     const iconsById = Object.fromEntries(iconsData.map(i => [i.id, i]));
     let metActive = false;
     let addingMarker = false;
@@ -269,6 +271,7 @@ function initMET(categories, iconsData) {
 	
 	function discardChanges(iconsData) {
 	  // 1) убираем все текущие метки
+	  editPopup.remove();
 	  existingMarkers.forEach(marker => {
 		const cat = marker.options.category_id;
 		layers[cat].removeLayer(marker);
@@ -322,6 +325,7 @@ function initMET(categories, iconsData) {
 
     function onMarkerClick(e) {
 	  if (editPopupOpen) return;
+	  if (addingMarker) return;
       openEditPopup(e.target, false);
     }
 	
@@ -368,7 +372,6 @@ function initMET(categories, iconsData) {
 	  //START
 	  exitLoader.classList.add('exit-hidden');
 	  exitButtons.classList.remove('exit-hidden');
-	  editPopup.remove();
 	  
 	  if (!exitSave) {
 		// --------------------------------------------------
@@ -473,13 +476,7 @@ function initMET(categories, iconsData) {
 	//Переключатель кнопки btnAdd
     btnAdd.addEventListener('click', () => {
       if (!metActive) return;
-
-        if (editPopupOpen) {
-          map.removeLayer(marker);
-          diff.added = diff.added.filter(o => o.id !== marker.options.id);
-          editPopup.remove();
-          updateSaveState();
-	    };
+	  editPopup.remove();
 	  addingMarker = !addingMarker;
       setAddMode();
     });
@@ -515,6 +512,7 @@ function initMET(categories, iconsData) {
 	//Функция открытия и обработки попапа
     function openEditPopup(marker, isNew) {
 	  console.log("Edit Popap Open");
+	  popapsaved = false;
 	  editPopup = L.popup({
 	    autoClose: false,
 	    closeOnClick: false,
@@ -522,7 +520,13 @@ function initMET(categories, iconsData) {
 		closeButton: false,
 	    className: 'edit-popup-class'
 	  });
+	  if (isNew) {
+		exitchecker = true;
+	  } else {
+		exitchecker = false;
+	  };
       marker.unbindPopup();
+	  marker.setZIndexOffset(1000);
       const content = tpl.content.cloneNode(true);
       const form = content.querySelector('#marker-form');
       const titleIn = form.querySelector('input[name="title"]');
@@ -578,8 +582,25 @@ function initMET(categories, iconsData) {
 		editPopupOpen = false;
 		marker.off('mousedown', draggingEnable);
 		marker.off('mouseup mouseleave', draggingCancel);
-		map.off('zoom')
+		map.off('zoom');
 		marker.dragging.disable();
+		marker.setZIndexOffset(0);
+		if (exitchecker && !popapsaved) {
+			exitchecker = false;
+			map.removeLayer(marker);
+		};
+		if (!exitchecker && popapsaved) {
+		  exitchecker = false;
+		  marker.setLatLng(marker.options.coords);
+		  const ic = iconsById[marker.options.icon_id] || iconsById.default;
+          marker.setIcon(L.icon({
+            iconUrl: ic.url,
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+          }));
+		  updateSaveState();
+		};
 	  });
       const popupEl = editPopup.getElement();
       const formEl = popupEl.querySelector('#marker-form');
@@ -699,7 +720,7 @@ function initMET(categories, iconsData) {
           iconAnchor: [16, 32],
           popupAnchor: [0, -32]
         }));
-
+		popapsaved = true;
         editPopup.remove();
         updateSaveState();
       });
