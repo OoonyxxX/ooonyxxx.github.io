@@ -1,38 +1,5 @@
 [
   {
-    "id": "Mosswood_Mine_94624154_098000_158000",
-    "name": "Mosswood Mine",
-    "coords": [
-      98,
-      158
-    ],
-    "description": "Placeholder7",
-    "category_id": "crypt",
-    "icon_id": "crypt"
-  },
-  {
-    "id": "Test_82345330_156462_085500",
-    "name": "Test",
-    "description": "Description_PlaceHolder",
-    "category_id": null,
-    "icon_id": "tree",
-    "coords": [
-      203.500283,
-      155.25
-    ]
-  },
-  {
-    "id": "Name_PlaceHolder_43480411_191461_104750",
-    "name": "Name_PlaceHolder",
-    "description": "Description_PlaceHolder",
-    "category_id": "obelisk",
-    "icon_id": "obelisk",
-    "coords": [
-      191.46117807080515,
-      104.75
-    ]
-  },
-  {
     "id": "Test2_84550568_134967_136750",
     "name": "Test2",
     "description": "Description_PlaceHolder",
@@ -41,28 +8,6 @@
     "coords": [
       134.9668738428987,
       136.75
-    ]
-  },
-  {
-    "id": "Name_PlaceHolder_62829166_162212_184250",
-    "name": "Name_PlaceHolder",
-    "description": "Description_PlaceHolder",
-    "category_id": null,
-    "icon_id": "lake",
-    "coords": [
-      162.031105,
-      184.53125
-    ]
-  },
-  {
-    "id": "TestfromFF_10250644_156238_074250",
-    "name": "TestfromFF",
-    "description": "Description_PlaceHolder",
-    "category_id": "obelisk",
-    "icon_id": "raccoonGrotto",
-    "coords": [
-      156.2379215334273,
-      74.25
     ]
   },
   {
