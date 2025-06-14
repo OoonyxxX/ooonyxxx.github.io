@@ -473,12 +473,13 @@ function initMET(categories, iconsData) {
 	//Переключатель кнопки btnAdd
     btnAdd.addEventListener('click', () => {
       if (!metActive) return;
-	  if (editPopupOpen) {
-		  editPopup.remove();
-		  existingMarkers.forEach(m => {
-			m.off('click', onMarkerClick);
-		  });
-	  };
+
+        if (editPopupOpen) {
+          map.removeLayer(marker);
+          diff.added = diff.added.filter(o => o.id !== marker.options.id);
+          editPopup.remove();
+          updateSaveState();
+	    };
 	  addingMarker = !addingMarker;
       setAddMode();
     });
