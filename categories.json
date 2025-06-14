@@ -14,5 +14,25 @@
   {
     "id": "portal",
     "label": "Portal"
-  }
+  },
+  {
+    "id": "scroll",
+    "label": "Lore Scroll"
+  },
+  {
+    "id": "wisp",
+    "label": "Wisp"
+  },
+  {
+    "id": "chest",
+    "label": "Common Chest"
+  },
+  {
+    "id": "skinchest",
+    "label": "Skin Chest"
+  },
+  {
+    "id": "runechest",
+    "label": "Rune Chest"
+  },
 ]

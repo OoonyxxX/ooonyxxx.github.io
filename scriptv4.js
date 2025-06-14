@@ -367,7 +367,7 @@ function initMET(categories, iconsData) {
 	  //START
 	  exitLoader.classList.add('exit-hidden');
 	  exitButtons.classList.remove('exit-hidden');
-	  editPopup.remove();
+	  map.closePopup();
 	  
 	  if (!exitSave) {
 		// --------------------------------------------------
@@ -473,7 +473,7 @@ function initMET(categories, iconsData) {
     btnAdd.addEventListener('click', () => {
       if (!metActive) return;
 	  if (editPopupOpen) {
-		  editPopup.remove();
+		  map.closePopup();
 		  existingMarkers.forEach(m => {
 			m.off('click', onMarkerClick);
 		  });
