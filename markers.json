@@ -383,5 +383,38 @@
       174.78695454796423,
       54.34375
     ]
+  },
+  {
+    "id": "Name_PlaceHolder_96869094_136523_125499",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "chest",
+    "coords": [
+      143.395728,
+      130.673076
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_86508185_137172_121604",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "skinChest",
+    "coords": [
+      143.166581,
+      137.665232
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_24039734_137324_117218",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "runeChest",
+    "coords": [
+      143.281167,
+      145.001264
+    ]
   }
 ]
