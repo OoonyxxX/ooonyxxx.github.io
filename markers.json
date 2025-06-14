@@ -361,5 +361,71 @@
       143.281167,
       145.001264
     ]
+  },
+  {
+    "id": "Pieth_7_20230548_056626_055125",
+    "name": "Pieth 7",
+    "description": "A scroll sitting in front of Memory.",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      56.62643685813454,
+      55.125
+    ]
+  },
+  {
+    "id": "Taukara_5_37567152_045779_055594",
+    "name": "Taukara 5",
+    "description": "A scroll sitting to the left of the doorway.",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      45.77850716190959,
+      55.59375
+    ]
+  },
+  {
+    "id": "Balgair_4_01109350_044968_055125",
+    "name": "Balgair 4",
+    "description": "A scroll sitting before a locked door. (Intro accessible)",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      44.96844898444101,
+      55.125
+    ]
+  },
+  {
+    "id": "Fennek_5_41245269_036505_057563",
+    "name": "Fennek 5",
+    "description": "A scroll sat beside Fennek's camp.",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      36.504813612716276,
+      57.5625
+    ]
+  },
+  {
+    "id": "Taukara_6_47285211_038847_050313",
+    "name": "Taukara 6",
+    "description": "A scroll in a small room near Grimnir's cell. (Intro accessi",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      38.846803740621574,
+      50.3125
+    ]
+  },
+  {
+    "id": "Balgair_1_05708178_032097_046281",
+    "name": "Balgair 1",
+    "description": "A scroll at the foot of the Fox Tribe Shaman. (Intro accessi",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      32.09652876060676,
+      46.28125
+    ]
   }
 ]
