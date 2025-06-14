@@ -249,7 +249,8 @@ let exitSave = false;
 //START
 function initMET(categories, iconsData) {
   (function () {
-	const editPopup = L.popup({
+	let editPopup;
+	editPopup = L.popup({
 	  autoClose: false,
 	  closeOnClick: false,
 	  autoPan: false,
@@ -367,7 +368,7 @@ function initMET(categories, iconsData) {
 	  //START
 	  exitLoader.classList.add('exit-hidden');
 	  exitButtons.classList.remove('exit-hidden');
-	  map.closePopup();
+	  editPopup.remove();
 	  
 	  if (!exitSave) {
 		// --------------------------------------------------
@@ -473,7 +474,7 @@ function initMET(categories, iconsData) {
     btnAdd.addEventListener('click', () => {
       if (!metActive) return;
 	  if (editPopupOpen) {
-		  map.closePopup();
+		  editPopup.remove();
 		  existingMarkers.forEach(m => {
 			m.off('click', onMarkerClick);
 		  });
@@ -513,7 +514,7 @@ function initMET(categories, iconsData) {
 	//Функция открытия и обработки попапа
     function openEditPopup(marker, isNew) {
 	  console.log("Edit Popap Open");
-	  const editPopup = L.popup({
+	  editPopup = L.popup({
 	    autoClose: false,
 	    closeOnClick: false,
 	    autoPan: false,
