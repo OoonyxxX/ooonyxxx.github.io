@@ -254,7 +254,7 @@
   },
   {
     "id": "Name_PlaceHolder_94538524_190034_032594",
-    "name": "Eastern Misthaven Raccoon Grotto",
+    "name": "Western Misthaven Raccoon Grotto",
     "description": "Sells: Misty Key, Black fur, Feather Fall rune, Bright Heart rune",
     "category_id": null,
     "icon_id": "raccoonGrotto",
@@ -606,7 +606,7 @@
   },
   {
     "id": "Western_Misthaven_Raccoon_Grotto_51148364_189479_057938",
-    "name": "Western Misthaven Raccoon Grotto",
+    "name": "Eastern Misthaven Raccoon Grotto",
     "description": "Sells: Misty key, Brown fur, Feather Fall rune, Bright Heart rune",
     "category_id": null,
     "icon_id": "raccoonGrotto",
