@@ -387,7 +387,7 @@
   {
     "id": "Balgair_4_01109350_044968_055125",
     "name": "Balgair 4",
-    "description": "A scroll sitting before a locked door. (Intro accessible)",
+    "description": "A scroll sitting before a corrupted locked door. (Intro Accessible)",
     "category_id": null,
     "icon_id": "loreSeeker",
     "coords": [
@@ -409,7 +409,7 @@
   {
     "id": "Taukara_6_47285211_038847_050313",
     "name": "Taukara 6",
-    "description": "A scroll in a small room near Grimnir's cell. (Intro accessi",
+    "description": "A scroll in a small room near Grimnir's cell. (Intro Accessible) (Underground)",
     "category_id": null,
     "icon_id": "loreSeeker",
     "coords": [
@@ -420,12 +420,78 @@
   {
     "id": "Balgair_1_05708178_032097_046281",
     "name": "Balgair 1",
-    "description": "A scroll at the foot of the Fox Tribe Shaman. (Intro accessi",
+    "description": "A scroll at the foot of the Fox Tribe Shaman. (Intro Accessible)",
     "category_id": null,
     "icon_id": "loreSeeker",
     "coords": [
       32.09652876060676,
       46.28125
+    ]
+  },
+  {
+    "id": "Words_of_Memory_2_62988255_029814_042063",
+    "name": "Words of Memory 2",
+    "description": "A scroll sat on a stone bench. (Intro Accessible) ",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      29.814453820562363,
+      42.0625
+    ]
+  },
+  {
+    "id": "Words_of_Memory_1_02675687_026503_037125",
+    "name": "Words of Memory 1",
+    "description": "A scroll before your first doorway. (Intro Accessible)",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      26.503119735825116,
+      37.125
+    ]
+  },
+  {
+    "id": "Fur_Chest_56893652_032344_036969",
+    "name": "Fur Chest",
+    "description": "Contains: Desert fur\nUp on a rock in fox village (Intro accessible)",
+    "category_id": null,
+    "icon_id": "skinChest",
+    "coords": [
+      32.344328920488365,
+      36.96875
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_48737233_036162_047406",
+    "name": "Balgair 2",
+    "description": "A scroll sitting at the feet of a statue fox in the cave. (Intro accessible) (Underground)",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      36.162132989237456,
+      47.50625
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_39077665_045902_072063",
+    "name": "Omol 3",
+    "description": "A scroll sat in a lonely shipyard tower",
+    "category_id": null,
+    "icon_id": "loreSeeker",
+    "coords": [
+      45.85,
+      72.0625
+    ]
+  },
+  {
+    "id": "Eye_Chest_42080556_037341_065969",
+    "name": "Eye Chest",
+    "description": "Contains: Dark Lavender, Maroon\nA chest sitting out in the ocean",
+    "category_id": null,
+    "icon_id": "skinChest",
+    "coords": [
+      37.34145812913387,
+      65.96875
     ]
   }
 ]
