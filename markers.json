@@ -625,5 +625,27 @@
       196.03267467598837,
       48.625
     ]
+  },
+  {
+    "id": "Name_PlaceHolder_20316103_146989_155500",
+    "name": "Name_PlaceHolder",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "skillPoint",
+    "coords": [
+      146.98914448947346,
+      155.5
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_24738717_030289_038688",
+    "name": "Balgair 3",
+    "description": "A scroll sat on a small table under a tree (Intro Accessible)",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      31.459363372893876,
+      38.6875
+    ]
   }
 ]
