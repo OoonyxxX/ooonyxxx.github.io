@@ -34,5 +34,25 @@
   {
     "id": "runechest",
     "label": "Rune Chest"
+  },
+  {
+    "id": "skillpoint",
+    "label": "Skill Point"
+  },
+  {
+    "id": "guardian",
+    "label": "Guardian"
+  },
+  {
+    "id": "tree",
+    "label": "Tree"
+  },
+  {
+    "id": "snakeshrine",
+    "label": "Snake Shrine"
+  },
+  {
+    "id": "ruins",
+    "label": "Ruins"
   }
 ]

@@ -208,5 +208,10 @@
     "id": "runeChest",
     "name": "Rune Chest",
     "url": "icons/T_Icon_Map_RuneChest.png"
+  },
+  {
+    "id": "skillPoint",
+    "name": "Skill Point",
+    "url": "icons/T_Icon_Map_SkillPoint.png"
   }
 ]
