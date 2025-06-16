@@ -453,7 +453,7 @@
   {
     "id": "Fur_Chest_56893652_032344_036969",
     "name": "Fur Chest",
-    "description": "Contains: Desert fur\nUp on a rock in fox village (Intro accessible)",
+    "description": "Contains: Desert fur\n\nA chest sat up on a rock in fox village. (Intro accessible)",
     "category_id": "skinchest",
     "icon_id": "skinChest",
     "coords": [
@@ -486,7 +486,7 @@
   {
     "id": "Eye_Chest_42080556_037341_065969",
     "name": "Eye Chest",
-    "description": "Contains: Dark Lavender, Hazel\nA chest sitting out in the ocean",
+    "description": "Contains: Dark Lavender, Hazel\n\nA chest sitting out in the ocean.",
     "category_id": "skinchest",
     "icon_id": "skinChest",
     "coords": [
