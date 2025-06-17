@@ -647,5 +647,236 @@
       31.459363372893876,
       38.6875
     ]
+  },
+  {
+    "id": "Skill_Point_87377993_194534_037219",
+    "name": "Skill Point",
+    "description": "A skill point for completing the Ruins of Nûmhjûk.",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      194.0341742042782,
+      37.21875
+    ]
+  },
+  {
+    "id": "Chest_22102147_203710_036938",
+    "name": "Chest",
+    "description": "A chest hiding against the cliff rocks. ",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      203.71016658639525,
+      36.9375
+    ]
+  },
+  {
+    "id": "Chest_70354442_191280_047688",
+    "name": "Chest",
+    "description": "A chest sat atop a natural stone pillar.",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      191.27955208596583,
+      47.6875
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_98966103_187019_049000",
+    "name": "Wisp Puzzle",
+    "description": "A bench that releases a wisp once touched.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      187.01949390849725,
+      49
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_93826731_188075_046813",
+    "name": "Eye Chest",
+    "description": "Contains: White \nA chest underneath hermit lake. (Requires Drowned Rune)",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      187.6,
+      46.8125
+    ]
+  },
+  {
+    "id": "Pieth_2_61690768_186437_045875",
+    "name": "Pieth 2",
+    "description": "A scroll sat in a basket on a small island.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      186.43746296525524,
+      45.875
+    ]
+  },
+  {
+    "id": "Wisp_puzzle_25670859_182410_046406",
+    "name": "Wisp puzzle",
+    "description": "A bench that releases a wisp once touched.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      182.40983170225,
+      46.40625
+    ]
+  },
+  {
+    "id": "Pieth_4_37752293_183441_051813",
+    "name": "Pieth 4",
+    "description": "A scroll sat at the feet of a skeleton in the orchard. ",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      183.44099370864524,
+      51.8125
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_03836245_184942_052188",
+    "name": "Wisp Puzzle",
+    "description": "A wisp that you can reach by climbing a dead tree.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      184.9420166343003,
+      52.1875
+    ]
+  },
+  {
+    "id": "Rune_Chest_82665932_175911_047688",
+    "name": "Rune Chest",
+    "description": "Contains: Rune of Eona\nA chest hidden in a room behind moving basalt.",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      175.91068109475933,
+      47.6875
+    ]
+  },
+  {
+    "id": "Wips_Puzzle_33309159_173284_047688",
+    "name": "Wips Puzzle",
+    "description": "In the hidden basalt rune, there's a wisp that's released when you step on a pillar.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      175.9837097837896,
+      47.6875
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_56363402_175314_055531",
+    "name": "Wisp Puzzle",
+    "description": "A wisp released with a knocked over door.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      175.31405784934105,
+      55.53125
+    ]
+  },
+  {
+    "id": "Chest_53551749_176657_052125",
+    "name": "Chest",
+    "description": "A chest sat inside the vault of sorrows. (Underground)",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      176.65733488371558,
+      52.125
+    ]
+  },
+  {
+    "id": "Pieth_3_(Underground)_12703542_178905_050281",
+    "name": "Pieth 3 (Underground)",
+    "description": "A scroll found in a Vault of Sorrows room unlocked with a lever.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      178.90509104679484,
+      50.28125
+    ]
+  },
+  {
+    "id": "Pieth_6_(Underground)_02725858_183280_051250",
+    "name": "Pieth 6 (Underground)",
+    "description": "A scroll sitting in a watery room in the Vault of Sorrows.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      183.27967307717233,
+      51.25
+    ]
+  },
+  {
+    "id": "Eye_Chest_(Underground)_47682094_184623_053875",
+    "name": "Eye Chest (Underground)",
+    "description": "Contains: Maroon, Dark Lavender\n\nA chest sat in a cell room unlocked with a pull string in the Vault of Sorrows.",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      184.62325808916347,
+      53.875
+    ]
+  },
+  {
+    "id": "Skill_Point_(Underground)_92594322_186027_050969",
+    "name": "Skill Point (Underground)",
+    "description": "The skill point awarded for completing the Vault of Sorrows.",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      186.0271432610362,
+      50.96875
+    ]
+  },
+  {
+    "id": "Pieth_7_(Underground)_45037267_186431_050438",
+    "name": "Pieth 7 (Underground)",
+    "description": "A scroll on the ground before the feathery stairway.",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      186.43069845689115,
+      50.4375
+    ]
+  },
+  {
+    "id": "Chest_75722951_185368_051344",
+    "name": "Chest",
+    "description": "A chest sat at the exit of the Vault of Sorrows.",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      185.3680114704811,
+      51.34375
+    ]
+  },
+  {
+    "id": "Rune_Chest_00008904_192211_053156",
+    "name": "Rune Chest",
+    "description": "Contains: Rune of Eona\n\nUnder the Raven Temple bridge, a chest sits on the shore.",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      192.21083753763136,
+      53.15625
+    ]
+  },
+  {
+    "id": "Skill_Point_69184136_196279_048125",
+    "name": "Skill Point",
+    "description": "The skill point awarded for completing the Seer's Crypt.",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      196.278793141125,
+      48.125
+    ]
   }
 ]
