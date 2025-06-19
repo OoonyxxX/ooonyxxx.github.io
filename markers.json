@@ -651,7 +651,7 @@
   {
     "id": "Skill_Point_87377993_194534_037219",
     "name": "Skill Point",
-    "description": "A skill point for completing the Ruins of Nûmhjûk.",
+    "description": "A skill point awarded for completing the Ruins of Nûmhjûk.",
     "category_id": "skillpoint",
     "icon_id": "skillPoint",
     "coords": [
@@ -877,6 +877,39 @@
     "coords": [
       196.278793141125,
       48.125
+    ]
+  },
+  {
+    "id": "Chest_55095773_204963_051250",
+    "name": "Chest",
+    "description": "A chest hidden in a stone brick cave.",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      204.96272940013318,
+      51.25
+    ]
+  },
+  {
+    "id": "Name_PlaceHolder_07917398_184355_055375",
+    "name": "Skill Point (Underground)",
+    "description": "A skill point awarded for completing Mulfara Falls.",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      184.20491505958535,
+      55.375
+    ]
+  },
+  {
+    "id": "Chest_21138109_177406_062063",
+    "name": "Chest",
+    "description": "A chest sat in a Bear Tribe tent.",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      177.40636695406351,
+      62.0625
     ]
   }
 ]
