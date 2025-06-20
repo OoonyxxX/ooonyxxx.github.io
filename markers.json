@@ -14,7 +14,7 @@
     "id": "Ruins_of_Kindred_Spire_10706540_069122_069438",
     "name": "Ruins of Kindred Spire",
     "description": "Once a monument to the kinship between tribes.",
-    "category_id": null,
+    "category_id": "ruins",
     "icon_id": "ruins",
     "coords": [
       69.12166320507762,
@@ -58,7 +58,7 @@
     "id": "Gardens_of_43556526_048441_048406",
     "name": "Gardens of Némara",
     "description": "A place of legend.",
-    "category_id": null,
+    "category_id": "ruins",
     "icon_id": "ruins",
     "coords": [
       48.44127968786063,
@@ -80,7 +80,7 @@
     "id": "Palace_of_Peace_74793012_038622_055156",
     "name": "Palace of Peace",
     "description": "Where turmoil is calmed and sorrow finds solace.",
-    "category_id": null,
+    "category_id": "ruins",
     "icon_id": "ruins",
     "coords": [
       38.62210317310131,
@@ -102,7 +102,7 @@
     "id": "Fox_Village_36793276_031442_038531",
     "name": "Fox Village",
     "description": "A secluded safe haven for foxes.",
-    "category_id": null,
+    "category_id": "ruins",
     "icon_id": "dwellingsStone",
     "coords": [
       31.442214619910956,
@@ -124,7 +124,7 @@
     "id": "City_of_Foxhaven_26820090_048722_059688",
     "name": "City of Foxhaven",
     "description": "The beautiful garden city of the mystic Fox Tribe.",
-    "category_id": null,
+    "category_id": "ruins",
     "icon_id": "anceintTowerV1",
     "coords": [
       48.722067721435764,
@@ -245,7 +245,7 @@
     "id": "Ruins_of_Nûmhjûk_85210503_191187_037188",
     "name": "Ruins of Nûmhjûk",
     "description": "Ancient ruins said to be the birthplace of Thought.",
-    "category_id": null,
+    "category_id": "ruins",
     "icon_id": "ruins",
     "coords": [
       191.18650603480373,
@@ -278,7 +278,7 @@
     "id": "Pieth_Homestead_62253183_181286_037563",
     "name": "Pieth Homestead",
     "description": "Dwelling of Pieth, the raven shaman. ",
-    "category_id": null,
+    "category_id": "ruins",
     "icon_id": "dwellingWood",
     "coords": [
       181.28620660232397,
@@ -289,7 +289,7 @@
     "id": "Ancient_Tree_87138532_178099_047688",
     "name": "Ancient Tree",
     "description": "Mother of forests",
-    "category_id": null,
+    "category_id": "tree",
     "icon_id": "tree",
     "coords": [
       178.09873959992575,
@@ -322,7 +322,7 @@
     "id": "Misthaven_Monestary_22715357_174787_054344",
     "name": "Misthaven Monestary",
     "description": "Once a safe haven for the Raven Tribe.",
-    "category_id": null,
+    "category_id": "ruins",
     "icon_id": "dwellingsStone",
     "coords": [
       174.78695454796423,
@@ -910,6 +910,160 @@
     "coords": [
       177.40636695406351,
       62.0625
+    ]
+  },
+  {
+    "id": "Snake_Shrine_35456787_184496_072906",
+    "name": "Snake Shrine",
+    "description": "Misthaven's snake shrine, notable for the snake head formation against the cliffs.",
+    "category_id": "snakeshrine",
+    "icon_id": "snakeShrine",
+    "coords": [
+      184.29648721786816,
+      72.90625
+    ]
+  },
+  {
+    "id": "Skill_Point_12977261_183528_071094",
+    "name": "Skill Point",
+    "description": "One of the Snake Shrine Skill Points.",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      183.52807819308651,
+      71.09375
+    ]
+  },
+  {
+    "id": "Skill_Point_(Underground)_63409550_202742_072313",
+    "name": "Skill Point (Underground)",
+    "description": "A skill point down in the Wind Caverns, surrounded by blue crystal.",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      202.74152657840116,
+      72.3125
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_12891098_198562_088719",
+    "name": "Wisp Puzzle",
+    "description": "Climbing up the massive natural stone pillar, there is a stone pillar that releases a wisp when stepped on.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      198.5616820220132,
+      88.71875
+    ]
+  },
+  {
+    "id": "Obelisk_11195745_193342_101813",
+    "name": "Obelisk",
+    "description": "One of Misthaven's many obelisks.",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      193.3415241243374,
+      101.8125
+    ]
+  },
+  {
+    "id": "Valley_of_the_Ancients_72164134_188175_120969",
+    "name": "Valley of the Ancients ",
+    "description": "Gathering place of the Guardians.",
+    "category_id": "ruins",
+    "icon_id": "ruins",
+    "coords": [
+      188.17468189416735,
+      120.96875
+    ]
+  },
+  {
+    "id": "Bear_Tribe_Encampment_91065829_180061_119969",
+    "name": "Bear Tribe Encampment",
+    "description": "A temporary camp of Grimnir's Army.",
+    "category_id": null,
+    "icon_id": "encampment",
+    "coords": [
+      180.0613850435972,
+      119.96875
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_(Broken)_46563971_198583_105281",
+    "name": "Wisp Puzzle (Broken)",
+    "description": "A puzzle that releases a wisp once all  runestones are lit and pressure plate is pressed.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      198.58314273348634,
+      105.28125
+    ]
+  },
+  {
+    "id": "Wisp_Puzzle_(Underground)_14907339_194866_101469",
+    "name": "Wisp Puzzle (Underground)",
+    "description": "A heavy pressure plate that releases a wisp once the weight is pulled on top of it.",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      194.86584462796446,
+      101.46875
+    ]
+  },
+  {
+    "id": "Vielgate_65955672_173074_107906",
+    "name": "Vielgate",
+    "description": "Entrance to the Valley of the Ancients.",
+    "category_id": null,
+    "icon_id": "warGate",
+    "coords": [
+      173.0741673858033,
+      107.90625
+    ]
+  },
+  {
+    "id": "Bear_Tribe_Encampment_77394889_168778_097813",
+    "name": "Bear Tribe Encampment",
+    "description": "Temporary camp of Grimnir's Army.",
+    "category_id": null,
+    "icon_id": "encampment",
+    "coords": [
+      168.7782211826942,
+      97.8125
+    ]
+  },
+  {
+    "id": "Mosswood_Portal_83281163_159866_095125",
+    "name": "Mosswood Portal",
+    "description": "Fast travel to Mosswood.",
+    "category_id": "portal",
+    "icon_id": "portal",
+    "coords": [
+      159.86570163835677,
+      95.125
+    ]
+  },
+  {
+    "id": "Obelisk_68113391_151305_087594",
+    "name": "Obelisk",
+    "description": "One of Mosswood's many obelisks.",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      151.3047635248408,
+      87.59375
+    ]
+  },
+  {
+    "id": "Mosswood_Mine_26163964_163207_077156",
+    "name": "Mosswood Mine",
+    "description": "Mine of the Stag Tribe.",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      163.20682282941527,
+      77.15625
     ]
   }
 ]
