@@ -1122,17 +1122,6 @@
     ]
   },
   {
-    "id": "Wisp_03944265_175494_050656",
-    "name": "Wisp",
-    "description": "On a pillar inside the secret room behind moving basalt",
-    "category_id": "wisp",
-    "icon_id": "extraWisp",
-    "coords": [
-      175.494140625,
-      50.65625
-    ]
-  },
-  {
     "id": "Wisp_69448844_175682_047000",
     "name": "Wisp",
     "description": "On a pillar in the secret room behind moving basalt",
