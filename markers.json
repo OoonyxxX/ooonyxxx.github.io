@@ -1355,7 +1355,7 @@
   {
     "id": "Wisp_56756457_148600_079813",
     "name": "Recheck Wisp",
-    "description": "check if a wisp comes after pacing the rock on the pressure plate",
+    "description": "check if a wisp comes after placing the rock on the pressure plate",
     "category_id": "wisp",
     "icon_id": "mysteryPOI",
     "coords": [
