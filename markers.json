@@ -1324,7 +1324,7 @@
     "name": "Recheck Wisp?",
     "description": "activate 3 pillars releases wisp?",
     "category_id": "wisp",
-    "icon_id": "extraWisp",
+    "icon_id": "mysteryPOI",
     "coords": [
       167.83592968930247,
       80.84375
