@@ -1098,5 +1098,357 @@
       190.744999473906,
       36.375
     ]
+  },
+  {
+    "id": "Chest_40481657_208682_057625",
+    "name": "Chest",
+    "description": "Christals",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      208.681640625,
+      57.625
+    ]
+  },
+  {
+    "id": "Wisp_02392032_174088_051219",
+    "name": "Wisp",
+    "description": "Raven Figurine releases a Wisp",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      174.087890625,
+      51.21875
+    ]
+  },
+  {
+    "id": "Wisp_03944265_175494_050656",
+    "name": "Wisp",
+    "description": "On a pillar inside the secret room behind moving basalt",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      175.494140625,
+      50.65625
+    ]
+  },
+  {
+    "id": "Wisp_69448844_175682_047000",
+    "name": "Wisp",
+    "description": "On a pillar in the secret room behind moving basalt",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      175.681640625,
+      47
+    ]
+  },
+  {
+    "id": "Wisp_91774729_179182_037125",
+    "name": "Wisp",
+    "description": "On a pillar",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      179.181640625,
+      37.125
+    ]
+  },
+  {
+    "id": "Skill_Point_74808043_181650_038094",
+    "name": "Skill Point",
+    "description": "Inside the cellar of Pieth's Homestead",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      181.650390625,
+      38.09375
+    ]
+  },
+  {
+    "id": "Fox_Den_36250069_189775_033125",
+    "name": "Fox Den",
+    "description": "Resting Place inside the Cave - entrance on the shore",
+    "category_id": "home",
+    "icon_id": "cave",
+    "coords": [
+      189.775390625,
+      33.125
+    ]
+  },
+  {
+    "id": "Wisp_11222410_190494_043000",
+    "name": "Wisp",
+    "description": "On a pillar in the lake",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      190.494140625,
+      43
+    ]
+  },
+  {
+    "id": "Mulfara_Falls_89084464_179807_056625",
+    "name": "Mulfara Falls",
+    "description": "Waterfall - Ramdoor entrance Dash Rune needed",
+    "category_id": null,
+    "icon_id": "waterfall",
+    "coords": [
+      179.806640625,
+      56.625
+    ]
+  },
+  {
+    "id": "Wisp_01328982_181838_057656",
+    "name": "Wisp",
+    "description": "Stepping between pillars releases it",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      181.837890625,
+      57.65625
+    ]
+  },
+  {
+    "id": "Chest_99022456_182213_066313",
+    "name": "Chest",
+    "description": "On the wooden platform/tower/outpost",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      182.212890625,
+      66.3125
+    ]
+  },
+  {
+    "id": "Lore_Scroll_32254895_177838_065031",
+    "name": "Mog the Mighty 5/9",
+    "description": "Inside a tent on the floor",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      177.837890625,
+      65.03125
+    ]
+  },
+  {
+    "id": "Common_Chest_33420568_171213_057188",
+    "name": "Common Chest under water",
+    "description": "Drowned Rune - Chest underwater",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      171.212890625,
+      57.1875
+    ]
+  },
+  {
+    "id": "Wisp_84910505_181144_104781",
+    "name": "Wisp",
+    "description": "Activate 3 pessure plates",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      181.1442599784665,
+      104.78125
+    ]
+  },
+  {
+    "id": "Wisp_33088384_162578_097625",
+    "name": "Wisp",
+    "description": "Weight puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      162.5781430246866,
+      97.625
+    ]
+  },
+  {
+    "id": "Wisp_49754543_162584_076438",
+    "name": "Wisp",
+    "description": "Releases when walking near the tree stump",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      162.58391092440206,
+      76.4375
+    ]
+  },
+  {
+    "id": "Wisp_57133303_162146_072219",
+    "name": "Wisp",
+    "description": "On a Pillar behind a door opened with figurine puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      162.14624269399368,
+      72.21875
+    ]
+  },
+  {
+    "id": "Rune_Chest_Wisp_Seeker_22211690_160990_072313",
+    "name": "Rune Chest Wisp Seeker",
+    "description": "Rune behind a door with a figurine puzzle",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      160.9895480850573,
+      72.3125
+    ]
+  },
+  {
+    "id": "Common_Chest_72267392_162115_072094",
+    "name": "Common Chest",
+    "description": "Behind a door with a figurine puzzle",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      162.11498067753595,
+      72.09375
+    ]
+  },
+  {
+    "id": "Wisp_32986519_162052_072781",
+    "name": "Wisp",
+    "description": "On a pillar behind the door with a figurine puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      162.05245664462046,
+      72.78125
+    ]
+  },
+  {
+    "id": "Recheck_Wisp?_54259980_167836_080844",
+    "name": "Recheck Wisp?",
+    "description": "activate 3 pillars releases wisp?",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      167.83592968930247,
+      80.84375
+    ]
+  },
+  {
+    "id": "Raccoon_Grotto_11204082_171400_077500",
+    "name": "Raccoon Grotto",
+    "description": "Shore entrance. Hazel eye, chestnut fur",
+    "category_id": null,
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      171.3997995654849,
+      77.5
+    ]
+  },
+  {
+    "id": "Wisp_03685012_154288_080406",
+    "name": "Wisp",
+    "description": "Weight puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      154.28783742213335,
+      80.40625
+    ]
+  },
+  {
+    "id": "Wisp_56756457_148600_079813",
+    "name": "Recheck Wisp",
+    "description": "check if a wisp comes after pacing the rock on the pressure plate",
+    "category_id": "wisp",
+    "icon_id": "mysteryPOI",
+    "coords": [
+      148.6003133892179,
+      79.8125
+    ]
+  },
+  {
+    "id": "Ancient_Tree_87272634_145662_068500",
+    "name": "Ancient Tree",
+    "description": "3 Wisps needed",
+    "category_id": "tree",
+    "icon_id": "tree",
+    "coords": [
+      145.66179199030992,
+      68.5
+    ]
+  },
+  {
+    "id": "East_Treetop_Village_33905984_140160_094281",
+    "name": "East Treetop Village",
+    "description": "Can't find the icon",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      140.15967709374758,
+      94.28125
+    ]
+  },
+  {
+    "id": "Recheck_Chest_86811092_140003_093188",
+    "name": "Recheck Chest",
+    "description": "Chest was already open - check in the next run what's inside",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      140.00336701145886,
+      93.1875
+    ]
+  },
+  {
+    "id": "Wisp_21277593_140630_076344",
+    "name": "Wisp",
+    "description": "Weight puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      140.62988108513417,
+      76.34375
+    ]
+  },
+  {
+    "id": "Wisp_72053983_143165_071969",
+    "name": "Wisp",
+    "description": "Step on bench to relesase wisp",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      143.1646879566254,
+      71.96875
+    ]
+  },
+  {
+    "id": "Recheck_Wisp_97724419_141602_060938",
+    "name": "Recheck Wisp",
+    "description": "Wisp after pulling string?",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      141.60158713373835,
+      60.9375
+    ]
+  },
+  {
+    "id": "Clear_Water_Falls_97699040_136412_066781",
+    "name": "Clear Water Falls Recheck Name",
+    "description": "Waterfall",
+    "category_id": null,
+    "icon_id": "waterfall",
+    "coords": [
+      136.41209240175345,
+      66.78125
+    ]
+  },
+  {
+    "id": "Wisp_78203052_128847_082031",
+    "name": "Wisp",
+    "description": "Weight Puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      128.84668441898023,
+      82.03125
+    ]
   }
 ]
