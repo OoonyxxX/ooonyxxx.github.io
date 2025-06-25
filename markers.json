@@ -1439,5 +1439,126 @@
       128.84668441898023,
       82.03125
     ]
+  },
+  {
+    "id": "Common_Chest_10425036_112955_071219",
+    "name": "Common Chest",
+    "description": "Chest inside the first floor of the house",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      112.95495750980544,
+      71.21875
+    ]
+  },
+  {
+    "id": "Thorn_Walker_Rune_Chest_69180702_114112_079844",
+    "name": "Thorn Walker Rune Chest",
+    "description": "on the highest floor of the tower",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      114.11165211874183,
+      79.84375
+    ]
+  },
+  {
+    "id": "Stag_Temple_38632100_116019_075844",
+    "name": "Stag Temple",
+    "description": "Description_PlaceHolder",
+    "category_id": "guardian",
+    "icon_id": "stag",
+    "coords": [
+      116.018635122664,
+      75.84375
+    ]
+  },
+  {
+    "id": "Chity_of_Mosswood_20706986_112642_074781",
+    "name": "Chity of Mosswood",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "dwellingsStone",
+    "coords": [
+      112.64233734522803,
+      74.78125
+    ]
+  },
+  {
+    "id": "Chest_06411936_116706_075281",
+    "name": "Chest",
+    "description": "on the outside of the tower",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      116.70639948473429,
+      75.28125
+    ]
+  },
+  {
+    "id": "Lady_Amara_1/3_Lore_Scroll_85647728_112830_076906",
+    "name": "Lady Amara 1/3 Lore Scroll",
+    "description": "Inside a house",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      112.82990944397447,
+      76.90625
+    ]
+  },
+  {
+    "id": "Wisp_09330931_119082_081313",
+    "name": "Wisp",
+    "description": "String puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      119.08231273552258,
+      81.3125
+    ]
+  },
+  {
+    "id": "Wisp_Seeker_Rune_Chest_70910443_117957_078750",
+    "name": "Wisp Seeker Rune Chest",
+    "description": "on the hightst floor of the tower",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      117.95688014304392,
+      78.75
+    ]
+  },
+  {
+    "id": "Spirit_Rune_Chest_41909762_116394_075313",
+    "name": "Spirit Rune Chest",
+    "description": "After getting access to the Temple of the Stag",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      116.1,
+      75.5
+    ]
+  },
+  {
+    "id": "Chest_95930126_117332_072750",
+    "name": "Chest",
+    "description": "Common Chest",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      117.3316398138891,
+      72.75
+    ]
+  },
+  {
+    "id": "Lady_Amara_Lore_Scroll_2/3_23315887_118832_073156",
+    "name": "Lady Amara Lore Scroll 2/3",
+    "description": "Behind a wall/window cutout",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      118.83221660386064,
+      73.15625
+    ]
   }
 ]
