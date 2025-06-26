@@ -1376,10 +1376,10 @@
   },
   {
     "id": "Recheck_Chest_86811092_140003_093188",
-    "name": "Recheck Chest",
-    "description": "Chest was already open - check in the next run what's inside",
-    "category_id": null,
-    "icon_id": "mysteryPOI",
+    "name": "Cosmetic Chest",
+    "description": "On a platform on the tree. Contains Earth and Forest Eye",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
     "coords": [
       140.00336701145886,
       93.1875
@@ -2186,6 +2186,160 @@
     "coords": [
       138.9604370145351,
       47.65625
+    ]
+  },
+  {
+    "id": "Wildwood_Lodge_73167453_138395_056156",
+    "name": "Wildwood Lodge",
+    "description": "Can't find the icon",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      138.39544960778284,
+      56.15625
+    ]
+  },
+  {
+    "id": "Cosmetic_Chest_09774075_139240_056688",
+    "name": "Cosmetic Chest",
+    "description": "Spirit Rune needed. Contains Champaign Fur",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      139.2395240521418,
+      56.6875
+    ]
+  },
+  {
+    "id": "Obelisk_55163920_119081_080875",
+    "name": "Obelisk",
+    "description": "100 Crystals",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      119.08089479350919,
+      80.875
+    ]
+  },
+  {
+    "id": "Common_Chest_47074137_117612_079094",
+    "name": "Common Chest",
+    "description": "On the roof of the stone tower",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      117.61158001999539,
+      79.09375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_39685017_173182_106719",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      173.18219112897023,
+      106.71875
+    ]
+  },
+  {
+    "id": "Mog_the_Mighty_1/9_Lore_Scroll_84318152_181091_120594",
+    "name": "Mog the Mighty 1/9 Lore Scroll",
+    "description": "Lore Scroll",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      181.09148129277858,
+      120.59375
+    ]
+  },
+  {
+    "id": "Storm_Gate_38047565_177717_149281",
+    "name": "Storm Gate",
+    "description": "Entrance to Stormvale",
+    "category_id": null,
+    "icon_id": "warGate",
+    "coords": [
+      177.7169018687995,
+      149.28125
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_25477280_178405_150313",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      178.4046662308698,
+      150.3125
+    ]
+  },
+  {
+    "id": "Stormgate_Tower_55255794_186064_144938",
+    "name": "Stormgate Tower",
+    "description": "3 Wisps needed ",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      186.06386026301624,
+      144.9375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_57297732_189753_147563",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      189.7527782050296,
+      147.5625
+    ]
+  },
+  {
+    "id": "Stormgate_Fortress_63191098_190909_145250",
+    "name": "Stormgate Fortress",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "warTower",
+    "coords": [
+      190.909472813966,
+      145.25
+    ]
+  },
+  {
+    "id": "Skill_Point_87358520_191035_144406",
+    "name": "Skill Point",
+    "description": "Inside the Fortress Tower ",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      191.03452087979696,
+      144.40625
+    ]
+  },
+  {
+    "id": "Wisp_87899268_194223_149688",
+    "name": "Wisp",
+    "description": "Spirit Rune needed",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      194.2232465584865,
+      149.6875
+    ]
+  },
+  {
+    "id": "Raccoon_Grotto_69604174_193286_175719",
+    "name": "Raccoon Grotto",
+    "description": "River entrance. Sells Stormy Key, Rune of the Droned, Water Rune, Grey Fox Furr",
+    "category_id": null,
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      193.28637141428902,
+      175.71875
     ]
   }
 ]
