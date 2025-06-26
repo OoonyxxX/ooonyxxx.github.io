@@ -1310,10 +1310,10 @@
   },
   {
     "id": "Recheck_Wisp?_54259980_167836_080844",
-    "name": "Recheck Wisp?",
-    "description": "activate 3 pillars releases wisp?",
+    "name": "Wisp",
+    "description": "Activate 3 pillars",
     "category_id": "wisp",
-    "icon_id": "mysteryPOI",
+    "icon_id": "extraWisp",
     "coords": [
       167.83592968930247,
       80.84375
@@ -1343,10 +1343,10 @@
   },
   {
     "id": "Wisp_56756457_148600_079813",
-    "name": "Recheck Wisp",
-    "description": "check if a wisp comes after placing the rock on the pressure plate",
+    "name": "Wisp",
+    "description": "string + weight puzzle",
     "category_id": "wisp",
-    "icon_id": "mysteryPOI",
+    "icon_id": "extraWisp",
     "coords": [
       148.6003133892179,
       79.8125
@@ -1409,8 +1409,8 @@
   },
   {
     "id": "Recheck_Wisp_97724419_141602_060938",
-    "name": "Recheck Wisp",
-    "description": "Wisp after pulling string?",
+    "name": "Wisp",
+    "description": "String in mountain wall releases Wisp",
     "category_id": "wisp",
     "icon_id": "extraWisp",
     "coords": [
@@ -1878,6 +1878,314 @@
     "coords": [
       100.52000499884642,
       81.78125
+    ]
+  },
+  {
+    "id": "Eona_33843179_098334_078375",
+    "name": "Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      98.33385084211336,
+      78.375
+    ]
+  },
+  {
+    "id": "Snake_Shrine_72241108_090519_097719",
+    "name": "Snake Shrine",
+    "description": "Entrance on the shore",
+    "category_id": "snakeshrine",
+    "icon_id": "snakeShrine",
+    "coords": [
+      90.5188394024456,
+      97.71875
+    ]
+  },
+  {
+    "id": "Wisp_87117067_107835_052344",
+    "name": "Wisp",
+    "description": "Stepping near the pillars releases a wisp",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      107.83506450434516,
+      52.34375
+    ]
+  },
+  {
+    "id": "Words_of_Memory_1/10_98361385_111743_048406",
+    "name": "Words of Memory 1/10",
+    "description": "Lore Scroll",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      111.74281656156272,
+      48.40625
+    ]
+  },
+  {
+    "id": "Skill_Point_26198755_111524_047781",
+    "name": "Skill Point",
+    "description": "Chest on top of a tree",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      111.52398244635853,
+      47.78125
+    ]
+  },
+  {
+    "id": "Lake_Kotho_56855203_111149_047688",
+    "name": "Lake Kotho",
+    "description": "Lake",
+    "category_id": null,
+    "icon_id": "lake",
+    "coords": [
+      111.14883824886564,
+      47.6875
+    ]
+  },
+  {
+    "id": "King_Kumari_2/5_Lore_Scroll_05184300_112118_026719",
+    "name": "King Kumari 2/5 Lore Scroll",
+    "description": "on the right balcony near of the entrance",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      112.1179607590556,
+      26.71875
+    ]
+  },
+  {
+    "id": "King's_Tower_26117033_111962_025531",
+    "name": "King's Tower",
+    "description": "2 Wisps needed",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      111.9,
+      25.53125
+    ]
+  },
+  {
+    "id": "King_Kumari_Lore_Scroll_3/5_01837456_112275_025875",
+    "name": "King Kumari Lore Scroll 3/5",
+    "description": "Underground/Inside Tower on an upper flor",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      112.274655367992,
+      25.875
+    ]
+  },
+  {
+    "id": "Skill_Point_03921773_112900_024938",
+    "name": "Skill Point",
+    "description": "Underground/Inside Tower on the highest floor",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      112.89951117049911,
+      24.9375
+    ]
+  },
+  {
+    "id": "Wisp_13738190_113368_040031",
+    "name": "Wisp",
+    "description": "Activate 2 pillars",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      113.36844141736522,
+      40.03125
+    ]
+  },
+  {
+    "id": "Wisp_03304592_105834_045188",
+    "name": "Wisp",
+    "description": "Step near the pillars",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      105.83429545104975,
+      45.1875
+    ]
+  },
+  {
+    "id": "Wisp_38329368_113836_058250",
+    "name": "Wisp",
+    "description": "Step on a pillar",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      113.83571339306314,
+      58.25
+    ]
+  },
+  {
+    "id": "King_Kumari_4/5_Lore_Scroll_76724589_091547_033969",
+    "name": "King Kumari 4/5 Lore Scroll",
+    "description": "In front of the entrance",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      91,
+      33.96875
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_57958356_090453_033656",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      90.45325117280628,
+      33.65625
+    ]
+  },
+  {
+    "id": "Forbidden_Crypt_97126873_091579_034469",
+    "name": "Forbidden Crypt",
+    "description": "Weight puzzle opens the door",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      91.57868376528494,
+      34.46875
+    ]
+  },
+  {
+    "id": "Wisp_69296695_087645_031781",
+    "name": "Wisp",
+    "description": "Firepuzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      87.64523331154349,
+      31.78125
+    ]
+  },
+  {
+    "id": "Common_Chest_93247353_086238_038250",
+    "name": "Common Chest",
+    "description": "On top of the natural stone tower",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      86.23844257094517,
+      38.25
+    ]
+  },
+  {
+    "id": "Grimnir_1/13_Lore_Scroll_63361549_095992_036563",
+    "name": "Grimnir 1/13 Lore Scroll",
+    "description": "Underground inside Forbidden Crypt",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      95.9921917057602,
+      36.5625
+    ]
+  },
+  {
+    "id": "Common_Chest_55501445_099587_034938",
+    "name": "Common Chest",
+    "description": "Underground inside Forbidden Crypt",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      99.58732359840037,
+      34.9375
+    ]
+  },
+  {
+    "id": "Grimnir_2/13_Lore_Scroll_62418727_097680_034500",
+    "name": "Grimnir 2/13 Lore Scroll",
+    "description": "Underground inside Forbidden Crypt",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      97.6803405944782,
+      34.5
+    ]
+  },
+  {
+    "id": "Cosmetic_Chest_29707421_097587_033594",
+    "name": "Cosmetic Chest",
+    "description": "underground Inside Forbidden Crypt contains Void Eye",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      97.58655454510497,
+      33.59375
+    ]
+  },
+  {
+    "id": "Common_Chest_39911725_094429_033938",
+    "name": "Common Chest",
+    "description": "Underground inside Forbidden Crypt",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      94.42909088287318,
+      33.9375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_99991854_095930_035063",
+    "name": "Statue of Eona",
+    "description": "Underground inside Forbidden Crypt",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      95.92966767284473,
+      35.0625
+    ]
+  },
+  {
+    "id": "Skill_Point_27802911_095961_031969",
+    "name": "Skill Point",
+    "description": "Underground in Forbidden Crypt",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      95.96092968930247,
+      31.96875
+    ]
+  },
+  {
+    "id": "Wisp_69667118_137804_038063",
+    "name": "Wisp",
+    "description": "Pressure Plate on top of the Mountain",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      137.8037424055987,
+      38.0625
+    ]
+  },
+  {
+    "id": "Raccoon_Grotto_70389059_138335_040875",
+    "name": "Raccoon Grotto",
+    "description": "Entrance on the shore",
+    "category_id": null,
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      138.33519668538028,
+      40.875
+    ]
+  },
+  {
+    "id": "Waterfall_48407883_138960_047656",
+    "name": "Waterfall",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "waterfall",
+    "coords": [
+      138.9604370145351,
+      47.65625
     ]
   }
 ]
