@@ -1560,5 +1560,324 @@
       118.83221660386064,
       73.15625
     ]
+  },
+  {
+    "id": "Mossy_Home_71105804_118895_088719",
+    "name": "Mossy Home",
+    "description": "Description_PlaceHolder",
+    "category_id": "home",
+    "icon_id": "playerHome",
+    "coords": [
+      118.8952933938322,
+      88.71875
+    ]
+  },
+  {
+    "id": "Wisp_40745011_105703_078469",
+    "name": "Wisp",
+    "description": "Spirit Rune needed",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      105.7027224486657,
+      78.46875
+    ]
+  },
+  {
+    "id": "Wisp_88656216_102326_073906",
+    "name": "Wisp",
+    "description": "Weight puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      102.32642467122972,
+      73.90625
+    ]
+  },
+  {
+    "id": "Wisp_58822599_105145_066094",
+    "name": "Wisp",
+    "description": "Spirit Rune needed",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      105.14546162424057,
+      66.09375
+    ]
+  },
+  {
+    "id": "Obelisk_14332415_090427_064750",
+    "name": "Obelisk",
+    "description": "100 crystals ",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      90.42706010151502,
+      64.75
+    ]
+  },
+  {
+    "id": "Ancient_Tree_62628721_093988_041250",
+    "name": "Ancient Tree",
+    "description": "3 Wisps needed",
+    "category_id": "tree",
+    "icon_id": "tree",
+    "coords": [
+      93.98797392909329,
+      41.25
+    ]
+  },
+  {
+    "id": "Raccoon_Grotto_08883790_089518_043688",
+    "name": "Raccoon Grotto",
+    "description": "Access from above. No shore entrance",
+    "category_id": null,
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      89.51750557563639,
+      43.6875
+    ]
+  },
+  {
+    "id": "Foxview_Outpost_53464787_104023_052781",
+    "name": "Foxview Outpost",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "encampment",
+    "coords": [
+      104.02308121202799,
+      52.78125
+    ]
+  },
+  {
+    "id": "King_Kumari_1/5_Lore_Scroll_34053126_104805_049063",
+    "name": "King Kumari 1/5 Lore Scroll",
+    "description": "Lore Scroll in a tent",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      104.80463162347151,
+      49.0625
+    ]
+  },
+  {
+    "id": "Voro's_Farm_96380296_101428_039625",
+    "name": "Voro's Farm can't find Icon",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      101.42833384603553,
+      39.625
+    ]
+  },
+  {
+    "id": "King's_Glade_cant't_find_icon_58689755_098177_034938",
+    "name": "King's Glade cant't find icon",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      98.17712018380374,
+      34.9375
+    ]
+  },
+  {
+    "id": "Wisp_15973666_098458_035688",
+    "name": "Wisp",
+    "description": "Weight puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      98.4584783319234,
+      35.6875
+    ]
+  },
+  {
+    "id": "Common_Chest_25377249_101460_035688",
+    "name": "Common Chest",
+    "description": "Common Chest",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      101.4596319118665,
+      35.6875
+    ]
+  },
+  {
+    "id": "Obelisk_39097520_104366_034688",
+    "name": "Obelisk",
+    "description": "100 crystals",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      104.36637458663385,
+      34.6875
+    ]
+  },
+  {
+    "id": "Wisp_19853386_120748_032500",
+    "name": "Wisp",
+    "description": "Glowing stone puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      120.74767121048988,
+      32.5
+    ]
+  },
+  {
+    "id": "West_Treetop_Village_19582484_118872_042688",
+    "name": "West Treetop Village",
+    "description": "Can't find icon",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      118.87195022302545,
+      42.6875
+    ]
+  },
+  {
+    "id": "Cosmetic_Chest_01821221_118375_042281",
+    "name": "Cosmetic Chest",
+    "description": "Contains Earth and Water Eye",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      118.37483417288318,
+      42.28125
+    ]
+  },
+  {
+    "id": "Mosswood_Spire_49799585_128021_053000",
+    "name": "Mosswood Spire",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "naturalRockTower",
+    "coords": [
+      128.0210984965008,
+      53
+    ]
+  },
+  {
+    "id": "Obelisk_15773560_125770_053156",
+    "name": "Obelisk",
+    "description": "100 crystals",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      125.77023331154349,
+      53.15625
+    ]
+  },
+  {
+    "id": "Spirit_Sprint_Rune_Chest_55351697_126833_052781",
+    "name": "Spirit Sprint Rune Chest",
+    "description": "On top of the tower",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      126.83314187110668,
+      52.78125
+    ]
+  },
+  {
+    "id": "Common_Chest_43676388_126239_057000",
+    "name": "Common Chest",
+    "description": "On top",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      126.2391635584096,
+      57
+    ]
+  },
+  {
+    "id": "Mosswood_Vaults_53312420_125645_061813",
+    "name": "Mosswood Vaults",
+    "description": "2 Wisps needed to open",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      125.64518524571253,
+      61.8125
+    ]
+  },
+  {
+    "id": "Storkush_1/3_Lore_Scroll_79492833_125645_061781",
+    "name": "Storkush 1/3 Lore Scroll",
+    "description": "Infront of the entrance",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      125.2,
+      61.78125
+    ]
+  },
+  {
+    "id": "Storkush_2/3_Lore_Scroll_15727695_128865_056844",
+    "name": "Storkush 2/3 Lore Scroll",
+    "description": "Underground in Mosswood Vaults",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      128.8651729408598,
+      56.84375
+    ]
+  },
+  {
+    "id": "Storkush_3/3_lore_Scroll_94262085_132583_055531",
+    "name": "Storkush 3/3 lore Scroll",
+    "description": "Underground in Mosswood Vaults up on a wall",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      132.58334615088825,
+      55.53125
+    ]
+  },
+  {
+    "id": "Rune_of_Suffering_Chest_13420776_132896_055000",
+    "name": "Rune of Suffering Chest",
+    "description": "Underground in Mosswood Vaults on top of a wall",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      132.89596631546567,
+      55
+    ]
+  },
+  {
+    "id": "Skill_Point_29843527_130020_053281",
+    "name": "Skill Point",
+    "description": "Underground in Mosswood Vaults",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      130.01986080135353,
+      53.28125
+    ]
+  },
+  {
+    "id": "Bear_Tribe_Encampment_10132110_101646_082688",
+    "name": "Bear Tribe Encampment",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "encampment",
+    "coords": [
+      101.64619462816273,
+      82.6875
+    ]
+  },
+  {
+    "id": "Common_Chest_38409468_100520_081781",
+    "name": "Common Chest",
+    "description": "Common Chest",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      100.52000499884642,
+      81.78125
+    ]
   }
 ]
