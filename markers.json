@@ -2341,5 +2341,423 @@
       193.28637141428902,
       175.71875
     ]
+  },
+  {
+    "id": "Common_Chest_50845076_088865_101031",
+    "name": "Common Chest",
+    "description": "Underground inside Snake Shrine",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      88.86463220026148,
+      101.03125
+    ]
+  },
+  {
+    "id": "Common_Chest_02470486_089396_103156",
+    "name": "Common Chest",
+    "description": "Underground inside Snake Shrine",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      89.39608648004307,
+      103.15625
+    ]
+  },
+  {
+    "id": "Common_Chest_55403727_093116_017250",
+    "name": "Common Chest",
+    "description": "On top of the stone ",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      93.11617030685227,
+      17.25
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_47231227_200305_043094",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      200.30520841344304,
+      43.09375
+    ]
+  },
+  {
+    "id": "Wisp_Rose_Help_please_49548456_197867_035406",
+    "name": "Wisp Rose Help please",
+    "description": "In the wall is a place with lila tattoos. don't know how i released it",
+    "category_id": "wisp",
+    "icon_id": "mysteryPOI",
+    "coords": [
+      197.8667711297393,
+      35.40625
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_95051767_189489_032125",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      189.48855071906485,
+      32.125
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_84972697_186581_037750",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      186.58118318849498,
+      37.75
+    ]
+  },
+  {
+    "id": "Skill_Point_07030450_178333_047000",
+    "name": "Skill Point",
+    "description": "Activate the Acient Tree",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      178.33261314696608,
+      47
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_81854699_181678_038813",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      181.67832182957778,
+      38.8125
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_83199966_179771_045375",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      179.77133882565562,
+      45.375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_38719444_177270_054406",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      176.7,
+      54.40625
+    ]
+  },
+  {
+    "id": "Recheck_Chest_82163878_179553_064938",
+    "name": "Recheck Chest ",
+    "description": "there might be an eye inside - was already open when i checked",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      179.55250471045144,
+      64.9375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_20056600_188525_054656",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      188.52470343382296,
+      54.65625
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_09278320_196933_054969",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      196.9330082480966,
+      54.96875
+    ]
+  },
+  {
+    "id": "Misty_Home_84999849_200497_052969",
+    "name": "Misty Home",
+    "description": "Fox Den",
+    "category_id": "home",
+    "icon_id": "playerHome",
+    "coords": [
+      200.49687812427902,
+      52.96875
+    ]
+  },
+  {
+    "id": "Raven_Cliffs_80182778_205061_052969",
+    "name": "Raven Cliffs",
+    "description": "First Home of the Raven Tribe",
+    "category_id": "ruins",
+    "icon_id": "ruins",
+    "coords": [
+      205.06113252710912,
+      52.96875
+    ]
+  },
+  {
+    "id": "Obelisk_47006326_206468_064500",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      206.4677310043836,
+      64.5
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_68510164_206249_061875",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      206.24889688917943,
+      61.875
+    ]
+  },
+  {
+    "id": "Recheck_Lore_Scroll_96867841_201469_060719",
+    "name": "Recheck Lore Scroll",
+    "description": "in the light flooded cellar behind the string door?",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      201.4691849957702,
+      60.71875
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_01721655_203908_061406",
+    "name": "Statue of Eona",
+    "description": "Inside Temple of the Raven",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      203.90762227947397,
+      61.40625
+    ]
+  },
+  {
+    "id": "Grimnir_10/13_Lore_Scroll_87016453_204533_062719",
+    "name": "Grimnir 10/13 Lore Scroll",
+    "description": "Inside Temple of the Raven costs 50 crystals to open the  door",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      204.5328626086288,
+      62.71875
+    ]
+  },
+  {
+    "id": "Raven_Boss_47895003_208500_061844",
+    "name": "Raven Boss",
+    "description": "Description_PlaceHolder",
+    "category_id": "guardian",
+    "icon_id": "raven",
+    "coords": [
+      208.5,
+      61.84375
+    ]
+  },
+  {
+    "id": "Common_Chest_14752554_209816_060750",
+    "name": "Common Chest",
+    "description": "after defeating the Raven Boss",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      209.81614338998693,
+      60.75
+    ]
+  },
+  {
+    "id": "Common_Chest_42443158_209800_061875",
+    "name": "Common Chest",
+    "description": "After defeating the Raven Boss",
+    "category_id": "guardian",
+    "icon_id": "chest",
+    "coords": [
+      209.8,
+      61.875
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_17293667_204001_077031",
+    "name": "Statue of Eona",
+    "description": "At the End of Wind Caverns ",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      204.0014083288472,
+      77.03125
+    ]
+  },
+  {
+    "id": "Wisp_59160738_200739_079313",
+    "name": "Wisp",
+    "description": "step on a bench",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      200.7390433938322,
+      79.3125
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_20480666_194705_099750",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      194.70547421748827,
+      99.75
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_53606288_159800_094406",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      159.9,
+      94.40625
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_36265071_163137_081750",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      163.13691792278706,
+      81.75
+    ]
+  },
+  {
+    "id": "Common_Chest_93698525_165138_078688",
+    "name": "Common Chest",
+    "description": "On top of Mosswood Mine",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      165.13768697608245,
+      78.6875
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_70064128_163981_077688",
+    "name": "Statue of Eona",
+    "description": "Underground inside Mosswood Mine",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      163.98099236714603,
+      77.6875
+    ]
+  },
+  {
+    "id": "Skill_Point_39959544_165419_080500",
+    "name": "Skill Point",
+    "description": "Underground at the End of Mosswood Mines",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      165.4190451242021,
+      80.5
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_57527149_168983_079688",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      168.98291500038454,
+      79.6875
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_39126342_124861_062625",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      124.86066676920711,
+      62.625
+    ]
+  },
+  {
+    "id": "Lady_Amara_3/3_Lore_Scroll_47990976_100000_056656",
+    "name": "Lady Amara 3/3 Lore Scroll ",
+    "description": "inside shipwrack",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      100,
+      56.65625
+    ]
+  },
+  {
+    "id": "Wisp_78626194_115513_068469",
+    "name": "Wisp",
+    "description": "Underground Mosswood City Underpass",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      115.5133238483427,
+      68.46875
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_91583852_118139_076750",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      118.13933323079289,
+      76.75
+    ]
+  },
+  {
+    "id": "Mossy_Home_Portal_01192070_114513_090594",
+    "name": "Mossy Home Portal",
+    "description": "Portal inside fox den",
+    "category_id": "portal",
+    "icon_id": "portal",
+    "coords": [
+      114.51315561793433,
+      90.59375
+    ]
   }
 ]
