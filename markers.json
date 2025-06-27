@@ -2759,5 +2759,27 @@
       114.51315561793433,
       90.59375
     ]
+  },
+  {
+    "id": "Temple_of_the_Raven_79198913_193000_054344",
+    "name": "Temple of the Raven",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "raven",
+    "coords": [
+      193,
+      54.34375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_50436428_179432_054063",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      179.431640625,
+      54.0625
+    ]
   }
 ]
