@@ -2781,5 +2781,269 @@
       179.431640625,
       54.0625
     ]
+  },
+  {
+    "id": "Skogmir_the_Battle_Shaman_1/2_Lore_Scroll_48638623_178213_149813",
+    "name": "Skogmir the Battle Shaman 1/2 Lore Scroll ",
+    "description": "Description_PlaceHolder",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      178.212890625,
+      149.8125
+    ]
+  },
+  {
+    "id": "Cosmetic_Chest_00044352_184900_146969",
+    "name": "Cosmetic Chest",
+    "description": "Underground in Stormgate - contains Piebald eye",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      184.900390625,
+      146.96875
+    ]
+  },
+  {
+    "id": "Mog_the_Mighty_1/9_Lore_Scroll_82459720_190994_144656",
+    "name": "Mog the Mighty 1/9 Lore Scroll",
+    "description": "Inside Stormgate Fortress",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      190.994140625,
+      144.65625
+    ]
+  },
+  {
+    "id": "Common_Chest_01032836_186244_145969",
+    "name": "Common Chest",
+    "description": "On Top of Stormgate Tower",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      186.244140625,
+      145.96875
+    ]
+  },
+  {
+    "id": "Mog_the_Mighty_2/9_Lore_Scroll_11517507_185994_144781",
+    "name": "Mog the Mighty 2/9 Lore Scroll",
+    "description": "On Top of Stormgate Tower",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      185.994140625,
+      144.78125
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_in_Valley_of_the_Ancients_54084429_186088_143594",
+    "name": "Statue of Eona in Valley of the Ancients",
+    "description": "Underground in Stormgate Tower",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      186.087890625,
+      143.59375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_65541591_187963_156875",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      187.962890625,
+      156.875
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_72307695_190932_164844",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      190.931640625,
+      164.84375
+    ]
+  },
+  {
+    "id": "Silent_Pass_Ruins_42053678_189744_168500",
+    "name": "Silent Pass Ruins",
+    "description": "Description_PlaceHolder",
+    "category_id": "ruins",
+    "icon_id": "ruins",
+    "coords": [
+      189.744140625,
+      168.5
+    ]
+  },
+  {
+    "id": "Temple_of_the_Ram_83534181_187400_199438",
+    "name": "Temple of the Ram",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "ram",
+    "coords": [
+      187.4,
+      199.4375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_90701404_189400_200031",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      189.4,
+      200.03125
+    ]
+  },
+  {
+    "id": "Common_Chest_45774961_178338_202938",
+    "name": "Common Chest",
+    "description": "Inside the house",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      178.337890625,
+      202.9375
+    ]
+  },
+  {
+    "id": "Thelenök_Hall_93993690_173838_205438",
+    "name": "Thelenök Hall",
+    "description": "Description_PlaceHolder",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      173.837890625,
+      205.4375
+    ]
+  },
+  {
+    "id": "Taukara,_Daughter_of_War_1/6_Lore_Scroll_10130405_174150_204813",
+    "name": "Taukara, Daughter of War 1/6 Lore Scroll",
+    "description": "Inside Thelenök Hall",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      174,
+      204.8125
+    ]
+  },
+  {
+    "id": "Skill_Point_78428536_173369_203625",
+    "name": "Skill Point",
+    "description": "Inside Thelenök Hall",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      173.369140625,
+      203.625
+    ]
+  },
+  {
+    "id": "Ram_Tribe_Encampment_20162334_186900_206406",
+    "name": "Ram Tribe Encampment",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "encampment",
+    "coords": [
+      186.900390625,
+      206.40625
+    ]
+  },
+  {
+    "id": "Wisp_49931942_179932_211313",
+    "name": "Wisp",
+    "description": "Step on a pillar",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      179.4,
+      211.3125
+    ]
+  },
+  {
+    "id": "Ancient_Tree_43297847_172682_211656",
+    "name": "Ancient Tree",
+    "description": "Description_PlaceHolder",
+    "category_id": "tree",
+    "icon_id": "tree",
+    "coords": [
+      172.681640625,
+      211.65625
+    ]
+  },
+  {
+    "id": "Skill_Point_58969722_172682_211219",
+    "name": "Skill Point",
+    "description": "Reward for activating the Ancient Tree 5 Wisps needed",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      172.681640625,
+      211.21875
+    ]
+  },
+  {
+    "id": "Shaman_Longhouse_22952593_172838_216438",
+    "name": "Shaman Longhouse",
+    "description": "can't find icon",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      172.837890625,
+      216.4375
+    ]
+  },
+  {
+    "id": "Common_Chest_70186273_173000_216031",
+    "name": "Common Chest",
+    "description": "Inside Shaman Longhouse",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      173,
+      216.03125
+    ]
+  },
+  {
+    "id": "Maelstrom_Rock_03084682_165025_218813",
+    "name": "Maelstrom Rock",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "naturalRockTower",
+    "coords": [
+      165.025390625,
+      218.8125
+    ]
+  },
+  {
+    "id": "Wisp_42948189_155900_220594",
+    "name": "Wisp",
+    "description": "On a pillar inside the tower",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      155.900390625,
+      220.59375
+    ]
+  },
+  {
+    "id": "Obelisk_97650124_159994_229313",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      159.994140625,
+      229.3125
+    ]
   }
 ]
