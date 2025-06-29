@@ -3045,5 +3045,159 @@
       159.994140625,
       229.3125
     ]
+  },
+  {
+    "id": "Tomb_of_Heilda_35668323_161600_232750",
+    "name": "Tomb of Heilda",
+    "description": "Description_PlaceHolder",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      161.6,
+      232.75
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_57558478_162713_233281",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      162.2,
+      233.28125
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_68886339_157932_225000",
+    "name": "Statue of Eona",
+    "description": "Underground in Tomb of Heilda",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      157.931640625,
+      225
+    ]
+  },
+  {
+    "id": "Common_Chest_81315161_161400_224813",
+    "name": "Common Chest",
+    "description": "Underground in Tomb of Heilda",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      161.400390625,
+      224.8125
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_72213257_164494_222656",
+    "name": "Statue of Eona",
+    "description": "Underground in Tomb of Heilda",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      164.494140625,
+      222.65625
+    ]
+  },
+  {
+    "id": "Common_Chest_14909290_169838_218344",
+    "name": "Common Chest",
+    "description": "Underground inside Tomb of Heilde",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      169.837890625,
+      218.34375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_90146705_168338_220063",
+    "name": "Statue of Eona",
+    "description": "Underground inside Tomb of Heilda",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      168.337890625,
+      220.0625
+    ]
+  },
+  {
+    "id": "Common_Chest_89439754_171119_222281",
+    "name": "Common Chest",
+    "description": "Underground inside of Tomb of Heilda",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      171.119140625,
+      222.28125
+    ]
+  },
+  {
+    "id": "Common_Chest_20629792_163057_225313",
+    "name": "Common Chest",
+    "description": "Underground inside of Tomb of Heilda",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      163.056640625,
+      225.3125
+    ]
+  },
+  {
+    "id": "Skill_Point_64012036_162119_218031",
+    "name": "Skill Point",
+    "description": "Underground reward for completing Tomb of Hilda",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      162.119140625,
+      218.03125
+    ]
+  },
+  {
+    "id": "Taukara,_Daughter_of_War_2/6_Lore_Scroll_41560924_186807_199406",
+    "name": "Taukara, Daughter of War 2/6 Lore Scroll",
+    "description": "Infront of the entrance to the Temple of the Ram",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      186.806640625,
+      199.40625
+    ]
+  },
+  {
+    "id": "Fox_Dash_Rune_Chest_17182328_186025_198875",
+    "name": "Fox Dash Rune Chest",
+    "description": "A reward for bringing back all Relics to the Temple of the Ram",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      186.025390625,
+      198.875
+    ]
+  },
+  {
+    "id": "Ram_Boss_03550471_175994_191281",
+    "name": "Ram Boss",
+    "description": "Guardian at the top of Ram's Hill",
+    "category_id": "guardian",
+    "icon_id": "ram",
+    "coords": [
+      175.994140625,
+      191.28125
+    ]
+  },
+  {
+    "id": "Grimnir_1/13_Lore_Scroll_32032794_175838_191188",
+    "name": "Grimnir 1/13 Lore Scroll",
+    "description": "At the Top of Ram's Hill",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      175.837890625,
+      191.1875
+    ]
   }
 ]
