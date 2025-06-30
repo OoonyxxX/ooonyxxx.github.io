@@ -3199,5 +3199,93 @@
       175.837890625,
       191.1875
     ]
+  },
+  {
+    "id": "Snake_Shrine_43573470_195000_205219",
+    "name": "Snake Shrine",
+    "description": "Underground entrance in Windsong Lake",
+    "category_id": "snakeshrine",
+    "icon_id": "snakeShrine",
+    "coords": [
+      195,
+      205.21875
+    ]
+  },
+  {
+    "id": "Windsong_Lake_82554978_197995_210125",
+    "name": "Windsong Lake",
+    "description": "Lake",
+    "category_id": null,
+    "icon_id": "lake",
+    "coords": [
+      197.99519582019533,
+      210.125
+    ]
+  },
+  {
+    "id": "Common_Chest_98157409_194525_203875",
+    "name": "Common Chest",
+    "description": "Underground in Snake Shrine",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      194.52511199338613,
+      203.875
+    ]
+  },
+  {
+    "id": "Stormwind_Shrine_79400335_196000_191875",
+    "name": "Stormwind Shrine",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "ruins",
+    "coords": [
+      196,
+      191.875
+    ]
+  },
+  {
+    "id": "Frostwater_Shrine_99340508_199000_180438",
+    "name": "Frostwater Shrine",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "ruins",
+    "coords": [
+      199,
+      180.4375
+    ]
+  },
+  {
+    "id": "Windsong_Mine_78181278_205748_192969",
+    "name": "Windsong Mine",
+    "description": "can't find Icon",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      205.748175901715,
+      192.96875
+    ]
+  },
+  {
+    "id": "Windsong_Trading_Post_30291598_203341_200063",
+    "name": "Windsong Trading Post",
+    "description": "Can't find Icon",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      203.34100063446897,
+      200.0625
+    ]
+  },
+  {
+    "id": "Weaver's_House_38977252_205748_205406",
+    "name": "Weaver's House",
+    "description": "Can't find Icon",
+    "category_id": null,
+    "icon_id": "mysteryPOI",
+    "coords": [
+      205.748175901715,
+      205.40625
+    ]
   }
 ]
