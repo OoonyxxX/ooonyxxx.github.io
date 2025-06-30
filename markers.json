@@ -1,16 +1,5 @@
 [
   {
-    "id": "Test2_84550568_134967_136750",
-    "name": "Test2",
-    "description": "Description_PlaceHolder",
-    "category_id": null,
-    "icon_id": "snakeShrine",
-    "coords": [
-      134.9668738428987,
-      136.75
-    ]
-  },
-  {
     "id": "Ruins_of_Kindred_Spire_10706540_069122_069438",
     "name": "Ruins of Kindred Spire",
     "description": "Once a monument to the kinship between tribes.",
@@ -176,28 +165,6 @@
     ]
   },
   {
-    "id": "Name_PlaceHolder_74534965_136884_140555",
-    "name": "Name_PlaceHolder",
-    "description": "Description_PlaceHolder",
-    "category_id": null,
-    "icon_id": "extraWisp",
-    "coords": [
-      134.822304,
-      142.987837
-    ]
-  },
-  {
-    "id": "Name_PlaceHolder_84505389_135842_130652",
-    "name": "Name_PlaceHolder",
-    "description": "Description_PlaceHolder",
-    "category_id": null,
-    "icon_id": "loreSeeker",
-    "coords": [
-      135.841602824,
-      130.65231266517966
-    ]
-  },
-  {
     "id": "Obelisk_71115043_210138_016594",
     "name": "Obelisk",
     "description": "Sablenest's lone obelisk",
@@ -327,39 +294,6 @@
     "coords": [
       174.78695454796423,
       54.34375
-    ]
-  },
-  {
-    "id": "Name_PlaceHolder_96869094_136523_125499",
-    "name": "Name_PlaceHolder",
-    "description": "Description_PlaceHolder",
-    "category_id": null,
-    "icon_id": "chest",
-    "coords": [
-      143.395728,
-      130.673076
-    ]
-  },
-  {
-    "id": "Name_PlaceHolder_86508185_137172_121604",
-    "name": "Name_PlaceHolder",
-    "description": "Description_PlaceHolder",
-    "category_id": null,
-    "icon_id": "skinChest",
-    "coords": [
-      143.166581,
-      137.665232
-    ]
-  },
-  {
-    "id": "Name_PlaceHolder_24039734_137324_117218",
-    "name": "Name_PlaceHolder",
-    "description": "Description_PlaceHolder",
-    "category_id": null,
-    "icon_id": "runeChest",
-    "coords": [
-      143.281167,
-      145.001264
     ]
   },
   {
@@ -624,17 +558,6 @@
     "coords": [
       196.03267467598837,
       48.625
-    ]
-  },
-  {
-    "id": "Name_PlaceHolder_20316103_146989_155500",
-    "name": "Name_PlaceHolder",
-    "description": "Description_PlaceHolder",
-    "category_id": null,
-    "icon_id": "skillPoint",
-    "coords": [
-      146.98914448947346,
-      155.5
     ]
   },
   {
@@ -3286,6 +3209,171 @@
     "coords": [
       205.748175901715,
       205.40625
+    ]
+  },
+  {
+    "id": "Common_Chest_94689486_176051_196281",
+    "name": "Common Chest",
+    "description": "Chest after defeating Ram Boss",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      176.05113483426902,
+      196.28125
+    ]
+  },
+  {
+    "id": "Grimnir_2/13_Lore_Scroll_06658261_175332_195281",
+    "name": "Grimnir 2/13 Lore Scroll",
+    "description": "After defeating Ram Boss",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      175.33210845574098,
+      195.28125
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_62993079_170862_168313",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      170.86236108974853,
+      168.3125
+    ]
+  },
+  {
+    "id": "Wolves_Pass_36208183_165548_165188",
+    "name": "Wolves Pass",
+    "description": "Description_PlaceHolder",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      165.54781829193263,
+      165.1875
+    ]
+  },
+  {
+    "id": "Words_of_Memory_1/10_Lore_Scroll_18838344_160358_162094",
+    "name": "Words of Memory 1/10 Lore Scroll",
+    "description": "Underground in Wolves Pass",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      160.3583235599477,
+      162.09375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_26243352_155044_160188",
+    "name": "Statue of Eona",
+    "description": "Underground in Wolves Pass",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      155.0437807621318,
+      160.1875
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_91456705_155638_155906",
+    "name": "Statue of Eona",
+    "description": "Underground in Wolves Pass",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      155.6377590748289,
+      155.90625
+    ]
+  },
+  {
+    "id": "Words_of_Memory_2/10_Lore_Scroll_87326201_153950_157531",
+    "name": "Words of Memory 2/10 Lore Scroll",
+    "description": "Underground in Wolves Pass",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      153.9496101861109,
+      157.53125
+    ]
+  },
+  {
+    "id": "Common_Chest_43101159_149448_153656",
+    "name": "Common Chest",
+    "description": "Underground inside Wolves Pass",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      149.44757940475276,
+      153.65625
+    ]
+  },
+  {
+    "id": "Skill_Point_25950415_150573_154094",
+    "name": "Skill Point",
+    "description": "Inside Wolves Pass",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      150.57301199723142,
+      154.09375
+    ]
+  },
+  {
+    "id": "Wolves_Pass_06266652_143196_148406",
+    "name": "Wolves Pass",
+    "description": "Description_PlaceHolder",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      143.19556063985235,
+      148.40625
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_65973390_142945_148406",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      142.9454645081904,
+      148.40625
+    ]
+  },
+  {
+    "id": "Wisp_83824468_137412_136438",
+    "name": "Wisp",
+    "description": "walking towards the pillars releases a wisp",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      137.41182323310005,
+      136.4375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_39408489_143008_124031",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      143.00772417903562,
+      124.03125
+    ]
+  },
+  {
+    "id": "Frigid_Peaks_Portal_58593403_144023_124531",
+    "name": "Frigid Peaks Portal",
+    "description": "Description_PlaceHolder",
+    "category_id": "portal",
+    "icon_id": "portal",
+    "coords": [
+      144.02256450434516,
+      124.53125
     ]
   }
 ]
