@@ -3375,5 +3375,93 @@
       144.02256450434516,
       124.53125
     ]
+  },
+  {
+    "id": "Feon_1/2_Lore_Scroll_17098026_140525_162125",
+    "name": "Feon 1/2 Lore Scroll",
+    "description": "Underground in Arctic Fox Guild",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      140.525390625,
+      162.125
+    ]
+  },
+  {
+    "id": "Arctic_Fox_Guild_27539693_140619_163906",
+    "name": "Arctic Fox Guild",
+    "description": "Description_PlaceHolder",
+    "category_id": "ruins",
+    "icon_id": "ruins",
+    "coords": [
+      140.619140625,
+      163.90625
+    ]
+  },
+  {
+    "id": "Skill_Point_70333722_140650_165406",
+    "name": "Skill Point",
+    "description": "Underground inside Arctic Fox Guild",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      140.650390625,
+      165.40625
+    ]
+  },
+  {
+    "id": "Winter_Arctic_Fox_Furr_41121378_140619_165313",
+    "name": "Winter Arctic Fox Furr",
+    "description": "Underground inside Arctic Fox Guild",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      140.2,
+      165.3125
+    ]
+  },
+  {
+    "id": "Obelisk_03074521_138088_166688",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      138.087890625,
+      166.6875
+    ]
+  },
+  {
+    "id": "Wisp_46302099_137713_174594",
+    "name": "Wisp",
+    "description": "Spirit Rune PUzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      137.712890625,
+      174.59375
+    ]
+  },
+  {
+    "id": "Skill_Point_92210720_134963_184906",
+    "name": "Skill Point",
+    "description": "Underground inside Snake Shrine",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      134.962890625,
+      184.90625
+    ]
+  },
+  {
+    "id": "Snake_Shrine_46564854_134713_184813",
+    "name": "Snake Shrine",
+    "description": "Description_PlaceHolder",
+    "category_id": "snakeshrine",
+    "icon_id": "snakeShrine",
+    "coords": [
+      134.712890625,
+      184.8125
+    ]
   }
 ]
