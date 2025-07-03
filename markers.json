@@ -3463,5 +3463,269 @@
       134.712890625,
       184.8125
     ]
+  },
+  {
+    "id": "Wisp_53494104_124182_171375",
+    "name": "Wisp",
+    "description": "Description_PlaceHolder",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      124.181640625,
+      171.375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_37752130_121275_146313",
+    "name": "Statue of Eona",
+    "description": "Underground",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      121.275390625,
+      146.3125
+    ]
+  },
+  {
+    "id": "Common_Chest_04055404_127338_160094",
+    "name": "Common Chest",
+    "description": "Inside a House",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      127.337890625,
+      160.09375
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_17081226_127932_161094",
+    "name": "Statue of Eona",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      127.931640625,
+      161.09375
+    ]
+  },
+  {
+    "id": "Wisp_97252439_124682_163000",
+    "name": "Wisp",
+    "description": "Step on a pillar",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      124.681640625,
+      163
+    ]
+  },
+  {
+    "id": "Common_Chest_61804231_124900_160813",
+    "name": "Common Chest",
+    "description": "Inside the Tower",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      124.900390625,
+      160.8125
+    ]
+  },
+  {
+    "id": "Wisp_47928109_126182_162219",
+    "name": "Wisp",
+    "description": "Spirit Rune",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      126.181640625,
+      162.21875
+    ]
+  },
+  {
+    "id": "Piera_1/2_Lore_Scroll_57926065_124713_160781",
+    "name": "Piera 1/2 Lore Scroll",
+    "description": "Description_PlaceHolder",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      124.712890625,
+      160.78125
+    ]
+  },
+  {
+    "id": "Common_Chest_96759914_124307_165188",
+    "name": "Common Chest",
+    "description": "Inside a house",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      124.306640625,
+      165.1875
+    ]
+  },
+  {
+    "id": "Common_Chest_56749965_122088_164438",
+    "name": "Common Chest",
+    "description": "Inside a house on a beam",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      122.087890625,
+      164.4375
+    ]
+  },
+  {
+    "id": "Wisp_48622773_119900_166344",
+    "name": "Wisp",
+    "description": "Spirit Rune",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      119.900390625,
+      166.34375
+    ]
+  },
+  {
+    "id": "Skill_Point_94697737_121275_168500",
+    "name": "Skill Point",
+    "description": "Figurine Puzzle to unlock the door to the house",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      121.275390625,
+      168.5
+    ]
+  },
+  {
+    "id": "Sunfire_Passage_49024458_124807_148938",
+    "name": "Sunfire Passage",
+    "description": "Description_PlaceHolder",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      124.806640625,
+      148.9375
+    ]
+  },
+  {
+    "id": "Common_Chest_35820594_116775_143000",
+    "name": "Common Chest",
+    "description": "Underground",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      116.775390625,
+      143
+    ]
+  },
+  {
+    "id": "Skill_Point_04321669_108650_147625",
+    "name": "Skill Point",
+    "description": "Underground",
+    "category_id": "skillpoint",
+    "icon_id": "skillPoint",
+    "coords": [
+      108.650390625,
+      147.625
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_75367802_108025_147031",
+    "name": "Statue of Eona",
+    "description": "Underground",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      108.025390625,
+      147.03125
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_91678635_104650_146250",
+    "name": "Statue of Eona",
+    "description": "Underground",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      104.650390625,
+      146.25
+    ]
+  },
+  {
+    "id": "Common_Chest_81351938_105807_142250",
+    "name": "Common Chest",
+    "description": "Underground",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      105.806640625,
+      142.25
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_30768975_108369_144719",
+    "name": "Statue of Eona",
+    "description": "Underground",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      108.369140625,
+      144.71875
+    ]
+  },
+  {
+    "id": "Obelisk_85387137_109182_150531",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      109.181640625,
+      150.53125
+    ]
+  },
+  {
+    "id": "Temple_of_the_Wolf_04834252_152057_124219",
+    "name": "Temple of the Wolf",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "wolf",
+    "coords": [
+      152.056640625,
+      124.21875
+    ]
+  },
+  {
+    "id": "Lift_Glide_Rune_Chest_85724836_156494_122188",
+    "name": "Lift Glide Rune Chest",
+    "description": "Underground inside the temple of the Wolf",
+    "category_id": "runechest",
+    "icon_id": "runeChest",
+    "coords": [
+      156.494140625,
+      122.1875
+    ]
+  },
+  {
+    "id": "Statue_of_Eona_57716420_157682_122156",
+    "name": "Statue of Eona",
+    "description": "Underground inside the Temple of the Wolf",
+    "category_id": null,
+    "icon_id": "totem",
+    "coords": [
+      157.681640625,
+      122.15625
+    ]
+  },
+  {
+    "id": "Fennuk_1/5_Lore_Scroll_08702914_158744_122125",
+    "name": "Fennuk 1/5 Lore Scroll",
+    "description": "Underground inside The Temple of teh Wolf",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      158.3,
+      122.125
+    ]
   }
 ]
