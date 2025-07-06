@@ -3727,5 +3727,60 @@
       158.3,
       122.125
     ]
+  },
+  {
+    "id": "Wisp_18067178_187217_207406",
+    "name": "Wisp",
+    "description": "Spirit Rune ",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      187.2169747100149,
+      207.40625
+    ]
+  },
+  {
+    "id": "Wisp_16563656_189088_164219",
+    "name": "Wisp",
+    "description": "Spirit Rune",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      189.08783341967603,
+      164.21875
+    ]
+  },
+  {
+    "id": "Obelisk_53632556_182057_170531",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      182.0567184617523,
+      170.53125
+    ]
+  },
+  {
+    "id": "Wisp_13686080_166870_207250",
+    "name": "Wisp",
+    "description": "Spirit Rune",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      166.87001370953476,
+      207.25
+    ]
+  },
+  {
+    "id": "Wisp_83921536_172493_173406",
+    "name": "Wisp",
+    "description": "Spirit Rune",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      172.49334819059413,
+      173.40625
+    ]
   }
 ]
