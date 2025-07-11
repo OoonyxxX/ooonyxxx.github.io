@@ -3782,5 +3782,313 @@
       172.49334819059413,
       173.40625
     ]
+  },
+  {
+    "id": "Wisp_64061537_142900_213219",
+    "name": "Wisp",
+    "description": "Spirit Rune Puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      142.900390625,
+      213.21875
+    ]
+  },
+  {
+    "id": "Ancient_Tree_75618317_136900_203531",
+    "name": "Ancient Tree",
+    "description": "Description_PlaceHolder",
+    "category_id": "tree",
+    "icon_id": "tree",
+    "coords": [
+      136.900390625,
+      203.53125
+    ]
+  },
+  {
+    "id": "Raccoon_Grotto_29911603_124775_205313",
+    "name": "Raccoon Grotto",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "raccoonGrotto",
+    "coords": [
+      124.775390625,
+      205.3125
+    ]
+  },
+  {
+    "id": "Moltenheart_Crypt_36738882_122150_183000",
+    "name": "Moltenheart Crypt",
+    "description": "Burial mound of the Bear Tribe",
+    "category_id": "crypt",
+    "icon_id": "crypt",
+    "coords": [
+      122.150390625,
+      183
+    ]
+  },
+  {
+    "id": "Kalu_Nol_04894925_124000_157344",
+    "name": "Kalu Nol",
+    "description": "Primary village og the Sun Wolf Tribe",
+    "category_id": null,
+    "icon_id": "dwellingsStone",
+    "coords": [
+      124,
+      157.34375
+    ]
+  },
+  {
+    "id": "Ancient_Tree_03876344_125100_155969",
+    "name": "Ancient Tree",
+    "description": "Description_PlaceHolder",
+    "category_id": "tree",
+    "icon_id": "tree",
+    "coords": [
+      125.1,
+      155.96875
+    ]
+  },
+  {
+    "id": "Obelisk_10279150_133690_224150",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      133.68982373637706,
+      224.14990577924414
+    ]
+  },
+  {
+    "id": "Everwatch_Ruins_04061531_142023_218052",
+    "name": "Everwatch Ruins",
+    "description": "Description_PlaceHolder",
+    "category_id": "ruins",
+    "icon_id": "ruins",
+    "coords": [
+      142.02270704571967,
+      218.05153866458556
+    ]
+  },
+  {
+    "id": "Chest_52842943_157618_220426",
+    "name": "Cosmetic Chest",
+    "description": "ontop of the tower contains blue/brown eyes",
+    "category_id": "skinchest",
+    "icon_id": "skinChest",
+    "coords": [
+      156.5,
+      220.42571212143739
+    ]
+  },
+  {
+    "id": "Wisp_24836734_151932_224188",
+    "name": "Wisp",
+    "description": "Spirit Rune",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      151.931640625,
+      224.1875
+    ]
+  },
+  {
+    "id": "Rikia_the_Witch_Lore_Scrol_16464195_159838_244156",
+    "name": "Rikia the Witch 2/3 Lore Scrol",
+    "description": "Underground in Witch's Lair Cave",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      159.837890625,
+      244.15625
+    ]
+  },
+  {
+    "id": "Witch's_Lair_76150871_159682_244875",
+    "name": "Witch's Lair",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "cave",
+    "coords": [
+      159.681640625,
+      244.875
+    ]
+  },
+  {
+    "id": "Wisp_93591472_144369_235281",
+    "name": "Wisp",
+    "description": "Spirit Rune",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      144.369140625,
+      235.28125
+    ]
+  },
+  {
+    "id": "Wisp_03136837_131400_232188",
+    "name": "Wisp",
+    "description": "Step on a bench",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      131.400390625,
+      232.1875
+    ]
+  },
+  {
+    "id": "Grimöl_1/1_Lore_Scroll_51851502_145119_195375",
+    "name": "Grimöl 1/1 Lore Scroll",
+    "description": "Description_PlaceHolder",
+    "category_id": "scroll",
+    "icon_id": "loreSeeker",
+    "coords": [
+      145.119140625,
+      195.375
+    ]
+  },
+  {
+    "id": "Lover's_Hill_62440938_146432_194125",
+    "name": "Lover's Hill",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "default",
+    "coords": [
+      146.431640625,
+      194.125
+    ]
+  },
+  {
+    "id": "Wisp_33179670_144838_189281",
+    "name": "Wisp",
+    "description": "Step on 2 pillars",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      144.837890625,
+      189.28125
+    ]
+  },
+  {
+    "id": "Stormy_Home_06647661_159588_203813",
+    "name": "Stormy Home",
+    "description": "Description_PlaceHolder",
+    "category_id": "home",
+    "icon_id": "playerHome",
+    "coords": [
+      159.587890625,
+      203.8125
+    ]
+  },
+  {
+    "id": "Common_Chest_89645714_155932_216000",
+    "name": "Common Chest",
+    "description": "On top of the tower",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      155.931640625,
+      216
+    ]
+  },
+  {
+    "id": "Wisp_38285441_155869_213719",
+    "name": "Wisp",
+    "description": "Spirit Rune",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      155.2,
+      213.71875
+    ]
+  },
+  {
+    "id": "Common_Chest_97938138_158275_211844",
+    "name": "Common Chest",
+    "description": "Undeground inside the tower",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      158.275390625,
+      211.84375
+    ]
+  },
+  {
+    "id": "Wisp_87814648_118432_214656",
+    "name": "Wisp",
+    "description": "Spirit Rune Puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      118.431640625,
+      214.65625
+    ]
+  },
+  {
+    "id": "Wisp_11286528_102557_212219",
+    "name": "Wisp",
+    "description": "Step on a pillar",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      102.556640625,
+      212.21875
+    ]
+  },
+  {
+    "id": "Wisp_37179826_094619_209594",
+    "name": "Wisp",
+    "description": "Spirit Rune Puzzle",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      94.619140625,
+      209.59375
+    ]
+  },
+  {
+    "id": "Obelisk_26786483_105269_189384",
+    "name": "Obelisk",
+    "description": "Description_PlaceHolder",
+    "category_id": "obelisk",
+    "icon_id": "obelisk",
+    "coords": [
+      105.26931572236231,
+      189.38377890622849
+    ]
+  },
+  {
+    "id": "Ancient_Tree_46143525_095461_196158",
+    "name": "Ancient Tree",
+    "description": "Description_PlaceHolder",
+    "category_id": "tree",
+    "icon_id": "tree",
+    "coords": [
+      95.46143745560904,
+      196.15756533506527
+    ]
+  },
+  {
+    "id": "Wisp_94633528_107400_199469",
+    "name": "Wisp",
+    "description": "Spirit Rune",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      107.400390625,
+      199.46875
+    ]
+  },
+  {
+    "id": "Corrupt_Village_34394015_102088_206656",
+    "name": "Corrupt Village",
+    "description": "Description_PlaceHolder",
+    "category_id": null,
+    "icon_id": "dwellingsStone",
+    "coords": [
+      102.087890625,
+      206.65625
+    ]
   }
 ]
