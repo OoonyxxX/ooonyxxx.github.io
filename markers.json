@@ -4090,5 +4090,27 @@
       102.087890625,
       206.65625
     ]
+  },
+  {
+    "id": "Wisp_16605047_180713_046250",
+    "name": "Wisp",
+    "description": "Step on 3 pillars",
+    "category_id": "wisp",
+    "icon_id": "extraWisp",
+    "coords": [
+      180.712890625,
+      46.25
+    ]
+  },
+  {
+    "id": "Common_Chest_43887597_191275_030719",
+    "name": "Common Chest",
+    "description": "Description_PlaceHolder",
+    "category_id": "chest",
+    "icon_id": "chest",
+    "coords": [
+      191.275390625,
+      30.71875
+    ]
   }
 ]
