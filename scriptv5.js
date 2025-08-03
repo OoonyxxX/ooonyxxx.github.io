@@ -16,8 +16,6 @@ const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 
 
-
-
 const allowedEditors = [
 "OoonyxxX", 
 "333tripleit",
@@ -32,7 +30,7 @@ const map = L.map('map', {
   minZoom: 2,
   maxZoom: 5,
   zoomSnap: 0.025,
-  zoomDelta: 0.5,
+  zoomDelta: 0.025,
   zoom: 2,
   zoomControl: true,
   maxBounds: [[mapTileHB, mapTileWL], [mapTileHT, mapTileWR]],
@@ -52,15 +50,9 @@ L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
 //Тайловая карта
 
 
-//
-let clusterMarkers = [];  // Список сгруппированных маркеров
-let BLOCK_SIZE = 32;
-//
-
 //Адаптивный зумм для карты
 //START
 map.on('zoomend', function () {
-  console.log("Zoom end");
   const z0 = map.getZoom();
   const z = z0 - 2;
   const borderShift = Math.pow(2, z);
@@ -68,163 +60,15 @@ map.on('zoomend', function () {
   const mapTileHTE = ((window.innerHeight / 9) * screen_frame_mult) / borderShift;
   const shiftedBounds = [[mapTileHB / borderShift, mapTileWL / borderShift], [mapTileHTE + mapTile, mapTileWRE + mapTile]];
   map.setMaxBounds(shiftedBounds);
-  // Логика кластеров
-  if (z0 < 5) {
-	const scaleFactor = Math.pow(2, z0);
-	console.log("Scale")
-	console.log(scaleFactor)
-	BLOCK_SIZE = 128 / scaleFactor;    // Размер ячейки 32
-	console.log("BLOCK_SIZE")
-	console.log(BLOCK_SIZE)
-    showClusters();     // Показать кластерные маркеры
-  } else {
-    removeClusters();   // Вернуть обычные маркеры
-  }
 });
 //END
 //Адаптивный зумм для карты
 
-function showClusters() {
-  removeClusters();
-  const groups = {};
-
-  existingMarkers.forEach(marker => {
-	const point = {
-	  x: marker.options.coords[0],
-	  y: marker.options.coords[1]
-	};
-    const cellX = Math.floor(point.x / BLOCK_SIZE);
-    const cellY = Math.floor(point.y / BLOCK_SIZE);
-    const key = `${cellX}_${cellY}`;
-
-    if (!groups[key]) groups[key] = [];
-    groups[key].push(marker);
-  });
-  
-  calculateAnchors(groups, BLOCK_SIZE); // Находим среднюю координату внутри каждой группы по "key".(Вычитаем половину квадрата BLOCK_SIZE, для получения стартовой точки отсчета группирования)
-  calculateClouds(anchors); //Оптимизационный просчет, ограничивает область видимости для каждого key. Нужен для того, что бы последующие итерации точности проходили только по ближайшим тайлам, а не по всей сетке.
-  computeDirtyGroups(anchors, cloud, BLOCK_SIZE); //Это почти как groups, но грязные, по сути некоторые маркеры пошли блядовать, один маркер может быть сразу в двух key.
-  
-
-  for (const key in groups) {
-    const group = groups[key];
-
-    if (group.length === 1) {
-      // Только один маркер в кластере — показываем его
-      const marker = group[0];
-      marker.setOpacity(1);
-      marker.addTo(map);
-    } else {
-      // Несколько маркеров — скрываем все и создаём кластер
-      group.forEach(m => {
-        m.setOpacity(0);
-        map.removeLayer(m);
-      });
-
-      const avgLat = group.reduce((sum, m) => sum + m.getLatLng().lat, 0) / group.length;
-      const avgLng = group.reduce((sum, m) => sum + m.getLatLng().lng, 0) / group.length;
-
-      const clusterMarker = L.marker([avgLat, avgLng], {
-        icon: L.divIcon({
-          className: 'cluster-icon',
-          html: `<div>${group.length}</div>`,
-          iconSize: [32, 32],
-          iconAnchor: [16, 16]
-        })
-      }).addTo(map);
-
-      clusterMarkers.push(clusterMarker);
-    }
-  }
-
-  console.log(`Кластеров создано: ${clusterMarkers.length}`);
-}
-
-function computeDirtyGroups(object, object, BLOCK_SIZE) {
-  const dirtygroups = {};
-
-  Object.keys(object).forEach(key => {
-    const center = object[key];
-    const startX = center.x;
-    const endX = center.x + BLOCK_SIZE;
-    const startY = center.y;
-    const endY = center.y + BLOCK_SIZE;
-
-    const markers = object[key] || [];
-
-    // Фильтрация маркеров внутри прямоугольной области
-    const filtered = markers.filter(marker => {
-      const [x, y] = marker.options.coords;
-      return x >= startX && x <= endX && y >= startY && y <= endY;
-    });
-
-    dirtygroups[key] = filtered;
-  });
-
-  return dirtygroups;
-}
-
-function calculateClouds(object) {
-  const cloud = {};
-
-  Object.keys(object).forEach(key => {
-    const [cellX, cellY] = key.split('_').map(Number);
-    const combinedMarkers = [];
-
-    for (let dx = -1; dx <= 1; dx++) {
-      for (let dy = -1; dy <= 1; dy++) {
-        const neighborKey = `${cellX + dx}_${cellY + dy}`;
-        if (object[neighborKey]) {
-          combinedMarkers.push(...object[neighborKey]);
-        }
-      }
-    }
-    cloud[key] = combinedMarkers;
-  });
-  
-  return cloud;
-}
-
-function calculateAnchors(object, BLOCK_SIZE) {
-  const anchors = {};
-
-  Object.entries(object).forEach(([key, markers]) => {
-    if (markers.length === 0) return;
-
-    let sumX = 0;
-    let sumY = 0;
-
-    markers.forEach(marker => {
-      const [x, y] = marker.options.coords;
-      sumX += x;
-      sumY += y;
-    });
-    const avgX = sumX / markers.length;
-    const avgY = sumY / markers.length;
-    const anchorX = avgX - BLOCK_SIZE / 2;
-    const anchorY = avgY - BLOCK_SIZE / 2;
-    anchors[key] = { x: anchorX, y: anchorY };
-  });
-
-  return anchors;
-}
-
-function removeClusters() {
-  clusterMarkers.forEach(m => map.removeLayer(m));
-  clusterMarkers = [];
-  existingMarkers.forEach(marker => {
-      marker.setOpacity(1);
-      if (!map.hasLayer(marker)) {
-        marker.addTo(map);   // Показываем обычные маркеры
-      }
-    });
-}
 
 
 
-//Переменные для редактирования существующих маркеров
+//Переменные для редактирования существующих меток
 //START
-//const m = L.marker(mData.coords, { icon, id: mData.id })
 const existingMarkers = new Map();
 const layers   = {};
 //END
@@ -233,91 +77,86 @@ const layers   = {};
 let originalMarkersData = [];
 
 
-//Слои меток + Фильтры
+//Слои меток
 //START
-//Promise.all([
-//  fetch("categories.json").then(res => res.json()),
-//  fetch("icons.json").then(res => res.json()),
-//  fetch("markers.json").then(res => res.json())
-//])
 
-Promise.all([
-  fetch(`categories.json?_=${Date.now()}`).then(r => r.json()),
-  fetch(`icons.json?_=${Date.now()}`).then(r => r.json()),
-  fetch(`markers.json?_=${Date.now()}`).then(r => r.json())
-])
+let iconsData, markersData, icons, overlays;
 
-.then(([categories, iconsData, markersData]) => {
-  const overlays = {};
+(async () => {
+  [iconsData, markersData] = await Promise.all([
+    fetch(`svgicons.json?_=${Date.now()}`).then(r => r.json()),
+    fetch(`markers.json?_=${Date.now()}`).then(r => r.json())
+  ]);
 
-  categories.forEach(cat => {
-    const layer = L.layerGroup().addTo(map);
-    layers[cat.id]     = layer;
-    overlays[cat.label] = layer;
-  });
-  const defaultLayer = L.layerGroup().addTo(map);
-  layers[null] = defaultLayer;
-  overlays['Uncategorized'] = defaultLayer;
-  
+  overlays = {};
+
   iconsData.forEach(ic => {
     const img = new Image();
     img.src = ic.url;
   });
-  
-  const icons = {};
-  iconsData.forEach(ic => {
-    icons[ic.id] = L.icon({
-      iconUrl:    ic.url,
+
+  icons = {};
+  await Promise.all(iconsData.map(async ic => {
+    const svgText = await fetch(ic.url).then(r => r.text());
+    const html = `<div class="svg-icon" data-icon-id="${ic.id}">${svgText}</div>`;
+    icons[ic.id] = L.divIcon({
+      html,
+      className: '',
       iconSize:   [32, 32],
       iconAnchor: [16, 32],
       popupAnchor:[0, -32]
     });
-  });
-  if (icons["default"]) {
-    icons.default = icons["default"];
-  } else {
-    icons.default = Object.values(icons)[0];
-  }
-  
+  }));
+  icons.default = icons.default || Object.values(icons)[0];
+
   originalMarkersData = markersData.map(m => ({
     id: m.id,
     name: m.name,
     description: m.description,
-    category_id: m.category_id,
     icon_id: m.icon_id,
-    coords: [m.coords[0], m.coords[1]]
+    coords: [m.coords[0], m.coords[1]],
+	region: m.reg_id,
+	level: m.height,
+	custom_color: [m.color.R ,m.color.G ,m.color.B]
   }));
-  
+
   markersData.forEach(m => {
-    const {id, name, description, coords, category_id, icon_id} = m;
-	
+    const {id, name, description, icon_id, coords, reg_id, height, color} = m;
     const icon  = icons[icon_id] || icons.default;
-    const layer = layers[category_id];
-	
     const marker = L.marker(coords, { icon })
       .bindPopup(`<b>${name}</b><br>${description}`);
-	  
-	marker.options.id = id;
-	marker.options.name = name;
-	marker.options.description = description;
-	marker.options.coords = coords;
-	marker.options.category_id = category_id;
-	marker.options.icon_id = icon_id;
-	
-	layer.addLayer(marker);
-	existingMarkers.set(marker.options.id, marker);
+    marker.options.id = id;
+    marker.options.name = name;
+    marker.options.description = description;
+    marker.options.icon_id = icon_id;
+    marker.options.coords = coords;
+	marker.options.region = reg_id;
+	marker.options.level = height;
+
+	marker.addTo(map);
+	const el = marker.getElement();
+	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
+	const { R, G, B } = color;
+	const cssColor = `rgb(${R}, ${G}, ${B})`;
+	marker.options.custom_rgbcolor = color;
+	marker.options.custom_csscolor = cssColor;
+	const Rh = Math.floor(R / 2);
+	const Gh = Math.floor(G / 2);
+	const Bh = Math.floor(B / 2);
+	marker.options.height_color = `rgb(${Rh}, ${Gh}, ${Bh})`;
+	paintingAllMarkers();
+    existingMarkers.set(marker.options.id, marker);
   });
-  L.control
-    .layers(null, overlays, {collapsed: true}).addTo(map);
-  showClusters()
-  checkAuth(categories, iconsData);
-})
-.catch(error => console.error("JSON reading error:", error));
+
+  checkAuth(iconsData);
+
+})().catch(error => console.error("JSON reading error:", error));
+
+
 //END
 //Слои меток + Фильтры
 
-
-
+let ctx = 0;
 
 //Переменные блока MET
 //START
@@ -330,16 +169,21 @@ const timerProgress = document.getElementById('timerProgressCircle');
 const blueTimer = document.getElementById('TimerBlue');
 const redTimer = document.getElementById('TimerRed');
 
-metControls.style.display = 'none';
-btnActivate.style.display = 'none';
-btnExit.style.display = 'none';
-btnAdd.style.display = 'none';
-btnSave.style.display = 'none';
+//metControls.style.display = 'none';
+//btnActivate.style.display = 'none';
+//btnExit.style.display = 'none';
+//btnAdd.style.display = 'none';
+//btnSave.style.display = 'none';
 
 btnActivate.disabled = true;
 btnExit.disabled     = true;
 btnAdd.disabled      = true;
 btnSave.disabled     = true;
+
+btnActivate.classList.add('disabled')
+btnExit.classList.add('disabled')
+btnAdd.classList.add('disabled')
+btnSave.classList.add('disabled')
 //END
 //Переменные блока MET
 
@@ -350,7 +194,7 @@ btnSave.disabled     = true;
 const loginButton = document.getElementById("login-button");
 const usernameDisplay = document.getElementById("username-display");
 
-function checkAuth(categories, iconsData) {
+function checkAuth(iconsData) {
   fetch("https://testproxyserveroauth.onrender.com/auth/me", {
     credentials: "include"
   })
@@ -359,15 +203,16 @@ function checkAuth(categories, iconsData) {
       if (data.authorized) {
         const username = data.username;
         usernameDisplay.textContent = `Hello, ${username}`;
-        loginButton.style.display = "none";
+        loginButton.classList.add('hide');
 		
         if (allowedEditors.includes(username)) {
           console.log("Editor acepted");
 		  
-          metControls.style.display = 'block';
-		  btnActivate.style.display = 'block';
-          btnActivate.disabled = false;
-		  initMET(categories, iconsData);
+          metControls.classList.add('open');
+		  btnActivate.classList.add('open');
+          btnActivate.classList.remove('disabled')
+		  btnActivate.disabled = false;
+		  initMET(iconsData);
         } else {
           console.log(`The ${username} is not an editor`);
         }
@@ -384,17 +229,110 @@ function checkAuth(categories, iconsData) {
 //END
 //Блок авторизации
 
+//Блок Options
+//START
+
+const reg_color = {
+  fox_island:   '#ffb257',
+  misthaven:    '#b890f9',
+  mosswood:     '#69ec72',
+  stormvale:    '#e6f368',
+  frigid_peaks: '#89e1f0',
+  ashlands:     '#fa7a7a',
+  ocean:        '#7497f7',
+};
+
+const reg_heightcolor = {
+  fox_island:   '#a16826',
+  misthaven:    '#684d93',
+  mosswood:     '#4c9b46',
+  stormvale:    '#9ca630',
+  frigid_peaks: '#27acc4',
+  ashlands:     '#993d3d',
+  ocean:        '#385299',
+};
+
+const coloredRegionsToggle = document.getElementById('toggle-regions');
+const heightDisplayToggle = document.getElementById('toggle-height');
+const coloredMarkersToggle = document.getElementById('toggle-color');
+const customColorsToggle = document.getElementById('toggle-customcolor');
+
+let coloredRegionsEnabled = false;
+let heightDisplayEnabled = false;
+let coloredMarkersEnabled = true;
+let customColorsEnabled = false;
+
+coloredRegionsToggle.addEventListener('change', () => {
+  coloredRegionsEnabled = !coloredRegionsEnabled;
+  paintingAllMarkers();
+});
+
+heightDisplayToggle.addEventListener('change', () => {
+  heightDisplayEnabled = !heightDisplayEnabled;
+  paintingAllMarkers();
+});
+
+coloredMarkersToggle.addEventListener('change', () => {
+  coloredMarkersEnabled = !coloredMarkersEnabled;
+  paintingAllMarkers();
+});
+
+function paintingAllMarkers() {
+  existingMarkers.forEach(marker => {
+	const markerHeightGround = !marker.options.level;
+	const markerUnderground = heightDisplayEnabled && !markerHeightGround;
+    const cssHexColor = reg_color[marker.options.region] || '#fff';
+	const cssHeightHexColor = reg_heightcolor[marker.options.region] || '#7f7f7f';
+	
+    const el = marker.getElement();
+	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
+	const { R, G, B } = marker.options.custom_rgbcolor;
+	
+	const white = [R, G, B].every(v => v === 255);
+	const cWhite = '#fff';
+	const cGray = '#7f7f7f';
+
+    path.style.color = (coloredMarkersEnabled && coloredRegionsEnabled && markerUnderground && ((white && cssHeightHexColor) || marker.options.height_color)) || (coloredMarkersEnabled && coloredRegionsEnabled && ((white && cssHexColor) || marker.options.custom_csscolor)) || (coloredMarkersEnabled && markerUnderground && marker.options.height_color) || (coloredRegionsEnabled && markerUnderground && cssHeightHexColor) || (coloredMarkersEnabled && marker.options.custom_csscolor) || (coloredRegionsEnabled && cssHexColor) || (markerUnderground && cGray) || cWhite;
+  });
+}
+
+function paintSingleMarker(marker) {
+  const markerHeightGround = !marker.options.level;
+  const markerUnderground = heightDisplayEnabled && !markerHeightGround;
+  const cssHexColor = reg_color[marker.options.region] || '#fff';
+  const cssHeightHexColor = reg_heightcolor[marker.options.region] || '#7f7f7f';
+	
+  const el = marker.getElement();
+  const path = el.querySelector(`#${marker.options.icon_id}_svg`);
+  const { R, G, B } = marker.options.custom_rgbcolor;
+
+  const white = [R, G, B].every(v => v === 255);
+  const cWhite = '#fff';
+  const cGray = '#7f7f7f';
+
+  path.style.color = (coloredMarkersEnabled && coloredRegionsEnabled && markerUnderground && ((white && cssHeightHexColor) || marker.options.height_color)) || (coloredMarkersEnabled && coloredRegionsEnabled && ((white && cssHexColor) || marker.options.custom_csscolor)) || (coloredMarkersEnabled && markerUnderground && marker.options.height_color) || (coloredRegionsEnabled && markerUnderground && cssHeightHexColor) || (coloredMarkersEnabled && marker.options.custom_csscolor) || (coloredRegionsEnabled && cssHexColor) || (markerUnderground && cGray) || cWhite;
+}
+
+function dynamicPaintSingleMarker(marker, rgbColor) {
+  const { r, g, b } = rgbColor;
+  const dynamicColor = `rgb(${r}, ${g}, ${b})`;
+  const el = marker.getElement();
+  //const isNewChecker = (isNew && 'default') || marker.options.icon_id;
+  const path = el.querySelector(`#${marker.options.icon_id}_svg`);
+  path.style.color = dynamicColor;
+}
+
+//END
+//Блок Options
+
 const tpl = document.getElementById('marker-form-template');
 
 function genId(title, lat, lng) {
-  // 1) Title: пробелы → нижнее подчёркивание, оборвать лишние пробелы
   const safeTitle = title.trim().replace(/\s+/g, '_');
 
-  // 2) Рандом 8 цифр
   const rand = String(Math.floor(Math.random() * 1e8))
 	.padStart(8, '0');
 
-  // 3) Координаты ×1000, 6-значным числом, с ведущими нулями
   const latPart = String(Math.round(lat * 1000)).padStart(6, '0');
   const lngPart = String(Math.round(lng * 1000)).padStart(6, '0');
 
@@ -404,9 +342,11 @@ function genId(title, lat, lng) {
 let exitSave = false;
 
 
+
+
 //Блок MET
 //START
-function initMET(categories, iconsData) {
+function initMET(iconsData) {
   (function () {
 	let editPopup;
 	editPopup = L.popup({
@@ -420,7 +360,7 @@ function initMET(categories, iconsData) {
 	//START
 	let exitchecker = false;
 	let popapsaved = false;
-    const iconsById = Object.fromEntries(iconsData.map(i => [i.id, i]));
+    //const iconsById = Object.fromEntries(iconsData.map(i => [i.id, i]));
     let metActive = false;
     let addingMarker = false;
 	let editPopupOpen = false;
@@ -428,49 +368,29 @@ function initMET(categories, iconsData) {
 	//END
 	//Переменные внутри блока MET
 	
-	function discardChanges(iconsData) {
-	  // 1) убираем все текущие метки
+	function discardChanges() {
 	  editPopup.remove();
-	  existingMarkers.forEach(marker => {
-		const cat = marker.options.category_id;
-		layers[cat].removeLayer(marker);
-	  });
+	  
 	  existingMarkers.clear();
 	  
-	  const icons = {};
-	  iconsData.forEach(ic => {
-		icons[ic.id] = L.icon({
-		  iconUrl:    ic.url,
-		  iconSize:   [32, 32],
-		  iconAnchor: [16, 32],
-		  popupAnchor:[0, -32]
-		});
-	  });
-	  // Если в JSON есть default–иконка, назначим её как fallback
 	  if (icons["default"]) {
 		icons.default = icons["default"];
 	  } else {
-		// можно вписать свою картинку или оставить первую
 		icons.default = Object.values(icons)[0];
 	  }
-	  // 2) пересоздаём их «как было»
+
 	  originalMarkersData.forEach(m => {
 		const icon = icons[m.icon_id] || icons.default;
-		const layer = layers[m.category_id];
 		const marker = L.marker(m.coords, { icon });
-		// записываем обратно все опции, чтобы bindPopup / onMarkerClick дальше работали
 		marker.options.id           = m.id;
 		marker.options.name         = m.name;
 		marker.options.description  = m.description;
-		marker.options.category_id  = m.category_id;
 		marker.options.icon_id      = m.icon_id;
 		marker.options.coords       = m.coords;
 		marker.bindPopup(`<b>${m.name}</b><br>${m.description}`);
-		layer.addLayer(marker);
 		existingMarkers.set(m.id, marker);
 	  });
 
-	  // чистим «журнал» изменений
 	  diff.added   = [];
 	  diff.updated = [];
 	  diff.deleted = [];
@@ -479,7 +399,9 @@ function initMET(categories, iconsData) {
 	
 	//Обновление состояния кнопки btnSave
     function updateSaveState() {
-      btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
+	  const hasChanges = !(diff.added.length || diff.updated.length || diff.deleted.length);
+	  btnSave.classList.toggle('disabled', hasChanges);
+	  btnSave.disabled = !(diff.added.length || diff.updated.length || diff.deleted.length);
     }
 
     function onMarkerClick(e) {
@@ -498,15 +420,40 @@ function initMET(categories, iconsData) {
       }
     }
 
+	function initRegionCanvas(src) {
+	  console.log('initRegionCanvas(', src, ')');
+	  return new Promise((resolve, reject) => {
+		const img = new Image();
+		img.crossOrigin = 'anonymous';
+		img.onload = () => {
+		  console.log('image loaded');
+		  const canvas = document.getElementById('regions-canvas');
+		  canvas.width  = img.width;
+		  canvas.height = img.height;
+		  const ctx = canvas.getContext('2d');
+		  ctx.drawImage(img, 0, 0);
+		  resolve(ctx);
+		};
+		img.onerror = reject;
+		img.src = src;
+	  });
+	}
+
 	//Кнопка включения МЕТ
     btnActivate.addEventListener('click', () => {
       metActive = true;
-      btnActivate.disabled = true;
-      btnExit.disabled = false;
-      btnAdd.disabled = false;
-      btnExit.style.display = 'block';
-      btnAdd.style.display = 'block';
-      btnSave.style.display = 'block';
+	  btnActivate.disabled = true;
+	  (async () => {
+	    ctx = await initRegionCanvas('Regions.png');
+	  })();
+	  btnExit.disabled = false;
+	  btnAdd.disabled = false;
+      btnActivate.classList.add('disabled')
+      btnExit.classList.remove('disabled')
+      btnAdd.classList.remove('disabled')
+      btnExit.classList.add('open');
+      btnAdd.classList.add('open');
+      btnSave.classList.add('open');
 	  addingMarker = false;
       setAddMode();
       existingMarkers.forEach(m => {
@@ -600,15 +547,18 @@ function initMET(categories, iconsData) {
 		  // Выход без сохранения
 		  exitModal.classList.add('exit-hidden');
 		  metActive = false;
+		  btnActivate.classList.remove('disabled')
+		  btnExit.classList.add('disabled')
+		  btnAdd.classList.add('disabled')
 		  btnActivate.disabled = false;
 		  btnExit.disabled = true;
 		  btnAdd.disabled = true;
-		  btnExit.style.display = 'none';
-		  btnAdd.style.display = 'none';
-		  btnSave.style.display = 'none';
+		  btnExit.classList.remove('open');
+		  btnAdd.classList.remove('open');
+		  btnSave.classList.remove('open');
 		  addingMarker = false;
 		  setAddMode();
-		  discardChanges(iconsData);
+		  discardChanges();
 	    } else {
 		  exitText.innerHTML = '';
 		  exitButtons.classList.add('exit-hidden');
@@ -643,15 +593,8 @@ function initMET(categories, iconsData) {
 	//Функция добаления маркера
     function onMapClick(e) {
       if (!addingMarker) return;
-	  const ic = iconsById.default || iconsById["default"];
-      const marker = L.marker(e.latlng, {
-		icon: L.icon({
-		  iconUrl: ic.url,
-		  iconSize: [32, 32],
-		  iconAnchor: [16, 32],
-		  popupAnchor: [0, -32]
-		})
-	  }).addTo(map);
+	  const newIcon = icons.default || icons["default"];
+      const marker = L.marker(e.latlng, {icon: newIcon}).addTo(map);
       openEditPopup(marker, true);
 	  addingMarker = !addingMarker;
 	  existingMarkers.forEach(m => {
@@ -690,41 +633,71 @@ function initMET(categories, iconsData) {
       const form = content.querySelector('#marker-form');
       const titleIn = form.querySelector('input[name="title"]');
       const descIn = form.querySelector('textarea[name="description"]');
-      const catSel = form.querySelector('select[name="category"]');
       const iconSel = form.querySelector('select[name="icon"]');
+	  const regSel = form.querySelector('select[name="region"]');
+	  const levelIn = form.querySelector('input[name="underground"]');
+	  
       const latIn = form.querySelector('input[name="lat"]');
       const lngIn = form.querySelector('input[name="lng"]');
       const latlng = marker.getLatLng();
+	  
+	  const pickerEl = form.querySelector('.color-picker');
+	  const colorIn = form.querySelector('.color-input');
+	  
+	  const colorPicker = new iro.ColorPicker(pickerEl, {
+	    width: 200,
+	    color: { r: 255, g: 255, b: 255 },
+	    layout: [
+		  {
+		    component: iro.ui.Wheel,
+		  }
+	    ]
+	  });
+	  
+	  function initFormColor(initial) {
+	    // initial может быть строкой "#rrggbb" или {r,g,b}
+	    colorPicker.color.set(initial);
+	    const { r, g, b } = colorPicker.color.rgb;
+	    colorIn.value = `${r},${g},${b}`;
+	  }
+	  
+	  colorPicker.on('color:change', function(color) {
+		const rgbColor = color.rgb;
+		const { r, g, b } = color.rgb;
+		colorIn.value = `${r},${g},${b}`;
+		dynamicPaintSingleMarker(marker, rgbColor);
+	  });
+	 
+	  
 	  //Сборка попапа
-	  //START
-      categories.forEach(cat => {
-        const opt = document.createElement('option');
-        opt.value = cat.id;
-        opt.textContent = cat.label;
-        catSel.append(opt);
-      });
 
       iconsData.forEach(ic => {
-        const opt = document.createElement('option');
-        opt.value = ic.id;
-        opt.textContent = ic.name;
-        iconSel.append(opt);
+        const icOpt = document.createElement('option');
+        icOpt.value = ic.id;
+        icOpt.textContent = ic.name;
+        iconSel.append(icOpt);
       });
 
       if (isNew) {
         titleIn.value = 'Name_PlaceHolder';
         descIn.value = 'Description_PlaceHolder';
-        catSel.value = 'none';
         iconSel.value = 'default';
+		marker.options.icon_id = 'default';
+		regSel.value = 'auto';
+		levelIn.checked = false;
+		colorIn.value = '#fff';
         latIn.value = latlng.lat;
         lngIn.value = latlng.lng;
+		initFormColor('#fff');
       } else {
         titleIn.value = marker.options.name;
         descIn.value = marker.options.description;
-        catSel.value = marker.options.category_id || 'none';
         iconSel.value = marker.options.icon_id || 'default';
+		regSel.value = marker.options.region || 'auto';
+		levelIn.checked = marker.options.level;
         latIn.value = marker.options.coords[0];
         lngIn.value = marker.options.coords[1];
+		initFormColor(marker.options.custom_csscolor || '#fff');
       }
 	  //END
 	  //Сборка попапа
@@ -748,16 +721,20 @@ function initMET(categories, iconsData) {
 			exitchecker = false;
 			map.removeLayer(marker);
 		};
+		if (exitchecker && popapsaved) {
+		  exitchecker = false;
+		  marker.setLatLng(marker.options.coords);
+		  const ic = icons[marker.options.icon_id] || icons.default;
+          marker.setIcon(ic);
+		  paintSingleMarker(marker);
+		  updateSaveState();
+		};
 		if (!exitchecker && popapsaved) {
 		  exitchecker = false;
 		  marker.setLatLng(marker.options.coords);
-		  const ic = iconsById[marker.options.icon_id] || iconsById.default;
-          marker.setIcon(L.icon({
-            iconUrl: ic.url,
-            iconSize: [32, 32],
-            iconAnchor: [16, 32],
-            popupAnchor: [0, -32]
-          }));
+		  const ic = icons[marker.options.icon_id] || icons.default;
+          marker.setIcon(ic);
+		  paintSingleMarker(marker);
 		  updateSaveState();
 		};
 	  });
@@ -766,16 +743,14 @@ function initMET(categories, iconsData) {
       const submitBtn = popupEl.querySelector('#submit-btn');
       const discardBtn = popupEl.querySelector('#discard-btn');
 	  const deleteBtn = popupEl.querySelector('#delete-btn');
+	  const sel = popupEl.querySelector('select[name="region"]');
 	  
 	  //Динамическое изменение иконки
       iconSel.addEventListener('change', e => {
-        const ic = iconsById[e.target.value] || iconsById.default;
-        marker.setIcon(L.icon({
-          iconUrl: ic.url,
-          iconSize: [32, 32],
-          iconAnchor: [16, 32],
-          popupAnchor: [0, -32]
-        }));
+        const ic = icons[e.target.value] || icons.default;
+        marker.setIcon(ic);
+		marker.options.icon_id = ic;
+		paintSingleMarker(marker);
       });
 	  
 	  // Функция активации перемещения иконки
@@ -839,46 +814,88 @@ function initMET(categories, iconsData) {
 		  
 	  
 	  
+	  function getRegionIndex(ctx, posX, posY) {
+	    const x = Math.floor(posX * 32);
+	    const y = 8192 - Math.floor(posY * 32);
+
+	    // читаем единственный пиксель
+	    const pixel = ctx.getImageData(x, y, 1, 1).data;
+	    const [R, G, B, A] = pixel;
+	    return R;  // reg_index
+	  }
+	  
+	  
 	  //Функция обработчик изменений маркера
 	  //START
       submitBtn.addEventListener('click', ev => {
+		const heightUp = 0;
+		const heightDown = -1;
         ev.preventDefault();
         const data = new FormData(formEl);
         const name = data.get('title') || 'Name_PlaceHolder';
         const description = data.get('description') || 'Description_PlaceHolder';
-        const category_id = data.get('category') || null;
         const icon_id = data.get('icon') || 'default';
         const lat = parseFloat(data.get('lat'));
         const lng = parseFloat(data.get('lng'));
+		let reg_index = 7;
+		const autoRegCheck = data.get('region') === 'auto';
+		
+		const reg_list = {
+			0: "ocean",
+			1: "fox_island",
+			2: "misthaven",
+			3: "mosswood",
+			4: "stormvale",
+			5: "frigid_peaks",
+			6: "ashlands",
+			7: "undefined"
+		};
+		if (autoRegCheck) {
+		  try {
+		    reg_index = getRegionIndex(ctx, lng, lat);
+		    marker.options.reg_index = reg_index;
+		    console.log('reg_index:', reg_index);
+		  } catch (err) {
+		    console.error('Loading Regions.png:', err);
+		  }
+		}
+		
+		const regionAuto_id = autoRegCheck && reg_list[reg_index];
+		const reg_id = regionAuto_id || data.get('region');
+		console.log('region:', reg_id);
+		const height = (data.get('underground') && heightDown) || heightUp;
+		
+		const triple = data.get('color');
+		const [r, g, b] = triple.split(',').map(n => Number(n));
+		const color = { R: r, G: g, B: b };
 
         if (isNew) {
           const newId = genId(name, lat, lng);
           marker.options.id = newId;
           existingMarkers.set(newId, marker);
 		  marker.on('click', onMarkerClick);
-          diff.added.push({ id: newId, name, description, category_id, icon_id, coords: [lat, lng] });
+          diff.added.push({ id: newId, name, description, icon_id, coords: [lat, lng], reg_id, height, color });
         } else {
-          if (marker.options.category_id !== category_id) {
-            layers[marker.options.category_id].removeLayer(marker);
-            layers[category_id].addLayer(marker);
-          }
 		  diff.updated = diff.updated.filter(u => u.id !== marker.options.id);
-          diff.updated.push({ id: marker.options.id, name, description, category_id, icon_id, coords: [lat, lng] });
+          diff.updated.push({ id: marker.options.id, name, description, icon_id, coords: [lat, lng], reg_id, height, color });
         }
-
+		const cssColor = `rgb(${r}, ${g}, ${b})`;
+		
         marker.options.name = name;
         marker.options.description = description;
-        marker.options.category_id = category_id;
         marker.options.icon_id = icon_id;
         marker.options.coords = [lat, lng];
+		marker.options.region = reg_id;
+		marker.options.level = height;
+		marker.options.custom_rgbcolor = color;
+		marker.options.custom_csscolor = cssColor;
+		const rh = Math.floor(r / 2);
+		const gh = Math.floor(g / 2);
+		const bh = Math.floor(b / 2);
+		marker.options.height_color = `rgb(${rh}, ${gh}, ${bh})`;
         marker.setLatLng([lat, lng]);
-        const ic = iconsById[icon_id] || iconsById.default;
-        marker.setIcon(L.icon({
-          iconUrl: ic.url,
-          iconSize: [32, 32],
-          iconAnchor: [16, 32],
-          popupAnchor: [0, -32]
-        }));
+        const ic = icons[icon_id] || icons.default;
+        marker.setIcon(ic);
 		popapsaved = true;
         editPopup.remove();
         updateSaveState();
@@ -893,13 +910,9 @@ function initMET(categories, iconsData) {
           diff.added = diff.added.filter(o => o.id !== marker.options.id);
         } else {
 		  marker.setLatLng(marker.options.coords);
-		  const ic = iconsById[marker.options.icon_id] || iconsById.default;
-          marker.setIcon(L.icon({
-            iconUrl: ic.url,
-            iconSize: [32, 32],
-            iconAnchor: [16, 32],
-            popupAnchor: [0, -32]
-          }));
+		  const ic = icons[marker.options.icon_id] || icons.default;
+          marker.setIcon(ic);
+		  paintSingleMarker(marker);
         }
         editPopup.remove();
         updateSaveState();
@@ -934,7 +947,8 @@ function initMET(categories, iconsData) {
 	//Сохранение изменений в json
     btnSave.addEventListener('click', () => {
 	  exitSave = true;
-      btnSave.disabled = true;
+      btnSave.classList.add('disabled')
+	  btnSave.disabled = true;
 	  btnExit.textContent = 'Exit and save';
 	  editPopup.remove();
     });
@@ -943,4 +957,3 @@ function initMET(categories, iconsData) {
 }
 //END
 //Блок MET
-
