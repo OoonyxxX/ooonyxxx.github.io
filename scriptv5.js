@@ -17,7 +17,8 @@ const bounds = [[0, 0], [mapHeight, mapWidth]];
 
 
 const allowedEditors = [
-"OoonyxxX", 
+"OoonyxxX",
+"CocoMcLovely",
 "333tripleit",
 "MiscFlower"
 ];
@@ -195,7 +196,7 @@ const loginButton = document.getElementById("login-button");
 const usernameDisplay = document.getElementById("username-display");
 
 function checkAuth(iconsData) {
-  fetch("https://testproxyserveroauth.onrender.com/auth/me", {
+  fetch("https://sotn2-auth-proxy.onrender.com/auth/me", {
     credentials: "include"
   })
     .then(res => res.json())
@@ -218,7 +219,7 @@ function checkAuth(iconsData) {
         }
       } else {
         loginButton.onclick = () => {
-          window.location.href = "https://testproxyserveroauth.onrender.com/auth/login";
+          window.location.href = "https://sotn2-auth-proxy.onrender.com/auth/login";
         };
       }
     })
@@ -509,7 +510,7 @@ function initMET(iconsData) {
 	  function startDeployPolling() {
 	    const intervalId = setInterval(async () => {
 		  try {
-		    const res = await fetch('https://testproxyserveroauth.onrender.com/api/deploy-status', {
+		    const res = await fetch('https://sotn2-auth-proxy.onrender.com/api/deploy-status', {
 			  method: 'GET',
 			  credentials: 'include'
 		    });
@@ -568,7 +569,7 @@ function initMET(iconsData) {
 		  
 		  exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>checking…</em>';
 		  startDeployPolling();
-		  fetch('https://testproxyserveroauth.onrender.com/api/update-markers', {
+		  fetch('https://sotn2-auth-proxy.onrender.com/api/update-markers', {
 		    method: 'POST',
 		    credentials: 'include',
 		    headers: { 'Content-Type': 'application/json' },
