@@ -1,0 +1,217 @@
+[
+  {
+    "id": "crypt",
+    "name": "Crypt",
+    "url": "svgicons/T_Icon_Map_Cryptv2.svg"
+  },
+  {
+    "id": "obelisk",
+    "name": "Obelisk",
+    "url": "svgicons/T_Icon_Map_Obelisk.svg"
+  },
+  {
+    "id": "playerHome",
+    "name": "Player Home",
+    "url": "svgicons/T_Icon_Map_PlayerHome.svg"
+  },
+  {
+    "id": "default",
+    "name": "Default",
+    "url": "svgicons/T_Icon_Map_Generic.svg"
+  },
+  {
+    "id": "wispCollector",
+    "name": "Wisp Collector",
+    "url": "svgicons/T_Icon_Map_WispCollector.svg"
+  },
+  {
+    "id": "waterfall",
+    "name": "Waterfall",
+    "url": "svgicons/T_Icon_Map_Waterfall.svg"
+  },
+  {
+    "id": "warTower",
+    "name": "War Tower",
+    "url": "svgicons/T_Icon_Map_WarTower.svg"
+  },
+  {
+    "id": "warGate",
+    "name": "War Gate",
+    "url": "svgicons/T_Icon_Map_WarGate.svg"
+  },
+  {
+    "id": "tree",
+    "name": "Tree",
+    "url": "svgicons/T_Icon_Map_Tree.svg"
+  },
+  {
+    "id": "totem",
+    "name": "Totem",
+    "url": "svgicons/T_Icon_Map_Totem.svg"
+  },
+  {
+    "id": "snakeShrine",
+    "name": "Snake Shrine",
+    "url": "svgicons/T_Icon_Map_SnakeShrine.svg"
+  },
+  {
+    "id": "shipyard",
+    "name": "Shipyard",
+    "url": "svgicons/T_Icon_Map_Shipyard.svg"
+  },
+  {
+    "id": "ruins",
+    "name": "Ruins",
+    "url": "svgicons/T_Icon_Map_Ruins.svg"
+  },
+  {
+    "id": "raccoonGrotto",
+    "name": "Raccoon Grotto",
+    "url": "svgicons/T_Icon_Map_RaccoonGrottoV4.svg"
+  },
+  {
+    "id": "portal",
+    "name": "Portal",
+    "url": "svgicons/T_Icon_Map_Portal.svg"
+  },
+  {
+    "id": "path",
+    "name": "Path",
+    "url": "svgicons/T_Icon_Map_Path.svg"
+  },
+  {
+    "id": "naturalRockTower",
+    "name": "Natural Rock Tower",
+    "url": "svgicons/T_Icon_Map_NaturalRockTower.svg"
+  },
+  {
+    "id": "mysteryPOI",
+    "name": "Mystery",
+    "url": "svgicons/T_Icon_Map_MysteryPOI.svg"
+  },
+  {
+    "id": "mountainPeak",
+    "name": "Mountain Peak",
+    "url": "svgicons/T_Icon_Map_MountainPeak.svg"
+  },
+  {
+    "id": "lake",
+    "name": "Lake",
+    "url": "svgicons/T_Icon_Map_Lake.svg"
+  },
+  {
+    "id": "hill",
+    "name": "Hill",
+    "url": "svgicons/T_Icon_Map_Hill.svg"
+  },
+  {
+    "id": "wolf",
+    "name": "Wolf",
+    "url": "svgicons/T_Icon_Map_GuardianTemple_Wolf.svg"
+  },
+  {
+    "id": "stag",
+    "name": "Stag",
+    "url": "svgicons/T_Icon_Map_GuardianTemple_Stag.svg"
+  },
+  {
+    "id": "raven",
+    "name": "Raven",
+    "url": "svgicons/T_Icon_Map_GuardianTemple_Raven.svg"
+  },
+  {
+    "id": "ram",
+    "name": "Ram",
+    "url": "svgicons/T_Icon_Map_GuardianTemple_Ram.svg"
+  },
+  {
+    "id": "fox",
+    "name": "Fox",
+    "url": "svgicons/T_Icon_Map_GuardianTemple_Fox.svg"
+  },
+  {
+    "id": "bear",
+    "name": "Bear",
+    "url": "svgicons/T_Icon_Map_GuardianTemple_Bear.svg"
+  },
+  {
+    "id": "encampment",
+    "name": "Encampment",
+    "url": "svgicons/T_Icon_Map_Encampment.svg"
+  },
+  {
+    "id": "dwellingsStone",
+    "name": "Dwellings Stone",
+    "url": "svgicons/T_Icon_Map_Dwellings_Stone.svg"
+  },
+  {
+    "id": "dwellingsRuins",
+    "name": "Dwellings Ruins",
+    "url": "svgicons/T_Icon_Map_Dwellings_Ruins.svg"
+  },
+  {
+    "id": "dwellingWood",
+    "name": "Dwelling Wood",
+    "url": "svgicons/T_Icon_Map_Dwelling_Wood.svg"
+  },
+  {
+    "id": "singleDwellingStone",
+    "name": "Single Dwelling Stone",
+    "url": "svgicons/T_Icon_Map_Single_Dwelling_Stone.svg"
+  },
+  {
+    "id": "cave",
+    "name": "Cave",
+    "url": "svgicons/T_Icon_Map_Cave.svg"
+  },
+  {
+    "id": "bridge",
+    "name": "Bridge",
+    "url": "svgicons/T_Icon_Map_Bridge.svg"
+  },
+  {
+    "id": "bearLighthouse",
+    "name": "Bear Lighthouse",
+    "url": "svgicons/T_Icon_Map_BearLighthouse.svg"
+  },
+  {
+    "id": "anceintTowerV2",
+    "name": "Anceint Tower V2",
+    "url": "svgicons/T_Icon_Map_AnceintTower_V2.svg"
+  },
+  {
+    "id": "extraWisp",
+    "name": "Wisp",
+    "url": "svgicons/T_Icon_Map_ExtraWisp.svg"
+  },
+  {
+    "id": "loreSeeker",
+    "name": "Lore Scroll",
+    "url": "svgicons/T_Icon_Map_LoreSeeker1.svg"
+  },
+  {
+    "id": "anceintTowerV1",
+    "name": "Anceint Tower V1",
+    "url": "svgicons/T_Icon_Map_AnceintTower.svg"
+  },
+  {
+    "id": "chest",
+    "name": "Common Chest",
+    "url": "svgicons/T_Icon_Map_Chest.svg"
+  },
+  {
+    "id": "skinChest",
+    "name": "Cosmetic Chest",
+    "url": "svgicons/T_Icon_Map_SkinChest.svg"
+  },
+  {
+    "id": "runeChest",
+    "name": "Rune Chest",
+    "url": "svgicons/T_Icon_Map_RuneChest.svg"
+  },
+  {
+    "id": "skillPoint",
+    "name": "Skill Point",
+    "url": "svgicons/T_Icon_Map_SkillPoint.svg"
+  }
+]
