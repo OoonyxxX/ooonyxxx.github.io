@@ -591,7 +591,7 @@ function initMET() {
 		  
 		  exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>checking…</em>';
 		  startDeployPolling();
-		  fetch(''https://sotn2-auth-proxy.onrender.com/api/update-markers', {
+		  fetch('https://sotn2-auth-proxy.onrender.com/api/update-markers', {
 		    method: 'POST',
 		    credentials: 'include',
 		    headers: { 'Content-Type': 'application/json' },
