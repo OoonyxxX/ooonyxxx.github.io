@@ -176,7 +176,7 @@ body::-webkit-scrollbar {
     margin-left: 54px;
     padding-bottom: 36px;
     padding-right: 20px;
-    height: 200px;
+    height: calc(2.5em + (32px * 6));
     pointer-events: auto;
     border: solid;
     border-color: #00100fd4;
@@ -233,7 +233,7 @@ body::-webkit-scrollbar {
 }
 
 
-.cursor-toggle {
+.option-parameter {
     border-bottom: solid;
     border-bottom-color: #00ffe3a6;
     border-width: 1px;
@@ -241,75 +241,11 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: flex-start;
 }
-.cursor-toggle:hover {
+.option-parameter:hover {
     border-bottom-color: #00ffe3d4;
     color: #00ffe3;
 }
-.toggle-cursor-text {
-    margin-left: 4px;
-}
-
-.regions-toggle {
-    border-bottom: solid;
-    border-bottom-color: #00ffe3a6;
-    border-width: 1px;
-    width: 160px;
-    display: flex;
-    justify-content: flex-start;
-}
-.regions-toggle:hover {
-    border-bottom-color: #00ffe3d4;
-    color: #00ffe3;
-}
-.toggle-regions-text {
-    margin-left: 4px;
-}
-
-.height-toggle {
-    border-bottom: solid;
-    border-bottom-color: #00ffe3a6;
-    border-width: 1px;
-    width: 160px;
-    display: flex;
-    justify-content: flex-start;
-}
-.height-toggle:hover {
-    border-bottom-color: #00ffe3d4;
-    color: #00ffe3;
-}
-.toggle-height-text {
-    margin-left: 4px;
-}
-
-.color-toggle {
-    border-bottom: solid;
-    border-bottom-color: #00ffe3a6;
-    border-width: 1px;
-    width: 160px;
-    display: flex;
-    justify-content: flex-start;
-}
-.color-toggle:hover {
-    border-bottom-color: #00ffe3d4;
-    color: #00ffe3;
-}
-.toggle-color-text {
-    margin-left: 4px;
-}
-
-.customcolor-toggle {
-    border-bottom: solid;
-    border-bottom-color: #00ffe3a6;
-    border-width: 1px;
-    width: 160px;
-    display: flex;
-    justify-content: flex-start;
-}
-.customcolor-toggle:hover {
-    border-bottom-color: #00ffe3d4;
-    color: #00ffe3;
-}
-.toggle-customcolor-text {
+.toggle-text {
     margin-left: 4px;
 }
 
@@ -368,6 +304,18 @@ body::-webkit-scrollbar {
     border-bottom-right-radius: 16px;
 }
 
+@property --p {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --w {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 5%;
+}
+
 .filterheader {
     display: flex;
     justify-content: space-evenly;
@@ -381,6 +329,25 @@ body::-webkit-scrollbar {
     padding-right: 30px;
     position: relative;
     z-index: 1;
+}
+
+.filterheader.debouncing {
+  animation: filter-scan var(--debounce-ms, 1500ms) linear both;
+  background: linear-gradient(
+    90deg,
+    #0B0B0B 0%,
+    #0B0B0B calc(clamp(0%, calc(var(--p) - var(--w)), 100%)),
+    #00a98a var(--p),
+    #0B0B0B calc(clamp(0%, calc(var(--p) + var(--w)), 100%)),
+    #0B0B0B 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+@keyframes filter-scan {
+  from { --p: 0%; }
+  to   { --p: 100%; }
 }
 
 .filheader {
@@ -1035,4 +1002,8 @@ body::-webkit-scrollbar {
     position: relative;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(0px);
+}*/
+
+.leaflet-pane .leaflet-marker-icon.is-hidden {
+  display: none !important;
 }

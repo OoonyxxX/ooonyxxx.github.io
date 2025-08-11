@@ -65,30 +65,34 @@
 		  <button id="option-hide" class="btn-hide option-hide">Hide</button>
 		</div>
 		<div class="optparam">
-	      <label class="cursor-toggle">
+	      <label class="option-parameter cursor-toggle">
             <input type="checkbox" class="toggle-cursor-checkbox" id="toggle-cursor" checked>
-            <span class="toggle-cursor-text">Custom Cursor</span>
+            <span class="toggle-text toggle-cursor-text">Custom Cursor</span>
           </label>
-	      <label class="regions-toggle">
+	      <label class="option-parameter regions-toggle">
             <input type="checkbox" class="toggle-regions-checkbox" id="toggle-regions">
-            <span class="toggle-regions-text">Colored Regions</span>
+            <span class="toggle-text toggle-regions-text">Colored Regions</span>
           </label>
-	      <label class="height-toggle">
+	      <label class="option-parameter height-toggle">
             <input type="checkbox" class="toggle-height-checkbox" id="toggle-height">
-            <span class="toggle-height-text">Height Display</span>
+            <span class="toggle-text toggle-height-text">Height Display</span>
           </label>
-	      <label class="color-toggle">
+	      <label class="option-parameter color-toggle">
             <input type="checkbox" class="toggle-color-checkbox" id="toggle-color" checked>
-            <span class="toggle-color-text">Colored Markers</span>
+            <span class="toggle-text toggle-color-text">Colored Markers</span>
           </label>
-	      <label class="customcolor-toggle">
+	      <label class="option-parameter customcolor-toggle">
             <input type="checkbox" class="toggle-customcolor-checkbox" id="toggle-customcolor">
-            <span class="toggle-customcolor-text">Custom Colors</span>
+            <span class="toggle-text toggle-customcolor-text">Custom Colors</span>
+          </label>
+	      <label class="option-parameter instantf-toggle">
+            <input type="checkbox" class="toggle-instantf-checkbox" id="toggle-instantf" checked>
+            <span class="toggle-text toggle-instantf-text">Instant Filter</span>
           </label>
 		</div>
       </section>
 	  <section id="filter-container" class="filter-container">
-	    <div class="filterheader">
+	    <div id="filterheader" class="filterheader">
 	      <h3 class="filheader">Filters</h3>
 	      <button id="filter-reset" class="btn-reset">Clear</button>
 		  <button id="filter-hide" class="btn-hide filter-hide">Hide</button>
@@ -399,7 +403,6 @@
 
 		<label>Icon
 		  <select name="icon">
-			<!-- <option value="default" selected>Default</option> -->
 		  </select>
 		</label><br/>
 		<label>Color
@@ -426,7 +429,6 @@
 		</clipPath>
 		<mask id="timerMask">
 		  <circle id="timerProgressCircle" cx="26" cy="26" r="24" stroke="white" fill="none" stroke-width="48" stroke-dasharray="150" stroke-dashoffset="0">
-			<!-- <animate attributeName="stroke-dashoffset" to="0" dur="3s" fill="freeze"/> -->
 		  </circle>
 		</mask>
 		<clipPath id="clipL1">
@@ -576,6 +578,6 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="scriptv5.js"></script>
   <script src="cursor.js"></script>
-  <script src="UIScript.js"></script>
+  <!-- <script src="UIScript.js"></script> -->
 </body>
 </html>

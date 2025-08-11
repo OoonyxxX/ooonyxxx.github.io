@@ -1,7 +1,6 @@
 const customCursor = document.getElementById('custom-cursor');
 const scaleGroup = document.getElementById('scaleSup');
 const customCursorMode   = document.getElementById('toggle-cursor');
-// обновление позиции курсора
 let customCursorEnabled = true;
 document.body.classList.add('custom-cursor-on');
 
@@ -20,20 +19,8 @@ customCursorMode.addEventListener('change', () => {
 });
 customCursorMode.textContent = 'Disable Cursor';
 
-// элемент карты из scriptv2.js
 const mapContainer = document.getElementById('map');
 
-// показываем базовый курсор при наведении на карту
-//mapContainer.addEventListener('mouseenter', () => {
-//  customCursor.classList.remove('cursor-base--hover');
-//});
-
-// скрываем кастомный курсор при уходе с карты
-//mapContainer.addEventListener('mouseleave', () => {
-//  customCursor.classList.remove('cursor-base--hover');
-//});
-
-// активные элементы, для которых нужно показывать анимацию hover
 const activeSelectors = '.leaflet-marker-icon, a, button, .leaflet-popup-close-button';
 
 document.addEventListener('mouseover', e => {

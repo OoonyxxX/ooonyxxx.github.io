@@ -14,6 +14,7 @@ const mapTileWL = -mapTileBorder - ((window.innerWidth / 16) * screen_frame_mult
 const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 //1920x1080 120px
 const bounds = [[0, 0], [mapHeight, mapWidth]];
+let filterMenuOpened = true;
 
 
 const allowedEditors = [
@@ -31,7 +32,7 @@ const map = L.map('map', {
   minZoom: 2,
   maxZoom: 5,
   zoomSnap: 0.025,
-  zoomDelta: 0.025,
+  zoomDelta: 0.5,
   zoom: 2,
   zoomControl: true,
   maxBounds: [[mapTileHB, mapTileWL], [mapTileHT, mapTileWR]],
@@ -71,25 +72,26 @@ map.on('zoomend', function () {
 //Переменные для редактирования существующих меток
 //START
 const existingMarkers = new Map();
+let originalMarkersData = [];
 const layers   = {};
+
+const iconParam = new Map();
+const regionParam = new Map();
+const showMarkers = new Map();
 //END
 //Переменные для редактирования существующих меток
-
-let originalMarkersData = [];
 
 
 //Слои меток
 //START
 
-let iconsData, markersData, icons, overlays;
+let iconsData, markersData, icons;
 
 (async () => {
   [iconsData, markersData] = await Promise.all([
     fetch(`svgicons.json?_=${Date.now()}`).then(r => r.json()),
     fetch(`markers.json?_=${Date.now()}`).then(r => r.json())
   ]);
-
-  overlays = {};
 
   iconsData.forEach(ic => {
     const img = new Image();
@@ -133,10 +135,8 @@ let iconsData, markersData, icons, overlays;
     marker.options.coords = coords;
 	marker.options.region = reg_id;
 	marker.options.level = height;
+	marker._$visible = true;
 
-	marker.addTo(map);
-	const el = marker.getElement();
-	const path = el.querySelector(`#${marker.options.icon_id}_svg`);
 	const { R, G, B } = color;
 	const cssColor = `rgb(${R}, ${G}, ${B})`;
 	marker.options.custom_rgbcolor = color;
@@ -145,11 +145,12 @@ let iconsData, markersData, icons, overlays;
 	const Gh = Math.floor(G / 2);
 	const Bh = Math.floor(B / 2);
 	marker.options.height_color = `rgb(${Rh}, ${Gh}, ${Bh})`;
+	marker.addTo(map);
 	paintingAllMarkers();
     existingMarkers.set(marker.options.id, marker);
   });
 
-  checkAuth(iconsData);
+  checkAuth();
 
 })().catch(error => console.error("JSON reading error:", error));
 
@@ -257,11 +258,16 @@ const coloredRegionsToggle = document.getElementById('toggle-regions');
 const heightDisplayToggle = document.getElementById('toggle-height');
 const coloredMarkersToggle = document.getElementById('toggle-color');
 const customColorsToggle = document.getElementById('toggle-customcolor');
+const instantFilterToggle = document.getElementById('toggle-instantf');
 
 let coloredRegionsEnabled = false;
 let heightDisplayEnabled = false;
 let coloredMarkersEnabled = true;
 let customColorsEnabled = false;
+
+let instantFilterEnabled = true;
+let filterTime = 10;
+
 
 coloredRegionsToggle.addEventListener('change', () => {
   coloredRegionsEnabled = !coloredRegionsEnabled;
@@ -276,6 +282,11 @@ heightDisplayToggle.addEventListener('change', () => {
 coloredMarkersToggle.addEventListener('change', () => {
   coloredMarkersEnabled = !coloredMarkersEnabled;
   paintingAllMarkers();
+});
+
+customColorsToggle.addEventListener('change', () => {
+  customColorsEnabled = !customColorsEnabled;
+  //paintingAllMarkers();
 });
 
 function paintingAllMarkers() {
@@ -347,7 +358,7 @@ let exitSave = false;
 
 //Блок MET
 //START
-function initMET(iconsData) {
+function initMET() {
   (function () {
 	let editPopup;
 	editPopup = L.popup({
@@ -361,7 +372,6 @@ function initMET(iconsData) {
 	//START
 	let exitchecker = false;
 	let popapsaved = false;
-    //const iconsById = Object.fromEntries(iconsData.map(i => [i.id, i]));
     let metActive = false;
     let addingMarker = false;
 	let editPopupOpen = false;
@@ -383,11 +393,23 @@ function initMET(iconsData) {
 	  originalMarkersData.forEach(m => {
 		const icon = icons[m.icon_id] || icons.default;
 		const marker = L.marker(m.coords, { icon });
-		marker.options.id           = m.id;
-		marker.options.name         = m.name;
-		marker.options.description  = m.description;
-		marker.options.icon_id      = m.icon_id;
-		marker.options.coords       = m.coords;
+		marker.options.id = m.id;
+		marker.options.name = m.name;
+		marker.options.description = m.description;
+		marker.options.icon_id = m.icon_id;
+		marker.options.coords = m.coords;
+		marker.options.region = m.reg_id;
+		marker.options.level = m.level;
+		marker._$visible = true;
+		
+		const { R, G, B } = m.custom_color;
+		const cssColor = `rgb(${R}, ${G}, ${B})`;
+		marker.options.custom_rgbcolor = color;
+		marker.options.custom_csscolor = cssColor;
+		const Rh = Math.floor(R / 2);
+		const Gh = Math.floor(G / 2);
+		const Bh = Math.floor(B / 2);
+		marker.options.height_color = `rgb(${Rh}, ${Gh}, ${Bh})`;
 		marker.bindPopup(`<b>${m.name}</b><br>${m.description}`);
 		existingMarkers.set(m.id, marker);
 	  });
@@ -569,7 +591,7 @@ function initMET(iconsData) {
 		  
 		  exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>checking…</em>';
 		  startDeployPolling();
-		  fetch('https://sotn2-auth-proxy.onrender.com/api/update-markers', {
+		  fetch(''https://sotn2-auth-proxy.onrender.com/api/update-markers', {
 		    method: 'POST',
 		    credentials: 'include',
 		    headers: { 'Content-Type': 'application/json' },
@@ -958,3 +980,424 @@ function initMET(iconsData) {
 }
 //END
 //Блок MET
+
+
+
+
+
+//Блок UI
+//START
+
+const header = document.getElementById('filterheader');
+
+function startHeaderAnim(ms) {
+  header.style.setProperty('--debounce-ms', ms + 'ms');
+  header.classList.remove('debouncing');
+  header.offsetWidth;
+  header.classList.add('debouncing');
+}
+
+function stopHeaderAnim() {
+  header.classList.remove('debouncing');
+  header.style.removeProperty('--debounce-ms');
+}
+
+
+const optHideBtn = document.getElementById('option-hide');
+const optOpenBtn = document.getElementById('option-open');
+const optionsCont = document.getElementById('options-container');
+const headerRigntCont = document.getElementById('header-hopt-right-container');
+
+
+const filterHideBtn = document.getElementById('filter-hide');
+const filterOpenBtn = document.getElementById('filter-open');
+const filterCont = document.getElementById('filter-container');
+const headerLeftCont = document.getElementById('header-hfilter-left-container');
+const filterClearBtn = document.getElementById('filter-reset');
+
+
+optHideBtn.addEventListener('click', () => {
+  optionsCont.classList.add('hide');
+  headerRigntCont.classList.add('open');
+});
+optOpenBtn.addEventListener('click', () => {
+  optionsCont.classList.remove('hide');
+  headerRigntCont.classList.remove('open');
+});
+
+filterHideBtn.addEventListener('click', () => {
+  filterCont.classList.add('hide');
+  headerLeftCont.classList.add('open');
+});
+filterOpenBtn.addEventListener('click', () => {
+  filterCont.classList.remove('hide');
+  headerLeftCont.classList.remove('open');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const svgMap = {
+    or:    document.getElementById('--or'),
+    exclude: document.getElementById('--exclude'),
+    and:   document.getElementById('--and')
+  };
+  
+  const states = ['none', 'or', 'exclude', 'and'];
+  
+  const orDelta  = [ 0,  1, -1,  0]; // 1:+1, 2:-1
+  const andDelta = [-1,  0,  0,  1]; // 0:-1, 3:+1
+  
+  
+  let allIconsOR = 0;
+  let allIconsAND = 0;
+  
+  let allRegionOR = 0;
+  let allRegionAND = 0;
+  
+  let runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, filterTime, {leading: false, trailing: true});
+
+  instantFilterToggle.addEventListener('change', () => {
+    instantFilterEnabled = !instantFilterEnabled;
+    filterTime = instantFilterEnabled ? 0 : 1500;
+    runFilter = debounce(() => {setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND);}, filterTime, {leading: false, trailing: true});
+  });
+
+
+  document.querySelectorAll('.icons-grid label').forEach(iconsgrid => {
+	let iconstatesIndex = 0;
+    const checkbox = iconsgrid.querySelector('input[type="checkbox"]');
+    const indicatorContainer = document.createElement('span');
+    indicatorContainer.className = 'indicator-container';
+    iconsgrid.prepend(indicatorContainer);
+	
+
+    iconsgrid.dataset.state = 'none';
+	checkbox.checked = false;
+	
+	const iconId = checkbox.value;
+
+    iconsgrid.addEventListener('click', e => {
+      e.preventDefault();
+	  const nextIndex = (states.indexOf(iconsgrid.dataset.state) + 1) % states.length;
+	  
+	  allIconsOR += orDelta[nextIndex];
+	  allIconsAND += andDelta[nextIndex];
+	  
+	  iconstatesIndex = nextIndex;
+	  
+	  const nextState = states[nextIndex];
+      indicatorContainer.innerHTML = '';
+
+      
+      if (nextState !== 'none') {
+        const orig = svgMap[nextState];
+        if (orig) {
+          const clone = orig.cloneNode(true);
+          clone.removeAttribute('id');
+          indicatorContainer.appendChild(clone);
+        }
+        checkbox.checked = true;
+		iconParam.set(iconId, iconstatesIndex);
+      } else {
+        checkbox.checked = false;
+		iconParam.delete(iconId);
+      }
+
+      iconsgrid.dataset.state = nextState;
+	  
+	  if (!instantFilterEnabled) startHeaderAnim(filterTime);
+	  runFilter();
+    });
+  });
+
+  
+  document.querySelectorAll('.filter-region label').forEach(filterregion => {
+	let regionstatesIndex = 0;
+    const checkbox = filterregion.querySelector('input[type="checkbox"]');
+    const indicatorContainer = document.createElement('span');
+    indicatorContainer.className = 'indicator-container';
+    filterregion.prepend(indicatorContainer);
+
+
+    filterregion.dataset.state = 'none';
+	checkbox.checked = false;
+	
+	const regionId = checkbox.value;
+
+    filterregion.addEventListener('click', e => {
+      e.preventDefault();
+	  const nextIndex = (states.indexOf(filterregion.dataset.state) + 1) % states.length;
+	  
+	  allRegionOR += orDelta[nextIndex];
+	  allRegionAND += andDelta[nextIndex];
+
+	  regionstatesIndex = nextIndex;
+	  
+	  const nextState = states[nextIndex];
+      indicatorContainer.innerHTML = '';
+
+      
+      if (nextState !== 'none') {
+        const orig = svgMap[nextState];
+        if (orig) {
+          const clone = orig.cloneNode(true);
+          clone.removeAttribute('id');
+          indicatorContainer.appendChild(clone);
+        }
+        checkbox.checked = true;
+		regionParam.set(regionId, regionstatesIndex);
+      } else {
+        checkbox.checked = false;
+		regionParam.delete(regionId);
+      }
+
+      filterregion.dataset.state = nextState;
+	  
+	  if (!instantFilterEnabled) startHeaderAnim(filterTime);
+	  runFilter();
+    });
+  });
+  
+  
+  
+  let collectedstatesIndex = 0;
+  const collectedswitch = document.querySelector('.collected-switch label');
+  const checkboxcollectedswitch = collectedswitch.querySelector('input[type="checkbox"]');
+  const indicatorContainercollectedswitch = document.createElement('span');
+  indicatorContainercollectedswitch.className = 'indicator-container';
+  collectedswitch.prepend(indicatorContainercollectedswitch);
+  
+  const collectedId = checkboxcollectedswitch.value;
+  
+  collectedswitch.dataset.state = 'none';
+  checkboxcollectedswitch.checked = false;
+
+    collectedswitch.addEventListener('click', e => {
+      e.preventDefault();
+	  const nextIndex = (states.indexOf(collectedswitch.dataset.state) + 1) % states.length;
+
+	  
+	  
+	  collectedstatesIndex = nextIndex;
+	  
+	  const nextState = states[nextIndex];
+
+      indicatorContainercollectedswitch.innerHTML = '';
+
+      
+      if (nextState !== 'none') {
+        const orig = svgMap[nextState];
+        if (orig) {
+          const clone = orig.cloneNode(true);
+          clone.removeAttribute('id');
+          indicatorContainercollectedswitch.appendChild(clone);
+        }
+        checkboxcollectedswitch.checked = true;
+      } else {
+        checkboxcollectedswitch.checked = false;
+      }
+
+      collectedswitch.dataset.state = nextState;
+	  
+	  if (!instantFilterEnabled) startHeaderAnim(filterTime);
+	  runFilter();
+    });
+  
+  
+  
+  filterClearBtn.addEventListener('click', () => {
+	allIconsOR = 0;
+	allIconsAND = 0;
+	allRegionOR = 0;
+	allRegionAND = 0;
+	
+	iconParam.clear(); 
+	regionParam.clear();
+	document.querySelectorAll('.filter-body label').forEach(label => {
+	  iconstatesIndex = 0;
+	  regionstatesIndex = 0;
+	  collectedstatesIndex = 0;
+	  const indicatorContainer = label.querySelector('.indicator-container');
+	  const checkbox = label.querySelector('input[type="checkbox"]');
+	  indicatorContainer.innerHTML = '';
+	  checkbox.checked = false;
+	  label.dataset.state = 'none';
+	});
+	
+	if (!instantFilterEnabled) startHeaderAnim(filterTime);
+	runFilter();
+  });
+});
+
+const cache = new Map(); // key 0..15 -> матрица 4×4
+
+function flagsKey(IA, IO, RA, RO) { // 4 бита
+  return (IA<<3) | (IO<<2) | (RA<<1) | RO;
+}
+
+function buildTableDirect(IA, IO, RA, RO) {
+  const HAS_AND = IA || RA;
+  const HAS_OR  = IO || RO;
+  const t = Array.from({ length: 4 }, () => new Uint8Array(4));
+
+  for (let si = 0; si < 4; si++) for (let sr = 0; sr < 4; sr++) {
+    let show = false;
+    if (si !== 2 && sr !== 2) { // exclude-гейт
+      if (!HAS_AND && !HAS_OR) {
+        show = true;
+      } else if (HAS_AND && !HAS_OR) {
+        show = IA && RA ? (si===3 && sr===3) : IA ? (si===3) : (sr===3);
+      } else if (!HAS_AND && HAS_OR) {
+        show = (si===1 || sr===1);
+      } else { // HAS_AND && HAS_OR
+        if (!IA && !IO && RA && RO) show = (sr===3);
+        else if (IA && IO && !RA && !RO) show = (si===3);
+        else if (!IA && RA && IO) show = (sr===3 && si===1);
+        else if (IA && !RA && RO) show = (si===3 && sr===1);
+        else if (IA && RA) show = (si===3 && sr===3);
+      }
+    }
+    t[si][sr] = show ? 1 : 0;
+  }
+  return t;
+}
+
+function getShowTable(IA, IO, RA, RO) {
+  const key = flagsKey(IA, IO, RA, RO);
+  let t = cache.get(key);
+  if (!t) { t = buildTableDirect(IA, IO, RA, RO); cache.set(key, t); }
+  return t;
+}
+
+function buildShowTable(IA, IO, RA, RO) {
+  const st = { None:0, Or:1, Excl:2, And:3 };
+  const allow = pickStrategy(IA, IO, RA, RO);
+  const t = Array.from({ length: 4 }, () => new Uint8Array(4));
+  for (let si = 0; si < 4; si++) {
+    for (let sr = 0; sr < 4; sr++) {
+      t[si][sr] = (si !== st.Excl && sr !== st.Excl && allow(si, sr)) ? 1 : 0;
+    }
+  }
+  return t;
+}
+
+function setFilterFast(existingMarkers, iconParam, regionParam, allIconsOR, allIconsAND, allRegionOR, allRegionAND) {
+  const IA = allIconsAND  > 0, IO = allIconsOR  > 0;
+  const RA = allRegionAND > 0, RO = allRegionOR > 0;
+
+  const showTable = getShowTable(IA, IO, RA, RO);
+
+  requestAnimationFrame(() => {
+    for (const marker of existingMarkers.values()) {
+      const si = iconParam.get(marker.options.icon_id) ?? 0;
+      const sr = regionParam.get(marker.options.region) ?? 0;
+      const next = !!showTable[si][sr];
+
+      if (marker._$visible === next) continue;
+      marker._$visible = next;
+
+      const el = marker.getElement?.() || marker._icon;
+      if (el) el.classList.toggle('is-hidden', !next);
+      if (!next) { marker.closePopup?.(); marker.closeTooltip?.(); }
+    }
+  });
+  stopHeaderAnim();
+}
+
+//END
+//Блок UI
+
+
+
+
+
+//Код debounce по lodash
+//START
+
+function debounce(fn, wait, { leading = false, trailing = true, maxWait } = {}) {
+  let timerId, lastArgs, lastThis, lastCallTime, lastInvokeTime = 0, result;
+  const now = () => Date.now();
+
+  const invoke = (time) => {
+    lastInvokeTime = time;
+    const r = fn.apply(lastThis, lastArgs);
+    lastArgs = lastThis = undefined;
+    result = r;
+    return r;
+  };
+
+  const startTimer = (ms) => {
+    if (timerId) clearTimeout(timerId);
+    timerId = setTimeout(timerExpired, ms);
+  };
+
+  const remainingWait = (time) => {
+    const sinceLastCall   = time - lastCallTime;
+    const sinceLastInvoke = time - lastInvokeTime;
+    const timeWaiting     = wait - sinceLastCall;
+    return maxWait !== undefined
+      ? Math.min(timeWaiting, maxWait - sinceLastInvoke)
+      : timeWaiting;
+  };
+
+  const shouldInvoke = (time) => {
+    if (lastCallTime === undefined) return true;
+    const sinceLastCall   = time - lastCallTime;
+    const sinceLastInvoke = time - lastInvokeTime;
+    return (sinceLastCall >= wait) || (sinceLastCall < 0) ||
+           (maxWait !== undefined && sinceLastInvoke >= maxWait);
+  };
+
+  const leadingEdge = (time) => {
+    lastInvokeTime = time;
+    startTimer(wait);
+    return leading ? invoke(time) : undefined;
+  };
+
+  const trailingEdge = (time) => {
+    timerId = undefined;
+    if (trailing && lastArgs !== undefined) {
+      return invoke(time);
+    }
+    lastArgs = lastThis = undefined;
+    return result;
+  };
+
+  const timerExpired = () => {
+    const time = now();
+    if (shouldInvoke(time)) return trailingEdge(time);
+    startTimer(remainingWait(time));
+  };
+
+  function debounced(...args) {
+    const time = now();
+    lastArgs = args;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (shouldInvoke(time)) {
+      if (timerId === undefined) return leadingEdge(time);
+      startTimer(remainingWait(time));
+    }
+	
+	if (timerId === undefined) startTimer(wait);
+	
+    return result;
+  }
+  
+
+  debounced.cancel = () => {
+    if (timerId) clearTimeout(timerId);
+    timerId = lastArgs = lastThis = lastCallTime = undefined;
+    lastInvokeTime = 0;
+  };
+
+  debounced.flush = () => {
+    if (timerId === undefined) return result;
+    return trailingEdge(now());
+  };
+
+  return debounced;
+}
+
+//END
+//Код debounce по lodash

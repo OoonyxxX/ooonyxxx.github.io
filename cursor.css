@@ -8,7 +8,6 @@
   height: 52px;
   pointer-events: none;
   z-index: 9999;
-  /* любая базовая трансформация, transition для плавности */
   transition: 
     filter 0.2s, 
     transform 0.2s,
