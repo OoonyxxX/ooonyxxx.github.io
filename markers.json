@@ -1638,42 +1638,6 @@
     }
   },
   {
-    "id": "Wisp_Plate_22189954_191745_036375",
-    "name": "Wisp Plate",
-    "description": "On top of the left wall near the entrance",
-    "category_id": "wisp",
-    "icon_id": "extraWisp",
-    "coords": [
-      190.744999473906,
-      36.375
-    ],
-    "reg_id": "misthaven",
-    "height": 0,
-    "color": {
-      "R": 255,
-      "G": 255,
-      "B": 255
-    }
-  },
-  {
-    "id": "Wisp_Plate_22189954_191745_036375",
-    "name": "Wisp Plate",
-    "description": "On top of the left wall near the entrance",
-    "category_id": "wisp",
-    "icon_id": "extraWisp",
-    "coords": [
-      190.744999473906,
-      36.375
-    ],
-    "reg_id": "misthaven",
-    "height": 0,
-    "color": {
-      "R": 255,
-      "G": 255,
-      "B": 255
-    }
-  },
-  {
     "id": "Chest_40481657_208682_057625",
     "name": "Chest",
     "description": "Christals",
