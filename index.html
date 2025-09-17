@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SOTN2 Interactive Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SOTN2 Interactive Map — explore Spirit of the North 2 regions, icons, and hidden locations.">
+  <title>Map of the North</title> <!-- SOTN2 Interactive Map -->
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="https://unpkg.com/@jaames/iro@5.5.2/dist/iro.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -14,22 +16,13 @@
   <header class="header-container">
     <div class="header-pos-container">
 	  <div class="header-hopt-container">
-		<h2 class="header">Interactive Map SOTN2</h2>
+		<h2 class="header">Map of the North</h2> <!-- SOTN2 Interactive Map -->
 	  </div>
-	  <div class="header-hided-container">
-		<div id="header-hopt-right-container" class="header-hopt-right-container">
-		  <h3 class="header-hopt-right">Options</h3>
-		  <button id="option-open" class="btn-open option-open">Open</button>
-		</div>
-		<div id="header-hfilter-left-container" class="header-hfilter-left-container">
-		  <h3 class="header-hfilter-left">Filter</h3>
-		  <button id="filter-open" class="btn-open filter-open">Open</button>
-		</div>
-	  </div>
-	  <div class="auth-hfilter-container">
+	  <div id="auth-hfilter-container"  class="auth-hfilter-container open">
 		<div id="auth-container" class="auth">
-		  <button id="login-button" class="btn-login">Login via GitHub</button>
+		  <button id="login-button" class="btn-login">Login</button>
 		  <span id="username-display" class="username"></span>
+		  <img id="auth-img" class="auth-img" src="/othersvg/account_white.svg"></img>
 		</div>
 	  </div>
 	</div>
@@ -62,7 +55,10 @@
       <section id="options-container" class="options-container">
 	    <div class="optionheader">
 	      <h3 class="optheader">Options</h3>
-		  <button id="option-hide" class="btn-hide option-hide">Hide</button>
+		  <button id="option-hide" class="btn-hide option-hide">
+			<span id="option-hide-text" class="option-hide-text">Hide</span>
+			<img id="option-hide-img" class="option-hide-img" src="/othersvg/opt.svg">
+		  </button>
 		</div>
 		<div class="optparam">
 	      <label class="option-parameter cursor-toggle">
@@ -95,7 +91,10 @@
 	    <div id="filterheader" class="filterheader">
 	      <h3 class="filheader">Filters</h3>
 	      <button id="filter-reset" class="btn-reset">Clear</button>
-		  <button id="filter-hide" class="btn-hide filter-hide">Hide</button>
+		  <button id="filter-hide" class="btn-hide filter-hide">
+			  <span id="filter-hide-text" class="filter-hide-text">Hide</span>
+			  <img id="filter-hide-img" class="filter-hide-img" src="/othersvg/filter.svg">
+		  </button>
 		</div>
 		<div id="filter-sections" class="filter-sections">
 		  <section class="filter-section filter-collected" data-filter="collected">
@@ -365,6 +364,8 @@
 			  <label id="region-ocean" class="region region-ocean"><input type="checkbox" value="ocean"> Ocean</label>
 			</div>
 		  </section>
+		</div>
+		<div id="filter-sections-footer" class="filter-sections-footer"> 
 		</div>
 	  </section>
 	</aside>

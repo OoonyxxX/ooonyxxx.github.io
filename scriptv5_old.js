@@ -15,183 +15,11 @@ const mapTileHB = - ((window.innerHeight / 9) * screen_frame_mult);
 //1920x1080 120px
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 let filterMenuOpened = true;
-let METStart = false;
 
 
-let mobileC = window.matchMedia("(max-width: 400px)");
-let isMobileC = mobileC.matches;
-let mobile = window.matchMedia("(max-width: 768px)");
-let isMobile = mobile.matches;
-let isTablet = window.matchMedia("(min-width: 769px) and (max-width: 1024px)").matches;
-let isDesktop_HD = window.matchMedia("(min-width: 1025px) and (max-width: 1280px)").matches;
-let isDesktop_HDPlus = window.matchMedia("(min-width: 1281px) and (max-width: 1600px)").matches;
-let isDesktop_FullHD = window.matchMedia("(min-width: 1601px) and (max-width: 1920px)").matches;
-let isDesktop_2K = window.matchMedia("(min-width: 1921px) and (max-width: 2560px)").matches;
-let isDesktop_4K = window.matchMedia("(min-width: 2560px) and (max-width: 3840px)").matches;
-let hasTouch = navigator.maxTouchPoints > 0;
-
-
-
-window.addEventListener("load", () => {
-  if (isMobileC) {
-	onEnterMobileC();
-  }
-  if (isMobile && isMobileC) {
-    setTimeout(() => {
-      document.querySelector(".options-container").classList.add("transition");
-      document.querySelector(".optionheader").classList.add("transition");
-	  document.querySelector(".optparam").classList.add("transition");
-	  document.querySelector(".filter-container").classList.add("transition");
-	  document.querySelector(".filterheader").classList.add("ftransition");
-	  document.querySelector(".filheader").classList.add("transition");
-	  document.querySelector(".filter-hide").classList.add("transition");
-	  document.querySelector(".btn-reset").classList.add("transition");
-    }, 200);
-  } else {
-    document.querySelector(".options-container").classList.add("transition");
-    document.querySelector(".optionheader").classList.add("transition");
-	document.querySelector(".optparam").classList.add("transition");
-	document.querySelector(".filter-container").classList.add("transition");
-	document.querySelector(".filterheader").classList.add("ftransition");
-	document.querySelector(".filheader").classList.add("transition");
-	document.querySelector(".filter-hide").classList.add("transition");
-	document.querySelector(".btn-reset").classList.add("transition");
-  }
-});
-
-
-
-const authContainer = document.getElementById("auth-container");
-const loginButton = document.getElementById("login-button");
-const usernameDisplay = document.getElementById("username-display");
-const authImg = document.getElementById("auth-img");
-const authHfilterContainer = document.getElementById("auth-hfilter-container");
-
-const optHideBtn = document.getElementById('option-hide');
-const optionsContainer = document.getElementById('options-container');
-let optMenuState = !isMobile;
-const optionsHeader = optionsContainer.querySelector('.optionheader');
-const optionsHeaderText = optionsHeader.querySelector('.optheader');
-
-
-const filterHideBtn = document.getElementById('filter-hide');
-const filterClearBtn = document.getElementById('filter-reset');
-const filterContainer = document.getElementById('filter-container');
-let filterMenuState = !isMobile;
-const filterHeader = filterContainer.querySelector('.filterheader');
-const filterHeaderText = filterHeader.querySelector('.filheader');
-
-const optHideBtnImg = document.getElementById('option-hide-img');
-const filterHideBtnImg = document.getElementById('filter-hide-img');
-const optHideBtnText = document.getElementById('option-hide-text');
-const filterHideBtnText = document.getElementById('filter-hide-text');
-
-let METInited = false;
-
-
-
-if (isMobile) {
-	loginButton.textContent = "";
-} else {
-	loginButton.textContent = "Login";
-};
-
-mobile.addEventListener('change', (e) => {
-  const next = e.matches;
-  if (next === isMobile) return;
-  isMobile = next;
-  if (isMobile) onEnterMobile();
-  else onExitMobile();
-});
-
-function onEnterMobile() {
-  filterMenuState = false;
-  filtermenuStyleSet(false, false);
-
-  optMenuState = false;
-  optmenuStyleSet(false, false);
-
-  toggleMET(false);
-  
-  loginButton.textContent = "";
-}
-
-function onExitMobile() {
-  if (METStart) {
-    if (!METInited) {
-      METInited = true;
-      initMET();
-    }
-    toggleMET(true);
-  } else {
-    toggleMET(false);
-  }
-  loginButton.textContent = "Login";
-}
-
-mobileC.addEventListener('change', (e) => {
-  const next = e.matches;
-  if (next === isMobileC) return;
-  isMobileC = next;
-  if (isMobileC) onEnterMobileC();
-  else onExitMobileC();
-});
-
-function onEnterMobileC() {
-  optHideBtnText.textContent = optMenuState ? "Hide" : "";
-  optHideBtnImg.classList.toggle('open', !optMenuState);
-  filterHideBtnText.textContent = filterMenuState ? "Hide" : "";
-  filterHideBtnImg.classList.toggle('open', !filterMenuState);
-  
-  loginButton.textContent = "";
-}
-
-function onExitMobileC() {
-  optHideBtnText.textContent = optMenuState ? "Hide" : "open";
-  filterHideBtnText.textContent = filterMenuState ? "Hide" : "open";
-  optHideBtnImg.classList.remove('open');
-  filterHideBtnImg.classList.remove('open');
-  
-  loginButton.textContent = "Login";
-}
-
-
-
-window.addEventListener("resize", () => {
-	/*
-	isMobileTemp = window.matchMedia("(max-width: 768px)").matches;
-	if (!isMobile && isMobileTemp) {
-		filterMenuState = false;
-		filtermenuStyleSet(filterMenuState);
-		optMenuState = false;
-		optmenuStyleSet(optMenuState);
-		if (!(METStart && !isMobile)) {
-			toggleMET(false);
-		}
-	};
-	if (METStart && !isMobile) {
-		if (!METInited) {
-			METInited = true;
-			initMET();
-			toggleMET(true);
-		} else {
-			if (isMobile && !isMobileTemp) {
-			toggleMET(true);
-			}
-		}
-	}
-	isMobile = isMobileTemp;
-	*/
-	isTablet = window.matchMedia("(min-width: 769px) and (max-width: 1024px)").matches;
-	isDesktop_HD = window.matchMedia("(min-width: 1025px) and (max-width: 1280px)").matches;
-	isDesktop_HDPlus = window.matchMedia("(min-width: 1281px) and (max-width: 1600px)").matches;
-	isDesktop_FullHD = window.matchMedia("(min-width: 1601px) and (max-width: 1920px)").matches;
-	isDesktop_2K = window.matchMedia("(min-width: 1921px) and (max-width: 2560px)").matches;
-	isDesktop_4K = window.matchMedia("(min-width: 2560px) and (max-width: 3840px)").matches;
-	hasTouch = navigator.maxTouchPoints > 0;
-});
 const allowedEditors = [
-"OoonyxxX", 
+"OoonyxxX",
+"CocoMcLovely",
 "333tripleit",
 "MiscFlower"
 ];
@@ -365,8 +193,10 @@ btnSave.classList.add('disabled')
 
 //Блок авторизации
 //START
+const loginButton = document.getElementById("login-button");
+const usernameDisplay = document.getElementById("username-display");
 
-function checkAuth() {
+function checkAuth(iconsData) {
   fetch("https://sotn2-auth-proxy.onrender.com/auth/me", {
     credentials: "include"
   })
@@ -375,21 +205,16 @@ function checkAuth() {
       if (data.authorized) {
         const username = data.username;
         usernameDisplay.textContent = `Hello, ${username}`;
-		
         loginButton.classList.add('hide');
-		authImg.classList.add('authorized');
+		
         if (allowedEditors.includes(username)) {
           console.log("Editor acepted");
 		  
-		  METStart = true;
-		  if (!isMobile) {
-            metControls.classList.add('open');
-		    btnActivate.classList.add('open');
-            btnActivate.classList.remove('disabled')
-		    btnActivate.disabled = false;
-			initMET();
-			METInited = true;
-		  }
+          metControls.classList.add('open');
+		  btnActivate.classList.add('open');
+          btnActivate.classList.remove('disabled')
+		  btnActivate.disabled = false;
+		  initMET(iconsData);
         } else {
           console.log(`The ${username} is not an editor`);
         }
@@ -1153,14 +978,6 @@ function initMET() {
 
   })();
 }
-
-function toggleMET(isOpen) {
-  metControls.classList.toggle('open',     isOpen);
-  btnActivate.classList.toggle('open',     isOpen);
-  btnActivate.classList.toggle('disabled', !isOpen);
-  btnActivate.disabled = !isOpen;
-}
-
 //END
 //Блок MET
 
@@ -1185,67 +1002,37 @@ function stopHeaderAnim() {
   header.style.removeProperty('--debounce-ms');
 }
 
-function optmenuStyleSet(ostate, fstate) {
-	optionsContainer.classList.toggle('hide', !ostate);
-	optionsContainer.classList.toggle('close', fstate);
-	optionsHeader.classList.toggle('hide', !ostate);
-	optHideBtn.classList.toggle('hide', !ostate);
-	
-	optionsHeaderText.classList.toggle('hide', !ostate);
-	
-	if (isMobileC) {
-		optHideBtnText.textContent = ostate ? "Hide" : "";
-		optHideBtnImg.classList.toggle('open', !ostate);
-	} else {
-		optHideBtnText.textContent = ostate ? "Hide" : "Open";
-	}
-}
 
-function filtermenuStyleSet(fstate, ostate) {
-	authHfilterContainer.classList.toggle('open', fstate);
-	filterContainer.classList.toggle('hide', !fstate);
-	filterContainer.classList.toggle('close', ostate);
-	filterHeader.classList.toggle('hide', !fstate);
-
-	filterHideBtn.classList.toggle('hide', !fstate);
-	filterClearBtn.classList.toggle('hide', !fstate);
-	filterHeaderText.classList.toggle('hide', !fstate);
-
-	if (isMobileC) {
-		filterHideBtnText.textContent = fstate ? "Hide" : "";
-		filterHideBtnImg.classList.toggle('open', !fstate);
-	} else {
-		filterHideBtnText.textContent = fstate ? "Hide" : "Open";
-	}
-}
+const optHideBtn = document.getElementById('option-hide');
+const optOpenBtn = document.getElementById('option-open');
+const optionsCont = document.getElementById('options-container');
+const headerRigntCont = document.getElementById('header-hopt-right-container');
 
 
+const filterHideBtn = document.getElementById('filter-hide');
+const filterOpenBtn = document.getElementById('filter-open');
+const filterCont = document.getElementById('filter-container');
+const headerLeftCont = document.getElementById('header-hfilter-left-container');
+const filterClearBtn = document.getElementById('filter-reset');
 
-optmenuStyleSet(!isMobile, false);
 
 optHideBtn.addEventListener('click', () => {
-  optMenuState = !optMenuState;
-  if (isMobile) {
-	filterMenuState = false;
-	filtermenuStyleSet(filterMenuState, optMenuState);
-  };
-  optmenuStyleSet(optMenuState, false);
+  optionsCont.classList.add('hide');
+  headerRigntCont.classList.add('open');
 });
-
-
-filtermenuStyleSet(!isMobile, false);
+optOpenBtn.addEventListener('click', () => {
+  optionsCont.classList.remove('hide');
+  headerRigntCont.classList.remove('open');
+});
 
 filterHideBtn.addEventListener('click', () => {
-  filterMenuState = !filterMenuState;
-  if (isMobile) {
-	optMenuState = false;
-	optmenuStyleSet(optMenuState, filterMenuState);
-  };
-  filtermenuStyleSet(filterMenuState, false);
+  filterCont.classList.add('hide');
+  headerLeftCont.classList.add('open');
 });
-
-
-
+filterOpenBtn.addEventListener('click', () => {
+  filterCont.classList.remove('hide');
+  headerLeftCont.classList.remove('open');
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   const svgMap = {
