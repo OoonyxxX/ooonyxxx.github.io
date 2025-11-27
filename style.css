@@ -948,7 +948,7 @@ body::-webkit-scrollbar {
 
 .filter-sections {
     overflow-y: scroll;
-    height: 80vh;
+    height: calc(100vh - 4rem - 2.9rem - 3.25rem);
     width: 18.25rem;
     position: relative;
     z-index: 0;
@@ -1085,7 +1085,7 @@ body::-webkit-scrollbar {
     flex-direction: column;
     align-items: flex-start;
     line-height: 32px;
-    margin-bottom: 24px;
+    margin-bottom: 3rem;
 }
 
 .icons-grid {
@@ -1536,11 +1536,13 @@ body::-webkit-scrollbar {
 }
 
 .filter-sections-footer {
-	background: linear-gradient(180deg, #0b0b0b8c 0%, transparent 75%, transparent 100%), linear-gradient(225deg, #0b0b0b94 0%, transparent 75%, transparent 100%), linear-gradient(135deg, #0b0b0b94 0%, transparent 75%, transparent 100%);
-	height: calc(100vh - 4rem - 2.9rem - 1rem - 2.5em - 80vh);
-	width: calc(100% + 0.5em);
-	position: fixed;
-	bottom: 0;
+    background: linear-gradient(180deg, #0b0b0b8c 0%, transparent 75%, transparent 100%), linear-gradient(225deg, #0b0b0b94 0%, transparent 75%, transparent 100%), linear-gradient(135deg, #0b0b0b94 0%, transparent 75%, transparent 100%);
+    height: calc(20vh - 4rem - 2.9rem - 1rem - 2.5rem + 1rem);
+    width: calc(100% + 0.5em);
+    position: fixed;
+    bottom: 0;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
     /*margin: 10px;*/
