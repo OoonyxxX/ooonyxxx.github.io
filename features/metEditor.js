@@ -164,7 +164,7 @@ export class MetEditor {
       
       this.existingMarkers.forEach(m => {
         m.off('click');
-        m.on('click', onMarkerClick);
+        m.on('click', this.onMarkerClick);
       });
     });
 
@@ -286,7 +286,7 @@ export class MetEditor {
     this.openEditPopup(marker, true);
     this.addingMarker = !this.addingMarker;
     this.existingMarkers.forEach(m => {
-      m.on('click', onMarkerClick);
+      m.on('click', this.onMarkerClick);
     });
     this.setAddMode();
   }
