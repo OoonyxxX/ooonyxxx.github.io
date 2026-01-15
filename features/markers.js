@@ -145,7 +145,6 @@ export function dynamicPaintSingleMarker(marker, rgbColor) {
   const dynamicColor = `rgb(${r}, ${g}, ${b})`;
   const el = marker.getElement();
   const path = el.querySelector(`#${marker.options.icon_id}_svg`);
-  console.log("dynamicPaint work:", dynamicColor);
   path.style.color = dynamicColor;
 }
 
