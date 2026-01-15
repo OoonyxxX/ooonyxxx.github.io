@@ -412,7 +412,7 @@ export class MetEditor {
 
 
     //Инициализация colorPicker
-    const colorPicker = attachColorPicker(form, marker)
+    //const colorPicker = attachColorPicker(form, marker)
 
     //Сборка попапа
     MAPDATA.iconsData.forEach(ic => {
@@ -431,7 +431,7 @@ export class MetEditor {
       levelIn.checked = false;
       latIn.value = latlng.lat;
       lngIn.value = latlng.lng;
-      colorPicker.color.set('#fff');
+      //colorPicker.color.set('#fff');
     } else {
       titleIn.value = marker.options.name;
       descIn.value = marker.options.description;
@@ -440,7 +440,7 @@ export class MetEditor {
       levelIn.checked = marker.options.level;
       latIn.value = marker.options.coords[0];
       lngIn.value = marker.options.coords[1];
-      colorPicker.color.set(marker.options.custom_csscolor || '#fff');
+      //colorPicker.color.set(marker.options.custom_csscolor || '#fff');
     }
 	  //END
 	  //Сборка попапа
@@ -483,6 +483,16 @@ export class MetEditor {
 	  });
     const popupEl = this.editPopup.getElement();
     const formEl = popupEl.querySelector('#marker-form');
+
+    //Инициализация colorPicker
+    const colorPicker = attachColorPicker(formEl, marker)
+
+    if (isNew) {
+      colorPicker.color.set('#fff');
+    } else {
+      colorPicker.color.set(marker.options.custom_csscolor || '#fff');
+    }
+    
     const submitBtn = popupEl.querySelector('#submit-btn');
     const discardBtn = popupEl.querySelector('#discard-btn');
     const deleteBtn = popupEl.querySelector('#delete-btn');
