@@ -273,11 +273,13 @@ export class MetEditor {
     this.btnSave.classList.toggle('disabled', hasChanges);
     this.btnSave.disabled = !(this.diff.added.length || this.diff.updated.length || this.diff.deleted.length);
   }
-  onMarkerClick(e) {
-  if (this.editPopupOpen) return;
-  if (this.addingMarker) return;
-    this.openEditPopup(e.target, false);
-  }
+
+  onMarkerClick = (e) => {
+    if (this.editPopupOpen) return;
+    if (this.addingMarker) return;
+    const marker = e.target;
+    this.openEditPopup(marker, false);
+  };
 
   onMapClick(e) {
     if (!this.addingMarker) return;
