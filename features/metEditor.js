@@ -412,7 +412,7 @@ export class MetEditor {
 
 
     //Инициализация colorPicker
-    const colorPicker = attachColorPicker(form, marker.custom_csscolor)
+    const colorPicker = attachColorPicker(form, marker.options.custom_csscolor)
 
     //Сборка попапа
     MAPDATA.iconsData.forEach(ic => {
