@@ -38,8 +38,8 @@ export function attachColorPicker(container, marker) {
     colorPicker.on('color:change', (color) => {
 		const { r, g, b } = color.rgb;
 		PICKER_ITEM.colorIn.value = `${r},${g},${b}`;
-        console.log("Color changed:", PICKER_ITEM.colorIn.value);
-        dynamicPaintSingleMarker(marker, PICKER_ITEM.colorIn.value);
+        console.log("Color changed:", color.rgb);
+        dynamicPaintSingleMarker(marker, color.rgb);
     });
 
     return colorPicker;
