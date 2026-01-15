@@ -281,7 +281,7 @@ export class MetEditor {
     this.openEditPopup(marker, false);
   };
 
-  onMapClick(e) {
+  onMapClick = (e) => {
     if (!this.addingMarker) return;
     const newIcon = this.icons.default || this.icons["default"];
     const marker = L.marker(e.latlng, {icon: newIcon}).addTo(this.map);
