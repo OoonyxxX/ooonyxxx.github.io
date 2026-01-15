@@ -25,7 +25,8 @@ export function attachColorPicker(container, marker) {
     // Создаем конфиг, объединяя стандартный с переданным цветом
     const config = {
         ...PICKER_CONFIG,
-        color: marker.options.custom_csscolor || '#fff'
+        //color: marker.options.custom_csscolor || '#fff',
+        color: 'rgb(173, 16, 16)'
     };
 
 
