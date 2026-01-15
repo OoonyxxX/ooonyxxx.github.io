@@ -628,6 +628,7 @@ export class MetEditor {
 	  
 	  //Функция обработчик отмены изменений маркера
     discardBtn.addEventListener('click', () => {
+      this.editPopup.remove();
       if (isNew) {
         this.map.removeLayer(marker);
         this.diff.added = this.diff.added.filter(o => o.id !== marker.options.id);
@@ -637,7 +638,6 @@ export class MetEditor {
         marker.setIcon(ic);
         paintSingleMarker(marker);
       }
-      this.editPopup.remove();
       this.updateSaveState();
     });
 	  const confirmModal = document.getElementById('confirm-modal');
@@ -649,7 +649,9 @@ export class MetEditor {
 
       btnConfirmYes.onclick = () => {
         confirmModal.classList.add('confirm-hidden');
-		  
+
+		    this.editPopup.remove();
+
         if (isNew) {
           this.map.removeLayer(marker);
           this.diff.added = this.diff.added.filter(o => o.id !== marker.options.id);
@@ -658,7 +660,6 @@ export class MetEditor {
           this.map.removeLayer(marker);
         }
         this.updateSaveState();
-        this.editPopup.remove();
       };
 
       btnConfirmNo.onclick = () => {
