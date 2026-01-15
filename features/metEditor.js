@@ -1,7 +1,7 @@
 import { MAPDATA, dynamicPaintSingleMarker, paintSingleMarker } from "./markers.js"
 import { map } from "../core/map.js"
 import { DEPLOY_STATUS, UPDATE_MARKERS, REGION_LIST } from "../core/config.js"
-import { PICKER_ITEM, attachColorPicker } from "../ui/colorPicker.js"
+import { attachColorPicker } from "../ui/colorPicker.js"
 
 
 //Переменные блока MET
@@ -412,7 +412,7 @@ export class MetEditor {
 
 
     //Инициализация colorPicker
-    const colorPicker = attachColorPicker(form, marker.options.custom_csscolor)
+    const colorPicker = attachColorPicker(form, marker)
 
     //Сборка попапа
     MAPDATA.iconsData.forEach(ic => {
@@ -432,7 +432,6 @@ export class MetEditor {
       latIn.value = latlng.lat;
       lngIn.value = latlng.lng;
       colorPicker.color.set('#fff');
-      dynamicPaintSingleMarker(marker, PICKER_ITEM.colorIn.value);
     } else {
       titleIn.value = marker.options.name;
       descIn.value = marker.options.description;
@@ -442,7 +441,6 @@ export class MetEditor {
       latIn.value = marker.options.coords[0];
       lngIn.value = marker.options.coords[1];
       colorPicker.color.set(marker.options.custom_csscolor || '#fff');
-      dynamicPaintSingleMarker(marker, PICKER_ITEM.colorIn.value);
     }
 	  //END
 	  //Сборка попапа

@@ -1,3 +1,4 @@
+import { dynamicPaintSingleMarker } from "../features/markers.js"
 // Параметры colorPicker
 const PICKER_CONFIG = {
     width: 200,
@@ -6,7 +7,7 @@ const PICKER_CONFIG = {
     ]
 };
 
-export const PICKER_ITEM = {
+const PICKER_ITEM = {
     pickerEl: null,
 	colorIn: null,
 };
@@ -14,17 +15,17 @@ export const PICKER_ITEM = {
 /**
  * Создает и привязывает ColorPicker к указанному элементу
  * @param {HTMLElement} container - DOM контейнер для ColorPicker (form)
- * @param {string|object} initialColor - Начальный цвет
+ * @param {object} marker - маркер контейнера
  * @returns {Object} - Экземпляр iro.ColorPicker (чтобы потом можно было удалить)
  */
-export function attachColorPicker(container, initialColor) {
+export function attachColorPicker(container, marker) {
     PICKER_ITEM.pickerEl = container.querySelector('.color-picker');
 	PICKER_ITEM.colorIn = container.querySelector('.color-input');
 
     // Создаем конфиг, объединяя стандартный с переданным цветом
     const config = {
         ...PICKER_CONFIG,
-        color: initialColor || '#ffffff'
+        color: marker.options.custom_csscolor || '#fff'
     };
 
 
@@ -34,6 +35,7 @@ export function attachColorPicker(container, initialColor) {
     colorPicker.on('color:change', (color) => {
 		const { r, g, b } = color.rgb;
 		PICKER_ITEM.colorIn.value = `${r},${g},${b}`;
+        dynamicPaintSingleMarker(marker, PICKER_ITEM.colorIn.value);
     });
 
     return colorPicker;
