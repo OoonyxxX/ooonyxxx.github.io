@@ -548,7 +548,7 @@ export class MetEditor {
     });
     marker.on('dragend', () => { 
       marker.dragging.enable();
-      this.blueTimer.style.display = 'none'; //заменить style.display на classList.toggle('Имя класса(например, .is-active, .is-hidden)', Булевое значение(True\False))
+      METUI.blueTimer.style.display = 'none'; //заменить style.display на classList.toggle('Имя класса(например, .is-active, .is-hidden)', Булевое значение(True\False))
 	  });
 	  
 	  this.map.on('zoom', () => {
