@@ -492,7 +492,8 @@ export class MetEditor {
       colorPicker.color.set('#fff');
     } else {
       console.log("start color:", marker.options.custom_csscolor);
-      colorPicker.color.set(marker.options.custom_csscolor || '#fff');
+      color = marker.options.custom_csscolor || '#fff';
+      colorPicker.color.set(color);
     }
     
     
@@ -600,6 +601,7 @@ export class MetEditor {
       const height = (data.get('underground') && heightDown) || heightUp;
       
       const triple = data.get('color');
+      console.log("triple color:", triple);
       const [r, g, b] = triple.split(',').map(n => Number(n));
       const color = { R: r, G: g, B: b };
 
