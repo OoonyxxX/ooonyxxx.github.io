@@ -491,6 +491,7 @@ export class MetEditor {
     if (isNew) {
       colorPicker.color.set('#fff');
     } else {
+      console.log("start color:", marker.options.custom_csscolor);
       colorPicker.color.set(marker.options.custom_csscolor || '#fff');
     }
     
@@ -630,6 +631,7 @@ export class MetEditor {
       const ic = this.icons[icon_id] || this.icons.default;
       marker.setIcon(ic);
       this.popapsaved = true;
+      console.log("new color:", marker.options.custom_csscolor);
       this.editPopup.remove();
       this.updateSaveState();
     });
