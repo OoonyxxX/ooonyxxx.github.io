@@ -32,10 +32,13 @@ export function attachColorPicker(container, marker) {
 
     const colorPicker = new iro.ColorPicker(PICKER_ITEM.pickerEl, config);
 
+    console.log("colorPicker inited:", PICKER_ITEM.colorIn);
+
     // Подписываемся на события
     colorPicker.on('color:change', (color) => {
 		const { r, g, b } = color.rgb;
 		PICKER_ITEM.colorIn.value = `${r},${g},${b}`;
+        console.log("Color changed:", PICKER_ITEM.colorIn.value);
         dynamicPaintSingleMarker(marker, PICKER_ITEM.colorIn.value);
     });
 
