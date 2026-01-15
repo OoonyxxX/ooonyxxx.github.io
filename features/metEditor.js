@@ -487,14 +487,13 @@ export class MetEditor {
     //Инициализация colorPicker
     const colorPicker = attachColorPicker(formEl, marker)
 
-    colorPicker.color.set('#348d2c');
-    /*
+    
     if (isNew) {
       colorPicker.color.set('#fff');
     } else {
       colorPicker.color.set(marker.options.custom_csscolor || '#fff');
     }
-    */
+    
     
     const submitBtn = popupEl.querySelector('#submit-btn');
     const discardBtn = popupEl.querySelector('#discard-btn');
