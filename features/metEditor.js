@@ -503,7 +503,8 @@ export class MetEditor {
 	  let dragTimer;
 	  let cancelOnMove;
 	  
-	  draggingEnable = () => {
+	  const draggingEnable = (e) => {
+      const marker = e.target
       METUI.timerProgress.classList.remove('timer-progress');
       void METUI.timerProgress.offsetWidth;
       METUI.timerProgress.classList.add('timer-progress');
@@ -522,7 +523,8 @@ export class MetEditor {
       }, 400);
 	  };
 	  
-	  draggingCancel = () => {
+	  const draggingCancel = (e) => {
+      const marker = e.target
       clearTimeout(dragTimer);
       METUI.timerProgress.classList.remove('timer-progress');
       METUI.blueTimer.style.display = 'none'; //заменить style.display на classList.toggle('Имя класса(например, .is-active, .is-hidden)', Булевое значение(True\False))
