@@ -494,6 +494,7 @@ export class MetEditor {
       console.log("start color:", marker.options.custom_csscolor);
       const color = marker.options.custom_csscolor || '#fff';
       colorPicker.color.set(color);
+      console.log("Color changed to:", color);
     }
     
     

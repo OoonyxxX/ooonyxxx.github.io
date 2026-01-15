@@ -16,7 +16,7 @@ const PICKER_ITEM = {
  * Создает и привязывает ColorPicker к указанному элементу
  * @param {HTMLElement} container - DOM контейнер для ColorPicker (form)
  * @param {object} marker - маркер контейнера
- * @returns {Object} - Экземпляр iro.ColorPicker (чтобы потом можно было удалить)
+ * @returns {Object} - Экземпляр iro.ColorPicker
  */
 export function attachColorPicker(container, marker) {
     PICKER_ITEM.pickerEl = container.querySelector('.color-picker');
@@ -35,6 +35,7 @@ export function attachColorPicker(container, marker) {
 
     // Подписываемся на события
     colorPicker.on('color:change', (color) => {
+        console.log("Color try change:", color.rgb);
 		const { r, g, b } = color.rgb;
 		PICKER_ITEM.colorIn.value = `${r},${g},${b}`;
         console.log("Color changed:", color.rgb);
