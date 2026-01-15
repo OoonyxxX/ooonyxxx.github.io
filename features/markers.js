@@ -66,13 +66,13 @@ export async function loadMapData() {
         description: m.description,
         icon_id: m.icon_id,
         coords: [m.coords[0], m.coords[1]],
-        region: m.reg_id,
+        reg_id: m.reg_id,
         level: m.height,
-        custom_color: [m.color.R ,m.color.G ,m.color.B]
+        color: [m.color.R ,m.color.G ,m.color.B]
     }));
 
     MAPDATA.markersData.forEach(m => {
-        const {id, name, description, icon_id, coords, reg_id, height, color} = m;
+        const {id, name, description, icon_id, coords, reg_id, level, color} = m;
         const icon  = MAPDATA.icons[icon_id] || MAPDATA.icons.default;
         const marker = L.marker(coords, { icon }).bindPopup(`<b>${name}</b><br>${description}`);
         marker.options.id = id;
@@ -81,7 +81,7 @@ export async function loadMapData() {
         marker.options.icon_id = icon_id;
         marker.options.coords = coords;
         marker.options.region = reg_id;
-        marker.options.level = height;
+        marker.options.level = level;
         marker._$visible = true;
 
         const { R, G, B } = color;
@@ -94,7 +94,7 @@ export async function loadMapData() {
         marker.options.height_color = `rgb(${Rh}, ${Gh}, ${Bh})`;
         marker.addTo(map);
         paintSingleMarker(marker);
-        MAPDATA.existingMarkers.set(marker.options.id, marker);
+        MAPDATA.existingMarkers.set(id, marker);
     });
 
     checkAuth();

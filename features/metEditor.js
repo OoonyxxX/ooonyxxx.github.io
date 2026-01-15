@@ -96,40 +96,40 @@ export class MetEditor {
     this.exitLoaderText = document.getElementById('exit-modal-loader-text');
 
   }
-/*
+
 	discardChanges() {
-	    this.editPopup.remove();
-	  
-	    this.existingMarkers.clear();
-	  
+    this.editPopup.remove();
+  
+    this.existingMarkers.clear();
+  
 	  if (this.icons["default"]) {
-		this.icons.default = this.icons["default"];
+      this.icons.default = this.icons["default"];
 	  } else {
-		this.icons.default = Object.values(this.icons)[0];
+      this.icons.default = Object.values(this.icons)[0];
 	  }
 
 	  this.originalMarkersData.forEach(m => {
-		const icon = this.icons[m.icon_id] || this.icons.default;
-		const marker = L.marker(m.coords, { icon });
-		marker.options.id = m.id;
-		marker.options.name = m.name;
-		marker.options.description = m.description;
-		marker.options.icon_id = m.icon_id;
-		marker.options.coords = m.coords;
-		marker.options.region = m.reg_id;
-		marker.options.level = m.level;
-		marker._$visible = true;
-		
-		const { R, G, B } = m.custom_color;
-		const cssColor = `rgb(${R}, ${G}, ${B})`;
-		marker.options.custom_rgbcolor = color;
-		marker.options.custom_csscolor = cssColor;
-		const Rh = Math.floor(R / 2);
-		const Gh = Math.floor(G / 2);
-		const Bh = Math.floor(B / 2);
-		marker.options.height_color = `rgb(${Rh}, ${Gh}, ${Bh})`;
-		marker.bindPopup(`<b>${m.name}</b><br>${m.description}`);
-		this.existingMarkers.set(m.id, marker);
+      const {id, name, description, icon_id, coords, reg_id, level, color} = m;
+      const icon = this.icons[icon_id] || this.icons.default;
+      const marker = L.marker(coords, { icon }).bindPopup(`<b>${name}</b><br>${description}`);
+      marker.options.id = id;
+      marker.options.name = name;
+      marker.options.description = description;
+      marker.options.icon_id = icon_id;
+      marker.options.coords = coords;
+      marker.options.region = reg_id;
+      marker.options.level = level;
+      marker._$visible = true;
+      
+      const { R, G, B } = color;
+      const cssColor = `rgb(${R}, ${G}, ${B})`;
+      marker.options.custom_rgbcolor = color;
+      marker.options.custom_csscolor = cssColor;
+      const Rh = Math.floor(R / 2);
+      const Gh = Math.floor(G / 2);
+      const Bh = Math.floor(B / 2);
+      marker.options.height_color = `rgb(${Rh}, ${Gh}, ${Bh})`;
+      this.existingMarkers.set(id, marker);
 	  });
 
 	  this.diff.added   = [];
@@ -137,7 +137,7 @@ export class MetEditor {
 	  this.diff.deleted = [];
 	  updateSaveState();
 	}
-*/
+
 
   init() {
     //Кнопка включения МЕТ
@@ -587,7 +587,6 @@ export class MetEditor {
       const height = (data.get('underground') && heightDown) || heightUp;
       
       const triple = data.get('color');
-      console.log("triple color:", triple);
       const [r, g, b] = triple.split(',').map(n => Number(n));
       const color = { R: r, G: g, B: b };
 
@@ -619,7 +618,6 @@ export class MetEditor {
       const ic = this.icons[icon_id] || this.icons.default;
       marker.setIcon(ic);
       this.popapsaved = true;
-      console.log("new color:", marker.options.custom_csscolor);
       this.editPopup.remove();
       this.updateSaveState();
     });
