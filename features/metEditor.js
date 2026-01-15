@@ -412,7 +412,7 @@ export class MetEditor {
 
 
     //Инициализация colorPicker
-    const colorPicker = attachColorPicker(form, marker.options.custom_csscolor)
+    const colorPicker = attachColorPicker(form, marker.options.custom_rgbcolor)
 
     //Сборка попапа
     MAPDATA.iconsData.forEach(ic => {
@@ -441,7 +441,7 @@ export class MetEditor {
       levelIn.checked = marker.options.level;
       latIn.value = marker.options.coords[0];
       lngIn.value = marker.options.coords[1];
-      colorPicker.color.set(marker.options.custom_csscolor || '#fff');
+      colorPicker.color.set(marker.options.custom_rgbcolor || '#fff');
       dynamicPaintSingleMarker(marker, PICKER_ITEM.colorIn.value);
     }
 	  //END
