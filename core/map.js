@@ -18,8 +18,8 @@ export const map = L.map('map', {
 });
 
 
-// Инициализация тайлинга карты !!!Нужно изменить путь к дереву тайлов на MapTiles/{z}/{x}/{y}.webp?t=
-L.tileLayer('MapTilestest/{z}/{x}/{y}.png?t=' + Date.now(), {
+// Инициализация тайлинга карты
+L.tileLayer('MapTiles/{z}/{x}/{y}.webp?t=' + Date.now(), {
   noWrap: true,
 }).addTo(map);
 
