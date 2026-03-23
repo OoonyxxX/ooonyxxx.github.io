@@ -3,35 +3,6 @@ import { APPMETSTATE, APPSTATE} from "../core/state.js"
 import { OPTSIDEBAR, FILTERSIDEBAR, AUTHTOPBAR, optmenuStyleSet, filtermenuStyleSet } from "../ui/sidebar.js"
 
 
-export const UIDATA = {
-  loginIcons: {},
-}
-
-  try{
-    const response = await fetch(`svglogin.json?_=${Date.now()}`);
-    UIDATA.loginIcons = await response.json();
-
-    UIDATA.loginIcons.forEach(ic => {
-        const img = new Image();
-        AUTHTOPBAR.loginModalContent
-    });
-
-    await Promise.all(MAPDATA.iconsData.map(async ic => {
-        const svgText = await fetch(ic.url).then(r => r.text());
-        const html = `<div class="svg-icon" data-icon-id="${ic.id}">${svgText}</div>`;
-        MAPDATA.icons[ic.id] = L.divIcon({
-            html,
-            className: '',
-            iconSize:   [32, 32],
-            iconAnchor: [16, 32],
-            popupAnchor:[0, -32]
-        });
-    }));
-
-  } catch (err) {
-    console.error("JSON reading error:", err);
-  }
-
 export function cacheWindowMatches() {
   APPSTATE.isMobileC = window.matchMedia("(max-width: 400px)").matches;
   APPSTATE.isMobile = window.matchMedia("(max-width: 768px)").matches;
