@@ -1,6 +1,6 @@
 import { MAPDATA, dynamicPaintSingleMarker, paintSingleMarker } from "./markers.js"
 import { map } from "../core/map.js"
-import { DEPLOY_STATUS, UPDATE_MARKERS, REGION_LIST } from "../core/config.js"
+import { REGION_LIST } from "../core/config.js"
 import { attachColorPicker } from "../ui/colorPicker.js"
 
 
@@ -83,8 +83,8 @@ export class MetEditor {
     this.exitSave = false;
 
     //Пути к бекенд серверу(Из config.js)
-    this.deploy_status = DEPLOY_STATUS;
-    this.update_markers = UPDATE_MARKERS;
+    this.deploy_status = false;
+    this.update_markers = false;
 
     //Переменные модалки выхода
     this.exitModal      = document.getElementById('exit-modal');
@@ -240,7 +240,7 @@ export class MetEditor {
           console.log('Diff before sending:', this.diff);
           
           this.exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>checking…</em>';
-          this.startDeployPolling();
+          //this.startDeployPolling();
           fetch(this.update_markers, {
             method: 'POST',
             credentials: 'include',
@@ -338,7 +338,7 @@ export class MetEditor {
 	  point.y -= offsetYInPixels;
 	  return this.map.layerPointToLatLng(point);
 	}
-
+/*
   startDeployPolling() {
     const intervalId = setInterval(async () => {
       try {
@@ -372,7 +372,7 @@ export class MetEditor {
       }
     }, 5_000);
   }
-
+*/
   getRegionIndex(ctx, posX, posY) {
     const x = Math.floor(posX * 32);
     const y = 8192 - Math.floor(posY * 32);
