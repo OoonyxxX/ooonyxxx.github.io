@@ -1,17 +1,20 @@
-import { APPSTATE} from "../core/state.js"
+import { APPSTATE } from "../core/state.js"
+import { paintingAllMarkers } from "../features/markers.js"
 
 // Обьявление объектов панелей 
 export const OPTSIDEBAR = {};
 export const FILTERSIDEBAR = {};
 export const AUTHTOPBAR = {};
 export const HEADERTOPBAR = {};
+export const AUTHMODAL = {};
 
-// Инициализация панели параметров
-export function initOptElements() {
+// Кешироние DOM елементов панели параметров
+export function cacheOptElements() {
     OPTSIDEBAR.optHideBtn           = document.getElementById('option-hide');
     OPTSIDEBAR.optionsContainer     = document.getElementById('options-container');
     OPTSIDEBAR.optionsHeader        = OPTSIDEBAR.optionsContainer.querySelector('.optionheader');
     OPTSIDEBAR.optionsHeaderText    = OPTSIDEBAR.optionsHeader.querySelector('.optheader');
+    OPTSIDEBAR.optionsParams        = OPTSIDEBAR.optionsContainer.querySelector('.optparam');
     OPTSIDEBAR.optHideBtnImg        = document.getElementById('option-hide-img');
     OPTSIDEBAR.optHideBtnText       = document.getElementById('option-hide-text');
     OPTSIDEBAR.coloredRegionsToggle = document.getElementById('toggle-regions');
@@ -19,7 +22,11 @@ export function initOptElements() {
     OPTSIDEBAR.coloredMarkersToggle = document.getElementById('toggle-color');
     OPTSIDEBAR.customColorsToggle   = document.getElementById('toggle-customcolor');
     OPTSIDEBAR.instantFilterToggle  = document.getElementById('toggle-instantf');
+}
 
+// Инициализация панели параметров
+export function initOptElements() {
+    APPSTATE.optMenuState = !APPSTATE.isMobile;
     optmenuStyleSet(!APPSTATE.isMobile, false);
     //Слушатель адаптации панели параметров
     OPTSIDEBAR.optHideBtn.addEventListener('click', () => {
@@ -30,11 +37,33 @@ export function initOptElements() {
         };
         optmenuStyleSet(APPSTATE.optMenuState, false);
     });
-
 }
 
-// Инициализация панели фильтров
-export function initFilterElements() {
+export function initOptToggle() {
+  OPTSIDEBAR.coloredRegionsToggle.addEventListener('change', () => {
+    APPSTATE.coloredRegionsEnabled = !APPSTATE.coloredRegionsEnabled;
+    paintingAllMarkers();
+  });
+
+  OPTSIDEBAR.heightDisplayToggle.addEventListener('change', () => {
+    APPSTATE.heightDisplayEnabled = !APPSTATE.heightDisplayEnabled;
+    paintingAllMarkers();
+  });
+
+  OPTSIDEBAR.coloredMarkersToggle.addEventListener('change', () => {
+    APPSTATE.coloredMarkersEnabled = !APPSTATE.coloredMarkersEnabled;
+    paintingAllMarkers();
+  });
+
+  OPTSIDEBAR.customColorsToggle.addEventListener('change', () => {
+    APPSTATE.customColorsEnabled = !APPSTATE.customColorsEnabled;
+    //paintingAllMarkers();
+  });
+};
+
+
+// Кешироние DOM елементов панели фильтров
+export function cacheFilterElements() {
     FILTERSIDEBAR.filterHideBtn     = document.getElementById('filter-hide');
     FILTERSIDEBAR.filterClearBtn    = document.getElementById('filter-reset');
     FILTERSIDEBAR.filterContainer   = document.getElementById('filter-container');
@@ -42,7 +71,11 @@ export function initFilterElements() {
     FILTERSIDEBAR.filterHeaderText  = FILTERSIDEBAR.filterHeader.querySelector('.filheader');
     FILTERSIDEBAR.filterHideBtnImg  = document.getElementById('filter-hide-img');
     FILTERSIDEBAR.filterHideBtnText = document.getElementById('filter-hide-text');
+}
 
+// Инициализация панели фильтров
+export function initFilterElements() {
+    APPSTATE.filterMenuState = !APPSTATE.isMobile;
     filtermenuStyleSet(!APPSTATE.isMobile, false);
     //Слушатель адаптации панели фильтров
     FILTERSIDEBAR.filterHideBtn.addEventListener('click', () => {
@@ -56,22 +89,22 @@ export function initFilterElements() {
 
 }
 
-// Иницаилизация панели авторизации(верхняя панель)
-export function initAuthElements() {
+// Кешироние DOM елементов панели авторизации(верхняя панель)
+export function cacheAuthElements() {
     AUTHTOPBAR.authContainer         = document.getElementById('auth-container');
     AUTHTOPBAR.loginButton           = document.getElementById('login-button');
     AUTHTOPBAR.usernameDisplay       = document.getElementById('username-display');
     AUTHTOPBAR.authImg               = document.getElementById('auth-img');
     AUTHTOPBAR.authHfilterContainer  = document.getElementById('auth-hfilter-container');
+    AUTHTOPBAR.loginModal            = document.getElementById('login-modal');
+    AUTHTOPBAR.loginModalContainer   = document.getElementById('login-modal-container');
+    AUTHTOPBAR.loginModalContent     = document.getElementById('login-modal-content');
 }
 
-export function initHeaderElements() {
+export function cacheHeaderElements() {
     HEADERTOPBAR.header = document.getElementById('filterheader');
 }
 
-
-APPSTATE.optMenuState = !APPSTATE.isMobile;
-APPSTATE.filterMenuState = !APPSTATE.isMobile;
 
 // Переключатель состояния панели параметров
 export function optmenuStyleSet(ostate, fstate) {
@@ -118,4 +151,15 @@ export function startHeaderAnim(ms) {
 export function stopHeaderAnim() {
   HEADERTOPBAR.header.classList.remove('debouncing');
   HEADERTOPBAR.header.style.removeProperty('--debounce-ms');
+}
+
+// Кешироние DOM елементов модалки авторизации
+export function cacheLoginModalElements() {
+    AUTHMODAL.loginModalContainer   = document.getElementById('login-modal-container');
+    AUTHMODAL.loginModal            = document.getElementById('login-modal');
+    AUTHMODAL.loginModalText        = document.getElementById('login-modal-text');
+    AUTHMODAL.loginModalContent     = document.getElementById('login-modal-content');
+    AUTHMODAL.loginModalGoogleImg   = document.getElementById('login-modal-google-img');
+    AUTHMODAL.loginModalExit        = document.getElementById('login-modal-exit');
+    AUTHMODAL.loginModalExitImg     = document.getElementById('login-modal-exit-img');
 }

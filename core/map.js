@@ -1,7 +1,5 @@
 import { MAP_CONFIG } from './config.js';
 
-// !!!Нужен структурный патч: Изменить путь к дереву тайлов на MapTiles/{z}/{x}/{y}.webp?t=
-
 
 // Инициализация Карты
 export const map = L.map('map', {

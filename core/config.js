@@ -38,12 +38,27 @@ export const REGION_UNDERGROUND_COLORS = {
   ashlands:     '#993d3d',
   ocean:        '#385299',
 };
-
+/*
 export const ALLOWED_EDITORS = [
     "OoonyxxX", 
     "333tripleit",
     "MiscFlower"
 ];
+*/
+
+export const ALLOWED_ROLE = [
+    "user",
+    "editor",
+    "moderator",
+    "admin"
+];
+
+export const ALLOWED_MET_ROLE = [
+    "editor", 
+    "moderator", 
+    "admin"
+];
+
 
 export const REGION_LIST = {
     0: "ocean",
@@ -55,8 +70,3 @@ export const REGION_LIST = {
     6: "ashlands",
     7: "undefined"
 };
-
-export const CHECK_AUTH = "https://sotn2-auth-proxy.onrender.com/auth/me";
-export const REQUEST_AUTH = "https://sotn2-auth-proxy.onrender.com/auth/login";
-export const DEPLOY_STATUS = "https://sotn2-auth-proxy.onrender.com/api/deploy-status";
-export const UPDATE_MARKERS = "https://sotn2-auth-proxy.onrender.com/auth/me";

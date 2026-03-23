@@ -1,10 +1,9 @@
 export const APPMETSTATE = {
-    METStart: false,
+    METStart: true,
     METInited: false
 };
 
 export const APPSTATE = {
-    username: '',
     isMobile: false,
     isMobileC: false,
     optMenuState: true,
@@ -22,3 +21,16 @@ export const APPSTATE = {
     isDesktop_4K: false,
     customCursorEnabled: false,
 };
+
+export const APPFILTERSTATE = {
+    iconstatesIndex: 0,
+    regionstatesIndex: 0,
+};
+
+export const USERSESSION = {
+    user_id: "",
+    display_name: "",
+    role: "",
+};
+
+

@@ -10,7 +10,7 @@ import { attachColorPicker } from "../ui/colorPicker.js"
 // Переменные интерфейса
 export const METUI = {};
 
-export function initMETUIElements() {
+export function cacheMETUIElements() {
     METUI.metControls   = document.getElementById('met-controls');
     METUI.btnActivate   = document.getElementById('activate-met');
     METUI.btnExit       = document.getElementById('exit-met');
@@ -135,7 +135,7 @@ export class MetEditor {
 	  this.diff.added   = [];
 	  this.diff.updated = [];
 	  this.diff.deleted = [];
-	  updateSaveState();
+	  this.updateSaveState();
 	}
 
 
@@ -143,9 +143,11 @@ export class MetEditor {
     //Кнопка включения МЕТ
     this.btnActivate.addEventListener('click', () => {
       this.metActive = true;
-      (async () => {
-        this.ctx = await this.initRegionCanvas('Regions.png');
-      })();
+      if (this.ctx != 0) {
+        (async () => {
+          this.ctx = await this.initRegionCanvas('Regions.png');
+        })();
+      }
 
       this.btnActivate.disabled = true;
       this.btnActivate.classList.add('disabled')
@@ -573,7 +575,7 @@ export class MetEditor {
       
       if (autoRegCheck) {
         try {
-          reg_index = this.getRegionIndex(ctx, lng, lat);
+          reg_index = this.getRegionIndex(this.ctx, lng, lat);
           marker.options.reg_index = reg_index;
           console.log('reg_index:', reg_index);
         } catch (err) {

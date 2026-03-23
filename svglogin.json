@@ -1,0 +1,14 @@
+[
+  {
+    "id": "google",
+    "class": "google_icon",
+    "name": "Google",
+    "url": "svglogin/Google.svg"
+  },
+  {
+    "id": "github",
+    "class": "github_icon",
+    "name": "GitHub",
+    "url": "svglogin/GitHub.svg"
+  }
+]

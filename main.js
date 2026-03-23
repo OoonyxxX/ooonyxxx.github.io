@@ -1,26 +1,37 @@
 import { initFilters } from "./features/filters.js"
-import { initMETUIElements } from "./features/metEditor.js"
-import { initOptElements, initFilterElements, initAuthElements, initHeaderElements } from "./ui/sidebar.js"
-import { initUI } from "./ui/adaptability.js"
+import { cacheMETUIElements } from "./features/metEditor.js"
+import { cacheOptElements, 
+        initOptElements,
+        initOptToggle, 
+        cacheFilterElements, 
+        initFilterElements, 
+        cacheAuthElements, 
+        cacheHeaderElements 
+        } from "./ui/sidebar.js"
+import { cacheWindowMatches, initWindowEvents } from "./ui/adaptability.js"
 import { initCursor } from "./ui/cursor.js"
-import { initOptToggle, loadMapData } from "./features/markers.js"
+import { loadMapData } from "./features/markers.js"
 
+import { checkAuth } from "./api/auth_api.js"
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    initAuthElements();
-    initUI();
-    initCursor();
+    cacheAuthElements();
+    cacheOptElements();
+    cacheFilterElements();
+    cacheHeaderElements();
+    cacheMETUIElements();
+    cacheWindowMatches();
+    cacheLoginModalElements();
+
     initOptElements();
     initOptToggle();
     initFilterElements();
-    initHeaderElements();
-    
-    initMETUIElements();
-    
-    loadMapData();
-    
-    
-    initFilters();
 
+    initWindowEvents();
+    initFilters();
+    initCursor();
+    checkAuth();
+
+    loadMapData();
 });

@@ -2,8 +2,6 @@ import { map } from "../core/map.js"
 import { checkAuth } from "../api/auth.js"
 import { APPSTATE } from "../core/state.js"
 import { REGION_COLORS, REGION_UNDERGROUND_COLORS, REGION_LIST } from "../core/config.js"
-import { OPTSIDEBAR } from "../ui/sidebar.js"
-
 
 export const MAPDATA = {
     icons: {},
@@ -12,27 +10,6 @@ export const MAPDATA = {
     markers: [],
     iconsData: [],
     markersData: [],
-};
-export function initOptToggle() {
-  OPTSIDEBAR.coloredRegionsToggle.addEventListener('change', () => {
-    APPSTATE.coloredRegionsEnabled = !APPSTATE.coloredRegionsEnabled;
-    paintingAllMarkers();
-  });
-
-  OPTSIDEBAR.heightDisplayToggle.addEventListener('change', () => {
-    APPSTATE.heightDisplayEnabled = !APPSTATE.heightDisplayEnabled;
-    paintingAllMarkers();
-  });
-
-  OPTSIDEBAR.coloredMarkersToggle.addEventListener('change', () => {
-    APPSTATE.coloredMarkersEnabled = !APPSTATE.coloredMarkersEnabled;
-    paintingAllMarkers();
-  });
-
-  OPTSIDEBAR.customColorsToggle.addEventListener('change', () => {
-    APPSTATE.customColorsEnabled = !APPSTATE.customColorsEnabled;
-    //paintingAllMarkers();
-  });
 };
 
 export async function loadMapData() {

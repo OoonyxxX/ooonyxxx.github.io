@@ -1,6 +1,7 @@
 import { debounce } from "./utilities.js"
 import { OPTSIDEBAR, FILTERSIDEBAR, startHeaderAnim, stopHeaderAnim} from "../ui/sidebar.js"
 import { MAPDATA } from "./markers.js"
+import { APPFILTERSTATE } from "../core/state.js"
 
 
 
@@ -40,7 +41,7 @@ export function initFilters() {
 
 
   document.querySelectorAll('.icons-grid label').forEach(iconsgrid => {
-	let iconstatesIndex = 0;
+	  APPFILTERSTATE.iconstatesIndex = 0;
     const checkbox = iconsgrid.querySelector('input[type="checkbox"]');
     const indicatorContainer = document.createElement('span');
     indicatorContainer.className = 'indicator-container';
@@ -48,20 +49,20 @@ export function initFilters() {
 	
 
     iconsgrid.dataset.state = 'none';
-	checkbox.checked = false;
+	  checkbox.checked = false;
 	
-	const iconId = checkbox.value;
+	  const iconId = checkbox.value;
 
     iconsgrid.addEventListener('click', e => {
       e.preventDefault();
-	  const nextIndex = (states.indexOf(iconsgrid.dataset.state) + 1) % states.length;
+	    const nextIndex = (states.indexOf(iconsgrid.dataset.state) + 1) % states.length;
 	  
-	  allIconsOR += orDelta[nextIndex];
-	  allIconsAND += andDelta[nextIndex];
+	    allIconsOR += orDelta[nextIndex];
+	    allIconsAND += andDelta[nextIndex];
 	  
-	  iconstatesIndex = nextIndex;
+	    APPFILTERSTATE.iconstatesIndex = nextIndex;
 	  
-	  const nextState = states[nextIndex];
+	    const nextState = states[nextIndex];
       indicatorContainer.innerHTML = '';
 
       
@@ -73,22 +74,22 @@ export function initFilters() {
           indicatorContainer.appendChild(clone);
         }
         checkbox.checked = true;
-		iconParam.set(iconId, iconstatesIndex);
+		    iconParam.set(iconId, APPFILTERSTATE.iconstatesIndex);
       } else {
         checkbox.checked = false;
-		iconParam.delete(iconId);
+		    iconParam.delete(iconId);
       }
 
       iconsgrid.dataset.state = nextState;
 	  
-	  if (!instantFilterEnabled) startHeaderAnim(filterTime);
-	  runFilter();
+	    if (!instantFilterEnabled) startHeaderAnim(filterTime);
+	    runFilter();
     });
   });
 
   
   document.querySelectorAll('.filter-region label').forEach(filterregion => {
-	let regionstatesIndex = 0;
+	  APPFILTERSTATE.regionstatesIndex = 0;
     const checkbox = filterregion.querySelector('input[type="checkbox"]');
     const indicatorContainer = document.createElement('span');
     indicatorContainer.className = 'indicator-container';
@@ -96,20 +97,20 @@ export function initFilters() {
 
 
     filterregion.dataset.state = 'none';
-	checkbox.checked = false;
+	  checkbox.checked = false;
 	
-	const regionId = checkbox.value;
+	  const regionId = checkbox.value;
 
     filterregion.addEventListener('click', e => {
       e.preventDefault();
-	  const nextIndex = (states.indexOf(filterregion.dataset.state) + 1) % states.length;
+	    const nextIndex = (states.indexOf(filterregion.dataset.state) + 1) % states.length;
 	  
-	  allRegionOR += orDelta[nextIndex];
-	  allRegionAND += andDelta[nextIndex];
+	    allRegionOR += orDelta[nextIndex];
+	    allRegionAND += andDelta[nextIndex];
 
-	  regionstatesIndex = nextIndex;
+	    APPFILTERSTATE.regionstatesIndex = nextIndex;
 	  
-	  const nextState = states[nextIndex];
+	    const nextState = states[nextIndex];
       indicatorContainer.innerHTML = '';
 
       
@@ -121,16 +122,16 @@ export function initFilters() {
           indicatorContainer.appendChild(clone);
         }
         checkbox.checked = true;
-		regionParam.set(regionId, regionstatesIndex);
+		    regionParam.set(regionId, APPFILTERSTATE.regionstatesIndex);
       } else {
         checkbox.checked = false;
-		regionParam.delete(regionId);
+		    regionParam.delete(regionId);
       }
 
       filterregion.dataset.state = nextState;
 	  
-	  if (!instantFilterEnabled) startHeaderAnim(filterTime);
-	  runFilter();
+	    if (!instantFilterEnabled) startHeaderAnim(filterTime);
+	    runFilter();
     });
   });
   
@@ -153,7 +154,7 @@ export function initFilters() {
     const nextIndex = (states.indexOf(collectedswitch.dataset.state) + 1) % states.length;
     collectedstatesIndex = nextIndex;
 	  
-	const nextState = states[nextIndex];
+	  const nextState = states[nextIndex];
 
     indicatorContainercollectedswitch.innerHTML = '';
 
@@ -171,33 +172,33 @@ export function initFilters() {
 
     collectedswitch.dataset.state = nextState;
 	  
-	if (!instantFilterEnabled) startHeaderAnim(filterTime);
-	runFilter();
+	  if (!instantFilterEnabled) startHeaderAnim(filterTime);
+	  runFilter();
   });
   
   
   
   FILTERSIDEBAR.filterClearBtn.addEventListener('click', () => {
-	allIconsOR = 0;
-	allIconsAND = 0;
-	allRegionOR = 0;
-	allRegionAND = 0;
+    allIconsOR = 0;
+    allIconsAND = 0;
+    allRegionOR = 0;
+    allRegionAND = 0;
 	
-	iconParam.clear(); 
-	regionParam.clear();
-	document.querySelectorAll('.filter-body label').forEach(label => {
-	  iconstatesIndex = 0;
-	  regionstatesIndex = 0;
-	  collectedstatesIndex = 0;
-	  const indicatorContainer = label.querySelector('.indicator-container');
-	  const checkbox = label.querySelector('input[type="checkbox"]');
-	  indicatorContainer.innerHTML = '';
-	  checkbox.checked = false;
-	  label.dataset.state = 'none';
-	});
+    iconParam.clear(); 
+    regionParam.clear();
+    document.querySelectorAll('.filter-body label').forEach(label => {
+      APPFILTERSTATE.iconstatesIndex = 0;
+      APPFILTERSTATE.regionstatesIndex = 0;
+      collectedstatesIndex = 0;
+      const indicatorContainer = label.querySelector('.indicator-container');
+      const checkbox = label.querySelector('input[type="checkbox"]');
+      indicatorContainer.innerHTML = '';
+      checkbox.checked = false;
+      label.dataset.state = 'none';
+    });
 	
-	if (!instantFilterEnabled) startHeaderAnim(filterTime);
-	runFilter();
+    if (!instantFilterEnabled) startHeaderAnim(filterTime);
+    runFilter();
   });
 };
 
