@@ -19,3 +19,23 @@ export const API = {
     },
   },
 };
+
+export const API_RAW = {
+  auth: {
+    me: `/auth/me`,
+    googleLogin: `/auth/google/login`,
+  },
+
+  markers: {
+    all: `/markers/all`,
+    filter: `/markers/filter`,
+    single: `/markers/single`,
+    array: `/markers/array`,
+
+    collected: {
+      all: `/markers/collected`,
+      single: `/markers/collected/single`,
+      array: `/markers/collected/array`,
+    },
+  },
+};

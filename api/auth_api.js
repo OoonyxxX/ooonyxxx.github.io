@@ -1,4 +1,4 @@
-import { API } from "../api/config_api.js"
+import { API_RAW } from "../api/config_api.js"
 import { apiRequest } from "../api/request.js"
 import { ALLOWED_MET_ROLE } from "../core/config.js"
 import { AUTHTOPBAR, AUTHMODAL } from "../ui/sidebar.js"
@@ -6,7 +6,7 @@ import { toggleMET, MetEditor } from "../features/metEditor.js"
 import { APPMETSTATE, APPSTATE, USERSESSION, USERSETTINGS} from "../core/state.js"
 
 export async function checkAuth() {
-  const data = await apiRequest(API.auth.me);
+  const data = await apiRequest(API_RAW.auth.me);
 
   if (data.authorized) {
     USERSESSION.user_id = data.user_id;
