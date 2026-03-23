@@ -1,5 +1,4 @@
 import { map } from "../core/map.js"
-import { checkAuth } from "../api/auth.js"
 import { APPSTATE } from "../core/state.js"
 import { REGION_COLORS, REGION_UNDERGROUND_COLORS, REGION_LIST } from "../core/config.js"
 
@@ -73,8 +72,6 @@ export async function loadMapData() {
         paintSingleMarker(marker);
         MAPDATA.existingMarkers.set(id, marker);
     });
-
-    checkAuth();
   } catch (err) {
     console.error("JSON reading error:", err);
   }

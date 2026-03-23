@@ -6,7 +6,8 @@ import { cacheOptElements,
         cacheFilterElements, 
         initFilterElements, 
         cacheAuthElements, 
-        cacheHeaderElements 
+        cacheHeaderElements,
+        cacheLoginModalElements 
         } from "./ui/sidebar.js"
 import { cacheWindowMatches, initWindowEvents } from "./ui/adaptability.js"
 import { initCursor } from "./ui/cursor.js"
