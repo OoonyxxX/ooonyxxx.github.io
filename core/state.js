@@ -33,4 +33,6 @@ export const USERSESSION = {
     role: "",
 };
 
-
+export const USERSETTINGS = {
+    METActive: true,
+}
