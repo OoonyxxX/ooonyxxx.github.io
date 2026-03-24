@@ -6,8 +6,7 @@ import { toggleMET, MetEditor } from "../features/metEditor.js"
 import { APPMETSTATE, APPSTATE, USERSESSION, USERSETTINGS} from "../core/state.js"
 
 export async function checkAuth() {
-  const data = await apiRequest(API_RAW.auth.me);
-
+  const data = await apiRequest(API_RAW.auth.me, {}, [401]);
   if (data.authorized) {
     USERSESSION.user_id = data.user_id;
     USERSESSION.display_name = data.display_name;
@@ -33,7 +32,7 @@ export async function checkAuth() {
 export function enableAuthModal() {
   AUTHTOPBAR.loginButton.addEventListener('click', openAuthModal)
   AUTHMODAL.loginModalExit.addEventListener('click', closeAuthModal)
-  AUTHMODAL.loginModalGoogleImg.addEventListener('click', loginGoogle, { once: true })
+  AUTHMODAL.loginModalGoogleImg.addEventListener('click', loginGoogle)
 }
 export function disableAuthModal() {
   AUTHTOPBAR.loginButton.removeEventListener('click', openAuthModal)

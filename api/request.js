@@ -1,15 +1,13 @@
 import { API_BASE } from "./config_api.js";
 
-export async function apiRequest(path, options = {}) {
+export async function apiRequest(path, options = {}, allowedStatuses = []) {
   const response = await fetch(`${API_BASE}${path}`, {
     credentials: "include",
     ...options,
   });
 
-  if ((!response.ok) && (response.status !== 401)) {
+  if (!response.ok && !allowedStatuses.includes(response.status)) {
     let errorPayload;
-
-
 
     try {
       errorPayload = await response.json();
