@@ -6,8 +6,10 @@ export async function apiRequest(path, options = {}) {
     ...options,
   });
 
-  if (!response.ok) {
+  if ((!response.ok) && (response.status !== 401)) {
     let errorPayload;
+
+
 
     try {
       errorPayload = await response.json();
