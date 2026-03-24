@@ -51,6 +51,6 @@ function closeAuthModal() {
 }
 
 function loginGoogle() {
-  window.location.replace(API.auth.googleLogin);
+  window.location.assign(API.auth.googleLogin);
 }
 
