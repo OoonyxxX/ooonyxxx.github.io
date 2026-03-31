@@ -52,7 +52,6 @@ export function invertMarkerMap(m) {
       icon_id: m.icon_id, 
       lat: m.coords?.lat,
       lng: m.coords?.lng,
-      is_collected: m.is_collected ?? false
     }
   const fullData = {
     ...baseData,

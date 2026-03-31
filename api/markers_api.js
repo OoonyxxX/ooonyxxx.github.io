@@ -37,7 +37,7 @@ function markersUpsertArrayBuilder(diff) {
   const map = new Map();
 
   [...diff.added, ...diff.updated].forEach(e => {
-    const marker = invertMarkerMap(e.marker);
+    const marker = invertMarkerMap(e.marker.$data);
     map.set(marker.id, marker);
   });
 
@@ -66,7 +66,8 @@ export async function METRequest(diff) {
     postResult: null,
     deleteResult: null,
   };
-
+  console.log(markers)
+  console.log(ids)
   if (markers.length > 0) {
     result.postResult = await postMarkersArray(markers);
   }
