@@ -1511,7 +1511,7 @@ body::-webkit-scrollbar {
     align-items: center;
 }
 
-.met.optheader {
+.met .optheader {
     background: #0B0B0B;
     border-bottom-right-radius: 16px;
     border-bottom-left-radius: 16px;
