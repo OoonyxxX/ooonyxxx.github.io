@@ -121,19 +121,23 @@ export function bindMarkerPopup(marker, p_data, p) {
     const popupEl = e.popup.getElement();
     const checkbox = popupEl.querySelector('.marker-collected');
     if (!checkbox) return;
+    if (USERSESSION.user_id) {
+      checkbox.onchange = async (ev) => {
+        const id = ev.target.dataset.id;
+        const checked = ev.target.checked;
 
-    checkbox.onchange = async (ev) => {
-      const id = ev.target.dataset.id;
-      const checked = ev.target.checked;
+        try {
+          const response = await postCollectedMarker(id);
+          console.log('Changed:', id, checked, response);
+        } catch (err) {
+          console.error('Failed to update collected state:', err);
+          ev.target.checked = !checked;
+        }
+      };
+    } else {
+      checkbox.disabled = true;
+    }
 
-      try {
-        const response = await postCollectedMarker(id);
-        console.log('Changed:', id, checked, response);
-      } catch (err) {
-        console.error('Failed to update collected state:', err);
-        ev.target.checked = !checked;
-      }
-    };
   });
 }
 
