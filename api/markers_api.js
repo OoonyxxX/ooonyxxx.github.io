@@ -54,7 +54,7 @@ async function postMarkersArray(markers) {
 async function deleteMarkersArray(ids) {
   return await apiRequest(API_RAW.markers.array, buildJsonOptions({
     method: "DELETE",
-    data: ids
+    data: { markerIds: ids }
   }), []);
 }
 
