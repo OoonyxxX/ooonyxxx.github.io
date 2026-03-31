@@ -100,8 +100,7 @@ export function createMarker(marker_data) {
 
   const marker = L.marker(coords, { icon })
 
-  marker.$data.coords = coords
-  marker.$data.icon_id = icon_id
+  marker.$data = { coords, icon_id }
 
   return marker;
 }
