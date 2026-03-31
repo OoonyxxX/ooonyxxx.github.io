@@ -219,11 +219,11 @@ export class MetEditor {
   //Кнопка сохранения изменений
   btnSaveInit() {
     this.editPopup.remove();
-    this.exitSave = true;
     METRequest(this.diff);
-    this.metControlsToggler({
-      btnSave: {open: true, disabled: true},
-    });
+	  this.diff.added   = [];
+	  this.diff.updated = [];
+	  this.diff.deleted = [];
+    this.updateSaveState();
   }
 
   //Кнопка выключения МЕТ
@@ -320,6 +320,7 @@ export class MetEditor {
 
   updateSaveState() {
     const hasChanges = !(this.diff.added.length || this.diff.updated.length || this.diff.deleted.length);
+    this.exitSave = hasChanges;
     this.metControlsToggler({
       btnSave: {open: true, disabled: hasChanges},
     });
