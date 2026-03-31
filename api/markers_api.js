@@ -1,6 +1,6 @@
 import {apiRequest, buildJsonOptions} from "./request.js"
 import { API_RAW } from "../api/config_api.js"
-import { invertMarkerMap } from "./markers.js"
+import { invertMarkerMap } from "../features/markers.js"
 
 export async function getAllMarkers() {
   return await apiRequest(API_RAW.markers.all, {}, []);
