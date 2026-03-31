@@ -292,10 +292,9 @@ export class MetEditor {
   onMapClick(e) {
     if (!this.addingMarker) return;
     this.addingMarker = !this.addingMarker
-    const defaultIcon = MAPDATA.icons.default || MAPDATA.icons["default"];
     const { lat, lng } = e.latlng;
     const marker = createMarker({
-      icon_id: defaultIcon, 
+      icon_id: 'default', 
       coords: { lat, lng }, 
     });
     marker.addTo(map);
