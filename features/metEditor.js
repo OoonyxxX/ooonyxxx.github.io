@@ -299,6 +299,7 @@ export class MetEditor {
       coords: { lat, lng }, 
     });
     marker.addTo(map);
+    this.setAddMode()
     this.openEditPopup(marker, true);
     marker.on('click', this.onMarkerClick_Handle_Click);
   }
@@ -352,8 +353,8 @@ export class MetEditor {
     iconSel.value     = marker.$data?.icon_id || 'default';
     regSel.value      = marker.$data?.reg_id || 'auto';
     levelIn.checked   = marker.$data?.under_ground ?? false;
-    latIn.value       = marker.$data?.coords.lat ?? latlng[0];
-    lngIn.value       = marker.$data?.coords.lng ?? latlng[1];
+    latIn.value       = marker.$data?.coords.lat ?? latlng.lat;
+    lngIn.value       = marker.$data?.coords.lng ?? latlng.lng;
     colorPicker.color.set(marker.$data?.raw_rgbcolor ?? '#fff');
     return content
   }

@@ -97,8 +97,11 @@ export function createMarker(marker_data) {
     icon_id
   } = marker_data;
   const icon  = MAPDATA.icons[icon_id] || MAPDATA.icons.default;
-  
+
   const marker = L.marker(coords, { icon })
+
+  marker.$data.coords = coords
+  marker.$data.icon_id = icon_id
 
   return marker;
 }
