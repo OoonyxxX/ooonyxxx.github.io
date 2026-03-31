@@ -425,7 +425,7 @@ export class MetEditor {
     iconSel.addEventListener('change', e => {
       const ic = MAPDATA.icons[e.target.value] || MAPDATA.icons.default;
       editingMarker.setIcon(ic);
-      editingMarker.$data.icon_id = ic;
+      editingMarker.$data.icon_id = e.target.value;
       paintMarkers(editingMarker);
     });
 	  
