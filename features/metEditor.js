@@ -470,11 +470,9 @@ export class MetEditor {
       const { lat, lng } = e.target.getLatLng();
       latIn.value = lat.toFixed(6);
       lngIn.value = lng.toFixed(6);
-      e.$data.coords = {lat: latIn.value, lng: lngIn.value};
-      if (this.editPopupOpen) {
-        const dragShiftedLatLng = this.shiftLatLng(e.target.getLatLng(), 40);
-        this.editPopup.setLatLng(dragShiftedLatLng)
-      }
+      e.target.$data.coords = { lat: latIn.value, lng: lngIn.value };
+      const dragShiftedLatLng = this.shiftLatLng(e.target.getLatLng(), 40);
+      this.editPopup.setLatLng(dragShiftedLatLng)
     });
     editingMarker.on('dragend', () => { 
       editingMarker.dragging.enable();
