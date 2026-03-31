@@ -211,7 +211,11 @@ function markerColorPick (marker) {
   const markerUnderground = APPSTATE.heightDisplayEnabled && marker.$data.under_ground;
   const cssHexColor = REGION_COLORS[marker.$data.reg_id] || '#fff';
   const cssHeightHexColor = REGION_UNDERGROUND_COLORS[marker.$data.reg_id] || '#7f7f7f';
-  const { r, g, b } = marker.$data.raw_rgbcolor;
+  const {
+    r = 255,
+    g = 255,
+    b = 255
+  } = marker.$data.raw_rgbcolor ?? {};
   const white = [r, g, b].every(v => v === 255);
   const cWhite = '#fff';
   const cGray = '#7f7f7f';
