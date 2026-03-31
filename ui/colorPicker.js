@@ -25,7 +25,7 @@ export function attachColorPicker(container, marker) {
     // Создаем конфиг, объединяя стандартный с переданным цветом
     const config = {
         ...PICKER_CONFIG,
-        color: marker.$data.raw_rgbcolor || '#fff',
+        color: marker.$data?.raw_rgbcolor || '#fff',
     };
 
 
