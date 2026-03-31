@@ -232,9 +232,10 @@ export class MetEditor {
       METUI.exitText.textContent = 'Are you sure you want to exit without saving the changes? ' + 'All edits will be lost.';
       this.openExitModal();
       return
+    } else {
+      this.exitWithoutModal();
+      return
     }
-    this.exitWithoutModal();
-    return
   }
 
   openExitModal() {
