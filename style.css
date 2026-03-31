@@ -702,6 +702,11 @@ body::-webkit-scrollbar {
 .login-modal-google-img {
   z-index: 9991;
 }
+.login-modal-exit-img {
+  width: 2rem;
+  height: 2rem;
+}
+
 .login-modal-content {
     display: flex;
 }
@@ -1506,7 +1511,7 @@ body::-webkit-scrollbar {
     align-items: center;
 }
 
-.met .optheader {
+.met.optheader {
     background: #0B0B0B;
     border-bottom-right-radius: 16px;
     border-bottom-left-radius: 16px;
@@ -1637,3 +1642,7 @@ body::-webkit-scrollbar {
 	}
 }
 */
+
+.btn-delete.hide {
+    display: none;
+}

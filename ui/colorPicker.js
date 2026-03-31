@@ -1,4 +1,4 @@
-import { dynamicPaintSingleMarker } from "../features/markers.js"
+import { dynamicPaintMarker } from "../features/markers.js"
 // Параметры colorPicker
 const PICKER_CONFIG = {
     width: 200,
@@ -25,7 +25,7 @@ export function attachColorPicker(container, marker) {
     // Создаем конфиг, объединяя стандартный с переданным цветом
     const config = {
         ...PICKER_CONFIG,
-        color: marker.options.custom_csscolor || '#fff',
+        color: marker.$data.raw_rgbcolor || '#fff',
     };
 
 
@@ -35,9 +35,8 @@ export function attachColorPicker(container, marker) {
 
     // Подписываемся на события
     colorPicker.on('color:change', (color) => {
-		const { r, g, b } = color.rgb;
-		PICKER_ITEM.colorIn.value = `${r},${g},${b}`;
-        dynamicPaintSingleMarker(marker, color.rgb);
+		PICKER_ITEM.colorIn.value = `${color.rgb.r},${color.rgb.g},${color.rgb.b}`;
+        dynamicPaintMarker(marker, color.rgb);
     });
 
     return colorPicker;

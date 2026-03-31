@@ -20,13 +20,14 @@ export const MAP_CONFIG = {
 }
 
 export const REGION_COLORS = {
-    fox_island:   '#ffb257',
-    misthaven:    '#b890f9',
-    mosswood:     '#69ec72',
-    stormvale:    '#e6f368',
-    frigid_peaks: '#89e1f0',
-    ashlands:     '#fa7a7a',
-    ocean:        '#7497f7',
+  fox_island:   '#ffb257',
+  misthaven:    '#b890f9',
+  mosswood:     '#69ec72',
+  stormvale:    '#e6f368',
+  frigid_peaks: '#89e1f0',
+  ashlands:     '#fa7a7a',
+  ocean:        '#7497f7',
+  auto:         '#ffffff',
 };
 
 export const REGION_UNDERGROUND_COLORS = {
@@ -37,6 +38,7 @@ export const REGION_UNDERGROUND_COLORS = {
   frigid_peaks: '#27acc4',
   ashlands:     '#993d3d',
   ocean:        '#385299',
+  auto:         '#ffffff',
 };
 /*
 export const ALLOWED_EDITORS = [
@@ -59,6 +61,10 @@ export const ALLOWED_MET_ROLE = [
     "admin"
 ];
 
+export const ALLOWED_MET_DELETE_ROLE = [
+    "moderator", 
+    "admin"
+];
 
 export const REGION_LIST = {
     0: "ocean",

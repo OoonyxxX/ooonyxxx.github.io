@@ -1,8 +1,9 @@
-import { MAPDATA, dynamicPaintSingleMarker, paintSingleMarker } from "./markers.js"
+import { MAPDATA, paintMarkers, createMarker, markerBuilder } from "./markers.js"
+import { METRequest } from "../api/markers_api.js"
 import { map } from "../core/map.js"
-import { REGION_LIST } from "../core/config.js"
+import { USERSESSION } from "../core/state.js"
+import { REGION_LIST, ALLOWED_MET_DELETE_ROLE } from "../core/config.js"
 import { attachColorPicker } from "../ui/colorPicker.js"
-
 
 //Переменные блока MET
 //START
@@ -11,39 +12,73 @@ import { attachColorPicker } from "../ui/colorPicker.js"
 export const METUI = {};
 
 export function cacheMETUIElements() {
-    METUI.metControls   = document.getElementById('met-controls');
-    METUI.btnActivate   = document.getElementById('activate-met');
-    METUI.btnExit       = document.getElementById('exit-met');
-    METUI.btnAdd        = document.getElementById('add-marker');
-    METUI.btnSave       = document.getElementById('save-changes');
-    METUI.timerProgress = document.getElementById('timerProgressCircle');
-    METUI.blueTimer     = document.getElementById('TimerBlue');
-    METUI.redTimer      = document.getElementById('TimerRed');
+  METUI.metControls   = document.getElementById('met-controls');
+  METUI.timerProgress = document.getElementById('timerProgressCircle');
+  METUI.blueTimer     = document.getElementById('TimerBlue');
+  METUI.redTimer      = document.getElementById('TimerRed');
+  METUI.metInited     = false;
 
-    // Начальное состояние
-    if (METUI.btnActivate) {
-        METUI.btnActivate.disabled = true;
-        METUI.btnActivate.classList.add('disabled')
-    }
-    if (METUI.btnExit) {
-        METUI.btnExit.disabled = true;
-        METUI.btnExit.classList.add('disabled')
-    }
-    if (METUI.btnAdd) {
-        METUI.btnAdd.disabled = true;
-        METUI.btnAdd.classList.add('disabled')
-    }
-    if (METUI.btnSave) {
-        METUI.btnSave.disabled = true;
-        METUI.btnSave.classList.add('disabled')
-    }
+  //Переменные модалки выхода
+  METUI.exitModal      = document.getElementById('exit-modal');
+  METUI.exitText       = document.getElementById('exit-modal-text');
+  METUI.exitButtons    = document.getElementById('exit-modal-buttons');
+  METUI.exitYes        = document.getElementById('exit-yes');
+  METUI.exitNo         = document.getElementById('exit-no');
+  METUI.exitLoader     = document.getElementById('exit-modal-loader');
+  METUI.exitLoaderText = document.getElementById('exit-modal-loader-text');
 }
 
-export function toggleMET(isOpen) {
-  METUI.metControls.classList.toggle('open',     isOpen);
-  METUI.btnActivate.classList.toggle('open',     isOpen);
-  METUI.btnActivate.classList.toggle('disabled', !isOpen);
-  METUI.btnActivate.disabled = !isOpen;
+function applyButtonState(button, state = {}) {
+  if (!button || !state) return;
+  const {
+    open,
+    disabled
+  } = state;
+
+  if (disabled !== undefined) {
+    button.disabled = disabled;
+    button.classList.toggle('disabled', disabled);
+  }
+
+  if (open !== undefined) {
+    button.classList.toggle('open', open);
+  }
+} // btn: ['open', 'disabled']
+
+export function toggleMETControls(isOpen) {
+  if (isOpen && !METUI.METControlsState) {
+    if (!METUI.metInited) {
+      METUI.metControls.innerHTML = `
+        <div class="met-controls-container">
+          <h3 class="optheader">MET Controllers</h3>
+          <div class="met-button-container">
+            <button id="activate-met" class="btn-met btn-start open">Activate MET</button>
+            <button id="exit-met" class="btn-met btn-exit disabled" disabled>Exit MET</button>
+            <button id="add-marker" class="btn-met btn-add disabled" disabled>Add Marker</button>
+            <button id="save-changes" class="btn-met btn-save disabled" disabled>Save Changes</button>
+          </div>
+        </div>
+      `;
+      METUI.btnActivate = METUI.metControls.querySelector('#activate-met');
+      METUI.btnExit     = METUI.metControls.querySelector('#exit-met');
+      METUI.btnAdd      = METUI.metControls.querySelector('#add-marker');
+      METUI.btnSave     = METUI.metControls.querySelector('#save-changes');
+    }
+    METUI.metControls.classList.toggle('open', true);
+    METUI.METControlsState = true;
+  }
+  
+  if (!isOpen && METUI.METControlsState) {
+    if (!METUI.metInited) {
+      METUI.metControls.innerHTML = ``;
+      METUI.btnActivate = null;
+      METUI.btnExit = null;
+      METUI.btnAdd = null;
+      METUI.btnSave = null;
+    }
+    METUI.metControls.classList.toggle('open', false);
+    METUI.METControlsState = false;
+  }
 }
 
 //Блок MET
@@ -59,255 +94,32 @@ export class MetEditor {
       className: 'edit-popup-class'
     });
 
-    this.icons = MAPDATA.icons
-    this.originalMarkersData = MAPDATA.originalMarkersData
-    this.existingMarkers = MAPDATA.existingMarkers
-
     this.map = map
 
     this.exitchecker = false;
     this.popapsaved = false;
-    this.metActive = false;
     this.addingMarker = false;
     this.editPopupOpen = false;
     this.diff = { added: [], updated: [], deleted: [] };
 
-    //UI кнопки
-    this.btnActivate = METUI.btnActivate;
-    this.btnExit = METUI.btnExit;
-    this.btnAdd = METUI.btnAdd;
-    this.btnSave = METUI.btnSave;
     
-    this.ctx = 0;
+    this.ctx;
     this.tpl = document.getElementById('marker-form-template');
-    this.exitSave = false;
+    this.exitSave;
 
-    //Пути к бекенд серверу(Из config.js)
-    this.deploy_status = false;
-    this.update_markers = false;
+    this.btnActivateInit_Handle_Click = this.btnActivateInit.bind(this);
+    this.btnAddInit_Handle_Click = this.btnAddInit.bind(this);
+    this.btnSaveInit_Handle_Click = this.btnSaveInit.bind(this);
+    this.btnExitInit_Handle_Click = this.btnExitInit.bind(this);
 
-    //Переменные модалки выхода
-    this.exitModal      = document.getElementById('exit-modal');
-    this.exitText       = document.getElementById('exit-modal-text');
-    this.exitButtons    = document.getElementById('exit-modal-buttons');
-    this.exitYes        = document.getElementById('exit-yes');
-    this.exitNo         = document.getElementById('exit-no');
-    this.exitLoader     = document.getElementById('exit-modal-loader');
-    this.exitLoaderText = document.getElementById('exit-modal-loader-text');
+    this.onMarkerClick_Handle_Click = this.onMarkerClick.bind(this);
+    this.onMapClick_Handle_Click = this.onMapClick.bind(this);
 
   }
 
-	discardChanges() {
-    this.editPopup.remove();
-  
-    this.existingMarkers.clear();
-  
-	  if (this.icons["default"]) {
-      this.icons.default = this.icons["default"];
-	  } else {
-      this.icons.default = Object.values(this.icons)[0];
-	  }
-
-	  this.originalMarkersData.forEach(m => {
-      const {id, name, description, icon_id, coords, reg_id, level, color} = m;
-      const icon = this.icons[icon_id] || this.icons.default;
-      const marker = L.marker(coords, { icon }).bindPopup(`<b>${name}</b><br>${description}`);
-      marker.options.id = id;
-      marker.options.name = name;
-      marker.options.description = description;
-      marker.options.icon_id = icon_id;
-      marker.options.coords = coords;
-      marker.options.region = reg_id;
-      marker.options.level = level;
-      marker._$visible = true;
-      
-      const { R, G, B } = color;
-      const cssColor = `rgb(${R}, ${G}, ${B})`;
-      marker.options.custom_rgbcolor = color;
-      marker.options.custom_csscolor = cssColor;
-      const Rh = Math.floor(R / 2);
-      const Gh = Math.floor(G / 2);
-      const Bh = Math.floor(B / 2);
-      marker.options.height_color = `rgb(${Rh}, ${Gh}, ${Bh})`;
-      this.existingMarkers.set(id, marker);
-	  });
-
-	  this.diff.added   = [];
-	  this.diff.updated = [];
-	  this.diff.deleted = [];
-	  this.updateSaveState();
-	}
-
-
-  init() {
-    //Кнопка включения МЕТ
-    this.btnActivate.addEventListener('click', () => {
-      this.metActive = true;
-      if (this.ctx != 0) {
-        (async () => {
-          this.ctx = await this.initRegionCanvas('Regions.png');
-        })();
-      }
-
-      this.btnActivate.disabled = true;
-      this.btnActivate.classList.add('disabled')
-
-      this.btnExit.disabled = false;
-      this.btnExit.classList.remove('disabled')
-      this.btnExit.classList.add('open');
-
-      this.btnSave.classList.add('open');
-
-      this.btnAdd.disabled = false;
-      this.btnAdd.classList.remove('disabled')
-      this.btnAdd.classList.add('open');
-      this.addingMarker = false;
-      this.setAddMode();
-      
-      this.existingMarkers.forEach(m => {
-        m.off('click');
-        m.on('click', this.onMarkerClick);
-      });
-    });
-
-    //Кнопка выключения МЕТ
-    this.btnExit.addEventListener('click', () => {
-      //Exit Modal
-      //START
-      this.exitLoader.classList.add('exit-hidden');
-      this.exitButtons.classList.remove('exit-hidden');
-      
-      if (!this.exitSave) {
-        // --------------------------------------------------
-        // Выход БЕЗ сохранения
-        this.exitText.textContent = 'Are you sure you want to exit without saving the changes? ' + 'All edits will be lost.';
-      } else {
-        // --------------------------------------------------
-        // Выход С сохранением
-        const h = new Intl.DateTimeFormat('en-US', {
-          hour:     'numeric',
-          hour12:   false,
-          timeZone: 'Europe/Kiev'
-        }).format(new Date());
-
-        const peakStart = 16, peakEnd = 22;
-        const waitMin   = (h >= peakStart && h < peakEnd) ? 7 : 2;
-        const minutesWord = waitMin === 1 ? 'minute' :
-                            (waitMin >= 2 && waitMin <= 4) ? 'minutes' : 'minutes';
-        this.exitText.innerHTML = 'Are you sure you want to save the changes and exit?<br>' +
-                            `Processing time can take up to ${waitMin} ${minutesWord}.`;
-      }
-      
-      this.exitModal.classList.remove('exit-hidden');
-      const baseMessage = 'The changes you make are sent to the server, ' + 'please don`t close the tab.<br>' + 
-                          'Once the server processes the changes, the page will refresh automatically and they will take effect. ' + 
-                          'Please note: during peak hours processing time can be up to 7 minutes.<br>';
-      
-      //Слушатель отмены выхода
-      this.exitNo.addEventListener('click', () => {
-        this.exitModal.classList.add('exit-hidden');
-      });
-
-      this.exitYes.addEventListener('click', () => {
-        if (!this.exitSave) {
-          // Выход без сохранения
-          this.exitModal.classList.add('exit-hidden');
-
-          this.metActive = false;
-
-          this.btnActivate.classList.remove('disabled')
-          this.btnActivate.disabled = false;
-
-          this.btnExit.classList.add('disabled')
-          this.btnExit.disabled = true;
-          this.btnExit.classList.remove('open');
-
-          this.btnSave.classList.remove('open');
-
-          this.btnAdd.classList.add('disabled')
-          this.btnAdd.disabled = true;
-          this.btnAdd.classList.remove('open');
-          this.addingMarker = false;
-          this.setAddMode();
-          
-          this.discardChanges();
-        } else {
-          //Сохраняем и выходим
-          this.exitText.innerHTML = '';
-          this.exitButtons.classList.add('exit-hidden');
-          this.exitLoader.classList.remove('exit-hidden');
-          
-          console.log('Diff before sending:', this.diff);
-          
-          this.exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>checking…</em>';
-          //this.startDeployPolling();
-          fetch(this.update_markers, {
-            method: 'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.diff)
-          }).catch(err => console.error(err));
-        }
-      });
-      //END
-      //Exit Modal
-    });
-        
-    //Переключатель кнопки btnAdd
-    this.btnAdd.addEventListener('click', () => {
-      if (!this.metActive) return;
-      this.editPopup.remove();
-      this.addingMarker = !this.addingMarker;
-      this.setAddMode();
-    });
-
-    this.btnSave.addEventListener('click', () => {
-      this.exitSave = true;
-      this.btnSave.classList.add('disabled')
-      this.btnSave.disabled = true;
-      this.btnExit.textContent = 'Exit and save';
-      this.editPopup.remove();
-    });
-  }
-
-  updateSaveState() {
-    const hasChanges = !(this.diff.added.length || this.diff.updated.length || this.diff.deleted.length);
-    this.btnSave.classList.toggle('disabled', hasChanges);
-    this.btnSave.disabled = !(this.diff.added.length || this.diff.updated.length || this.diff.deleted.length);
-  }
-
-  onMarkerClick = (e) => {
-    if (this.editPopupOpen) return;
-    if (this.addingMarker) return;
-    const marker = e.target;
-    this.openEditPopup(marker, false);
-  };
-
-  onMapClick = (e) => {
-    if (!this.addingMarker) return;
-    const newIcon = this.icons.default || this.icons["default"];
-    const marker = L.marker(e.latlng, {icon: newIcon}).addTo(this.map);
-    this.openEditPopup(marker, true);
-    this.addingMarker = !this.addingMarker;
-    this.existingMarkers.forEach(m => {
-      m.on('click', this.onMarkerClick);
-    });
-    this.setAddMode();
-  }
-
-  setAddMode() {
-    if (this.addingMarker) {
-      this.btnAdd.classList.add('btnAddMode');
-      this.map.on('click', this.onMapClick);
-    } else {
-      this.btnAdd.classList.remove('btnAddMode');
-      this.map.off('click', this.onMapClick);
-    }
-  }
 
   //Обработчик маски регионов
 	initRegionCanvas(src) {
-	  console.log('initRegionCanvas(', src, ')');
 	  return new Promise((resolve, reject) => {
       const img = new Image();
       img.crossOrigin = 'anonymous';
@@ -325,6 +137,7 @@ export class MetEditor {
 	  });
 	}
 
+  // Генератор id для новых маркеров
   genId(title, lat, lng) {
     const safeTitle = title.trim().replace(/\s+/g, '_');
     const rand = String(Math.floor(Math.random() * 1e8)).padStart(8, '0');
@@ -333,46 +146,13 @@ export class MetEditor {
     return `${safeTitle}_${rand}_${latPart}_${lngPart}`;
   }
 
+
 	shiftLatLng(latlng, offsetYInPixels) {
 	  const point = this.map.latLngToLayerPoint(latlng);
 	  point.y -= offsetYInPixels;
 	  return this.map.layerPointToLatLng(point);
 	}
-/*
-  startDeployPolling() {
-    const intervalId = setInterval(async () => {
-      try {
-        const res = await fetch(this.deploy_status, {
-          method: 'GET',
-          credentials: 'include'
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        const { status } = await res.json();
-
-        // Обновляем текст
-        this.exitLoaderText.innerHTML = baseMessage + `Deploy status: <strong>${status}</strong>`;
-
-        if (status === 'built') {
-          clearInterval(intervalId);
-          this.exitLoaderText.innerHTML += '<br style="color:green">Page will refresh in 5 seconds...';
-          setTimeout(() => {
-              const url = new URL(window.location.href);
-              url.searchParams.set('_', Date.now());
-              window.location.replace(url.toString());
-          }, 5_000);
-        }
-        else if (status === 'errored') {
-          clearInterval(intervalId);
-          this.exitLoaderText.innerHTML += '<br style="color:red">Error during deployment. Please try again later.';
-        }
-      } catch (err) {
-        console.error('Deploy status check failed:', err);
-        this.exitLoaderText.innerHTML = baseMessage + 'Deploy status: <em>unknown (error)</em>';
-      }
-    }, 5_000);
-  }
-*/
   getRegionIndex(ctx, posX, posY) {
     const x = Math.floor(posX * 32);
     const y = 8192 - Math.floor(posY * 32);
@@ -383,23 +163,168 @@ export class MetEditor {
     return R;  // reg_index
   }
 
-  openEditPopup(marker, isNew) {
-    console.log("Edit Popap Open");
-    this.popapsaved = false;
-    this.editPopup = L.popup({
-      autoClose: false,
-      closeOnClick: false,
-      autoPan: false,
-      closeButton: false,
-      className: 'edit-popup-class'
+  metControlsToggler(buttonStates = {}) {
+    applyButtonState(METUI.btnActivate, buttonStates.btnActivate);
+    applyButtonState(METUI.btnExit,     buttonStates.btnExit);
+    applyButtonState(METUI.btnAdd,      buttonStates.btnAdd);
+    applyButtonState(METUI.btnSave,     buttonStates.btnSave);
+  } // btn: ['open', 'disabled']
+
+
+
+  // Метод активации МЕТ
+  init() {
+    METUI.metInited = true;
+    METUI.btnActivate.addEventListener('click', this.btnActivateInit_Handle_Click);
+    METUI.btnAdd.addEventListener('click', this.btnAddInit_Handle_Click);
+    METUI.btnSave.addEventListener('click', this.btnSaveInit_Handle_Click);
+    METUI.btnExit.addEventListener('click', this.btnExitInit_Handle_Click);
+  }
+
+  destroy() {
+    METUI.btnActivate.removeEventListener('click', this.btnActivateInit_Handle_Click);
+    METUI.btnAdd.removeEventListener('click', this.btnAddInit_Handle_Click);
+    METUI.btnSave.removeEventListener('click', this.btnSaveInit_Handle_Click);
+    METUI.btnExit.removeEventListener('click', this.btnExitInit_Handle_Click);
+  }
+
+  //Кнопка включения МЕТ
+  btnActivateInit() {
+    if (!this.ctx) {
+      (async () => {
+        this.ctx = await this.initRegionCanvas('Regions.png');
+      })();
+    }
+    this.metControlsToggler({
+      btnActivate: {open: true, disabled: true},
+      btnExit: {open: true, disabled: false},
+      btnAdd: {open: true, disabled: false},
+      btnSave: {open: true, disabled: true},
     });
-    if (isNew) {
-      this.exitchecker = true;
-    } else {
-      this.exitchecker = false;
+
+    this.setAddMode();
+    
+    MAPDATA.existingMarkers.forEach((marker, id) => {
+      marker.off('click');
+      marker.on('click', this.onMarkerClick_Handle_Click);
+    });
+  }
+
+  //Кнопка добавления маркера
+  btnAddInit() {
+    this.editPopup.remove();
+    this.setAddMode(!this.addingMarker);
+  }
+
+  //Кнопка сохранения изменений
+  btnSaveInit() {
+    this.editPopup.remove();
+    this.exitSave = true;
+    METRequest(this.diff);
+    this.metControlsToggler({
+      btnSave: {open: true, disabled: true},
+    });
+  }
+
+  //Кнопка выключения МЕТ
+  btnExitInit() {
+    if (!this.exitSave && (this.exitSave !== undefined)) {
+      METUI.exitText.textContent = 'Are you sure you want to exit without saving the changes? ' + 'All edits will be lost.';
+      this.openExitModal();
+      return
+    }
+    this.exitWithoutModal();
+    return
+  }
+
+  openExitModal() {
+    METUI.exitModal.classList.remove('exit-hidden');
+    const exitNoHandler = () => {
+      METUI.exitModal.classList.add('exit-hidden');
     };
-    marker.unbindPopup();
-    marker.setZIndexOffset(1000);
+    METUI.exitNo.addEventListener('click', exitNoHandler, { once: true });
+
+    const exitYesHandler = () => {
+      METUI.exitModal.classList.add('exit-hidden');
+      this.globalDiscardChanges();
+      this.exitWithoutModal();
+    };
+    METUI.exitYes.addEventListener('click', exitYesHandler, { once: true });
+  }
+
+  exitWithoutModal() {
+    this.setAddMode();
+    this.metControlsToggler({
+      btnActivate: {open: true, disabled: false},
+      btnExit: {open: false, disabled: true},
+      btnAdd: {open: false, disabled: true},
+      btnSave: {open: false, disabled: true},
+    });
+
+    this.editPopup.remove();
+    this.destroy();
+  }
+
+
+	globalDiscardChanges() {
+    MAPDATA.existingMarkers.clear();
+
+    MAPDATA.markersData.forEach(m => {
+        const marker = markerBuilder(m.baseData, m.fullData)
+        marker.addTo(map);
+        paintMarkers(marker);
+        MAPDATA.existingMarkers.set(marker.$data.id, marker);
+    });
+
+	  this.diff.added   = [];
+	  this.diff.updated = [];
+	  this.diff.deleted = [];
+	  this.updateSaveState();
+	}
+
+  onMarkerClick(e) {
+    if (this.editPopupOpen) return;
+    if (this.addingMarker) return;
+    const marker = e.target;
+    this.openEditPopup(marker, false);
+  };
+
+  onMapClick(e) {
+    if (!this.addingMarker) return;
+    this.addingMarker = !this.addingMarker
+    const defaultIcon = MAPDATA.icons.default || MAPDATA.icons["default"];
+    const { lat, lng } = e.latlng;
+    const marker = createMarker({
+      icon_id: defaultIcon, 
+      coords: { lat, lng }, 
+    });
+    marker.addTo(map);
+    this.openEditPopup(marker, true);
+    marker.on('click', this.onMarkerClick_Handle_Click);
+  }
+
+  setAddMode(addingMarker) {
+    this.addingMarker = addingMarker ?? false;
+
+    // всегда сначала снимаем
+    this.map.off('click', this.onMapClick_Handle_Click);
+
+    if (this.addingMarker) {
+      METUI.btnAdd.classList.add('btnAddMode');
+      this.map.once('click', this.onMapClick_Handle_Click);
+    } else {
+      METUI.btnAdd.classList.remove('btnAddMode');
+    }
+  }
+
+  updateSaveState() {
+    const hasChanges = !(this.diff.added.length || this.diff.updated.length || this.diff.deleted.length);
+    this.metControlsToggler({
+      btnSave: {open: true, disabled: hasChanges},
+    });
+  }
+
+  buildPopup(marker) {
     const content = this.tpl.content.cloneNode(true);
     const form = content.querySelector('#marker-form');
     const titleIn = form.querySelector('input[name="title"]');
@@ -411,10 +336,8 @@ export class MetEditor {
     const latIn = form.querySelector('input[name="lat"]');
     const lngIn = form.querySelector('input[name="lng"]');
     const latlng = marker.getLatLng();
-
-
     //Инициализация colorPicker
-    const colorPicker = attachColorPicker(form, marker)
+    const colorPicker = attachColorPicker(form, marker);
 
     //Сборка попапа
     MAPDATA.iconsData.forEach(ic => {
@@ -424,31 +347,40 @@ export class MetEditor {
       iconSel.append(icOpt);
     });
 
-    if (isNew) {
-      titleIn.value = 'Name_PlaceHolder';
-      descIn.value = 'Description_PlaceHolder';
-      iconSel.value = 'default';
-      marker.options.icon_id = 'default';
-      regSel.value = 'auto';
-      levelIn.checked = false;
-      latIn.value = latlng.lat;
-      lngIn.value = latlng.lng;
-      colorPicker.color.set('#fff');
-    } else {
-      titleIn.value = marker.options.name;
-      descIn.value = marker.options.description;
-      iconSel.value = marker.options.icon_id || 'default';
-      regSel.value = marker.options.region || 'auto';
-      levelIn.checked = marker.options.level;
-      latIn.value = marker.options.coords[0];
-      lngIn.value = marker.options.coords[1];
-      colorPicker.color.set(marker.options.custom_csscolor || '#fff');
+    titleIn.value     = marker.$data?.name ?? 'Name_PlaceHolder';
+    descIn.value      = marker.$data?.description ?? 'Description_PlaceHolder';
+    iconSel.value     = marker.$data?.icon_id || 'default';
+    regSel.value      = marker.$data?.reg_id || 'auto';
+    levelIn.checked   = marker.$data?.under_ground ?? false;
+    latIn.value       = marker.$data?.coords.lat ?? latlng[0];
+    lngIn.value       = marker.$data?.coords.lng ?? latlng[1];
+    colorPicker.color.set(marker.$data?.raw_rgbcolor ?? '#fff');
+    return content
+  }
+
+  openEditPopup(editingMarker, isNew) {
+    this.popapsaved = false;
+    this.editPopup = L.popup({
+      autoClose: false,
+      closeOnClick: false,
+      autoPan: false,
+      closeButton: false,
+      className: 'edit-popup-class'
+    });
+    if (!isNew) {
+      this.oldMarkerData = {...editingMarker.$data}
     }
-	  //END
-	  //Сборка попапа
-      console.log(form);
+    editingMarker.unbindPopup();
+    editingMarker.setZIndexOffset(1000);
+    const content = this.buildPopup(editingMarker);
+    const form = content.querySelector('#marker-form');
+    
+    const iconSel = form.querySelector('select[name="icon"]');
+    const latIn = form.querySelector('input[name="lat"]');
+    const lngIn = form.querySelector('input[name="lng"]');
+
 	  //Создание и открытие попапа
-	  const defShiftedLatLng = this.shiftLatLng(marker.getLatLng(), 40);
+	  const defShiftedLatLng = this.shiftLatLng(editingMarker.getLatLng(), 40);
 	  this.editPopup.setLatLng(defShiftedLatLng);
 	  this.editPopup.setContent(content);
 	  if (!this.editPopupOpen) {
@@ -457,29 +389,27 @@ export class MetEditor {
 	  }
 	  this.editPopup.on('remove', () => {
       this.editPopupOpen = false;
-      marker.off('mousedown', draggingEnable);
-      marker.off('mouseup mouseleave', draggingCancel);
+      editingMarker.off('mousedown', draggingEnable);
+      editingMarker.off('mouseup mouseleave', draggingCancel);
       this.map.off('zoom');
-      marker.dragging.disable();
-      marker.setZIndexOffset(0);
-      if (this.exitchecker && !this.popapsaved) {
-        this.exitchecker = false;
-        this.map.removeLayer(marker);
-      };
-      if (this.exitchecker && this.popapsaved) {
-        this.exitchecker = false;
-        marker.setLatLng(marker.options.coords);
-        const ic = this.icons[marker.options.icon_id] || this.icons.default;
-        marker.setIcon(ic);
-        paintSingleMarker(marker);
+      editingMarker.dragging.disable();
+      editingMarker.setZIndexOffset(0);
+      if (isNew && !this.popapsaved) {
+        this.map.removeLayer(editingMarker);
+      } else if (!isNew && !this.popapsaved) {
+        this.diff.added = this.diff.added.filter(u => u.id !== editingMarker.$data.id);
+        this.diff.updated = this.diff.updated.filter(u => u.id !== editingMarker.$data.id);
+        this.map.removeLayer(editingMarker);
+        const originalMarker = MAPDATA.existingMarkers.get(this.oldMarkerData.id);
+        originalMarker.addTo(map);
+        paintMarkers(originalMarker);
+        originalMarker.unbindPopup();
+        originalMarker.on('click', this.onMarkerClick_Handle_Click);
         this.updateSaveState();
-      };
-      if (!this.exitchecker && this.popapsaved) {
-        this.exitchecker = false;
-        marker.setLatLng(marker.options.coords);
-        const ic = this.icons[marker.options.icon_id] || this.icons.default;
-        marker.setIcon(ic);
-        paintSingleMarker(marker);
+      } else {
+        editingMarker.setLatLng([editingMarker.$data.coords.lat, editingMarker.$data.coords.lng]);
+        editingMarker.setIcon(MAPDATA.icons[editingMarker.$data.icon_id]);
+        paintMarkers(editingMarker);
         this.updateSaveState();
       };
 	  });
@@ -492,19 +422,18 @@ export class MetEditor {
 	  
 	  //Динамическое изменение иконки
     iconSel.addEventListener('change', e => {
-      const ic = this.icons[e.target.value] || this.icons.default;
-      marker.setIcon(ic);
-      marker.options.icon_id = ic;
-      paintSingleMarker(marker);
+      const ic = MAPDATA.icons[e.target.value] || MAPDATA.icons.default;
+      editingMarker.setIcon(ic);
+      editingMarker.$data.icon_id = ic;
+      paintMarkers(editingMarker);
     });
 	  
 	  // Функция активации перемещения иконки
-	  marker.dragging.enable();
 	  let dragTimer;
 	  let cancelOnMove;
 	  
 	  const draggingEnable = (e) => {
-      const marker = e.target
+      const editingMarker = e.target
       METUI.timerProgress.classList.remove('timer-progress');
       void METUI.timerProgress.offsetWidth;
       METUI.timerProgress.classList.add('timer-progress');
@@ -513,47 +442,47 @@ export class MetEditor {
         clearTimeout(dragTimer);
         METUI.timerProgress.classList.remove('timer-progress');
         METUI.blueTimer.style.display = 'none'; //заменить style.display на classList.toggle('Имя класса(например, .is-active, .is-hidden)', Булевое значение(True\False))
-        marker.off('mousemove', cancelOnMove);
-        marker.dragging.disable();
-        marker.dragging.enable();
+        editingMarker.off('mousemove', cancelOnMove);
+        editingMarker.dragging.disable();
+        editingMarker.dragging.enable();
       };
-      marker.on('mousemove', cancelOnMove);
+      editingMarker.on('mousemove', cancelOnMove);
       dragTimer = setTimeout(() => {
-        marker.off('mousemove', cancelOnMove);
+        editingMarker.off('mousemove', cancelOnMove);
       }, 400);
 	  };
 	  
 	  const draggingCancel = (e) => {
-      const marker = e.target
+      const editingMarker = e.target
       clearTimeout(dragTimer);
       METUI.timerProgress.classList.remove('timer-progress');
       METUI.blueTimer.style.display = 'none'; //заменить style.display на classList.toggle('Имя класса(например, .is-active, .is-hidden)', Булевое значение(True\False))
-      marker.off('mousemove', cancelOnMove);
-      marker.dragging.enable();
+      editingMarker.off('mousemove', cancelOnMove);
+      editingMarker.dragging.enable();
 	  };
 	  
-	  marker.on('mousedown', draggingEnable);
-	  marker.on('mouseup mouseleave', draggingCancel);
+	  editingMarker.on('mousedown', draggingEnable);
+	  editingMarker.on('mouseup mouseleave', draggingCancel);
 	  
 	  // Функция перемещения маркера
-    marker.on('drag', e => {
+    editingMarker.on('drag', e => {
       const { lat, lng } = e.target.getLatLng();
       latIn.value = lat.toFixed(6);
       lngIn.value = lng.toFixed(6);
+      e.$data.coords = {lat: latIn.value, lng: lngIn.value};
       if (this.editPopupOpen) {
         const dragShiftedLatLng = this.shiftLatLng(e.target.getLatLng(), 40);
-        this.editPopup.setLatLng(dragShiftedLatLng)//.update();
-        //editPopup.setContent(content).update();
+        this.editPopup.setLatLng(dragShiftedLatLng)
       }
     });
-    marker.on('dragend', () => { 
-      marker.dragging.enable();
+    editingMarker.on('dragend', () => { 
+      editingMarker.dragging.enable();
       METUI.blueTimer.style.display = 'none'; //заменить style.display на classList.toggle('Имя класса(например, .is-active, .is-hidden)', Булевое значение(True\False))
 	  });
 	  
 	  this.map.on('zoom', () => {
       if (!this.editPopupOpen) return;
-      const zoomShiftedLatLng = this.shiftLatLng(marker.getLatLng(), 40);
+      const zoomShiftedLatLng = this.shiftLatLng(editingMarker.getLatLng(), 40);
       this.editPopup.setLatLng(zoomShiftedLatLng);
 	  });
 	  
@@ -561,64 +490,59 @@ export class MetEditor {
 	  //Функция обработчик изменений маркера
 	  //START
     submitBtn.addEventListener('click', ev => {
-      const heightUp = 0;
-      const heightDown = -1;
       ev.preventDefault();
       const data = new FormData(formEl);
-      const name = data.get('title') || 'Name_PlaceHolder';
-      const description = data.get('description') || 'Description_PlaceHolder';
-      const icon_id = data.get('icon') || 'default';
-      const lat = parseFloat(data.get('lat'));
-      const lng = parseFloat(data.get('lng'));
-      let reg_index = 7;
-      const autoRegCheck = data.get('region') === 'auto';
-      
-      if (autoRegCheck) {
-        try {
-          reg_index = this.getRegionIndex(this.ctx, lng, lat);
-          marker.options.reg_index = reg_index;
-          console.log('reg_index:', reg_index);
-        } catch (err) {
-          console.error('Loading Regions.png:', err);
-        }
+      editingMarker.$data.name = data.get('title') || 'Name_PlaceHolder';
+      editingMarker.$data.description = data.get('description') || 'Description_PlaceHolder';
+      editingMarker.$data.icon_id = data.get('icon') || 'default';
+      editingMarker.$data.coords = { lat: parseFloat(data.get('lat')), lng: parseFloat(data.get('lng')) }
+      const region = data.get('region')
+      let regionAuto_id;
+      if (region === 'auto') {
+        const reg_index = this.getRegionIndex(this.ctx, editingMarker.$data.coords.lng, editingMarker.$data.coords.lat);
+        regionAuto_id = REGION_LIST[reg_index] ?? REGION_LIST[7];
       }
-		
-      const regionAuto_id = autoRegCheck && REGION_LIST.reg_list[reg_index];
-      const reg_id = regionAuto_id || data.get('region');
-      console.log('region:', reg_id);
-      const height = (data.get('underground') && heightDown) || heightUp;
+      editingMarker.$data.reg_id = regionAuto_id ?? data.get('region');
       
-      const triple = data.get('color');
-      const [r, g, b] = triple.split(',').map(n => Number(n));
-      const color = { R: r, G: g, B: b };
+      editingMarker.$data.under_ground = data.get('underground') === 'on';
 
+      const triple = data.get('color') || '255,255,255';
+      const [r, g, b] = triple.split(',').map(n => Number(n));
+      editingMarker.$data.raw_rgbcolor = { r: r, g: g, b: b };
+      const isNow = new Date().toISOString();
       if (isNew) {
-        const newId = this.genId(name, lat, lng);
-        marker.options.id = newId;
-        this.existingMarkers.set(newId, marker);
-        marker.on('click', this.onMarkerClick);
-        this.diff.added.push({ id: newId, name, description, icon_id, coords: [lat, lng], reg_id, height, color });
+        editingMarker.$data.is_collected = false;
+        editingMarker.$data.edit_info = { created_at: isNow, updated_at: isNow };
+
+        const oldId = editingMarker.$data.id; // например "temp"
+
+        const newId = this.genId(
+          editingMarker.$data.name,
+          editingMarker.$data.coords.lat,
+          editingMarker.$data.coords.lng
+        );
+
+        editingMarker.$data.id = newId;
+
+        if (oldId && oldId !== newId) {
+          MAPDATA.existingMarkers.delete(oldId);
+          this.diff.added = this.diff.added.filter(u => u.id !== oldId);
+          this.diff.updated = this.diff.updated.filter(u => u.id !== oldId);
+        }
+
+        MAPDATA.existingMarkers.set(newId, editingMarker);
+        this.diff.added.push({ id: newId, marker: editingMarker });
       } else {
-        this.diff.updated = this.diff.updated.filter(u => u.id !== marker.options.id);
-        this.diff.updated.push({ id: marker.options.id, name, description, icon_id, coords: [lat, lng], reg_id, height, color });
+        editingMarker.$data.edit_info = { created_at: editingMarker.$data.edit_info.created_at ?? isNow, updated_at: isNow };
+        this.diff.added = this.diff.added.filter(u => u.id !== editingMarker.$data.id);
+        this.diff.updated = this.diff.updated.filter(u => u.id !== editingMarker.$data.id);
+        this.diff.updated.push({ id: editingMarker.$data.id, marker: editingMarker });
+        MAPDATA.existingMarkers.set(editingMarker.$data.id, editingMarker);
       }
-      const cssColor = `rgb(${r}, ${g}, ${b})`;
-		
-      marker.options.name = name;
-      marker.options.description = description;
-      marker.options.icon_id = icon_id;
-      marker.options.coords = [lat, lng];
-      marker.options.region = reg_id;
-      marker.options.level = height;
-      marker.options.custom_rgbcolor = color;
-      marker.options.custom_csscolor = cssColor;
-      const rh = Math.floor(r / 2);
-      const gh = Math.floor(g / 2);
-      const bh = Math.floor(b / 2);
-      marker.options.height_color = `rgb(${rh}, ${gh}, ${bh})`;
-      marker.setLatLng([lat, lng]);
-      const ic = this.icons[icon_id] || this.icons.default;
-      marker.setIcon(ic);
+
+      editingMarker.setLatLng([editingMarker.$data.coords.lat, editingMarker.$data.coords.lng]);
+      const ic = MAPDATA.icons[editingMarker.$data.icon_id] || MAPDATA.icons.default;
+      editingMarker.setIcon(ic);
       this.popapsaved = true;
       this.editPopup.remove();
       this.updateSaveState();
@@ -628,43 +552,36 @@ export class MetEditor {
 	  
 	  //Функция обработчик отмены изменений маркера
     discardBtn.addEventListener('click', () => {
+      this.popapsaved = false;
       this.editPopup.remove();
-      if (isNew) {
-        this.map.removeLayer(marker);
-        this.diff.added = this.diff.added.filter(o => o.id !== marker.options.id);
-      } else {
-        marker.setLatLng(marker.options.coords);
-        const ic = this.icons[marker.options.icon_id] || this.icons.default;
-        marker.setIcon(ic);
-        paintSingleMarker(marker);
-      }
-      this.updateSaveState();
     });
-	  const confirmModal = document.getElementById('confirm-modal');
-	  const btnConfirmYes = document.getElementById('confirm-yes');
-	  const btnConfirmNo  = document.getElementById('confirm-no');
 
-    deleteBtn.addEventListener('click', () => {
-      confirmModal.classList.remove('confirm-hidden');
+    const allowed_role = ALLOWED_MET_DELETE_ROLE.includes(USERSESSION.role);
+    deleteBtn.disabled = !allowed_role;
+    if (!isNew) {
+      const confirmModal = document.getElementById('confirm-modal');
+      const btnConfirmYes = document.getElementById('confirm-yes');
+      const btnConfirmNo  = document.getElementById('confirm-no');
 
-      btnConfirmYes.onclick = () => {
-        confirmModal.classList.add('confirm-hidden');
+      deleteBtn.classList.toggle('hide', false);
+      deleteBtn.addEventListener('click', () => {
+        confirmModal.classList.remove('confirm-hidden');
 
-		    this.editPopup.remove();
+        btnConfirmYes.onclick = () => {
+          confirmModal.classList.add('confirm-hidden');
+          this.editPopup.remove();
+          this.diff.deleted.push(editingMarker.$data.id);
+          MAPDATA.existingMarkers.delete(editingMarker.$data.id)
+          this.map.removeLayer(editingMarker);
+          this.updateSaveState();
+        };
 
-        if (isNew) {
-          this.map.removeLayer(marker);
-          this.diff.added = this.diff.added.filter(o => o.id !== marker.options.id);
-        } else {
-          this.diff.deleted.push(marker.options.id);
-          this.map.removeLayer(marker);
-        }
-        this.updateSaveState();
-      };
-
-      btnConfirmNo.onclick = () => {
-        confirmModal.classList.add('confirm-hidden');
-      };
-    });
+        btnConfirmNo.onclick = () => {
+          confirmModal.classList.add('confirm-hidden');
+        };
+      });
+    } else {
+      deleteBtn.classList.toggle('hide', true);
+    }
   }
 }

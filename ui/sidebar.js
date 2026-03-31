@@ -1,5 +1,5 @@
 import { APPSTATE } from "../core/state.js"
-import { paintingAllMarkers } from "../features/markers.js"
+import { paintMarkers } from "../features/markers.js"
 
 // Обьявление объектов панелей 
 export const OPTSIDEBAR = {};
@@ -42,22 +42,22 @@ export function initOptElements() {
 export function initOptToggle() {
   OPTSIDEBAR.coloredRegionsToggle.addEventListener('change', () => {
     APPSTATE.coloredRegionsEnabled = !APPSTATE.coloredRegionsEnabled;
-    paintingAllMarkers();
+    paintMarkers();
   });
 
   OPTSIDEBAR.heightDisplayToggle.addEventListener('change', () => {
     APPSTATE.heightDisplayEnabled = !APPSTATE.heightDisplayEnabled;
-    paintingAllMarkers();
+    paintMarkers();
   });
 
   OPTSIDEBAR.coloredMarkersToggle.addEventListener('change', () => {
     APPSTATE.coloredMarkersEnabled = !APPSTATE.coloredMarkersEnabled;
-    paintingAllMarkers();
+    paintMarkers();
   });
 
   OPTSIDEBAR.customColorsToggle.addEventListener('change', () => {
     APPSTATE.customColorsEnabled = !APPSTATE.customColorsEnabled;
-    //paintingAllMarkers();
+    //paintMarkers();
   });
 };
 
