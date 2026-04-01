@@ -585,9 +585,10 @@ export class MetEditor {
         btnConfirmYes.onclick = () => {
           confirmModal.classList.add('confirm-hidden');
           this.editPopup.remove();
-          this.diff.deleted.push(editingMarker.$data.id);
-          MAPDATA.existingMarkers.delete(editingMarker.$data.id);
-          editingMarker.remove();
+          const originalMarker = MAPDATA.existingMarkers.get(this.oldMarkerData.id);
+          this.diff.deleted.push(originalMarker.$data.id);
+          originalMarker.remove();
+          MAPDATA.existingMarkers.delete(originalMarker.$data.id);
           this.updateSaveState();
         };
 
