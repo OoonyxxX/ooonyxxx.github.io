@@ -1,4 +1,4 @@
-import { MAPDATA, paintMarkers, createMarker, loadMarkersData } from "./markers.js"
+import { MAPDATA, paintMarkers, createMarker, loadMarkersData, markerBuilder, markerMap } from "./markers.js"
 import { METRequest } from "../api/markers_api.js"
 import { map } from "../core/map.js"
 import { USERSESSION } from "../core/state.js"
@@ -400,8 +400,9 @@ export class MetEditor {
       } else if (!isNew && !this.popapsaved) {
         this.diff.added = this.diff.added.filter(u => u.id !== editingMarker.$data.id);
         this.diff.updated = this.diff.updated.filter(u => u.id !== editingMarker.$data.id);
-        this.map.removeLayer(editingMarker);
-        const originalMarker = MAPDATA.existingMarkers.get(this.oldMarkerData.id);
+        const originalMarkerData = markerMap(this.oldMarkerData)
+        const originalMarker = markerBuilder(originalMarkerData.baseData, originalMarkerData.fullData);
+        editingMarker.remove();
         originalMarker.addTo(map);
         paintMarkers(originalMarker);
         originalMarker.unbindPopup();
