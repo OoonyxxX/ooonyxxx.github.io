@@ -74,7 +74,7 @@ function escapeHtml(str = '') {
     .replace(/'/g, '&#39;');
 }
 
-function standartPopup(id, name, description, is_collected) { 
+function standartPopup(id, name, description) { 
   return `
     <b>${escapeHtml(name)}</b><br>
     ${escapeHtml(description)}<br>
@@ -83,7 +83,6 @@ function standartPopup(id, name, description, is_collected) {
         type="checkbox" 
         class="marker-collected" 
         data-id="${id}"
-        ${is_collected ? 'checked' : ''}
       >
       Collected
     </label>
@@ -112,7 +111,7 @@ export function bindMarkerPopup(marker, p_data, p) {
     description = '',
     is_collected = false
   } = p_data;
-  const popup = p ?? standartPopup(id, name, description, is_collected);
+  const popup = p ?? standartPopup(id, name, description);
   marker.bindPopup(popup);
 
   if (marker._collectedPopupBound) return;
@@ -123,10 +122,10 @@ export function bindMarkerPopup(marker, p_data, p) {
     const checkbox = popupEl.querySelector('.marker-collected');
     if (!checkbox) return;
     if (USERSESSION.user_id) {
+      checkbox.checked = e.target.$data.is_collected;
       checkbox.onchange = async (ev) => {
         const id = ev.target.dataset.id;
         const checked = ev.target.checked;
-
         try {
           const response = await postCollectedMarker(id);
           console.log('Changed:', id, checked, response);
@@ -174,9 +173,18 @@ export function markerBuilder(baseData = {}, fullData = {}) {
   return setUpMarkerData(marker, fullData, false);
 }
 
+export async function loadMarkersData() {
+  MAPDATA.markersData = (await getAllMarkers()).map((m) => (markerMap(m)));
+  MAPDATA.markersData.forEach(m => {
+    const marker = markerBuilder(m.baseData, m.fullData)
+    marker.addTo(map);
+    paintMarkers(marker);
+    MAPDATA.existingMarkers.set(marker.$data.id, marker);
+  });
+}
+
 export async function loadMapData() {
   try{
-    MAPDATA.markersData = (await getAllMarkers()).map((m) => (markerMap(m)));
     MAPDATA.iconsData = await fetch(`svgicons.json?_=${Date.now()}`)
       .then(r => r.json());
 
@@ -195,12 +203,7 @@ export async function loadMapData() {
     }));
     MAPDATA.icons.default = MAPDATA.icons.default || Object.values(MAPDATA.icons)[0];
 
-    MAPDATA.markersData.forEach(m => {
-        const marker = markerBuilder(m.baseData, m.fullData)
-        marker.addTo(map);
-        paintMarkers(marker);
-        MAPDATA.existingMarkers.set(marker.$data.id, marker);
-    });
+    await loadMarkersData();
   } catch (err) {
     console.error("JSON reading error:", err);
   }

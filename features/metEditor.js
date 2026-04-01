@@ -1,4 +1,4 @@
-import { MAPDATA, paintMarkers, createMarker, markerBuilder } from "./markers.js"
+import { MAPDATA, paintMarkers, createMarker, loadMarkersData } from "./markers.js"
 import { METRequest } from "../api/markers_api.js"
 import { map } from "../core/map.js"
 import { USERSESSION } from "../core/state.js"
@@ -263,19 +263,12 @@ export class MetEditor {
     });
 
     this.editPopup.remove();
-    this.destroy();
   }
 
 
-	globalDiscardChanges() {
+	async globalDiscardChanges() {
     MAPDATA.existingMarkers.clear();
-
-    MAPDATA.markersData.forEach(m => {
-        const marker = markerBuilder(m.baseData, m.fullData)
-        marker.addTo(map);
-        paintMarkers(marker);
-        MAPDATA.existingMarkers.set(marker.$data.id, marker);
-    });
+    await loadMarkersData();
 
 	  this.diff.added   = [];
 	  this.diff.updated = [];
