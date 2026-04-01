@@ -233,6 +233,7 @@ export class MetEditor {
       this.openExitModal();
       return
     } else {
+      this.unbindEditPopap();
       this.exitWithoutModal();
       return
     }
