@@ -121,12 +121,14 @@ export function bindMarkerPopup(marker, p_data, p) {
     const checkbox = popupEl.querySelector('.marker-collected');
     if (!checkbox) return;
     if (USERSESSION.user_id) {
-      checkbox.checked = e.target.$data.is_collected;
+      const md = e.target.$data
+      checkbox.checked = md.is_collected;
       checkbox.onchange = async (ev) => {
         const id = ev.target.dataset.id;
         const checked = ev.target.checked;
         try {
           const response = await postCollectedMarker(id);
+          md.is_collected = !md.is_collected;
           console.log('Changed:', id, checked, response);
         } catch (err) {
           console.error('Failed to update collected state:', err);
