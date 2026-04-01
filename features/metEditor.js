@@ -266,15 +266,21 @@ export class MetEditor {
   }
 
 
-	async globalDiscardChanges() {
+  async globalDiscardChanges() {
+    for (const marker of MAPDATA.existingMarkers.values()) {
+      marker.remove();
+    }
+
     MAPDATA.existingMarkers.clear();
+
     await loadMarkersData();
 
-	  this.diff.added   = [];
-	  this.diff.updated = [];
-	  this.diff.deleted = [];
-	  this.updateSaveState();
-	}
+    this.diff.added.length = 0;
+    this.diff.updated.length = 0;
+    this.diff.deleted.length = 0;
+
+    this.updateSaveState();
+  }
 
   onMarkerClick(e) {
     if (this.editPopupOpen) return;
@@ -315,7 +321,7 @@ export class MetEditor {
     const hasChanges = !(this.diff.added.length || this.diff.updated.length || this.diff.deleted.length);
     this.exitSave = hasChanges;
     this.metControlsToggler({
-      btnSave: {open: true, disabled: hasChanges},
+      btnSave: {disabled: hasChanges},
     });
   }
 
