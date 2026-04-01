@@ -109,7 +109,6 @@ export function bindMarkerPopup(marker, p_data, p) {
     id,
     name,
     description = '',
-    is_collected = false
   } = p_data;
   const popup = p ?? standartPopup(id, name, description);
   marker.bindPopup(popup);

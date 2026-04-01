@@ -1,4 +1,4 @@
-import { MAPDATA, paintMarkers, createMarker, loadMarkersData, markerBuilder, markerMap } from "./markers.js"
+import { MAPDATA, paintMarkers, createMarker, loadMarkersData, markerBuilder, markerMap, bindMarkerPopup } from "./markers.js"
 import { METRequest } from "../api/markers_api.js"
 import { map } from "../core/map.js"
 import { USERSESSION } from "../core/state.js"
@@ -242,6 +242,7 @@ export class MetEditor {
     METUI.exitModal.classList.remove('exit-hidden');
     const exitNoHandler = () => {
       METUI.exitModal.classList.add('exit-hidden');
+      this.unbindEditPopap();
     };
     METUI.exitNo.addEventListener('click', exitNoHandler, { once: true });
 
@@ -265,6 +266,16 @@ export class MetEditor {
     this.editPopup.remove();
   }
 
+  unbindEditPopap() {
+    MAPDATA.existingMarkers.forEach((marker, id) => {
+      marker.off('click');
+      bindMarkerPopup(marker, {
+        id: marker.$data.id, 
+        name: marker.$data.name,
+        description: marker.$data.description
+      });
+    });
+  }
 
   async globalDiscardChanges() {
     for (const marker of MAPDATA.existingMarkers.values()) {
@@ -402,8 +413,11 @@ export class MetEditor {
         this.diff.updated = this.diff.updated.filter(u => u.id !== editingMarker.$data.id);
         const originalMarkerData = markerMap(this.oldMarkerData)
         const originalMarker = markerBuilder(originalMarkerData.baseData, originalMarkerData.fullData);
+        MAPDATA.existingMarkers.delete(editingMarker.$data.id);
+        MAPDATA.existingMarkers.delete(originalMarker.$data.id);
         editingMarker.remove();
         originalMarker.addTo(map);
+        MAPDATA.existingMarkers.set(originalMarker.$data.id, originalMarker);
         paintMarkers(originalMarker);
         originalMarker.unbindPopup();
         originalMarker.on('click', this.onMarkerClick_Handle_Click);
