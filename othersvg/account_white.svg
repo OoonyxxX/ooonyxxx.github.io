@@ -10,6 +10,6 @@
       <stop offset="0" stop-color="#e5e7eb"/><stop offset="1" stop-color="#d1d5db"/>
     </linearGradient>
   </defs>
-  <circle cx="13" cy="13" r="12" fill="#066b60" filter="url(#layerBlur06)"/>
+  <circle cx="13" cy="13" r="12" fill="none" filter="url(#layerBlur06)"/>
   <path fill="#14c3b0" filter="url(#layerBlur01)" d="M13 13.75a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 1.5c-3.33 0-6 1.82-6 4.06a.69.69 0 0 0 .69.69h10.62a.69.69 0 0 0 .69-.69c0-2.24-2.67-4.06-6-4.06Z"/>
 </svg>
