@@ -10,7 +10,7 @@ import { cacheOptElements,
         cacheLoginModalElements 
         } from "./ui/sidebar.js"
 import { cacheWindowMatches, initWindowEvents } from "./ui/adaptability.js"
-import { initCursor } from "./ui/cursor.js"
+import { cacheCursor, initCursor } from "./ui/cursor.js"
 import { loadMapData } from "./features/markers.js"
 
 import { checkAuth } from "./api/auth_api.js"
