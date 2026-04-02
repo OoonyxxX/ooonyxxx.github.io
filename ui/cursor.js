@@ -44,7 +44,10 @@ function cursorConductor(touch) {
     return
   }
   CURSORITEM.customCursorAllowed = CURSORITEM.customCursorEnabled;
-  if (!CURSORITEM.customCursorAllowed && CURSORITEM.customCursorActive) cursorActive(false);
+  if (!CURSORITEM.customCursorAllowed && CURSORITEM.customCursorActive) {
+    CURSORITEM.customCursorActive = false;
+    cursorActive(CURSORITEM.customCursorAllowed);
+  };
 }
 
 function cursorActive(isActive) {
@@ -63,7 +66,10 @@ function handleMouseMove(e) {
   CURSORITEM.mouse.X = e.clientX;
   CURSORITEM.mouse.Y = e.clientY;
   if (!CURSORITEM.customCursorAllowed && !CURSORITEM.customCursorActive) return;
-  if (!CURSORITEM.customCursorAllowed && CURSORITEM.customCursorActive) cursorActive(CURSORITEM.customCursorAllowed);
+  if (!CURSORITEM.customCursorAllowed && CURSORITEM.customCursorActive) {
+    CURSORITEM.customCursorActive = false;
+    cursorActive(CURSORITEM.customCursorAllowed);
+  };
   if (!CURSORITEM.customCursorActive) {
     CURSORITEM.customCursorActive = true;
     moveCursor();
