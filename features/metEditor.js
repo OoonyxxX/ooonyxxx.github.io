@@ -369,6 +369,9 @@ export class MetEditor {
     return content
   }
 
+  draggingEnable = (e) => {setDraggingMode(e, true)}
+  draggingDisable = (e) => {setDraggingMode(e, false)}
+
   openEditPopup(editingMarker, isNew) {
     this.popapsaved = false;
     this.editPopup = L.popup({
@@ -400,8 +403,8 @@ export class MetEditor {
 	  }
 	  this.editPopup.on('remove', () => {
       this.editPopupOpen = false;
-      editingMarker.off('mousedown', draggingEnable);
-      editingMarker.off('mouseup mouseleave', draggingCancel);
+      editingMarker.off('mousedown', this.draggingEnable);
+      editingMarker.off('mouseup mouseleave', this.draggingDisable);
       this.map.off('zoom');
       editingMarker.dragging.disable();
       editingMarker.setZIndexOffset(0);
@@ -444,8 +447,8 @@ export class MetEditor {
     });
 	  
 
-    editingMarker.on('mousedown', (e) => {setDraggingMode(e, true)});
-    editingMarker.on('mouseup mouseleave', (e) => {setDraggingMode(e, false)});
+    editingMarker.on('mousedown', this.draggingEnable);
+    editingMarker.on('mouseup mouseleave', this.draggingDisable);
 
 	  // Функция перемещения маркера
     editingMarker.on('drag', e => {
