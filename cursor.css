@@ -1,6 +1,10 @@
 /* CUSTOM CURSORS */
 /* START */
-#custom-cursor {
+.cursor-base {
+  display: none !important;
+}
+
+.cursor-base .active {
   position: fixed;
   left: 0;
   top: 0;
@@ -16,6 +20,7 @@
   */
   transform-origin: 26px 26px;
 }
+
 
 #scaleSup {
   transform: scale(0.7);

@@ -4,6 +4,7 @@ import { map } from "../core/map.js"
 import { USERSESSION } from "../core/state.js"
 import { REGION_LIST, ALLOWED_MET_DELETE_ROLE } from "../core/config.js"
 import { attachColorPicker } from "../ui/colorPicker.js"
+import { setDraggingMode } from "../ui/cursor.js"
 
 //Переменные блока MET
 //START
@@ -13,9 +14,6 @@ export const METUI = {};
 
 export function cacheMETUIElements() {
   METUI.metControls   = document.getElementById('met-controls');
-  METUI.timerProgress = document.getElementById('timerProgressCircle');
-  METUI.blueTimer     = document.getElementById('TimerBlue');
-  METUI.redTimer      = document.getElementById('TimerRed');
   METUI.metInited     = false;
 
   //Переменные модалки выхода
@@ -445,42 +443,10 @@ export class MetEditor {
       paintMarkers(editingMarker);
     });
 	  
-	  // Функция активации перемещения иконки
-	  let dragTimer;
-	  let cancelOnMove;
-	  
-	  const draggingEnable = (e) => {
-      const editingMarker = e.target
-      METUI.timerProgress.classList.remove('timer-progress');
-      void METUI.timerProgress.offsetWidth;
-      METUI.timerProgress.classList.add('timer-progress');
-      METUI.blueTimer.style.display = 'inline'; //заменить style.display на classList.toggle('Имя класса(например, .is-active, .is-hidden)', Булевое значение(True\False))
-      cancelOnMove = () => {
-        clearTimeout(dragTimer);
-        METUI.timerProgress.classList.remove('timer-progress');
-        METUI.blueTimer.style.display = 'none'; //заменить style.display на classList.toggle('Имя класса(например, .is-active, .is-hidden)', Булевое значение(True\False))
-        editingMarker.off('mousemove', cancelOnMove);
-        editingMarker.dragging.disable();
-        editingMarker.dragging.enable();
-      };
-      editingMarker.on('mousemove', cancelOnMove);
-      dragTimer = setTimeout(() => {
-        editingMarker.off('mousemove', cancelOnMove);
-      }, 400);
-	  };
-	  
-	  const draggingCancel = (e) => {
-      const editingMarker = e.target
-      clearTimeout(dragTimer);
-      METUI.timerProgress.classList.remove('timer-progress');
-      METUI.blueTimer.style.display = 'none'; //заменить style.display на classList.toggle('Имя класса(например, .is-active, .is-hidden)', Булевое значение(True\False))
-      editingMarker.off('mousemove', cancelOnMove);
-      editingMarker.dragging.enable();
-	  };
-	  
-	  editingMarker.on('mousedown', draggingEnable);
-	  editingMarker.on('mouseup mouseleave', draggingCancel);
-	  
+
+    editingMarker.on('mousedown', (e) => {setDraggingMode(e, true)});
+    editingMarker.on('mouseup mouseleave', (e) => {setDraggingMode(e, false)});
+
 	  // Функция перемещения маркера
     editingMarker.on('drag', e => {
       const { lat, lng } = e.target.getLatLng();

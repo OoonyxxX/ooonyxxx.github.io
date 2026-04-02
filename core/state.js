@@ -19,7 +19,6 @@ export const APPSTATE = {
     isDesktop_FullHD: false,
     isDesktop_2K: false,
     isDesktop_4K: false,
-    customCursorEnabled: false,
 };
 
 export const APPFILTERSTATE = {
@@ -35,4 +34,5 @@ export const USERSESSION = {
 
 export const USERSETTINGS = {
     METActive: true,
+    customCursor: true,
 }

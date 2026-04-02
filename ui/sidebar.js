@@ -17,6 +17,7 @@ export function cacheOptElements() {
     OPTSIDEBAR.optionsParams        = OPTSIDEBAR.optionsContainer.querySelector('.optparam');
     OPTSIDEBAR.optHideBtnImg        = document.getElementById('option-hide-img');
     OPTSIDEBAR.optHideBtnText       = document.getElementById('option-hide-text');
+    OPTSIDEBAR.customCursorToggle   = document.getElementById('toggle-cursor');
     OPTSIDEBAR.coloredRegionsToggle = document.getElementById('toggle-regions');
     OPTSIDEBAR.heightDisplayToggle  = document.getElementById('toggle-height');
     OPTSIDEBAR.coloredMarkersToggle = document.getElementById('toggle-color');
