@@ -460,10 +460,11 @@ export class MetEditor {
       this.editPopup.setLatLng(dragShiftedLatLng)
     });
     editingMarker.on('dragend', () => { 
+      editingMarker.dragging.disable();
       editingMarker.dragging.enable();
-      METUI.blueTimer.style.display = 'none'; //заменить style.display на classList.toggle('Имя класса(например, .is-active, .is-hidden)', Булевое значение(True\False))
 	  });
-	  
+	  editingMarker.dragging.enable();
+    
 	  this.map.on('zoom', () => {
       if (!this.editPopupOpen) return;
       const zoomShiftedLatLng = this.shiftLatLng(editingMarker.getLatLng(), 40);
