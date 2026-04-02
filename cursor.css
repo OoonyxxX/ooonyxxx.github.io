@@ -120,9 +120,15 @@
 .timer-progress {
 	animation: fill-timer 0.4s linear forwards;
 }
-.custom-cursor-on .cursor-timer .TimerEffect .TimerBlueEffect{
-	
+.custom-cursor-on .cursor-base--hover .TimerEffect {
+  transform-origin: 26px 26px;
+  transform: scale(0.9);
 }
+.custom-cursor-on .cursor-base .TimerEffect {
+  transform-origin: 26px 26px;
+  transform: scale(0.65);
+}
+
 .custom-cursor-on .cursor-timer .TimerEffect .TimerRedEffect{
 	
 }
