@@ -4,7 +4,7 @@
   display: none !important;
 }
 
-.cursor-base.active {
+.active {
   display: inline !important;
   position: fixed;
   left: 0;
@@ -24,7 +24,7 @@
 
 
 #scaleSup {
-  transform: scale(0.7);
+  transform: scale(0.65);
   transform-origin: 26px 26px;
   transition: transform 0.2s ease;
 }
@@ -35,13 +35,13 @@
 }
 
 @keyframes scaleup-hover {
-  from { transform: scale(0.7); }
-  to   { transform: scale(1); }
+  from { transform: scale(0.65); }
+  to   { transform: scale(0.9); }
 }
 
 @keyframes scaledown-hover {
-  from { transform: scale(1); }
-  to   { transform: scale(0.7); }
+  from { transform: scale(0.9); }
+  to   { transform: scale(0.65); }
 }
 
 @keyframes fill-timer {
@@ -84,13 +84,13 @@
 }
 .custom-cursor-on .scaleup .baseScaleAnchor {
   display: inline;
-  transform: scale(1);
+  transform: scale(0.9);
   transition: transform 0.2s ease;
   transform-origin: 26px 26px;
 }
 .custom-cursor-on .scaledown .baseScaleAnchor {
   display: inline;
-  transform: scale(0.7);
+  transform: scale(0.65);
   transition: transform 0.2s ease;
   transform-origin: 26px 26px;
 }

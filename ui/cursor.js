@@ -2,9 +2,9 @@ import { APPSTATE, USERSETTINGS } from "../core/state.js"
 import { OPTSIDEBAR } from "./sidebar.js"
 
 const CURSORITEM = {
-    scaleGroup: null,
-    activeSelectors: null,
-    ticking: false,
+  scaleGroup: null,
+  activeSelectors: null,
+  ticking: false,
 }
 
 export function cacheCursor() {
@@ -94,11 +94,11 @@ function cursorHoverSet(isHover) {
   if (isHover) {
     CURSORITEM.customCursor.classList.remove('cursor-base');
     CURSORITEM.customCursor.classList.add('cursor-base--hover');
-    CURSORITEM.scaleGroup.style.transform = 'scale(0.85)';
+    CURSORITEM.scaleGroup.style.transform = 'scale(0.9)';
   } else {
     CURSORITEM.customCursor.classList.remove('cursor-base--hover');
     CURSORITEM.customCursor.classList.add('cursor-base');
-    CURSORITEM.scaleGroup.style.transform = 'scale(0.6)';
+    CURSORITEM.scaleGroup.style.transform = 'scale(0.65)';
   }
 }
 
