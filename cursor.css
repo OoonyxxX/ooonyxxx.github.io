@@ -4,7 +4,7 @@
   display: none !important;
 }
 
-.cursor-base .active {
+.cursor-base.active {
   position: fixed;
   left: 0;
   top: 0;
