@@ -43,9 +43,7 @@ function cursorConductor(touch) {
     CURSORITEM.customCursorAllowed = false;
     return
   }
-  if (CURSORITEM.customCursorEnabled) {
-    CURSORITEM.customCursorAllowed = true;
-  }
+  CURSORITEM.customCursorAllowed = CURSORITEM.customCursorEnabled;
   if (!CURSORITEM.customCursorAllowed && CURSORITEM.customCursorActive) cursorActive(false);
 }
 
