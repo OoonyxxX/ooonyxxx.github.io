@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cacheMETUIElements();
     cacheWindowMatches();
     cacheLoginModalElements();
+    cacheCursor();
 
     initOptElements();
     initOptToggle();
