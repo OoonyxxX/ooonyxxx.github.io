@@ -298,7 +298,7 @@ function renderFilter({ becameVisible, becameHidden }) {
 export function fastCollectedFilterReRender(marker) {
   if (!marker) return;
 
-  const isCollected = marker.$data.collected;
+  const isCollected = marker.$data.is_collected;
   const markerId = marker.$data.id;
 
   let shouldBeVisible;
