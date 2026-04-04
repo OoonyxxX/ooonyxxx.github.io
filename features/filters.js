@@ -304,10 +304,10 @@ export function fastCollectedFilterReRender(marker) {
   let shouldBeVisible;
 
   switch (FILTERDATA.filtersState.collected) {
-    case '1':
+    case 1:
       shouldBeVisible = isCollected;
       break;
-    case '-1':
+    case -1:
       shouldBeVisible = !isCollected;
       break;
     default:

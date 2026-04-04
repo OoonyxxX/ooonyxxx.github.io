@@ -132,10 +132,12 @@ export function bindMarkerPopup(marker, p_data, p) {
         const checked = ev.target.checked;
         try {
           const response = await postCollectedMarker(id);
-          md.is_collected = !md.is_collected;
+          md.is_collected = checked;
           fastCollectedFilterReRender(m);
+          console.log('Changed:', id, checked, response);
         } catch (err) {
           console.error('Failed to update collected state:', err);
+          md.is_collected = !checked;
           ev.target.checked = !checked;
         }
       };
