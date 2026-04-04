@@ -124,7 +124,7 @@ export function bindMarkerPopup(marker, p_data, p) {
     const checkbox = popupEl.querySelector('.marker-collected');
     if (!checkbox) return;
     if (USERSESSION.user_id) {
-      const m = e.target.$data
+      const m = e.target
       const md = m.$data
       checkbox.checked = md.is_collected;
       checkbox.onchange = async (ev) => {
