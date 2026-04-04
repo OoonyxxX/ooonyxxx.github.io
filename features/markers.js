@@ -4,11 +4,13 @@ import { APPSTATE, USERSESSION } from "../core/state.js"
 import { REGION_COLORS, REGION_UNDERGROUND_COLORS } from "../core/config.js"
 
 export const MAPDATA = {
-    icons: {},
-    markersData: [],
-    existingMarkers: new Map(),
-    markers: [],
-    iconsData: [],
+  icons: {},
+  markersData: [],
+  existingMarkers: new Map(),
+  markers: [],
+  iconsData: [],
+  prevVisibleSet: new Set(),
+  allVisibleSet: new Set(),
 };
 
 export function markerMap(m) {
@@ -177,6 +179,9 @@ export function markerBuilder(baseData = {}, fullData = {}) {
 export async function loadMarkersData() {
   MAPDATA.markersData = (await getAllMarkers()).map((m) => (markerMap(m)));
   MAPDATA.markersData.forEach(m => {
+    const id = m.baseData.id
+    MAPDATA.prevVisibleSet.add(id);
+    MAPDATA.allVisibleSet.add(id);
     const marker = markerBuilder(m.baseData, m.fullData)
     marker.addTo(map);
     paintMarkers(marker);

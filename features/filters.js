@@ -47,9 +47,7 @@ export function cacheFilterData() {
     exclude: -1,
     and: 1
   };
-  FILTERDATA.prevVisibleSet = new Set(MAPDATA.existingMarkers.keys());
   FILTERDATA.filterRequestId = 0;
-  FILTERDATA.allVisibleSet = new Set(MAPDATA.existingMarkers.keys());
 }
 
 function updateDebounce() {
@@ -248,7 +246,7 @@ function buildTokensObject() {
 function visibleSetBufferSolver(nextVisibleSet) {
   const becameVisible = [];
   const becameHidden = [];
-  const prevVisibleSet = FILTERDATA.prevVisibleSet;
+  const prevVisibleSet = MAPDATA.prevVisibleSet;
   for (const id of nextVisibleSet) {
     if (!prevVisibleSet.has(id)) becameVisible.push(id);
   };
@@ -270,17 +268,17 @@ async function filterMarkers() {
     (filterParams.underGround === null) && 
     (filterParams.userIdToken === null)
   ) {
-    const nextVisibleSet = new Set(FILTERDATA.allVisibleSet);
+    const nextVisibleSet = new Set(MAPDATA.allVisibleSet);
     const solvedObj = visibleSetBufferSolver(nextVisibleSet);
     renderFilter(solvedObj);
-    FILTERDATA.prevVisibleSet = nextVisibleSet;
+    MAPDATA.prevVisibleSet = nextVisibleSet;
   } else {
     const ids = await getFilteredMarkers(filterParams);
     if (requestId !== FILTERDATA.filterRequestId) return;
     const nextVisibleSet = new Set(ids);
     const solvedObj = visibleSetBufferSolver(nextVisibleSet);
     renderFilter(solvedObj);
-    FILTERDATA.prevVisibleSet = nextVisibleSet;
+    MAPDATA.prevVisibleSet = nextVisibleSet;
   }
 }
 
