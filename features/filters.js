@@ -47,9 +47,10 @@ export function cacheFilterData() {
     exclude: -1,
     and: 1
   };
-  FILTERDATA.prevVisibleSet = new Set(MAPDATA.existingMarkers.keys());
+  const allMarkersIds = MAPDATA.existingMarkers.keys()
+  FILTERDATA.prevVisibleSet = new Set(allMarkersIds);
   FILTERDATA.filterRequestId = 0;
-  FILTERDATA.allVisibleSet = new Set(FILTERDATA.prevVisibleSet);
+  FILTERDATA.allVisibleSet = new Set(allMarkersIds);
 }
 
 function updateDebounce() {
