@@ -275,9 +275,9 @@ async function filterMarkers() {
     renderFilter(solvedObj);
     FILTERDATA.prevVisibleSet = nextVisibleSet;
   } else {
-    const { id } = await getFilteredMarkers(filterParams);
+    const ids = await getFilteredMarkers(filterParams);
     if (requestId !== FILTERDATA.filterRequestId) return;
-    const nextVisibleSet = new Set(id);
+    const nextVisibleSet = new Set(ids);
     const solvedObj = visibleSetBufferSolver(nextVisibleSet);
     renderFilter(solvedObj);
     FILTERDATA.prevVisibleSet = nextVisibleSet;
