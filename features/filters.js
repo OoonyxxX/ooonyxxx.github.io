@@ -316,6 +316,12 @@ export function fastCollectedFilterReRender(marker) {
 
   if (marker._$visible === shouldBeVisible) return;
 
+  if (shouldBeVisible) {
+    MAPDATA.prevVisibleSet.add(markerId);
+  } else {
+    MAPDATA.prevVisibleSet.delete(markerId);
+  }
+
   requestAnimationFrame(() => {
     toggleMarkerVisible(markerId, shouldBeVisible);
   });
