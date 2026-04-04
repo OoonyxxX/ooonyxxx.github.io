@@ -17,11 +17,11 @@ export async function getFilteredMarkers(options = {}) {
     params.set("underGround", String(options.underGround));
   }
 
-  if (options.regionTokens != null) {
+  if ((options.regionTokens != null) || (options.regionTokens.length !== 0)) {
     params.set("regionTokens", options.regionTokens);
   }
 
-  if (options.iconTokens != null) {
+  if ((options.iconTokens != null) || (options.iconTokens.length !== 0)) {
     params.set("iconTokens", options.iconTokens);
   }
 
