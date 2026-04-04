@@ -34,6 +34,10 @@ html { font-size: 16px; }
 		border-width: 2px;
 		border-color: #b51717;
 	}
+	.underground:hover .indicator-container {
+		background: #00ffe7ad;
+		border-color: #007368a3;
+	}
 	.collected:hover .indicator-container {
 		background: #00ffe7ad;
 		border-color: #007368a3;
@@ -1338,6 +1342,53 @@ body::-webkit-scrollbar {
     background: #00ffe7ad;
     border-color: #007368a3;
 }
+
+
+/**/
+
+.underground input[type="checkbox"] {
+    display: none;
+}
+
+.underground-switch {
+    background: #00d1ba4a;
+    border: solid;
+    border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-color: #0B0B0B;
+}
+
+.underground {
+    display: flex;
+    align-items: flex-end;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.underground .indicator-container {
+    display: flex;
+    width: 1em;
+    height: 1em;
+    background: #00ffe73b;
+    margin-right: 4px;
+    border-radius: 6px;
+    border: solid;
+    border-width: 0.125em;
+    border-color: #00ffe76e;
+    justify-content: center;
+    align-items: center;
+	transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.underground:active .indicator-container {
+    background: #00ffe7ad;
+    border-color: #007368a3;
+}
+
+/**/
 
 .icon-item .indicator-container {
     display: flex;

@@ -21,11 +21,6 @@ export const APPSTATE = {
     isDesktop_4K: false,
 };
 
-export const APPFILTERSTATE = {
-    iconstatesIndex: 0,
-    regionstatesIndex: 0,
-};
-
 export const USERSESSION = {
     user_id: "",
     display_name: "",
@@ -35,4 +30,5 @@ export const USERSESSION = {
 export const USERSETTINGS = {
     METActive: true,
     customCursor: true,
+    instantFilter: true,
 }

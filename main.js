@@ -1,4 +1,4 @@
-import { initFilters } from "./features/filters.js"
+import { cacheFilterData, initFilters } from "./features/filters.js"
 import { cacheMETUIElements } from "./features/metEditor.js"
 import { cacheOptElements, 
         initOptElements,
@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cacheAuthElements();
     cacheOptElements();
     cacheFilterElements();
+    cacheFilterData()
     cacheHeaderElements();
     cacheMETUIElements();
     cacheWindowMatches();

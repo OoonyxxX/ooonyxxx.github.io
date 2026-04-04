@@ -72,6 +72,8 @@ export function cacheFilterElements() {
     FILTERSIDEBAR.filterHeaderText  = FILTERSIDEBAR.filterHeader.querySelector('.filheader');
     FILTERSIDEBAR.filterHideBtnImg  = document.getElementById('filter-hide-img');
     FILTERSIDEBAR.filterHideBtnText = document.getElementById('filter-hide-text');
+    FILTERSIDEBAR.undergroundSwitch = document.getElementById('underground');
+    FILTERSIDEBAR.collectedSwitch   = document.getElementById('collected');
 }
 
 // Инициализация панели фильтров

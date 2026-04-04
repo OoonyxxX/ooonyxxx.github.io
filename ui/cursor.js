@@ -13,7 +13,7 @@ export function cacheCursor() {
   CURSORITEM.customCursorActive = false;
   CURSORITEM.customCursorAllowed = false;
   CURSORITEM.scaleGroup = document.getElementById('scaleSup');
-  CURSORITEM.activeSelectors = '.leaflet-marker-icon, a, button, input[type="checkbox"], .leaflet-popup-close-button, .auth-img, .icon-item, .collected, .region';
+  CURSORITEM.activeSelectors = '.leaflet-marker-icon, a, button, input[type="checkbox"], .leaflet-popup-close-button, .auth-img, .icon-item, .underground, .collected, .region';
   CURSORITEM.ticking = false;
   CURSORITEM.cursorCenter = { X: 26, Y: 26 };
   CURSORITEM.mouse = { X: 0, Y: 0 };
