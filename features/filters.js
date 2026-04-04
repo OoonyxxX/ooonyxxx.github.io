@@ -1,6 +1,6 @@
 import { debounce } from "./utilities.js"
 import { OPTSIDEBAR, FILTERSIDEBAR, startHeaderAnim, stopHeaderAnim} from "../ui/sidebar.js"
-import { MAPDATA } from "./markers.js"
+import { MAPDATA, toggleMarkerVisible } from "./markers.js"
 import { USERSESSION, USERSETTINGS } from "../core/state.js"
 import { getFilteredMarkers } from "../api/markers_api.js"
 
@@ -48,6 +48,7 @@ export function cacheFilterData() {
     and: 1
   };
   FILTERDATA.filterRequestId = 0;
+  FILTERDATA.solvedObj = {};
 }
 
 function updateDebounce() {
@@ -269,15 +270,15 @@ async function filterMarkers() {
     (filterParams.userIdToken === null)
   ) {
     const nextVisibleSet = new Set(MAPDATA.allVisibleSet);
-    const solvedObj = visibleSetBufferSolver(nextVisibleSet);
-    renderFilter(solvedObj);
+    FILTERDATA.solvedObj = visibleSetBufferSolver(nextVisibleSet);
+    renderFilter(FILTERDATA.solvedObj);
     MAPDATA.prevVisibleSet = nextVisibleSet;
   } else {
     const ids = await getFilteredMarkers(filterParams);
     if (requestId !== FILTERDATA.filterRequestId) return;
     const nextVisibleSet = new Set(ids);
-    const solvedObj = visibleSetBufferSolver(nextVisibleSet);
-    renderFilter(solvedObj);
+    FILTERDATA.solvedObj = visibleSetBufferSolver(nextVisibleSet);
+    renderFilter(FILTERDATA.solvedObj);
     MAPDATA.prevVisibleSet = nextVisibleSet;
   }
 }
@@ -285,29 +286,37 @@ async function filterMarkers() {
 function renderFilter({ becameVisible, becameHidden }) {
   requestAnimationFrame(() => {
     for (const id of becameVisible) {
-      const marker = MAPDATA.existingMarkers.get(id);
-      if (!marker) continue;
-
-      if (marker._$visible === true) continue;
-      marker._$visible = true;
-
-      const el = marker.getElement?.() || marker._icon;
-      if (el) el.classList.remove('is-hidden');
+      toggleMarkerVisible(id, true);
     }
-
     for (const id of becameHidden) {
-      const marker = MAPDATA.existingMarkers.get(id);
-      if (!marker) continue;
-
-      if (marker._$visible === false) continue;
-      marker._$visible = false;
-
-      const el = marker.getElement?.() || marker._icon;
-      if (el) el.classList.add('is-hidden');
-
-      marker.closePopup?.();
-      marker.closeTooltip?.();
+      toggleMarkerVisible(id, false);
     }
   });
   stopHeaderAnim();
+}
+
+export function fastCollectedFilterReRender(marker) {
+  if (!marker) return;
+
+  const isCollected = marker.$data.collected;
+  const markerId = marker.$data.id;
+
+  let shouldBeVisible;
+
+  switch (FILTERDATA.filtersState.collected) {
+    case '1':
+      shouldBeVisible = isCollected;
+      break;
+    case '-1':
+      shouldBeVisible = !isCollected;
+      break;
+    default:
+      return;
+  }
+
+  if (marker._$visible === shouldBeVisible) return;
+
+  requestAnimationFrame(() => {
+    toggleMarkerVisible(markerId, shouldBeVisible);
+  });
 }

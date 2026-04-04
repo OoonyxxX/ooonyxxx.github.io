@@ -1,5 +1,6 @@
 import { map } from "../core/map.js"
 import { getAllMarkers, postCollectedMarker } from "../api/markers_api.js"
+import { fastCollectedFilterReRender } from "./filters.js"
 import { APPSTATE, USERSESSION } from "../core/state.js"
 import { REGION_COLORS, REGION_UNDERGROUND_COLORS } from "../core/config.js"
 
@@ -123,7 +124,8 @@ export function bindMarkerPopup(marker, p_data, p) {
     const checkbox = popupEl.querySelector('.marker-collected');
     if (!checkbox) return;
     if (USERSESSION.user_id) {
-      const md = e.target.$data
+      const m = e.target.$data
+      const md = m.$data
       checkbox.checked = md.is_collected;
       checkbox.onchange = async (ev) => {
         const id = ev.target.dataset.id;
@@ -131,7 +133,7 @@ export function bindMarkerPopup(marker, p_data, p) {
         try {
           const response = await postCollectedMarker(id);
           md.is_collected = !md.is_collected;
-          console.log('Changed:', id, checked, response);
+          fastCollectedFilterReRender(m);
         } catch (err) {
           console.error('Failed to update collected state:', err);
           ev.target.checked = !checked;
@@ -281,4 +283,17 @@ export function dynamicPaintMarker(marker, rgbColor) {
   path.style.color = dynamicColor;
 }
 
+export function toggleMarkerVisible(id, visible) {
+  const marker = MAPDATA.existingMarkers.get(id);
+  if (!marker) return;
 
+  if (marker._$visible === visible) return;
+  marker._$visible = visible;
+
+  const el = marker.getElement?.() || marker._icon;
+  if (el) el.classList.toggle('is-hidden', !visible);
+  if (!visible) {
+    marker.closePopup?.();
+    marker.closeTooltip?.();
+  }
+}
