@@ -17,12 +17,16 @@ export async function getFilteredMarkers(options = {}) {
     params.set("underGround", String(options.underGround));
   }
 
-  if ((options.regionTokens != null) && (options.regionTokens.length !== 0)) {
-    params.set("regionTokens", options.regionTokens);
+  if (options.regionTokens != null && options.regionTokens.length !== 0) {
+    for (const token of options.regionTokens) {
+      params.append("regionTokens", token);
+    }
   }
 
-  if ((options.iconTokens != null) && (options.iconTokens.length !== 0)) {
-    params.set("iconTokens", options.iconTokens);
+  if (options.iconTokens != null && options.iconTokens.length !== 0) {
+    for (const token of options.iconTokens) {
+      params.append("iconTokens", token);
+    }
   }
 
   const query = params.toString();
