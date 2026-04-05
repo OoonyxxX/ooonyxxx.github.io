@@ -19,6 +19,8 @@ export const map = L.map('map', {
 // Инициализация тайлинга карты
 L.tileLayer('MapTiles/{z}/{x}/{y}.webp?t=' + Date.now(), {
   noWrap: true,
+  minNativeZoom: MAP_CONFIG.tileMinZoom,
+  maxNativeZoom: MAP_CONFIG.tileMaxZoom,
 }).addTo(map);
 
 // Адаптивность зумма карты
@@ -30,18 +32,4 @@ map.on('zoomend', function () {
   const mapTileHTE = (MAP_CONFIG.pixelDensity * MAP_CONFIG.screen_frame_mult) / borderShift;
   const shiftedBounds = [[MAP_CONFIG.mapTileHB / borderShift, MAP_CONFIG.mapTileWL / borderShift], [mapTileHTE + MAP_CONFIG.mapTile, mapTileWRE + MAP_CONFIG.mapTile]];
   map.setMaxBounds(shiftedBounds);
-});
-
-// Глобальный слушатель сбора маркеров
-map.on('popupopen', (e) => {
-  const popupEl = e.popup.getElement();
-
-  popupEl.addEventListener('change', (event) => {
-    if (event.target.classList.contains('marker-collected')) {
-      const id = event.target.dataset.id;
-      const checked = event.target.checked;
-
-      console.log(id, checked);
-    }
-  });
 });
