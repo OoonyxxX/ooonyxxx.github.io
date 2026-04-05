@@ -203,6 +203,8 @@ export class MetEditor {
     this.setAddMode();
     
     MAPDATA.existingMarkers.forEach((marker, id) => {
+      marker.closePopup?.();
+      marker.unbindPopup();
       marker.off('click');
       marker.on('click', this.onMarkerClick_Handle_Click);
     });
