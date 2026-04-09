@@ -42,13 +42,6 @@ export const REGION_UNDERGROUND_COLORS = {
   ocean:        '#385299',
   auto:         '#ffffff',
 };
-/*
-export const ALLOWED_EDITORS = [
-    "OoonyxxX", 
-    "333tripleit",
-    "MiscFlower"
-];
-*/
 
 export const ALLOWED_ROLE = [
     "user",

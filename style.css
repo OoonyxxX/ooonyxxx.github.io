@@ -1,3 +1,18 @@
+@font-face {
+  font-family: 'Nordic';
+  src: url('/fonts/Nordic-Regular-Extended-Web.woff2?v=1') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Runescript';
+  src: url('/fonts/Runescript-Web.woff2?v=1') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --scale: 1;
   /*--touch-target: clamp(40px, 3.2rem, 56px);
@@ -1063,13 +1078,13 @@ body::-webkit-scrollbar {
     background: #0B0B0B;
     border-bottom-right-radius: 1rem;
     height: 4em;
+    font-family: 'Nordic';
     /*width: 22em;*/
 	width: 18.4em;
     position: relative;
     z-index: 1;
 	user-select: none;
 }
-
 .auth-hfilter-container {
     background: #0B0B0B;
     border-bottom-left-radius: 16px;
@@ -1101,24 +1116,27 @@ body::-webkit-scrollbar {
 
 .auth {
     display: flex;
-    margin-right: 2.4em;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    width: 8rem;
+    position: relative;
+    margin-left: 16px;
+    margin-right: 16px;
+    width: inherit;
+    height: inherit;
     align-items: center;
 }
 
 .auth-img {
+    position: absolute;
+    right: 0rem;
     width: 2.75rem;
     height: 2.75rem;
     z-index: 3;
     border-style: solid;
     border-color: #0a9f8f;
-	background: #066b60;
+    background: #066b60;
     border-width: 0.125rem;
     border-radius: 3.5rem;
-	transform-origin: center;
-	transform: scale(0.9);
+    transform-origin: center;
+    transform: scale(0.9);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border 0.6s cubic-bezier(0.4, 0, 0.2, 1), margin 0.6s cubic-bezier(0.4, 0, 0.2, 1), background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1130,6 +1148,21 @@ body::-webkit-scrollbar {
     transform: scale(0.85);
 }
 
+.username.authorized {
+    display: block;
+    background: #066b60;
+    padding: 4px;
+    border-radius: 6px;
+    border: solid;
+    border-width: 2px;
+    border-color: #0a9f8f;
+    position: absolute;
+    left: 1rem;
+}
+
+.username {
+    display: none;
+}
 
 .leaflet-control-attribution.leaflet-control {
     display: none;
@@ -1489,6 +1522,8 @@ body::-webkit-scrollbar {
 
 .btn-login {
     display: block;
+    position: absolute;
+    left: 1rem;
     border-style: solid;
     border-color: #01a36f;
     border-width: 0.125rem;

@@ -12,6 +12,7 @@ export async function checkAuth() {
     USERSESSION.display_name = data.display_name ?? "Unknown";
     USERSESSION.role = data.role ?? "user";
     AUTHTOPBAR.usernameDisplay.textContent = `${USERSESSION.display_name}`;
+    AUTHTOPBAR.usernameDisplay.classList.add('authorized');
 
     AUTHTOPBAR.loginButton.classList.add('hide');
     AUTHTOPBAR.authImg.classList.add('authorized');
