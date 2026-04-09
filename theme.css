@@ -1,0 +1,50 @@
+@font-face {
+  font-family: 'Nordic';
+  src: url('/fonts/Nordic-Regular-Extended-Web.woff2?v=1') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Runescript';
+  src: url('/fonts/Runescript-Web.woff2?v=1') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@keyframes northernFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes northernFlowCircle {
+  0%   { background-position: 50% 0%; }
+  25%  { background-position: 100% 50%; }
+  50%  { background-position: 50% 100%; }
+  75%  { background-position: 0% 50%; }
+  100% { background-position: 50% 0%; }
+}
+
+:root {
+  --scale: 1;
+  --gradient-northern-lights: linear-gradient(
+    135deg,
+    #00e5ff,
+    #00ffde,
+    #00d3d3,
+    #3effcb,
+    #00bfa6,
+    #00f3ff,
+    #2ee581
+  );
+  --font-ui: 'Nordic';
+  --font-accent: 'Runescript';
+  --bg-northern-flow: northernFlow 12s ease infinite;
+  --bg-northern-flow-circle: northernFlowCircle 12s ease infinite;
+  /*--touch-target: clamp(40px, 3.2rem, 56px);
+  --icon: calc(var(--touch-target)*0.6);
+  --radius: 12px;
+  --gap: calc(8px * var(--scale));*/
+}
