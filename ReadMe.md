@@ -41,10 +41,10 @@ and interacting with the game world.
 
 🌐 Live Demo: https://mapofthenorth.com
 
-Сredits:
-  Developers:
+## Сredits
+### Developers 
     OnyxxX
-  Filling out the map:
+### Filling out the map
     TheRoseLocket
     CocoMcLovely
     FoxSlyme
