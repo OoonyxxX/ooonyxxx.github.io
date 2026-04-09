@@ -44,7 +44,7 @@ and interacting with the game world.
 ## Сredits
 ### Developers 
     OnyxxX
-### illing out the map
+### Filling out the map
     TheRoseLocket
     CocoMcLovely
     FoxSlyme
