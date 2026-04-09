@@ -1,20 +1,45 @@
-Roadmap:
-1. Redesign the interface and create an account management panel.
-2. Develop moderation tools and integrate them into the interface.
-3. Implement a backup system.
-For the future:
-1. Optimize scaling on mobile devices. 
-2. Optimize marker display.
+# Map of the North
+
+Interactive map for Spirit of the North 2 with user accounts, marker tracking, and real-time data processing.
 
 
-Completed features:
-1. A map partially populated with markers, with partial synchronization with the database via a custom backend.
-2. A full-featured marker editor.
-3. An authentication system with database synchronization.
-4. A full-featured marker collection system.
-5. Basic settings panel. 
-6. A comprehensive tag filtering system that is synchronized with the database.
+## Roadmap
+- [ ] User settings UI
+- [ ] Moderation tools
+- [ ] Backup system.
+- [ ] UI Polishing
 
+## For the future:
+- [ ] Optimize scaling on mobile devices. 
+- [ ] Optimize marker display.
+- [ ] Real-time player tracking
+- [ ] Map 3D mode (future idea)
+
+## Features
+- Interactive map with custom markers
+- Marker Editing Tool (MET)
+- User authentication (Google OAuth)
+- Marker collection system
+- Server-side filtering (SQL)
+- Role system (user / editor / admin)
+- High-performance marker rendering
+
+## Architecture
+- Frontend: Vanilla JS + Leaflet
+- Backend: Node.js (Express)
+- Database: PostgreSQL
+- Auth: Google OAuth
+- Hosting: Render
+
+
+
+## About
+
+This project started as a tool for the Spirit of the North 2 community,
+but gradually evolved into a full ecosystem for tracking, exploring,
+and interacting with the game world.
+
+🌐 Live Demo: https://mapofthenorth.com
 
 Сredits:
   Developers:
