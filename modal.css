@@ -1,8 +1,3 @@
-.modal-block {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 9998;
-}
 .confirm-modal {
   display: flex;
   align-items: center;
@@ -82,4 +77,8 @@
 
 .hidden {
   display: none !important;
+[role="modal"] {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 9998;
 }
