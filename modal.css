@@ -32,7 +32,7 @@
   border-radius: 6px;
   text-align: center;
 }
-.modal-text, .modal-loader-text {
+.modal-text {
   color: #e5e5e5;
   background: none;
 }

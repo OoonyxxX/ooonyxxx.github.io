@@ -1,46 +1,48 @@
-import { AUTHTOPBAR } from "./sidebar"
+import { AUTHTOPBAR } from "./sidebar.js"
 export const MODAL = {}
 
 export function cacheModalElements() {
+  MODAL.ui                         = {};
+  MODAL.met                        = {};
   //Переменные модалки авторизации
   MODAL.ui.userModal               = {};
   MODAL.ui.userModal.visible       = false;
   MODAL.ui.userModal.activeTab     = 0;
   MODAL.ui.userModal.container     = document.getElementById('user-modal-container');
-  MODAL.ui.userModal.tablist       = MODAL.ui.userModal.container.getElementById('user-modal-tablist');
-  MODAL.ui.userModal.btnExit       = MODAL.ui.userModal.container.getElementById('login-modal-exit');
-  MODAL.ui.userModal.imgExit       = MODAL.ui.userModal.btnExit.getElementById('login-modal-exit-img');
-  MODAL.ui.userModal.content       = MODAL.ui.userModal.container.getElementById('user-modal');
+  MODAL.ui.userModal.tablist       = MODAL.ui.userModal.container.querySelector('#user-modal-tablist');
+  MODAL.ui.userModal.btnExit       = MODAL.ui.userModal.container.querySelector('#user-modal-exit');
+  MODAL.ui.userModal.imgExit       = MODAL.ui.userModal.btnExit.querySelector('#user-modal-exit-img');
+  MODAL.ui.userModal.content       = MODAL.ui.userModal.container.querySelector('#user-modal');
 
   //Переменные модалки пользователя
   MODAL.ui.authModal               = {};
   MODAL.ui.authModal.visible       = false;
   MODAL.ui.authModal.container     = document.getElementById('login-modal-container');
-  MODAL.ui.authModal.content       = MODAL.ui.authModal.container.getElementById('login-modal');
-  MODAL.ui.authModal.btnExit       = MODAL.ui.authModal.content.getElementById('login-modal-exit');
-  MODAL.ui.authModal.imgExit       = MODAL.ui.authModal.btnExit.getElementById('login-modal-exit-img');
-  MODAL.ui.authModal.innerText     = MODAL.ui.authModal.content.getElementById('login-modal-text');
-  MODAL.ui.authModal.providerlist  = MODAL.ui.authModal.content.getElementById('login-modal-providerlist');
-  MODAL.ui.authModal.googleImg     = MODAL.ui.authModal.providerlist.getElementById('login-modal-google-img');
+  MODAL.ui.authModal.content       = MODAL.ui.authModal.container.querySelector('#login-modal');
+  MODAL.ui.authModal.btnExit       = MODAL.ui.authModal.content.querySelector('#login-modal-exit');
+  MODAL.ui.authModal.imgExit       = MODAL.ui.authModal.btnExit.querySelector('#login-modal-exit-img');
+  MODAL.ui.authModal.innerText     = MODAL.ui.authModal.content.querySelector('#login-modal-text');
+  MODAL.ui.authModal.providerlist  = MODAL.ui.authModal.content.querySelector('#login-modal-providerlist');
+  MODAL.ui.authModal.googleImg     = MODAL.ui.authModal.providerlist.querySelector('#login-modal-google-img');
 
 
   //Переменные модалки выхода MET
   MODAL.met.exitModal              = {};
   MODAL.met.exitModal.visible      = false;
   MODAL.met.exitModal.content      = document.getElementById('exit-modal');
-  MODAL.met.exitModal.innerText    = MODAL.met.exitModal.content.getElementById('exit-modal-text');
-  MODAL.met.exitModal.buttons      = MODAL.met.exitModal.content.getElementById('exit-modal-buttons');
-  MODAL.met.exitModal.btnYes       = MODAL.met.exitButtons.getElementById('exit-yes');
-  MODAL.met.exitModal.btnNo        = MODAL.met.exitButtons.getElementById('exit-no');
+  MODAL.met.exitModal.innerText    = MODAL.met.exitModal.content.querySelector('#exit-modal-text');
+  MODAL.met.exitModal.buttons      = MODAL.met.exitModal.content.querySelector('#exit-modal-buttons');
+  MODAL.met.exitModal.btnYes       = MODAL.met.exitModal.buttons.querySelector('#exit-yes');
+  MODAL.met.exitModal.btnNo        = MODAL.met.exitModal.buttons.querySelector('#exit-no');
 
   //Переменные модалки удаления маркера MET
   MODAL.met.confirmModal           = {};
   MODAL.met.confirmModal.visible   = false;
   MODAL.met.confirmModal.content   = document.getElementById('confirm-modal');
-  MODAL.met.confirmModal.innerText = MODAL.met.confirmModal.content.getElementById('confirm-modal-text');
-  MODAL.met.confirmModal.buttons   = MODAL.met.confirmModal.content.getElementById('confirm-modal-buttons');
-  MODAL.met.confirmModal.btnYes    = MODAL.met.confirmModal.buttons.getElementById('confirm-yes');
-  MODAL.met.confirmModal.btnNo     = MODAL.met.confirmModal.buttons.getElementById('confirm-no');
+  MODAL.met.confirmModal.innerText = MODAL.met.confirmModal.content.querySelector('#confirm-modal-text');
+  MODAL.met.confirmModal.buttons   = MODAL.met.confirmModal.content.querySelector('#confirm-modal-buttons');
+  MODAL.met.confirmModal.btnYes    = MODAL.met.confirmModal.buttons.querySelector('#confirm-yes');
+  MODAL.met.confirmModal.btnNo     = MODAL.met.confirmModal.buttons.querySelector('#confirm-no');
 }
 
 export function toggleModalVisible(modal, is_visible) {

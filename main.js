@@ -7,7 +7,6 @@ import { cacheOptElements,
         initFilterElements, 
         cacheAuthElements, 
         cacheHeaderElements,
-        cacheLoginModalElements 
         } from "./ui/sidebar.js"
 import { cacheModalElements } from "./ui/modal.js"
 import { cacheWindowMatches, initWindowEvents } from "./ui/adaptability.js"
@@ -26,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cacheHeaderElements();
     cacheMETUIElements();
     cacheWindowMatches();
-    cacheLoginModalElements();
     cacheCursor();
 
     initOptElements();
