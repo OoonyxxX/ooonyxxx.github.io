@@ -40,23 +40,23 @@
 }
 
 .modal-login {
-    display: flex;
-    background: #0B0B0B;
-    flex-direction: column;
-    position: relative;
-    align-items: center;
-    width: 20rem;
-    height: 10rem;
+  display: flex;
+  background: #0B0B0B;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  width: 20rem;
+  height: 10rem;
 }
 .login-modal-exit {
-    background: none;
-    border: none;
-    border-radius: 8px;
-    width: 2rem;
-    height: 2rem;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
 .login-modal-text {
@@ -72,12 +72,14 @@
 }
 
 .login-modal-content {
-    display: flex;
+  display: flex;
 }
 
 .hidden {
   display: none !important;
-[role="modal"] {
+}
+
+[role="dialog"] {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: 9998;

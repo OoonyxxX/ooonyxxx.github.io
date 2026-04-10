@@ -607,7 +607,7 @@
 	<!-- модальные окна из MET-modal-block используются только внутри MET -->
 	<div id="MET-modal-block" class="MET-modal-block">
 	  <!-- confirm-modal используется для подтверждения удаления маркера -->
-	  <div role="modal" id="confirm-modal" class="confirm-modal hidden">
+	  <div role="dialog" id="confirm-modal" class="confirm-modal hidden">
 	    <div class="confirm-modal-content">
 		  <p class="confirm-modal-text" class="modal-text">Are you sure you want to remove this marker?</p>
 		  <div id="confirm-modal-buttons" class="modal-buttons">
@@ -618,7 +618,7 @@
 	  </div>
 	
 	  <!-- exit-modal используется для подтверждения выхода из MET без сохранения изменений -->
-	  <div role="modal" id="exit-modal" class="exit-modal hidden">
+	  <div role="dialog" id="exit-modal" class="exit-modal hidden">
 	    <div class="exit-modal-content">
 		  <p id="exit-modal-text" class="modal-text"></p>
 		  <div id="exit-modal-buttons" class="modal-buttons">
@@ -632,7 +632,7 @@
 	<!-- модальные окна из UI-modal-block используются во всем интерфейсе карты -->
 	<div id="UI-modal-block" class="UI-modal-block">
 	  <!-- login-modal используется для авторизации -->
-	  <div role="modal" id="login-modal-container" class="modal-login-container hidden">
+	  <div role="dialog" id="login-modal-container" class="modal-login-container hidden">
 	    <div id="login-modal" class="modal-login">
 		  <button id="login-modal-exit" class="login-modal-exit">
 		    <img id="login-modal-exit-img" class="login-modal-exit-img" src="/othersvg/cancel.svg">
@@ -647,7 +647,7 @@
 	  </div>
 
 	  <!-- user-modal используется как окно пользовательских настроек -->
-	  <div role="modal" id="user-modal-container" class="user-modal-container hidden">
+	  <div role="dialog" id="user-modal-container" class="user-modal-container hidden">
 	    <div role="tablist" id="user-modal-tablist" class="user-modal-tablist">
 		  <button role="tab" aria-selected="true">Вкладка 1</button>
 		  <button role="tab" aria-selected="false">Вкладка 2</button>
