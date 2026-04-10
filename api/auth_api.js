@@ -1,9 +1,10 @@
 import { API_RAW, API } from "../api/config_api.js"
 import { apiRequest } from "../api/request.js"
 import { ALLOWED_MET_ROLE } from "../core/config.js"
-import { AUTHTOPBAR, AUTHMODAL } from "../ui/sidebar.js"
+import { AUTHTOPBAR } from "../ui/sidebar.js"
 import { toggleMETControls, MetEditor } from "../features/metEditor.js"
 import { APPMETSTATE, APPSTATE, USERSESSION, USERSETTINGS} from "../core/state.js"
+import { initAuthModal, MODAL } from "../ui/modal.js"
 
 export async function checkAuth() {
   const data = await apiRequest(API_RAW.auth.me, {}, [401]);
@@ -26,29 +27,14 @@ export async function checkAuth() {
       }
     }
   } else {
-    enableAuthModal();
+    const handlerIn = () => {
+      MODAL.ui.authModal.googleImg.addEventListener('click', loginGoogle, { once: true });
+    }
+    const handlerOut = () => {
+      MODAL.ui.authModal.googleImg.removeEventListener('click', loginGoogle);
+    }
+    initAuthModal(handlerIn, handlerOut);
   }
-}
-
-export function enableAuthModal() {
-  AUTHTOPBAR.loginButton.addEventListener('click', openAuthModal)
-  AUTHMODAL.loginModalExit.addEventListener('click', closeAuthModal)
-  AUTHMODAL.loginModalGoogleImg.addEventListener('click', loginGoogle)
-}
-export function disableAuthModal() {
-  AUTHTOPBAR.loginButton.removeEventListener('click', openAuthModal)
-  AUTHMODAL.loginModalExit.removeEventListener('click', closeAuthModal)
-  AUTHMODAL.loginModalGoogleImg.removeEventListener('click', loginGoogle)
-}
-
-function openAuthModal() {
-  AUTHTOPBAR.loginModalContainer.classList.toggle('login-hidden', false);
-
-}
-
-function closeAuthModal() {
-  AUTHTOPBAR.loginModalContainer.classList.toggle('login-hidden', true);
-
 }
 
 function loginGoogle() {

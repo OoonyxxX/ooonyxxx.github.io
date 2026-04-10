@@ -5,6 +5,7 @@ import { USERSESSION } from "../core/state.js"
 import { REGION_LIST, ALLOWED_MET_DELETE_ROLE } from "../core/config.js"
 import { attachColorPicker } from "../ui/colorPicker.js"
 import { setDraggingMode } from "../ui/cursor.js"
+import { deleteModal, openExitModal } from "../ui/modal.js"
 
 //Переменные блока MET
 //START
@@ -15,15 +16,6 @@ export const METUI = {};
 export function cacheMETUIElements() {
   METUI.metControls   = document.getElementById('met-controls');
   METUI.metInited     = false;
-
-  //Переменные модалки выхода
-  METUI.exitModal      = document.getElementById('exit-modal');
-  METUI.exitText       = document.getElementById('exit-modal-text');
-  METUI.exitButtons    = document.getElementById('exit-modal-buttons');
-  METUI.exitYes        = document.getElementById('exit-yes');
-  METUI.exitNo         = document.getElementById('exit-no');
-  METUI.exitLoader     = document.getElementById('exit-modal-loader');
-  METUI.exitLoaderText = document.getElementById('exit-modal-loader-text');
 }
 
 function applyButtonState(button, state = {}) {
@@ -229,30 +221,20 @@ export class MetEditor {
   //Кнопка выключения МЕТ
   btnExitInit() {
     if (!this.exitSave && (this.exitSave !== undefined)) {
-      METUI.exitText.textContent = 'Are you sure you want to exit without saving the changes? ' + 'All edits will be lost.';
-      this.openExitModal();
+      const yesHandler = () => {
+        this.globalDiscardChanges();
+        this.exitWithoutModal();
+      };
+      const noHandler = () => {
+        this.unbindEditPopap();
+      };
+      openExitModal(yesHandler, noHandler);
       return
     } else {
       this.unbindEditPopap();
       this.exitWithoutModal();
       return
     }
-  }
-
-  openExitModal() {
-    METUI.exitModal.classList.remove('exit-hidden');
-    const exitNoHandler = () => {
-      METUI.exitModal.classList.add('exit-hidden');
-      this.unbindEditPopap();
-    };
-    METUI.exitNo.addEventListener('click', exitNoHandler, { once: true });
-
-    const exitYesHandler = () => {
-      METUI.exitModal.classList.add('exit-hidden');
-      this.globalDiscardChanges();
-      this.exitWithoutModal();
-    };
-    METUI.exitYes.addEventListener('click', exitYesHandler, { once: true });
   }
 
   exitWithoutModal() {
@@ -546,28 +528,16 @@ export class MetEditor {
     const allowed_role = ALLOWED_MET_DELETE_ROLE.includes(USERSESSION.role);
     deleteBtn.disabled = !allowed_role;
     if (!isNew) {
-      const confirmModal = document.getElementById('confirm-modal');
-      const btnConfirmYes = document.getElementById('confirm-yes');
-      const btnConfirmNo  = document.getElementById('confirm-no');
-
       deleteBtn.classList.toggle('hide', false);
-      deleteBtn.addEventListener('click', () => {
-        confirmModal.classList.remove('confirm-hidden');
-
-        btnConfirmYes.onclick = () => {
-          confirmModal.classList.add('confirm-hidden');
-          this.editPopup.remove();
-          const originalMarker = MAPDATA.existingMarkers.get(this.oldMarkerData.id);
-          this.diff.deleted.push(originalMarker.$data.id);
-          originalMarker.remove();
-          MAPDATA.existingMarkers.delete(originalMarker.$data.id);
-          this.updateSaveState();
-        };
-
-        btnConfirmNo.onclick = () => {
-          confirmModal.classList.add('confirm-hidden');
-        };
-      });
+      const handlerYes = () => {
+        this.editPopup.remove();
+        const originalMarker = MAPDATA.existingMarkers.get(this.oldMarkerData.id);
+        this.diff.deleted.push(originalMarker.$data.id);
+        originalMarker.remove();
+        MAPDATA.existingMarkers.delete(originalMarker.$data.id);
+        this.updateSaveState();
+      }
+      deleteBtn.addEventListener('click', () => {deleteModal(handlerYes)});
     } else {
       deleteBtn.classList.toggle('hide', true);
     }

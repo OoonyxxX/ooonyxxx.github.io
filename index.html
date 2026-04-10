@@ -601,41 +601,61 @@
 	  </g>
 	</svg>
   </div>
-  <div id="confirm-modal" class="confirm-modal-style confirm-hidden">
-    <div class="confirm-modal-content">
-      <p class="confirm-modal-text">Are you sure you want to remove this marker?</p>
-      <button id="confirm-yes">Yes</button>
-      <button id="confirm-no">NO</button>
-    </div>
-  </div>
-  
-  <div id="exit-modal" class="exit-modal-style exit-hidden">
-    <div class="exit-modal-content">
-      <p id="exit-modal-text"></p>
-      <div id="exit-modal-buttons" class="modal-buttons">
-	    <p id="exit-modal-text" class="modal-text"></p>
-        <button id="exit-yes">Yes</button>
-        <button id="exit-no">NO</button>
-      </div>
-      <div id="exit-modal-loader" class="modal-loader exit-hidden">
-        <svg width="50" height="50" viewBox="0 0 50 50" class="spinner">
-          <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"/>
-        </svg>
-        <p id="exit-modal-loader-text" class="modal-loader-text"></p>
-      </div>
-    </div>
-  </div>
-  <div id="login-modal-container" class="modal-login-container login-hidden">
-	<div id="login-modal" class="modal-login">
-		<button id="login-modal-exit" class="login-modal-exit">
-			<img id="login-modal-exit-img" class="login-modal-exit-img" src="/othersvg/cancel.svg">
+
+  <div id="modal-block" class="modal-block">
+	<!-- модальные окна из MET-modal-block используются только внутри MET -->
+	<div id="MET-modal-block" class="MET-modal-block">
+	  <!-- confirm-modal используется для подтверждения удаления маркера -->
+	  <div role="modal" id="confirm-modal" class="confirm-modal hidden">
+	    <div class="confirm-modal-content">
+		  <p class="confirm-modal-text" class="modal-text">Are you sure you want to remove this marker?</p>
+		  <div id="confirm-modal-buttons" class="modal-buttons">
+		    <button id="confirm-yes" class="confirm-yes">Yes</button>
+		    <button id="confirm-no" class="confirm-no">NO</button>
+		  </div>
+	    </div>
+	  </div>
+	
+	  <!-- exit-modal используется для подтверждения выхода из MET без сохранения изменений -->
+	  <div role="modal" id="exit-modal" class="exit-modal hidden">
+	    <div class="exit-modal-content">
+		  <p id="exit-modal-text" class="modal-text"></p>
+		  <div id="exit-modal-buttons" class="modal-buttons">
+		    <button id="exit-yes" class="exit-yes">Yes</button>
+		    <button id="exit-no" class="exit-no">NO</button>
+		  </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- модальные окна из UI-modal-block используются во всем интерфейсе карты -->
+	<div id="UI-modal-block" class="UI-modal-block">
+	  <!-- login-modal используется для авторизации -->
+	  <div role="modal" id="login-modal-container" class="modal-login-container hidden">
+	    <div id="login-modal" class="modal-login">
+		  <button id="login-modal-exit" class="login-modal-exit">
+		    <img id="login-modal-exit-img" class="login-modal-exit-img" src="/othersvg/cancel.svg">
+		  </button>
+		  <p id="login-modal-text" class="login-modal-text">
+		    Select your authorization method
+		  </p>
+		  <div id="login-modal-providerlist" class="login-modal-providerlist">
+		    <img id="login-modal-google-img" class="login-modal-google-img login-modal-element" src="/svglogin/google_dark.svg">
+		  </div>
+	    </div>
+	  </div>
+
+	  <!-- user-modal используется как окно пользовательских настроек -->
+	  <div role="modal" id="user-modal-container" class="user-modal-container hidden">
+	    <div role="tablist" id="user-modal-tablist" class="user-modal-tablist">
+		  <button role="tab" aria-selected="true">Вкладка 1</button>
+		  <button role="tab" aria-selected="false">Вкладка 2</button>
+	    </div>
+		<button id="user-modal-exit" class="user-modal-exit">
+		  <img id="user-modal-exit-img" class="user-modal-exit-img" src="/othersvg/cancel.svg">
 		</button>
-		<span id="login-modal-text" class="login-modal-text">
-			Select your authorization method
-		</span>
-		<div id="login-modal-content" class="login-modal-content">
-			<img id="login-modal-google-img" class="login-modal-google-img login-modal-element" src="/svglogin/google_dark.svg">
-		</div>
+	    <div id="user-modal" class="user-modal"></div>
+	  </div>
 	</div>
   </div>
   <script src="https://unpkg.com/@jaames/iro@5.5.2/dist/iro.min.js"></script>

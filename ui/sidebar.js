@@ -6,7 +6,6 @@ export const OPTSIDEBAR = {};
 export const FILTERSIDEBAR = {};
 export const AUTHTOPBAR = {};
 export const HEADERTOPBAR = {};
-export const AUTHMODAL = {};
 
 // Кешироние DOM елементов панели параметров
 export function cacheOptElements() {
@@ -154,15 +153,4 @@ export function startHeaderAnim(ms) {
 export function stopHeaderAnim() {
   HEADERTOPBAR.header.classList.remove('debouncing');
   HEADERTOPBAR.header.style.removeProperty('--debounce-ms');
-}
-
-// Кешироние DOM елементов модалки авторизации
-export function cacheLoginModalElements() {
-    AUTHMODAL.loginModalContainer   = document.getElementById('login-modal-container');
-    AUTHMODAL.loginModal            = document.getElementById('login-modal');
-    AUTHMODAL.loginModalText        = document.getElementById('login-modal-text');
-    AUTHMODAL.loginModalContent     = document.getElementById('login-modal-content');
-    AUTHMODAL.loginModalGoogleImg   = document.getElementById('login-modal-google-img');
-    AUTHMODAL.loginModalExit        = document.getElementById('login-modal-exit');
-    AUTHMODAL.loginModalExitImg     = document.getElementById('login-modal-exit-img');
 }
