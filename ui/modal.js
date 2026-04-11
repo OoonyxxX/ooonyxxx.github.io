@@ -4,7 +4,7 @@ export const MODAL = {}
 export function cacheModalElements() {
   MODAL.ui                         = {};
   MODAL.met                        = {};
-  //Переменные модалки авторизации
+  //Переменные модалки пользователя
   MODAL.ui.userModal               = {};
   MODAL.ui.userModal.visible       = false;
   MODAL.ui.userModal.activeTab     = 0;
@@ -14,11 +14,11 @@ export function cacheModalElements() {
   MODAL.ui.userModal.imgExit       = MODAL.ui.userModal.btnExit.querySelector('#user-modal-exit-img');
   MODAL.ui.userModal.content       = MODAL.ui.userModal.container.querySelector('#user-modal');
 
-  //Переменные модалки пользователя
+  
+  //Переменные модалки авторизации
   MODAL.ui.authModal               = {};
   MODAL.ui.authModal.visible       = false;
-  MODAL.ui.authModal.container     = document.getElementById('login-modal-container');
-  MODAL.ui.authModal.content       = MODAL.ui.authModal.container.querySelector('#login-modal');
+  MODAL.ui.authModal.content       = document.getElementById('login-modal');
   MODAL.ui.authModal.btnExit       = MODAL.ui.authModal.content.querySelector('#login-modal-exit');
   MODAL.ui.authModal.imgExit       = MODAL.ui.authModal.btnExit.querySelector('#login-modal-exit-img');
   MODAL.ui.authModal.innerText     = MODAL.ui.authModal.content.querySelector('#login-modal-text');
