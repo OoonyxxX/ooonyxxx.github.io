@@ -32,14 +32,14 @@
   background: none;
 }
 
-.modal-login-container{
+.login-modal{
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(0,0,0,0.5);
 }
 
-.modal-login {
+.login-modal-content {
   display: flex;
   background: #0B0B0B;
   flex-direction: column;

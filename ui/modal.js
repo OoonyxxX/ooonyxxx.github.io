@@ -9,9 +9,9 @@ export function cacheModalElements() {
   MODAL.ui.userModal.visible       = false;
   MODAL.ui.userModal.activeTab     = 0;
   MODAL.ui.userModal.container     = document.getElementById('user-modal-container');
-  MODAL.ui.userModal.tablist       = MODAL.ui.userModal.container.querySelector('#user-modal-tablist');
   MODAL.ui.userModal.btnExit       = MODAL.ui.userModal.container.querySelector('#user-modal-exit');
   MODAL.ui.userModal.imgExit       = MODAL.ui.userModal.btnExit.querySelector('#user-modal-exit-img');
+  MODAL.ui.userModal.tablist       = MODAL.ui.userModal.container.querySelector('#user-modal-tablist');
   MODAL.ui.userModal.content       = MODAL.ui.userModal.container.querySelector('#user-modal');
 
   
@@ -103,3 +103,4 @@ export function deleteModal(handlerYes = () => {}, handlerNo = () => {}) {
   MODAL.met.confirmModal.btnYes.addEventListener('click', deleteYesHandler);
   MODAL.met.confirmModal.btnNo.addEventListener('click', deleteNoHandler);
 }
+
