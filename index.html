@@ -648,14 +648,36 @@
 
 	  <!-- user-modal используется как окно пользовательских настроек -->
 	  <div role="dialog" id="user-modal-container" class="user-modal-container hidden">
-	    <div role="tablist" id="user-modal-tablist" class="user-modal-tablist">
-		  <button role="tab" aria-selected="true">Вкладка 1</button>
-		  <button role="tab" aria-selected="false">Вкладка 2</button>
-	    </div>
 		<button id="user-modal-exit" class="user-modal-exit">
 		  <img id="user-modal-exit-img" class="user-modal-exit-img" src="/othersvg/cancel.svg">
 		</button>
-	    <div id="user-modal" class="user-modal"></div>
+	    <div role="tablist" id="user-modal-tablist" class="user-modal-tablist">
+		  <!-- Содержимое генерируется динамически -->
+		  <button role="tab" id="user-modal-tab-0" class="tab-button" aria-selected="true">Вкладка 1</button>
+		  <button role="tab" id="user-modal-tab-1" class="tab-button" aria-selected="false">Вкладка 2</button>
+		  <button role="tab" id="user-modal-tab-2" class="tab-button" aria-selected="false">Вкладка 2</button>
+		  <!-- Содержимое генерируется динамически -->
+	    </div>
+	    <div id="user-modal" class="user-modal">
+		  <div role="tabpanel" id="tab-content-0" class="tab-content">
+			<h2>Account Info</h2>
+			<span id="account-info" class="account-info">
+			  <!-- Содержимое генерируется динамически -->
+			</span> 
+		  </div>
+		  <div role="tabpanel" id="tab-content-1" class="tab-content">
+			<h2>User Options</h2>
+			<div id="user-options" class="user-options">
+			  <!-- Содержимое генерируется динамически -->
+			</div>
+		  </div>
+		  <div role="tabpanel" id="tab-content-2" class="tab-content">
+			<h2>User Statistics</h2>
+			<div id="user-statistics" class="user-statistics">
+			  <!-- Содержимое генерируется динамически -->
+			</div>
+		  </div>
+		</div>
 	  </div>
 	</div>
   </div>
