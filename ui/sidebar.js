@@ -1,4 +1,4 @@
-import { APPSTATE } from "../core/state.js"
+import { APPSTATE, USERSESSION } from "../core/state.js"
 import { paintMarkers } from "../features/markers.js"
 import { subscribeUI } from "./UIUtilities.js"
 
