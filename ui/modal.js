@@ -676,6 +676,7 @@ class UserModal {
     this._appendDisplayNameChangeEvents();
     this._appendCursorToggleEvent();
     this._appendMETToggleEvent();
+    this._appendLogoutEvent();
   }
   _tabButtonEvent(e) {
     const button = e.currentTarget;
@@ -693,7 +694,7 @@ class UserModal {
   }
 
 
-  _appendLogoutEvent() {
+  async _appendLogoutEvent() {
     const logout = this.accountInfo.logout;
     const logout_button_handler = () => {
       this.closeModal();
