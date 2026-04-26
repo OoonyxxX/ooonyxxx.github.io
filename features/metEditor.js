@@ -24,6 +24,7 @@ export function METActiveController() {
   if (METSTATE.met === null) METSTATE.met = new MetEditor;
   METSTATE.METAllow = ALLOWED_MET_ROLE.includes(USERSESSION.role)
   if (!METSTATE.METAllow) {
+    toggleMETControls(false);
     if (METSTATE.met && METUI.metInited) {
       METSTATE.met.destroy()
     }
@@ -34,7 +35,7 @@ export function METActiveController() {
     return
   }
   if ((USERSETTINGS.METVisible)) {
-    toggleMETControls(true)
+    toggleMETControls(true);
     if (!METSTATE.METInited) METSTATE.met.init();
   } else {
     toggleMETControls(false);
