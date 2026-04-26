@@ -19,7 +19,7 @@ export const APPSTATE = {
     isDesktop_4K: false,
 };
 
-export const USERSESSION = proxifyObjToUpdateUI(...USERSESSIONDEFAULT)
+export const USERSESSION = proxifyObjToUpdateUI({...USERSESSIONDEFAULT})
 
 export const USERINFO = proxifyObjToUpdateUI({
     collected: 0,
