@@ -13,7 +13,7 @@ export async function checkAuth() {
 }
 
 export async function logoutUser() {
-  const { success } = await apiRequest(API_RAW.auth.logout, buildJsonOptions({method: "POST"}), []);
+  const { success } = await apiRequest(API_RAW.auth.logout, buildJsonOptions({method: "POST", data: {}}), []);
   if (success) {
     authorizeController({authorized: false});
     loadAuthorizationModals();
