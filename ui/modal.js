@@ -749,11 +749,11 @@ class UserModal {
   }
   _appendMETToggleEvent() {
     const METActiveHandler = async () => {
-      const currentState = this.options.METActiveToggle.checked;
+      const currentState = this.options.METVisibleToggle.checked;
       USERSETTINGS.METVisible = currentState;
       const savedState = await saveOption("METVisible", currentState);
       if (savedState === "error") {
-        this.options.METActiveToggle.checked = !currentState;
+        this.options.METVisibleToggle.checked = !currentState;
         USERSETTINGS.METVisible = !currentState;
       };
     }
