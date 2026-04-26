@@ -694,9 +694,9 @@ class UserModal {
   }
 
 
-  async _appendLogoutEvent() {
+  _appendLogoutEvent() {
     const logout = this.accountInfo.logout;
-    const logout_button_handler = () => {
+    const logout_button_handler = async () => {
       this.closeModal();
       await logoutUser();
     }
