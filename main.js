@@ -16,7 +16,7 @@ import { loadMapData } from "./features/markers.js"
 import { checkAuth, loadAuthorizationModals } from "./api/auth_api.js"
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     cacheAuthElements();
     cacheModalElements();
     cacheOptElements();
@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initWindowEvents();
     initFilters();
     initCursor();
-    checkAuth();
+    await checkAuth();
 
-    loadMapData();
+    await loadMapData();
     loadAuthorizationModals()
 });
