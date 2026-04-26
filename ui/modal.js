@@ -1,6 +1,7 @@
 import { USERSETTINGS, USERINFO, USERSESSION } from "../core/state.js";
 import { subscribeUI, sanitizeUsername } from "./UIUtilities.js"
 import { requestPatchDisplayName, saveOption } from "../api/users_api.js"
+import { logoutUser } from "../api/auth_api.js"
 export const MODAL = {}
 
 const USERMODALCONFIG = {
@@ -447,6 +448,7 @@ class UserModal {
       role: {},
       provider: {},
       email: {},
+      logout: {},
     };
     this.options       = {};
     this.statistics    = {};
@@ -482,6 +484,8 @@ class UserModal {
     this.accountInfo.provider.text = this.accountInfo.provider.cont.querySelector(".account-info-text-auth-provider");
     this.accountInfo.email.cont = this.accountInfo.cont.querySelector("#account-info-user-email-container");
     this.accountInfo.email.text = this.accountInfo.email.cont.querySelector(".account-info-text-user-email");
+    this.accountInfo.logout.cont = this.accountInfo.cont.querySelector("#account-info-logout-button-container");
+    this.accountInfo.logout.btn = this.accountInfo.logout.cont.querySelector(".user-logout-button");
 
     this.options.cont               = this.tabcontent.querySelector("#user-options-body");
     this.options.customCursor       = this.options.cont.querySelector(".cursor-toggle");
@@ -688,6 +692,15 @@ class UserModal {
     this._toggleTabVisible(prevIndex, false);
   }
 
+
+  _appendLogoutEvent() {
+    const logout = this.accountInfo.logout;
+    const logout_button_handler = () => {
+      this.closeModal();
+      await logoutUser();
+    }
+    logout.btn.addEventListener("click", logout_button_handler);
+  }
 
   _appendDisplayNameChangeEvents() {
     const name = this.accountInfo.displayName;

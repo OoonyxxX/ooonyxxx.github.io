@@ -23,6 +23,7 @@ export const API = {
 export const API_RAW = {
   auth: {
     me: `/auth/me`,
+    logout: `/auth/logout`,
     googleLogin: `/auth/google/login`,
   },
 

@@ -12,6 +12,14 @@ export async function checkAuth() {
   await authorizeController(data);
 }
 
+export async function logoutUser() {
+  const { success } = await apiRequest(API_RAW.auth.logout, buildJsonOptions({method: "POST"}), []);
+  if (success) {
+    authorizeController({authorized: false});
+    loadAuthorizationModals();
+  }
+}
+
 function initUserModal() {
   MODAL.ui.userModal.setOuterTargets({open: AUTHTOPBAR.userMenu});
   MODAL.ui.userModal.setOuterHandlers();
