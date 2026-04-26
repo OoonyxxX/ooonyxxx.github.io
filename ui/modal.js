@@ -800,6 +800,7 @@ class UserModal {
     }
     if (!this.generated) this._generateModal();
     this._setUpStartState();
+    this.setInnerHandlers()
 
     this.openTarget.addEventListener('click', this.openHendler);
     if (this.closeTarget !== null) this.closeTarget.addEventListener('click', this.closeHendler);

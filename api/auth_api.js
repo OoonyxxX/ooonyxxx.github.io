@@ -15,7 +15,7 @@ export async function checkAuth() {
 function initUserModal() {
   MODAL.ui.userModal.setOuterTargets({open: AUTHTOPBAR.userMenu});
   MODAL.ui.userModal.setOuterHandlers();
-  MODAL.ui.userModal.setInnerHandlers();
+  //MODAL.ui.userModal.setInnerHandlers();
   MODAL.ui.userModal.initModal();
 }
 

@@ -102,7 +102,12 @@ export function cacheAuthElements() {
   AUTHTOPBAR.authImg               = AUTHTOPBAR.userContainer.querySelector('#auth-img');
   AUTHTOPBAR.userMenu              = AUTHTOPBAR.userContainer.querySelector('#user-menu');
   subscribeUI("display_name", () => {
-    AUTHTOPBAR.usernameDisplay.textContent = USERSESSION.display_name;
+    if (!USERSESSION.display_name) {
+      const name = 'Unknown';
+    } else {
+      name = USERSESSION.display_name;
+    }
+    AUTHTOPBAR.usernameDisplay.textContent = name;
   })
 }
 
