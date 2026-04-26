@@ -35,8 +35,7 @@ export function METActiveController() {
   }
   if ((USERSETTINGS.METVisible)) {
     toggleMETControls(true)
-    METSTATE.met.init()
-    METSTATE.METInited = true;
+    if (!METSTATE.METInited) METSTATE.met.init();
   } else {
     toggleMETControls(false);
   }

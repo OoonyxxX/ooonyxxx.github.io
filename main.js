@@ -13,7 +13,7 @@ import { cacheWindowMatches, initWindowEvents } from "./ui/adaptability.js"
 import { cacheCursor, initCursor } from "./ui/cursor.js"
 import { loadMapData } from "./features/markers.js"
 
-import { checkAuth } from "./api/auth_api.js"
+import { checkAuth, loadAuthorizationModals } from "./api/auth_api.js"
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,4 +37,5 @@ document.addEventListener('DOMContentLoaded', () => {
     checkAuth();
 
     loadMapData();
+    loadAuthorizationModals()
 });

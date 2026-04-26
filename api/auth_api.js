@@ -33,6 +33,7 @@ async function authorizeController(authorizationData) {
   toggleAuthorizationUI(authorizationData.authorized);
   fillSession(authorizationData);
   await fillSettings();
+  /*
   if (authorizationData.authorized) {
     initUserModal();
     if (MODAL.ui.authModal.initialized) MODAL.ui.authModal.deinitModal();
@@ -40,6 +41,7 @@ async function authorizeController(authorizationData) {
     if (MODAL.ui.userModal.initialized) MODAL.ui.userModal.deinitModal();
     initAuthModal();
   }
+  */
   METActiveController();
 }
 
@@ -60,4 +62,14 @@ function fillSession(authorizationData) {
 
 function loginGoogle() {
   window.location.assign(API.auth.googleLogin);
+}
+
+export function loadAuthorizationModals() {
+  if (USERSESSION.authorized) {
+    initUserModal();
+    if (MODAL.ui.authModal.initialized) MODAL.ui.authModal.deinitModal();
+  } else {
+    if (MODAL.ui.userModal.initialized) MODAL.ui.userModal.deinitModal();
+    initAuthModal();
+  }
 }
