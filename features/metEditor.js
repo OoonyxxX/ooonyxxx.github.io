@@ -1,20 +1,52 @@
 import { MAPDATA, paintMarkers, createMarker, loadMarkersData, markerBuilder, markerMap, bindMarkerPopup } from "./markers.js"
 import { METRequest } from "../api/markers_api.js"
 import { map } from "../core/map.js"
-import { USERSESSION } from "../core/state.js"
-import { REGION_LIST, ALLOWED_MET_DELETE_ROLE } from "../core/config.js"
+import { APPSTATE, USERSESSION, USERSETTINGS } from "../core/state.js"
+import { REGION_LIST, ALLOWED_MET_ROLE, ALLOWED_MET_DELETE_ROLE } from "../core/config.js"
 import { attachColorPicker } from "../ui/colorPicker.js"
 import { setDraggingMode } from "../ui/cursor.js"
-import { deleteModal, openExitModal } from "../ui/modal.js"
+import { MODAL } from "../ui/modal.js"
+import { subscribeUI } from "../ui/UIUtilities.js"
 
 //Переменные блока MET
 //START
 
+export const METSTATE = {
+  METAllow: false,
+  METInited: false,
+  met: null,
+}
+
 // Переменные интерфейса
 export const METUI = {};
 
+export function METActiveController() {
+  if (METSTATE.met === null) METSTATE.met = new MetEditor;
+  METSTATE.METAllow = ALLOWED_MET_ROLE.includes(USERSESSION.role)
+  if (!METSTATE.METAllow) {
+    if (METSTATE.met && METUI.metInited) {
+      METSTATE.met.destroy()
+    }
+    return
+  }
+  if (APPSTATE.isMobile) {
+    toggleMETControls(false);
+    return
+  }
+  if ((USERSETTINGS.METVisible)) {
+    toggleMETControls(true)
+    METSTATE.met.init()
+    METSTATE.METInited = true;
+  } else {
+    toggleMETControls(false);
+  }
+}
+
 export function cacheMETUIElements() {
   METUI.metControls   = document.getElementById('met-controls');
+  subscribeUI("METVisible", () => {
+    METActiveController()
+  })
   METUI.metInited     = false;
 }
 
@@ -59,7 +91,7 @@ export function toggleMETControls(isOpen) {
   }
   
   if (!isOpen && METUI.METControlsState) {
-    if (!METUI.metInited) {
+    if (METUI.metInited) {
       METUI.metControls.innerHTML = ``;
       METUI.btnActivate = null;
       METUI.btnExit = null;
@@ -70,6 +102,8 @@ export function toggleMETControls(isOpen) {
     METUI.METControlsState = false;
   }
 }
+
+
 
 //Блок MET
 //START
@@ -97,19 +131,18 @@ export class MetEditor {
     this.tpl = document.getElementById('marker-form-template');
     this.exitSave;
 
-    this.btnActivateInit_Handle_Click = this.btnActivateInit.bind(this);
-    this.btnAddInit_Handle_Click = this.btnAddInit.bind(this);
-    this.btnSaveInit_Handle_Click = this.btnSaveInit.bind(this);
-    this.btnExitInit_Handle_Click = this.btnExitInit.bind(this);
+    this.btnActivateInit_Handle_Click = this._btnActivateInit.bind(this);
+    this.btnAddInit_Handle_Click = this._btnAddInit.bind(this);
+    this.btnSaveInit_Handle_Click = this._btnSaveInit.bind(this);
 
-    this.onMarkerClick_Handle_Click = this.onMarkerClick.bind(this);
-    this.onMapClick_Handle_Click = this.onMapClick.bind(this);
+    this.onMarkerClick_Handle_Click = this._onMarkerClick.bind(this);
+    this.onMapClick_Handle_Click = this._onMapClick.bind(this);
 
   }
 
 
   //Обработчик маски регионов
-	initRegionCanvas(src) {
+	_initRegionCanvas(src) {
 	  return new Promise((resolve, reject) => {
       const img = new Image();
       img.crossOrigin = 'anonymous';
@@ -128,7 +161,7 @@ export class MetEditor {
 	}
 
   // Генератор id для новых маркеров
-  genId(title, lat, lng) {
+  _genId(title, lat, lng) {
     const safeTitle = title.trim().replace(/\s+/g, '_');
     const rand = String(Math.floor(Math.random() * 1e8)).padStart(8, '0');
     const latPart = String(Math.round(lat * 1000)).padStart(6, '0');
@@ -137,13 +170,13 @@ export class MetEditor {
   }
 
 
-	shiftLatLng(latlng, offsetYInPixels) {
+	_shiftLatLng(latlng, offsetYInPixels) {
 	  const point = this.map.latLngToLayerPoint(latlng);
 	  point.y -= offsetYInPixels;
 	  return this.map.layerPointToLatLng(point);
 	}
 
-  getRegionIndex(ctx, posX, posY) {
+  _getRegionIndex(ctx, posX, posY) {
     const x = Math.floor(posX * 32);
     const y = 8192 - Math.floor(posY * 32);
 
@@ -153,7 +186,7 @@ export class MetEditor {
     return R;  // reg_index
   }
 
-  metControlsToggler(buttonStates = {}) {
+  _metControlsToggler(buttonStates = {}) {
     applyButtonState(METUI.btnActivate, buttonStates.btnActivate);
     applyButtonState(METUI.btnExit,     buttonStates.btnExit);
     applyButtonState(METUI.btnAdd,      buttonStates.btnAdd);
@@ -168,31 +201,32 @@ export class MetEditor {
     METUI.btnActivate.addEventListener('click', this.btnActivateInit_Handle_Click);
     METUI.btnAdd.addEventListener('click', this.btnAddInit_Handle_Click);
     METUI.btnSave.addEventListener('click', this.btnSaveInit_Handle_Click);
-    METUI.btnExit.addEventListener('click', this.btnExitInit_Handle_Click);
+    this._btnExitInit();
   }
 
   destroy() {
+    METUI.metInited = false;
     METUI.btnActivate.removeEventListener('click', this.btnActivateInit_Handle_Click);
     METUI.btnAdd.removeEventListener('click', this.btnAddInit_Handle_Click);
     METUI.btnSave.removeEventListener('click', this.btnSaveInit_Handle_Click);
-    METUI.btnExit.removeEventListener('click', this.btnExitInit_Handle_Click);
+    this._btnExitDeinit();
   }
 
   //Кнопка включения МЕТ
-  btnActivateInit() {
+  _btnActivateInit() {
     if (!this.ctx) {
       (async () => {
-        this.ctx = await this.initRegionCanvas('Regions.png');
+        this.ctx = await this._initRegionCanvas('Regions.png');
       })();
     }
-    this.metControlsToggler({
+    this._metControlsToggler({
       btnActivate: {open: true, disabled: true},
       btnExit: {open: true, disabled: false},
       btnAdd: {open: true, disabled: false},
       btnSave: {open: true, disabled: true},
     });
 
-    this.setAddMode();
+    this._setAddMode();
     
     MAPDATA.existingMarkers.forEach((marker, id) => {
       marker.closePopup?.();
@@ -203,53 +237,58 @@ export class MetEditor {
   }
 
   //Кнопка добавления маркера
-  btnAddInit() {
+  _btnAddInit() {
     this.editPopup.remove();
-    this.setAddMode(!this.addingMarker);
+    this._setAddMode(!this.addingMarker);
   }
 
   //Кнопка сохранения изменений
-  btnSaveInit() {
+  _btnSaveInit() {
     this.editPopup.remove();
     METRequest(this.diff);
 	  this.diff.added   = [];
 	  this.diff.updated = [];
 	  this.diff.deleted = [];
-    this.updateSaveState();
+    this._updateSaveState();
   }
 
   //Кнопка выключения МЕТ
-  btnExitInit() {
-    if (!this.exitSave && (this.exitSave !== undefined)) {
-      const yesHandler = () => {
-        this.globalDiscardChanges();
-        this.exitWithoutModal();
-      };
-      const noHandler = () => {
-        this.unbindEditPopap();
-      };
-      openExitModal(yesHandler, noHandler);
-      return
-    } else {
-      this.unbindEditPopap();
-      this.exitWithoutModal();
-      return
+  _btnExitInit() {
+    MODAL.met.exitModal.setOuterTargets({open: METUI.btnExit});
+    const handlerIn = () => {
+      if (this.exitSave) {
+        this._exitWithoutModal();
+        this._unbindEditPopap();
+      }
     }
+    MODAL.met.exitModal.setOuterHandlers(handlerIn);
+    const handlerYes = () => {
+      this._globalDiscardChanges();
+      this._exitWithoutModal();
+    };
+    MODAL.met.exitModal.setInnerHandlers(handlerYes);
+    MODAL.met.exitModal.initModal();
   }
-
-  exitWithoutModal() {
-    this.setAddMode();
-    this.metControlsToggler({
+  _btnExitDeinit() {
+    MODAL.met.exitModal.deinitModal()
+  }
+  
+  _exitWithoutModal() {
+    this._setAddMode();
+    this._metControlsToggler({
       btnActivate: {open: true, disabled: false},
       btnExit: {open: false, disabled: true},
       btnAdd: {open: false, disabled: true},
       btnSave: {open: false, disabled: true},
     });
+    this.diff.added.length = 0;
+    this.diff.updated.length = 0;
+    this.diff.deleted.length = 0;
 
     this.editPopup.remove();
   }
 
-  unbindEditPopap() {
+  _unbindEditPopap() {
     MAPDATA.existingMarkers.forEach((marker, id) => {
       marker.off('click');
       bindMarkerPopup(marker, {
@@ -260,7 +299,7 @@ export class MetEditor {
     });
   }
 
-  async globalDiscardChanges() {
+  async _globalDiscardChanges() {
     for (const marker of MAPDATA.existingMarkers.values()) {
       marker.remove();
     }
@@ -273,17 +312,17 @@ export class MetEditor {
     this.diff.updated.length = 0;
     this.diff.deleted.length = 0;
 
-    this.updateSaveState();
+    this._updateSaveState();
   }
 
-  onMarkerClick(e) {
+  _onMarkerClick(e) {
     if (this.editPopupOpen) return;
     if (this.addingMarker) return;
     const marker = e.target;
-    this.openEditPopup(marker, false);
+    this._openEditPopup(marker, false);
   };
 
-  onMapClick(e) {
+  _onMapClick(e) {
     if (!this.addingMarker) return;
     this.addingMarker = !this.addingMarker
     const { lat, lng } = e.latlng;
@@ -292,12 +331,12 @@ export class MetEditor {
       coords: { lat, lng }, 
     });
     marker.addTo(map);
-    this.setAddMode()
-    this.openEditPopup(marker, true);
+    this._setAddMode()
+    this._openEditPopup(marker, true);
     marker.on('click', this.onMarkerClick_Handle_Click);
   }
 
-  setAddMode(addingMarker) {
+  _setAddMode(addingMarker) {
     this.addingMarker = addingMarker ?? false;
 
     // всегда сначала снимаем
@@ -311,15 +350,15 @@ export class MetEditor {
     }
   }
 
-  updateSaveState() {
+  _updateSaveState() {
     const hasChanges = !(this.diff.added.length || this.diff.updated.length || this.diff.deleted.length);
     this.exitSave = hasChanges;
-    this.metControlsToggler({
+    this._metControlsToggler({
       btnSave: {disabled: hasChanges},
     });
   }
 
-  buildPopup(marker) {
+  _buildPopup(marker) {
     const content = this.tpl.content.cloneNode(true);
     const form = content.querySelector('#marker-form');
     const titleIn = form.querySelector('input[name="title"]');
@@ -353,10 +392,10 @@ export class MetEditor {
     return content
   }
 
-  draggingEnable = (e) => {setDraggingMode(e, true)}
-  draggingDisable = (e) => {setDraggingMode(e, false)}
+  _draggingEnable = (e) => {setDraggingMode(e, true)}
+  _draggingDisable = (e) => {setDraggingMode(e, false)}
 
-  openEditPopup(editingMarker, isNew) {
+  _openEditPopup(editingMarker, isNew) {
     this.popapsaved = false;
     this.editPopup = L.popup({
       autoClose: false,
@@ -370,7 +409,7 @@ export class MetEditor {
     }
     editingMarker.unbindPopup();
     editingMarker.setZIndexOffset(1000);
-    const content = this.buildPopup(editingMarker);
+    const content = this._buildPopup(editingMarker);
     const form = content.querySelector('#marker-form');
     
     const iconSel = form.querySelector('select[name="icon"]');
@@ -378,7 +417,7 @@ export class MetEditor {
     const lngIn = form.querySelector('input[name="lng"]');
 
 	  //Создание и открытие попапа
-	  const defShiftedLatLng = this.shiftLatLng(editingMarker.getLatLng(), 40);
+	  const defShiftedLatLng = this._shiftLatLng(editingMarker.getLatLng(), 40);
 	  this.editPopup.setLatLng(defShiftedLatLng);
 	  this.editPopup.setContent(content);
 	  if (!this.editPopupOpen) {
@@ -387,8 +426,8 @@ export class MetEditor {
 	  }
 	  this.editPopup.on('remove', () => {
       this.editPopupOpen = false;
-      editingMarker.off('mousedown', this.draggingEnable);
-      editingMarker.off('mouseup mouseleave', this.draggingDisable);
+      editingMarker.off('mousedown', this._draggingEnable);
+      editingMarker.off('mouseup mouseleave', this._draggingDisable);
       this.map.off('zoom');
       editingMarker.dragging.disable();
       editingMarker.setZIndexOffset(0);
@@ -407,12 +446,12 @@ export class MetEditor {
         paintMarkers(originalMarker);
         originalMarker.unbindPopup();
         originalMarker.on('click', this.onMarkerClick_Handle_Click);
-        this.updateSaveState();
+        this._updateSaveState();
       } else {
         editingMarker.setLatLng([editingMarker.$data.coords.lat, editingMarker.$data.coords.lng]);
         editingMarker.setIcon(MAPDATA.icons[editingMarker.$data.icon_id]);
         paintMarkers(editingMarker);
-        this.updateSaveState();
+        this._updateSaveState();
       };
 	  });
     const popupEl = this.editPopup.getElement();
@@ -431,8 +470,8 @@ export class MetEditor {
     });
 	  
 
-    editingMarker.on('mousedown', this.draggingEnable);
-    editingMarker.on('mouseup mouseleave', this.draggingDisable);
+    editingMarker.on('mousedown', this._draggingEnable);
+    editingMarker.on('mouseup mouseleave', this._draggingDisable);
 
 	  // Функция перемещения маркера
     editingMarker.on('drag', e => {
@@ -440,7 +479,7 @@ export class MetEditor {
       latIn.value = lat.toFixed(6);
       lngIn.value = lng.toFixed(6);
       e.target.$data.coords = { lat: latIn.value, lng: lngIn.value };
-      const dragShiftedLatLng = this.shiftLatLng(e.target.getLatLng(), 40);
+      const dragShiftedLatLng = this._shiftLatLng(e.target.getLatLng(), 40);
       this.editPopup.setLatLng(dragShiftedLatLng)
     });
     editingMarker.on('dragend', () => { 
@@ -451,7 +490,7 @@ export class MetEditor {
     
 	  this.map.on('zoom', () => {
       if (!this.editPopupOpen) return;
-      const zoomShiftedLatLng = this.shiftLatLng(editingMarker.getLatLng(), 40);
+      const zoomShiftedLatLng = this._shiftLatLng(editingMarker.getLatLng(), 40);
       this.editPopup.setLatLng(zoomShiftedLatLng);
 	  });
 	  
@@ -468,7 +507,7 @@ export class MetEditor {
       const region = data.get('region')
       let regionAuto_id;
       if (region === 'auto') {
-        const reg_index = this.getRegionIndex(this.ctx, editingMarker.$data.coords.lng, editingMarker.$data.coords.lat);
+        const reg_index = this._getRegionIndex(this.ctx, editingMarker.$data.coords.lng, editingMarker.$data.coords.lat);
         regionAuto_id = REGION_LIST[reg_index] ?? REGION_LIST[7];
       }
       editingMarker.$data.reg_id = regionAuto_id ?? data.get('region');
@@ -485,7 +524,7 @@ export class MetEditor {
 
         const oldId = editingMarker.$data.id; // например "temp"
 
-        const newId = this.genId(
+        const newId = this._genId(
           editingMarker.$data.name,
           editingMarker.$data.coords.lat,
           editingMarker.$data.coords.lng
@@ -514,7 +553,7 @@ export class MetEditor {
       editingMarker.setIcon(ic);
       this.popapsaved = true;
       this.editPopup.remove();
-      this.updateSaveState();
+      this._updateSaveState();
     });
 	  //END
 	  //Функция обработчик изменений маркера
@@ -528,6 +567,8 @@ export class MetEditor {
     const allowed_role = ALLOWED_MET_DELETE_ROLE.includes(USERSESSION.role);
     deleteBtn.disabled = !allowed_role;
     if (!isNew) {
+      MODAL.met.confirmModal.setOuterTargets({open: deleteBtn});
+      MODAL.met.confirmModal.setOuterHandlers();
       deleteBtn.classList.toggle('hide', false);
       const handlerYes = () => {
         this.editPopup.remove();
@@ -535,9 +576,10 @@ export class MetEditor {
         this.diff.deleted.push(originalMarker.$data.id);
         originalMarker.remove();
         MAPDATA.existingMarkers.delete(originalMarker.$data.id);
-        this.updateSaveState();
+        this._updateSaveState();
       }
-      deleteBtn.addEventListener('click', () => {deleteModal(handlerYes)});
+      MODAL.met.confirmModal.setInnerHandlers(handlerYes);
+      MODAL.met.confirmModal.initModal();
     } else {
       deleteBtn.classList.toggle('hide', true);
     }

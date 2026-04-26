@@ -1,7 +1,7 @@
 import { map } from "../core/map.js"
 import { getAllMarkers, postCollectedMarker } from "../api/markers_api.js"
 import { fastCollectedFilterReRender } from "./filters.js"
-import { APPSTATE, USERSESSION } from "../core/state.js"
+import { APPSTATE, USERSESSION, USERINFO } from "../core/state.js"
 import { REGION_COLORS, REGION_UNDERGROUND_COLORS } from "../core/config.js"
 
 export const MAPDATA = {
@@ -133,8 +133,9 @@ export function bindMarkerPopup(marker, p_data, p) {
         try {
           const response = await postCollectedMarker(id);
           md.is_collected = checked;
+          if (checked) USERINFO.collected += 1;
           fastCollectedFilterReRender(m);
-          console.log('Changed:', id, checked, response);
+          //console.log('Changed:', id, checked, response);
         } catch (err) {
           console.error('Failed to update collected state:', err);
           md.is_collected = !checked;
@@ -187,6 +188,8 @@ export async function loadMarkersData() {
     MAPDATA.prevVisibleSet.add(id);
     MAPDATA.allVisibleSet.add(id);
     const marker = markerBuilder(m.baseData, m.fullData)
+    if (marker.is_collected) USERINFO.collected += 1
+    USERINFO.collectedAll += 1
     marker.addTo(map);
     paintMarkers(marker);
     MAPDATA.existingMarkers.set(marker.$data.id, marker);

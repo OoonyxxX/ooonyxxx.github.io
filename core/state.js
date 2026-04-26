@@ -1,7 +1,5 @@
-export const APPMETSTATE = {
-    METStart: true,
-    METInited: false
-};
+import { proxifyObjToUpdateUI } from "../ui/UIUtilities.js"
+import { USERSESSIONDEFAULT } from "../api/config_api.js";
 
 export const APPSTATE = {
     isMobile: false,
@@ -21,14 +19,16 @@ export const APPSTATE = {
     isDesktop_4K: false,
 };
 
-export const USERSESSION = {
-    user_id: "",
-    display_name: "",
-    role: "",
-};
+export const USERSESSION = proxifyObjToUpdateUI(USERSESSIONDEFAULT)
 
-export const USERSETTINGS = {
-    METActive: true,
-    customCursor: true,
-    instantFilter: true,
-}
+export const USERINFO = proxifyObjToUpdateUI({
+    collected: 0,
+    collectedAll: 0,
+})
+
+export const USERSETTINGS = proxifyObjToUpdateUI({
+  METVisible: true,
+  customCursor: true,
+  instantFilter: true,
+  theme: "Northern Lights"
+})

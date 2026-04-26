@@ -1,5 +1,5 @@
-import { toggleMETControls, MetEditor } from "../features/metEditor.js"
-import { APPMETSTATE, APPSTATE} from "../core/state.js"
+import { METActiveController } from "../features/metEditor.js"
+import { APPSTATE } from "../core/state.js"
 import { OPTSIDEBAR, FILTERSIDEBAR, AUTHTOPBAR, optmenuStyleSet, filtermenuStyleSet } from "../ui/sidebar.js"
 
 
@@ -90,22 +90,13 @@ function onEnterMobile() {
   APPSTATE.optMenuState = false;
   optmenuStyleSet(false, false);
 
-  toggleMETControls(false);
+  METActiveController()
   
   AUTHTOPBAR.loginButton.textContent = "";
 }
 
 function onExitMobile() {
-  if (APPMETSTATE.METStart) {
-    if (!APPMETSTATE.METInited) {
-      APPMETSTATE.METInited = true;
-      const MET = new MetEditor();
-      MET.init()
-    }
-    toggleMETControls(true);
-  } else {
-    toggleMETControls(false);
-  }
+  METActiveController();
   AUTHTOPBAR.loginButton.textContent = "Login";
 }
 

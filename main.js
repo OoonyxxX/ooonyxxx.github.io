@@ -8,7 +8,7 @@ import { cacheOptElements,
         cacheAuthElements, 
         cacheHeaderElements,
         } from "./ui/sidebar.js"
-import { cacheModalElements } from "./ui/modal.js"
+import { cacheModalElements, initModals } from "./ui/modal.js"
 import { cacheWindowMatches, initWindowEvents } from "./ui/adaptability.js"
 import { cacheCursor, initCursor } from "./ui/cursor.js"
 import { loadMapData } from "./features/markers.js"
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cacheMETUIElements();
     cacheWindowMatches();
     cacheCursor();
-
+    initModals();
     initOptElements();
     initOptToggle();
     initFilterElements();

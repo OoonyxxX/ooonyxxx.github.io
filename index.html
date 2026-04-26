@@ -607,77 +607,22 @@
 	<!-- модальные окна из MET-modal-block используются только внутри MET -->
 	<div id="MET-modal-block" class="MET-modal-block">
 	  <!-- confirm-modal используется для подтверждения удаления маркера -->
-	  <div role="dialog" id="confirm-modal" class="confirm-modal hidden">
-	    <div class="confirm-modal-content">
-		  <p class="confirm-modal-text" class="modal-text">Are you sure you want to remove this marker?</p>
-		  <div id="confirm-modal-buttons" class="modal-buttons">
-		    <button id="confirm-yes" class="confirm-yes">Yes</button>
-		    <button id="confirm-no" class="confirm-no">NO</button>
-		  </div>
-	    </div>
+	  <div role="dialog" id="confirm-modal-container" class="confirm-modal modal-container hidden">
 	  </div>
 	
 	  <!-- exit-modal используется для подтверждения выхода из MET без сохранения изменений -->
-	  <div role="dialog" id="exit-modal" class="exit-modal hidden">
-	    <div class="exit-modal-content">
-		  <p id="exit-modal-text" class="modal-text"></p>
-		  <div id="exit-modal-buttons" class="modal-buttons">
-		    <button id="exit-yes" class="exit-yes">Yes</button>
-		    <button id="exit-no" class="exit-no">NO</button>
-		  </div>
-	    </div>
+	  <div role="dialog" id="exit-modal-container" class="exit-modal modal-container hidden">
 	  </div>
 	</div>
 	
 	<!-- модальные окна из UI-modal-block используются во всем интерфейсе карты -->
 	<div id="UI-modal-block" class="UI-modal-block">
 	  <!-- login-modal используется для авторизации -->
-	  <div role="dialog" id="login-modal" class="login-modal hidden">
-	    <div class="login-modal-content">
-		  <button id="login-modal-exit" class="login-modal-exit">
-		    <img id="login-modal-exit-img" class="login-modal-exit-img" src="/othersvg/cancel.svg">
-		  </button>
-		  <p id="login-modal-text" class="login-modal-text">
-		    Select your authorization method
-		  </p>
-		  <div id="login-modal-providerlist" class="login-modal-providerlist">
-		    <img id="login-modal-google-img" class="login-modal-google-img login-modal-element" src="/svglogin/google_dark.svg">
-		  </div>
-	    </div>
+	  <div role="dialog" id="login-modal-container" class="login-modal modal-container hidden">
 	  </div>
 
 	  <!-- user-modal используется как окно пользовательских настроек -->
-	  <div role="dialog" id="user-modal-container" class="user-modal-container hidden">
-		<button id="user-modal-exit" class="user-modal-exit">
-		  <img id="user-modal-exit-img" class="user-modal-exit-img" src="/othersvg/cancel.svg">
-		</button>
-	    <div role="tablist" id="user-modal-tablist" class="user-modal-tablist">
-		  <!-- Содержимое генерируется динамически -->
-		  <button role="tab" id="user-modal-tab-0" class="tab-button" aria-selected="true">Вкладка 1</button>
-		  <button role="tab" id="user-modal-tab-1" class="tab-button" aria-selected="false">Вкладка 2</button>
-		  <button role="tab" id="user-modal-tab-2" class="tab-button" aria-selected="false">Вкладка 2</button>
-		  <!-- Содержимое генерируется динамически -->
-	    </div>
-	    <div id="user-modal" class="user-modal">
-		  <div role="tabpanel" id="tab-content-0" class="tab-content">
-			<h2>Account Info</h2>
-			<span id="account-info" class="account-info">
-			  <!-- Содержимое генерируется динамически -->
-			</span> 
-		  </div>
-		  <div role="tabpanel" id="tab-content-1" class="tab-content">
-			<h2>User Options</h2>
-			<div id="user-options" class="user-options">
-			  <!-- Содержимое генерируется динамически -->
-			</div>
-		  </div>
-		  <div role="tabpanel" id="tab-content-2" class="tab-content">
-			<h2>User Statistics</h2>
-			<div id="user-statistics" class="user-statistics">
-			  <!-- Содержимое генерируется динамически -->
-			</div>
-		  </div>
-		</div>
+	  <div role="dialog" id="user-modal-container" class="user-modal modal-container hidden">
 	  </div>
 	</div>
   </div>

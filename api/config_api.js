@@ -38,4 +38,18 @@ export const API_RAW = {
       array: `/markers/collected/array`,
     },
   },
+
+  users: {
+    displayName: `/users/me/name`,
+    options: `/users/user/options`
+  }
 };
+
+export const USERSESSIONDEFAULT = {
+  authorized: false,
+  user_id: "",
+  display_name: "Unknown",
+  role: "user",
+  provider: "Unknown",
+  email: "Unknown",
+}

@@ -39,10 +39,12 @@
     #00f3ff,
     #2ee581
   );
+  --gradient-glow:  linear-gradient(90deg, #0097743b 90%, #0a935461, #0a9354a1, #0a9354);
   --font-ui: 'Nordic';
   --font-accent: 'Runescript';
   --bg-northern-flow: northernFlow 12s ease infinite;
   --bg-northern-flow-circle: northernFlowCircle 12s ease infinite;
+  --color-transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   /*--touch-target: clamp(40px, 3.2rem, 56px);
   --icon: calc(var(--touch-target)*0.6);
   --radius: 12px;

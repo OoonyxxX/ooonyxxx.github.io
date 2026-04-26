@@ -1,5 +1,6 @@
 import { APPSTATE, USERSETTINGS } from "../core/state.js"
 import { OPTSIDEBAR } from "./sidebar.js"
+import { subscribeUI } from "./UIUtilities.js"
 
 const CURSORITEM = {
   scaleGroup: null,
@@ -9,7 +10,6 @@ const CURSORITEM = {
 
 export function cacheCursor() {
   CURSORITEM.customCursor = document.getElementById('custom-cursor');
-  CURSORITEM.customCursorEnabled = USERSETTINGS.customCursor ?? true;
   CURSORITEM.customCursorActive = false;
   CURSORITEM.customCursorAllowed = false;
   CURSORITEM.scaleGroup = document.getElementById('scaleSup');
@@ -26,14 +26,16 @@ export function cacheCursor() {
 
 
 export function initCursor() {
-  OPTSIDEBAR.customCursorToggle.checked = CURSORITEM.customCursorEnabled;
+  OPTSIDEBAR.customCursorToggle.checked = USERSETTINGS.customCursor;
   cursorConductor(APPSTATE.hasTouch);
   document.addEventListener('pointermove', handleMouseMove);
   window.addEventListener("resize", () => {
     cursorConductor(APPSTATE.hasTouch);
   });
+  subscribeUI("customCursor", () => {
+    cursorConductor(APPSTATE.hasTouch);
+  })
   OPTSIDEBAR.customCursorToggle.addEventListener("change", (e) => {
-    CURSORITEM.customCursorEnabled = e.target.checked;
     cursorConductor(APPSTATE.hasTouch);
   });
 }
@@ -43,7 +45,7 @@ function cursorConductor(touch) {
     CURSORITEM.customCursorAllowed = false;
     return
   }
-  CURSORITEM.customCursorAllowed = CURSORITEM.customCursorEnabled;
+  CURSORITEM.customCursorAllowed = USERSETTINGS.customCursor;
   if (!CURSORITEM.customCursorAllowed && CURSORITEM.customCursorActive) {
     CURSORITEM.customCursorActive = false;
     cursorActive(CURSORITEM.customCursorAllowed);

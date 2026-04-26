@@ -1,5 +1,6 @@
 import { APPSTATE } from "../core/state.js"
 import { paintMarkers } from "../features/markers.js"
+import { subscribeUI } from "./UIUtilities.js"
 
 // Обьявление объектов панелей 
 export const OPTSIDEBAR = {};
@@ -93,14 +94,22 @@ export function initFilterElements() {
 
 // Кешироние DOM елементов панели авторизации(верхняя панель)
 export function cacheAuthElements() {
-    AUTHTOPBAR.authContainer         = document.getElementById('auth-container');
-    AUTHTOPBAR.loginButton           = document.getElementById('login-button');
-    AUTHTOPBAR.usernameDisplay       = document.getElementById('username-display');
-    AUTHTOPBAR.authImg               = document.getElementById('auth-img');
-    AUTHTOPBAR.authHfilterContainer  = document.getElementById('auth-hfilter-container');
-    AUTHTOPBAR.loginModal            = document.getElementById('login-modal');
-    AUTHTOPBAR.loginModalContainer   = document.getElementById('login-modal-container');
-    AUTHTOPBAR.loginModalContent     = document.getElementById('login-modal-content');
+  AUTHTOPBAR.authHfilterContainer  = document.getElementById('auth-hfilter-container');
+  AUTHTOPBAR.authContainer         = AUTHTOPBAR.authHfilterContainer.querySelector('#auth-container');
+  AUTHTOPBAR.loginButton           = AUTHTOPBAR.authContainer.querySelector('#login-button');
+  AUTHTOPBAR.usernameDisplay       = AUTHTOPBAR.authContainer.querySelector('#username-display');
+  AUTHTOPBAR.userContainer         = AUTHTOPBAR.authContainer.querySelector('#user-container');
+  AUTHTOPBAR.authImg               = AUTHTOPBAR.userContainer.querySelector('#auth-img');
+  AUTHTOPBAR.userMenu              = AUTHTOPBAR.userContainer.querySelector('#user-menu');
+  subscribeUI("display_name", () => {
+    AUTHTOPBAR.usernameDisplay.textContent = USERSESSION.display_name;
+  })
+}
+
+export function toggleAuthorizationUI(authorized) {
+  AUTHTOPBAR.usernameDisplay.classList.toggle('authorized', authorized);
+  AUTHTOPBAR.loginButton.classList.toggle('hide', authorized);
+  AUTHTOPBAR.authImg.classList.toggle('authorized', authorized);
 }
 
 export function cacheHeaderElements() {

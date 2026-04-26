@@ -1,4 +1,4 @@
-import {apiRequest, buildJsonOptions} from "./request.js"
+import { apiRequest, buildJsonOptions } from "./request.js"
 import { API_RAW } from "../api/config_api.js"
 import { invertMarkerMap } from "../features/markers.js"
 
