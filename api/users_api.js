@@ -18,7 +18,7 @@ export async function requestPatchUserOptions(options) {
 }
 
 export async function requestGetUserOptions() {
-  const data = await apiRequest(API_RAW.users.options, {}, []);
+  const data = await apiRequest(API_RAW.users.options, {}, [401]);
   return data.options;
 }
 
