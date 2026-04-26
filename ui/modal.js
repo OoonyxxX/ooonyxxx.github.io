@@ -502,7 +502,7 @@ class UserModal {
         <div id="${account_info_class}-display-name-container" class="${account_info_class}-label-container">
           <span class="user-modal-content-title">Username</span>
           <label class="${account_info_class}-parameter display-name">
-            <span class="${account_info_class}-text-display-name">${USERSESSION.display_name}</span>
+            <span class="${account_info_class}-text-display-name">${USERSESSION.display_name ?? 'Unknown'}</span>
             <input class="${account_info_class}-input-set-display-name hidden" type="text">
             <span class="text-warning hidden">(Placeholder)</span>
             <button class="${account_info_class}-button-change-display-name">Change</button>
@@ -731,7 +731,7 @@ class UserModal {
   async _saveDisplayName(CONT) {
     const name = CONT.text_input.value;
     const clear_name = sanitizeUsername(name);
-    USERSESSION.display_name = await requestPatchDisplayName(clear_name);
+    USERSESSION.display_name = await requestPatchDisplayName(clear_name) ?? 'Unknown';
   }
 
   _appendCursorToggleEvent() {
