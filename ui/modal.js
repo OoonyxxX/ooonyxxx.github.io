@@ -82,21 +82,21 @@ class AuthModal {
 
   _generateModal() {
     this.container.innerHTML = `
-	      <div class="login-modal-content">
+	      <div class="login-modal-content modal-content no-select">
           <button id="login-modal-exit" class="modal-exit-btn">
-            <img id="login-modal-exit-img" class="modal-exit-img" src="/othersvg/cancel.svg">
+            <img id="login-modal-exit-img" class="modal-exit-img no-drag" src="/othersvg/cancel.svg">
           </button>
-		      <p id="login-modal-text" class="modal-text">
+		      <p id="login-modal-text-h" class="modal-text-h">
 		        Select your authorization method
 		      </p>
 		      <div id="login-modal-providerlist" class="login-modal-providerlist">
-		        <img id="login-modal-google-img" class="login-modal-google-img login-modal-element" src="/svglogin/google_dark.svg">
+		        <img id="login-modal-google-img" class="login-modal-google-img login-modal-element action-img" src="/svglogin/google_dark.svg">
 		      </div>
 	      </div>
     `;
     this.closeBtn      = this.container.querySelector('.modal-exit-btn');
     this.closeImg      = this.closeBtn.querySelector('.modal-exit-img');
-    this.innerText     = this.container.querySelector('.modal-text');
+    this.innerText     = this.container.querySelector('.modal-text-h');
     this.providerlist  = this.container.querySelector('#login-modal-providerlist');
     this.googleLogin   = this.providerlist.querySelector('#login-modal-google-img');
     this.generated     = true;
@@ -199,11 +199,11 @@ class MarkerDeleteModal {
 
   _generateModal() {
     this.container.innerHTML = `
-        <div class="confirm-modal-content">
+        <div class="confirm-modal-content modal-content">
           <button id="confirm-modal-exit" class="modal-exit-btn">
-            <img id="confirm-modal-exit-img" class="modal-exit-img" src="/othersvg/cancel.svg">
+            <img id="confirm-modal-exit-img" class="modal-exit-img no-drag" src="/othersvg/cancel.svg">
           </button>
-          <p class="confirm-modal-text" class="modal-text">Are you sure you want to remove this marker?</p>
+          <p class="confirm-modal-text-h" class="modal-text-h">Are you sure you want to remove this marker?</p>
           <div id="confirm-modal-buttons" class="modal-buttons">
             <button id="confirm-yes" class="confirm-yes">Yes</button>
             <button id="confirm-no" class="confirm-no">NO</button>
@@ -212,7 +212,7 @@ class MarkerDeleteModal {
     `;
     this.closeBtn      = this.container.querySelector('.modal-exit-btn');
     this.closeImg      = this.closeBtn.querySelector('.modal-exit-img');
-    this.innerText     = this.container.querySelector('#confirm-modal-text');
+    this.innerText     = this.container.querySelector('#confirm-modal-text-h');
     this.buttons       = this.container.querySelector('#confirm-modal-buttons');
     this.btnYes        = this.buttons.querySelector('#confirm-yes');
     this.btnNo         = this.buttons.querySelector('#confirm-no');
@@ -323,11 +323,11 @@ class METExitModal {
 
   _generateModal() {
     this.container.innerHTML = `
-        <div class="exit-modal-content">
+        <div class="exit-modal-content modal-content">
           <button id="exit-modal-exit" class="modal-exit-btn">
-            <img id="exit-modal-exit-img" class="modal-exit-img" src="/othersvg/cancel.svg">
+            <img id="exit-modal-exit-img" class="modal-exit-img no-drag" src="/othersvg/cancel.svg">
           </button>
-          <p id="exit-modal-text" class="modal-text">Are you sure you want to exit without saving the changes? \n All edits will be lost.</p>
+          <p id="exit-modal-text-h" class="modal-text-h">Are you sure you want to exit without saving the changes? \n All edits will be lost.</p>
           <div id="exit-modal-buttons" class="modal-buttons">
             <button id="exit-yes" class="exit-yes">Yes</button>
             <button id="exit-no" class="exit-no">No</button>
@@ -336,7 +336,7 @@ class METExitModal {
     `;
     this.closeBtn      = this.container.querySelector('.modal-exit-btn');
     this.closeImg      = this.closeBtn.querySelector('.modal-exit-img');
-    this.innerText     = this.container.querySelector('#exit-modal-text');
+    this.innerText     = this.container.querySelector('#exit-modal-text-h');
     this.buttons       = this.container.querySelector('#exit-modal-buttons');
     this.btnYes        = this.buttons.querySelector('#exit-yes');
     this.btnNo         = this.buttons.querySelector('#exit-no');
@@ -456,9 +456,9 @@ class UserModal {
 
   _generateModal() {
     this.container.innerHTML = `
-        <div id="user-modal-content" class="user-modal-content">
+        <div id="user-modal-content" class="user-modal-content modal-content">
           <button id="user-modal-exit" class="modal-exit-btn">
-            <img id="user-modal-exit-img" class="modal-exit-img" src="/othersvg/cancel.svg">
+            <img id="user-modal-exit-img" class="modal-exit-img no-drag" src="/othersvg/cancel.svg">
           </button>
           <div role="tablist" id="user-modal-tablist" class="user-modal-tablist"></div>
           <div id="user-modal-tabcontent" class="user-modal-tabcontent"></div>
@@ -504,9 +504,9 @@ class UserModal {
     USERMODALPARTS.content["account_info"] = {
       "display_name": `
         <div id="${account_info_class}-display-name-container" class="${account_info_class}-label-container">
-          <span class="user-modal-content-title">Username</span>
+          <span class="user-modal-content-title content-title">Username</span>
           <label class="${account_info_class}-parameter display-name">
-            <span class="${account_info_class}-text-display-name">${USERSESSION.display_name || 'Unknown'}</span>
+            <span class="${account_info_class}-text-display-name parameter-value">${USERSESSION.display_name || 'Unknown'}</span>
             <input class="${account_info_class}-input-set-display-name hidden" type="text">
             <span class="text-warning hidden">(Placeholder)</span>
             <button class="${account_info_class}-button-change-display-name">Change</button>
@@ -517,32 +517,32 @@ class UserModal {
       `,
       "user_role": `
         <div id="${account_info_class}-user-role-container" class="${account_info_class}-label-container">
-          <span class="user-modal-content-title">Role</span>
+          <span class="user-modal-content-title content-title">Role</span>
           <label class="${account_info_class}-parameter user-role">
-            <span class="${account_info_class}-text-user-role">${USERSESSION.role}</span>
+            <span class="${account_info_class}-text-user-role parameter-value">${USERSESSION.role}</span>
           </label>
         </div>
       `,
       "auth_provider": `
         <div id="${account_info_class}-auth-provider-container" class="${account_info_class}-label-container">
-          <span class="user-modal-content-title">Authentication Provider</span>
+          <span class="user-modal-content-title content-title">Authentication Provider</span>
           <label class="${account_info_class}-parameter auth-provider">
-            <span class="${account_info_class}-text-auth-provider">${USERSESSION.provider}</span>
+            <span class="${account_info_class}-text-auth-provider parameter-value">${USERSESSION.provider}</span>
           </label>
         </div>
       `,
       "email": `
         <div id="${account_info_class}-user-email-container" class="${account_info_class}-label-container">
-          <span class="user-modal-content-title">Authenticated Email</span>
+          <span class="user-modal-content-title content-title">Authenticated Email</span>
           <label class="${account_info_class}-parameter user-email">
-            <span class="${account_info_class}-text-user-email">${USERSESSION.email}</span>
+            <span class="${account_info_class}-text-user-email parameter-value">${USERSESSION.email}</span>
           </label>
         </div>
       `,
       "logout_button": `
         <div id="${account_info_class}-logout-button-container" class="${account_info_class}-logout-button-container">
           <label class="${account_info_class}-button user-email">
-            <button id="user-logout-button" class="user-logout-button">Logout</button>
+            <button id="user-logout-button" class="user-logout-button warning-btn">Logout</button>
           </label>
         </div>
       `,
@@ -584,7 +584,7 @@ class UserModal {
     USERMODALPARTS.content["user_statistics"] = {
       "collected": `
         <label class="statistics-parameter statistics-collected">
-          <span class="statistics-text statistics-collected-header">Collected</span>
+          <span class="statistics-collected-title content-title">Collected</span>
           <span class="statistics-text statistics-collected-text">${USERINFO.collected}/${USERINFO.collectedAll}</span>
         </label>
       `,

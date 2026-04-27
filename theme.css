@@ -27,6 +27,7 @@
   100% { background-position: 50% 0%; }
 }
 
+
 :root {
   --scale: 1;
   --gradient-northern-lights: linear-gradient(
@@ -39,12 +40,19 @@
     #00f3ff,
     #2ee581
   );
+  --svg-nonglow: drop-shadow(0 0 0px rgba(0, 0, 0, 0));
+  --svg-blue-text-glow: drop-shadow(0 0 16px rgba(80, 220, 255, 0.4));
+  --svg-red-glow: drop-shadow(0 0 3px rgba(207, 69, 69, 0.8));
+  --svg-red-soft-glow: drop-shadow(0 0 7px rgba(184, 68, 68, 0.4));
+  --svg-blue-glow: drop-shadow(0 0 3px rgba(80, 220, 255, 0.8));
+  --svg-blue-soft-glow: drop-shadow(0 0 2px rgba(80, 220, 255, 0.2));
   --gradient-glow:  linear-gradient(90deg, #0097743b 90%, #0a935461, #0a9354a1, #0a9354);
   --font-ui: 'Nordic';
   --font-accent: 'Runescript';
   --bg-northern-flow: northernFlow 12s ease infinite;
   --bg-northern-flow-circle: northernFlowCircle 12s ease infinite;
   --color-transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --filter-transition: filter 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)
   /*--touch-target: clamp(40px, 3.2rem, 56px);
   --icon: calc(var(--touch-target)*0.6);
   --radius: 12px;
