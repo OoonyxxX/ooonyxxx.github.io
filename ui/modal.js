@@ -203,7 +203,7 @@ class MarkerDeleteModal {
           <button id="confirm-modal-exit" class="modal-exit-btn">
             <img id="confirm-modal-exit-img" class="modal-exit-img no-drag" src="/othersvg/cancel.svg">
           </button>
-          <p class="confirm-modal-text-h" class="modal-text-h">Are you sure you want to remove this marker?</p>
+          <p id="confirm-modal-text-h" class="modal-text-h">Are you sure you want to remove this marker?</p>
           <div id="confirm-modal-buttons" class="modal-buttons">
             <button id="confirm-yes" class="confirm-yes warning-btn">Yes</button>
             <button id="confirm-no" class="confirm-no base-btn">NO</button>
