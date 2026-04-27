@@ -131,7 +131,7 @@
 #exit-modal-text-h {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .user-modal-content .parameter-value {
@@ -147,12 +147,6 @@
     border-radius: 0.3em;
 }
 
-.confirm-modal-content {
-  background: #061d25e5;
-  padding: 20px;
-  border-radius: 6px;
-  text-align: center;
-}
 .confirm-modal-text {
   color: #e5e5e5;
   background: none;
@@ -161,11 +155,22 @@
 .exit-modal-content {
   display: flex;
   position: relative;
-  background: #2f1010ba;
+  background: #230c0ccc;
   padding: 20px;
   border-radius: 6px;
   text-align: center;
   width: 40em;
+  flex-direction: column;
+  align-items: center;
+}
+.confirm-modal-content {
+  display: flex;
+  position: relative;
+  background: #230c0ccc;
+  padding: 20px;
+  border-radius: 6px;
+  text-align: center;
+  width: 28em;
   flex-direction: column;
   align-items: center;
 }
