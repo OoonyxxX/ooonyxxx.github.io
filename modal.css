@@ -202,18 +202,21 @@
   bottom: 2.5em;
   height: 40px;
 }
-.login-modal-google-img {
+.login-modal-element {
   transition: var(--filter-transition);
   filter: var(--svg-blue-soft-glow);
   transform: scale(1.00);
   border-radius: 100%;
 }
+.login-modal-element:active {
+  filter: var(--svg-blue-soft-btn-glow);
+  transform: scale(0.95);
+}
 
 @media (any-hover: hover) and (any-pointer: fine) {
-  .login-modal-google-img:hover {
+  .login-modal-element:hover {
     filter: var(--svg-blue-glow);
     transform: scale(1.05);
-    border-radius: 100%;
   }
   .modal-exit-img:hover {
     filter: var(--svg-red-glow);
