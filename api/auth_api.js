@@ -41,15 +41,6 @@ async function authorizeController(authorizationData) {
   toggleAuthorizationUI(authorizationData.authorized);
   fillSession(authorizationData);
   await fillSettings();
-  /*
-  if (authorizationData.authorized) {
-    initUserModal();
-    if (MODAL.ui.authModal.initialized) MODAL.ui.authModal.deinitModal();
-  } else {
-    if (MODAL.ui.userModal.initialized) MODAL.ui.userModal.deinitModal();
-    initAuthModal();
-  }
-  */
   METActiveController();
 }
 

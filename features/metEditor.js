@@ -12,9 +12,10 @@ import { subscribeUI } from "../ui/UIUtilities.js"
 //START
 
 export const METSTATE = {
+  met: null,
   METAllow: false,
   METInited: false,
-  met: null,
+  METGenerated: false,
 }
 
 // Переменные интерфейса
@@ -24,18 +25,18 @@ export function METActiveController() {
   if (METSTATE.met === null) METSTATE.met = new MetEditor;
   METSTATE.METAllow = ALLOWED_MET_ROLE.includes(USERSESSION.role)
   if (!METSTATE.METAllow) {
-    if (METSTATE.met && METUI.metInited) {
-      METSTATE.met.destroy()
-    }
     toggleMETControls(false);
+    if (METSTATE.METInited) METSTATE.met.destroy()
+    if (METSTATE.METGenerated) removeMETUIControls()
     return
   }
   if (APPSTATE.isMobile) {
     toggleMETControls(false);
     return
   }
-  if ((USERSETTINGS.METVisible)) {
+  if (USERSETTINGS.METVisible) {
     toggleMETControls(true);
+    if (!METSTATE.METGenerated) generateMETUIControls();
     if (!METSTATE.METInited) METSTATE.met.init();
   } else {
     toggleMETControls(false);
@@ -47,7 +48,40 @@ export function cacheMETUIElements() {
   subscribeUI("METVisible", () => {
     METActiveController()
   })
-  METUI.metInited     = false;
+  METSTATE.METInited     = false;
+}
+
+function generateMETUIControls() {
+  METUI.metControls.innerHTML = `
+    <div class="met-controls-container">
+      <h3 class="optheader">MET Controllers</h3>
+      <div class="met-button-container">
+        <button id="activate-met" class="btn-met btn-start open">Activate MET</button>
+        <button id="exit-met" class="btn-met btn-exit disabled" disabled>Exit MET</button>
+        <button id="add-marker" class="btn-met btn-add disabled" disabled>Add Marker</button>
+        <button id="save-changes" class="btn-met btn-save disabled" disabled>Save Changes</button>
+      </div>
+    </div>
+  `;
+  METUI.btnActivate = METUI.metControls.querySelector('#activate-met');
+  METUI.btnExit     = METUI.metControls.querySelector('#exit-met');
+  METUI.btnAdd      = METUI.metControls.querySelector('#add-marker');
+  METUI.btnSave     = METUI.metControls.querySelector('#save-changes');
+  METSTATE.METGenerated = true;
+}
+
+function removeMETUIControls() {
+  METUI.metControls.innerHTML = ``;
+  METUI.btnActivate = null;
+  METUI.btnExit = null;
+  METUI.btnAdd = null;
+  METUI.btnSave = null;
+  METSTATE.METGenerated = false;
+}
+
+function toggleMETControls(isOpen) {
+  METUI.metControls.classList.toggle('open', isOpen);
+  METUI.METControlsState = isOpen;
 }
 
 function applyButtonState(button, state = {}) {
@@ -66,42 +100,6 @@ function applyButtonState(button, state = {}) {
     button.classList.toggle('open', open);
   }
 } // btn: ['open', 'disabled']
-
-export function toggleMETControls(isOpen) {
-  if (isOpen && !METUI.METControlsState) {
-    if (!METUI.metInited) {
-      METUI.metControls.innerHTML = `
-        <div class="met-controls-container">
-          <h3 class="optheader">MET Controllers</h3>
-          <div class="met-button-container">
-            <button id="activate-met" class="btn-met btn-start open">Activate MET</button>
-            <button id="exit-met" class="btn-met btn-exit disabled" disabled>Exit MET</button>
-            <button id="add-marker" class="btn-met btn-add disabled" disabled>Add Marker</button>
-            <button id="save-changes" class="btn-met btn-save disabled" disabled>Save Changes</button>
-          </div>
-        </div>
-      `;
-      METUI.btnActivate = METUI.metControls.querySelector('#activate-met');
-      METUI.btnExit     = METUI.metControls.querySelector('#exit-met');
-      METUI.btnAdd      = METUI.metControls.querySelector('#add-marker');
-      METUI.btnSave     = METUI.metControls.querySelector('#save-changes');
-    }
-    METUI.metControls.classList.toggle('open', true);
-    METUI.METControlsState = true;
-  }
-  
-  if (!isOpen && METUI.METControlsState) {
-    if (METUI.metInited) {
-      METUI.metControls.innerHTML = ``;
-      METUI.btnActivate = null;
-      METUI.btnExit = null;
-      METUI.btnAdd = null;
-      METUI.btnSave = null;
-    }
-    METUI.metControls.classList.toggle('open', false);
-    METUI.METControlsState = false;
-  }
-}
 
 
 
