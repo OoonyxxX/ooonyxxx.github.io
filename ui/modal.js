@@ -90,7 +90,7 @@ class AuthModal {
 		        Select your authorization method
 		      </p>
 		      <div id="login-modal-providerlist" class="login-modal-providerlist">
-		        <img id="login-modal-google-img" class="login-modal-google-img login-modal-element action-img" src="/svglogin/google_dark.svg">
+		        <img id="login-modal-google-img" class="login-modal-google-img login-modal-element action-img no-drag" src="/svglogin/google_dark.svg">
 		      </div>
 	      </div>
     `;
