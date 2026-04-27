@@ -30,18 +30,10 @@
                 filter 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
                 transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0px 0px 10px 1px rgb(0 0 0), inset 0 0 3px #791a1a;
-    filter: var(--svg-blue-soft-glow);
+    box-shadow: 0px 0px 10px 1px rgb(0 0 0), inset 0 0 3px #066b60;
+    filter: var(--svg-blue-soft-btn-glow);
     transform: scale(1.00);
 }
-/*
-.base-btn:active {
-    background: #0a9f8f;
-    border: solid;
-    border-width: 2px;
-    border-color: #14c3b0;
-}
-*/
 
 .modal-buttons {
     display: flex;

@@ -327,8 +327,10 @@ class METExitModal {
           <button id="exit-modal-exit" class="modal-exit-btn">
             <img id="exit-modal-exit-img" class="modal-exit-img no-drag" src="/othersvg/cancel.svg">
           </button>
-          <p id="exit-modal-text-h" class="modal-text-h">Are you sure you want to exit without saving the changes?</p>
-          <p class="modal-text-h text-warning">All edits will be lost.</p>
+          <p id="exit-modal-text-h" class="modal-text-h">
+            <span>Are you sure you want to exit without saving the changes?</span>
+            <span class="text-warning">All edits will be lost.</span>
+          </p>
           <div id="exit-modal-buttons" class="modal-buttons">
             <button id="exit-yes" class="exit-yes warning-btn">Yes</button>
             <button id="exit-no" class="exit-no base-btn">No</button>

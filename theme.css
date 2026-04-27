@@ -45,6 +45,7 @@
   --svg-red-glow: drop-shadow(0 0 3px rgba(207, 69, 69, 0.8));
   --svg-red-soft-glow: drop-shadow(0 0 7px rgba(184, 68, 68, 0.4));
   --svg-blue-glow: drop-shadow(0 0 3px rgba(80, 220, 255, 0.8));
+  --svg-blue-soft-btn-glow: drop-shadow(0 0 7px rgba(80, 220, 255, 0.4));
   --svg-blue-soft-glow: drop-shadow(0 0 2px rgba(80, 220, 255, 0.2));
   --gradient-glow:  linear-gradient(90deg, #0097743b 90%, #0a935461, #0a9354a1, #0a9354);
   --font-ui: 'Nordic';

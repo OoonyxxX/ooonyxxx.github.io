@@ -119,10 +119,16 @@
     margin-left: 0.25rem;
 }
 .text-warning {
-    color: #9b2a2a;
-    filter: var(--svg-red-soft-glow);
+  color: #bf2828;
+  text-shadow: 0 0 4px #000000;
+  filter: var(--svg-red-glow);
 }
 .statistics-parameter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#exit-modal-text-h {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
