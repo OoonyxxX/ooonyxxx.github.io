@@ -188,7 +188,7 @@ export async function loadMarkersData() {
     MAPDATA.prevVisibleSet.add(id);
     MAPDATA.allVisibleSet.add(id);
     const marker = markerBuilder(m.baseData, m.fullData)
-    if (marker.is_collected) USERINFO.collected += 1
+    if (marker.$data.is_collected) USERINFO.collected += 1
     USERINFO.collectedAll += 1
     marker.addTo(map);
     paintMarkers(marker);
