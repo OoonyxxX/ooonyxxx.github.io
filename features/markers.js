@@ -133,7 +133,11 @@ export function bindMarkerPopup(marker, p_data, p) {
         try {
           const response = await postCollectedMarker(id);
           md.is_collected = checked;
-          if (checked) USERINFO.collected += 1;
+          if (checked) {
+            USERINFO.collected += 1
+          } else {
+            USERINFO.collected -= 1;
+          }
           fastCollectedFilterReRender(m);
           //console.log('Changed:', id, checked, response);
         } catch (err) {
