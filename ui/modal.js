@@ -855,10 +855,6 @@ class UserModal {
     this.modalOpened = true;
   }
   closeModal() {
-    if (!this.initialized) {
-      console.log(`${this.modalName} not initialized`);
-      return
-    };
     if (!this.modalOpened) return
     toggleModalVisible(this, false);
     this.modalOpened = false;
