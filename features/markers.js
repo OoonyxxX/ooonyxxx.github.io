@@ -14,6 +14,8 @@ export const MAPDATA = {
   allVisibleSet: new Set(),
 };
 
+const collectibleList = ['extraWisp', 'loreSeeker', 'skillPoint', 'chest', 'skinChest', 'runeChest', ]
+
 export function markerMap(m) {
   const baseData = {
       id: m.id ?? 'temp', 
@@ -24,6 +26,7 @@ export function markerMap(m) {
         lat: m.lat ?? m.coords?.lat ?? 0,
         lng: m.lng ?? m.coords?.lng ?? 0
       }, 
+      is_collectible: m.is_collectible ?? m.icon_id in collectibleList,
       is_collected: m.is_collected ?? false
     }
   const fullData = {
@@ -77,7 +80,7 @@ function escapeHtml(str = '') {
     .replace(/'/g, '&#39;');
 }
 
-function standartPopup(id, name, description) { 
+function standartPopup(id, name, description, collectible) { 
   return `
     <b>${escapeHtml(name)}</b><br>
     ${escapeHtml(description)}<br>
@@ -87,7 +90,7 @@ function standartPopup(id, name, description) {
         class="marker-collected" 
         data-id="${id}"
       >
-      Collected
+      ${collectible ? 'Collected' : 'Visited'}
     </label>
   `
 }
@@ -106,51 +109,68 @@ export function createMarker(marker_data) {
   return marker;
 }
 
-export function bindMarkerPopup(marker, p_data, p) {
+export function bindMarkerPopup(marker, p) {
   marker.unbindPopup();
+
   const {
-    id,
-    name,
-    description = '',
-  } = p_data;
-  const popup = p ?? standartPopup(id, name, description);
+    $data: {
+      id,
+      name,
+      description = '',
+      is_collectible: collectible = false,
+    },
+  } = marker;
+
+  const popup = p ?? standartPopup(id, name, description, collectible);
+
   marker.bindPopup(popup);
+  attachCollectedPopupHandler(marker);
 
-  if (marker._collectedPopupBound) return;
-  marker._collectedPopupBound = true;
+  return marker;
+}
 
-  marker.on('popupopen', (e) => {
-    const popupEl = e.popup.getElement();
-    const checkbox = popupEl.querySelector('.marker-collected');
-    if (!checkbox) return;
-    if (USERSESSION.user_id) {
-      const m = e.target
-      const md = m.$data
-      checkbox.checked = md.is_collected;
-      checkbox.onchange = async (ev) => {
-        const id = ev.target.dataset.id;
-        const checked = ev.target.checked;
-        try {
-          const response = await postCollectedMarker(id);
-          md.is_collected = checked;
-          if (checked) {
-            USERINFO.collected += 1
-          } else {
-            USERINFO.collected -= 1;
-          }
-          fastCollectedFilterReRender(m);
-          //console.log('Changed:', id, checked, response);
-        } catch (err) {
-          console.error('Failed to update collected state:', err);
-          md.is_collected = !checked;
-          ev.target.checked = !checked;
-        }
-      };
-    } else {
-      checkbox.disabled = true;
+function attachCollectedPopupHandler(marker) {
+  marker.off('popupopen', handleCollectedPopupOpen);
+  marker.on('popupopen', handleCollectedPopupOpen);
+}
+
+function handleCollectedPopupOpen(e) {
+  const popupEl = e.popup.getElement();
+  const checkbox = popupEl.querySelector('.marker-collected');
+  if (!checkbox) return;
+
+  const marker = e.target;
+  const md = marker.$data;
+
+  if (!USERSESSION.user_id) {
+    checkbox.disabled = true;
+    return;
+  }
+
+  checkbox.checked = md.is_collected;
+
+  checkbox.onchange = async (ev) => {
+    const id = ev.target.dataset.id;
+    const checked = ev.target.checked;
+
+    try {
+      await postCollectedMarker(id);
+
+      md.is_collected = checked;
+
+      const delta = checked ? 1 : -1;
+
+      md.is_collectible
+        ? USERINFO.collected += delta
+        : USERINFO.visited += delta;
+
+      fastCollectedFilterReRender(marker);
+    } catch (err) {
+      console.error('Failed to update collected state:', err);
+      md.is_collected = !checked;
+      ev.target.checked = !checked;
     }
-
-  });
+  };
 }
 
 export function setUpMarkerData(marker, data = {}, clear) {
@@ -175,14 +195,10 @@ export function setUpMarkerData(marker, data = {}, clear) {
 }
 
 export function markerBuilder(baseData = {}, fullData = {}) {
-  const {id, name, description, icon_id, coords, is_collected} = baseData;
-
-  const marker = createMarker({coords: [coords.lat, coords.lng], icon_id});
-
-  bindMarkerPopup(marker, {id, name, description, is_collected});
-
-
-  return setUpMarkerData(marker, fullData, false);
+  const m = createMarker({coords: [coords.lat, coords.lng], icon_id});
+  const marker = setUpMarkerData(m, fullData, false);
+  bindMarkerPopup(marker);
+  return marker
 }
 
 export async function loadMarkersData() {
@@ -192,8 +208,9 @@ export async function loadMarkersData() {
     MAPDATA.prevVisibleSet.add(id);
     MAPDATA.allVisibleSet.add(id);
     const marker = markerBuilder(m.baseData, m.fullData)
-    if (marker.$data.is_collected) USERINFO.collected += 1
-    USERINFO.collectedAll += 1
+    const is_collectible = marker.$data.is_collectible
+    if (marker.$data.is_collected) is_collectible ? USERINFO.collected += 1 : USERINFO.visited += 1
+    is_collectible ? USERINFO.collectedAll += 1 : USERINFO.visitedAll += 1
     marker.addTo(map);
     paintMarkers(marker);
     MAPDATA.existingMarkers.set(marker.$data.id, marker);

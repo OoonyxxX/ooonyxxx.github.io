@@ -289,11 +289,7 @@ export class MetEditor {
   _unbindEditPopap() {
     MAPDATA.existingMarkers.forEach((marker, id) => {
       marker.off('click');
-      bindMarkerPopup(marker, {
-        id: marker.$data.id, 
-        name: marker.$data.name,
-        description: marker.$data.description
-      });
+      bindMarkerPopup(marker);
     });
   }
 

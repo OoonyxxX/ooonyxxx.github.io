@@ -24,6 +24,8 @@ export const USERSESSION = proxifyObjToUpdateUI({...USERSESSIONDEFAULT})
 export const USERINFO = proxifyObjToUpdateUI({
     collected: 0,
     collectedAll: 0,
+    visited: 0,
+    visitedAll: 0,
 })
 
 export const USERSETTINGS = proxifyObjToUpdateUI({

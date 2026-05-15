@@ -10,34 +10,34 @@ export const HEADERTOPBAR = {};
 
 // Кешироние DOM елементов панели параметров
 export function cacheOptElements() {
-    OPTSIDEBAR.optHideBtn           = document.getElementById('option-hide');
-    OPTSIDEBAR.optionsContainer     = document.getElementById('options-container');
-    OPTSIDEBAR.optionsHeader        = OPTSIDEBAR.optionsContainer.querySelector('.optionheader');
-    OPTSIDEBAR.optionsHeaderText    = OPTSIDEBAR.optionsHeader.querySelector('.optheader');
-    OPTSIDEBAR.optionsParams        = OPTSIDEBAR.optionsContainer.querySelector('.optparam');
-    OPTSIDEBAR.optHideBtnImg        = document.getElementById('option-hide-img');
-    OPTSIDEBAR.optHideBtnText       = document.getElementById('option-hide-text');
-    OPTSIDEBAR.customCursorToggle   = document.getElementById('toggle-cursor');
-    OPTSIDEBAR.coloredRegionsToggle = document.getElementById('toggle-regions');
-    OPTSIDEBAR.heightDisplayToggle  = document.getElementById('toggle-height');
-    OPTSIDEBAR.coloredMarkersToggle = document.getElementById('toggle-color');
-    OPTSIDEBAR.customColorsToggle   = document.getElementById('toggle-customcolor');
-    OPTSIDEBAR.instantFilterToggle  = document.getElementById('toggle-instantf');
+  OPTSIDEBAR.optHideBtn           = document.getElementById('option-hide');
+  OPTSIDEBAR.optionsContainer     = document.getElementById('options-container');
+  OPTSIDEBAR.optionsHeader        = OPTSIDEBAR.optionsContainer.querySelector('.optionheader');
+  OPTSIDEBAR.optionsHeaderText    = OPTSIDEBAR.optionsHeader.querySelector('.optheader');
+  OPTSIDEBAR.optionsParams        = OPTSIDEBAR.optionsContainer.querySelector('.optparam');
+  OPTSIDEBAR.optHideBtnImg        = document.getElementById('option-hide-img');
+  OPTSIDEBAR.optHideBtnText       = document.getElementById('option-hide-text');
+  OPTSIDEBAR.customCursorToggle   = document.getElementById('toggle-cursor');
+  OPTSIDEBAR.coloredRegionsToggle = document.getElementById('toggle-regions');
+  OPTSIDEBAR.heightDisplayToggle  = document.getElementById('toggle-height');
+  OPTSIDEBAR.coloredMarkersToggle = document.getElementById('toggle-color');
+  OPTSIDEBAR.customColorsToggle   = document.getElementById('toggle-customcolor');
+  OPTSIDEBAR.instantFilterToggle  = document.getElementById('toggle-instantf');
 }
 
 // Инициализация панели параметров
 export function initOptElements() {
-    APPSTATE.optMenuState = !APPSTATE.isMobile;
-    optmenuStyleSet(!APPSTATE.isMobile, false);
-    //Слушатель адаптации панели параметров
-    OPTSIDEBAR.optHideBtn.addEventListener('click', () => {
-        APPSTATE.optMenuState = !APPSTATE.optMenuState;
-        if (APPSTATE.isMobile) {
-            APPSTATE.filterMenuState = false;
-            filtermenuStyleSet(APPSTATE.filterMenuState, APPSTATE.optMenuState);
-        };
-        optmenuStyleSet(APPSTATE.optMenuState, false);
-    });
+  APPSTATE.optMenuState = !APPSTATE.isMobile;
+  optmenuStyleSet(!APPSTATE.isMobile, false);
+  //Слушатель адаптации панели параметров
+  OPTSIDEBAR.optHideBtn.addEventListener('click', () => {
+    APPSTATE.optMenuState = !APPSTATE.optMenuState;
+    if (APPSTATE.isMobile) {
+      APPSTATE.filterMenuState = false;
+      filtermenuStyleSet(APPSTATE.filterMenuState, APPSTATE.optMenuState);
+    };
+    optmenuStyleSet(APPSTATE.optMenuState, false);
+  });
 }
 
 export function initOptToggle() {
@@ -65,15 +65,15 @@ export function initOptToggle() {
 
 // Кешироние DOM елементов панели фильтров
 export function cacheFilterElements() {
-    FILTERSIDEBAR.filterHideBtn     = document.getElementById('filter-hide');
-    FILTERSIDEBAR.filterClearBtn    = document.getElementById('filter-reset');
-    FILTERSIDEBAR.filterContainer   = document.getElementById('filter-container');
-    FILTERSIDEBAR.filterHeader      = FILTERSIDEBAR.filterContainer.querySelector('.filterheader');
-    FILTERSIDEBAR.filterHeaderText  = FILTERSIDEBAR.filterHeader.querySelector('.filheader');
-    FILTERSIDEBAR.filterHideBtnImg  = document.getElementById('filter-hide-img');
-    FILTERSIDEBAR.filterHideBtnText = document.getElementById('filter-hide-text');
-    FILTERSIDEBAR.undergroundSwitch = document.getElementById('underground');
-    FILTERSIDEBAR.collectedSwitch   = document.getElementById('collected');
+  FILTERSIDEBAR.filterHideBtn     = document.getElementById('filter-hide');
+  FILTERSIDEBAR.filterClearBtn    = document.getElementById('filter-reset');
+  FILTERSIDEBAR.filterContainer   = document.getElementById('filter-container');
+  FILTERSIDEBAR.filterHeader      = FILTERSIDEBAR.filterContainer.querySelector('.filterheader');
+  FILTERSIDEBAR.filterHeaderText  = FILTERSIDEBAR.filterHeader.querySelector('.filheader');
+  FILTERSIDEBAR.filterHideBtnImg  = document.getElementById('filter-hide-img');
+  FILTERSIDEBAR.filterHideBtnText = document.getElementById('filter-hide-text');
+  FILTERSIDEBAR.undergroundSwitch = document.getElementById('underground');
+  FILTERSIDEBAR.collectedSwitch   = document.getElementById('collected');
 }
 
 // Инициализация панели фильтров
@@ -119,37 +119,37 @@ export function cacheHeaderElements() {
 
 // Переключатель состояния панели параметров
 export function optmenuStyleSet(ostate, fstate) {
-    OPTSIDEBAR.optionsContainer.classList.toggle('hide', !ostate);
-    OPTSIDEBAR.optionsContainer.classList.toggle('close', fstate);
-    OPTSIDEBAR.optionsHeader.classList.toggle('hide', !ostate);
-    OPTSIDEBAR.optHideBtn.classList.toggle('hide', !ostate);
-    
-    OPTSIDEBAR.optionsHeaderText.classList.toggle('hide', !ostate);
-    
-    if (APPSTATE.isMobileC) {
-        OPTSIDEBAR.optHideBtnText.textContent = ostate ? "Hide" : "";
-        OPTSIDEBAR.optHideBtnImg.classList.toggle('open', !ostate);
-    } else {
-        OPTSIDEBAR.optHideBtnText.textContent = ostate ? "Hide" : "Open";
-    }
+  OPTSIDEBAR.optionsContainer.classList.toggle('hide', !ostate);
+  OPTSIDEBAR.optionsContainer.classList.toggle('close', fstate);
+  OPTSIDEBAR.optionsHeader.classList.toggle('hide', !ostate);
+  OPTSIDEBAR.optHideBtn.classList.toggle('hide', !ostate);
+  
+  OPTSIDEBAR.optionsHeaderText.classList.toggle('hide', !ostate);
+  
+  if (APPSTATE.isMobileC) {
+      OPTSIDEBAR.optHideBtnText.textContent = ostate ? "Hide" : "";
+      OPTSIDEBAR.optHideBtnImg.classList.toggle('open', !ostate);
+  } else {
+      OPTSIDEBAR.optHideBtnText.textContent = ostate ? "Hide" : "Open";
+  }
 }
 // Переключатель состояния панели фильтров
 export function filtermenuStyleSet(fstate, ostate) {
-    AUTHTOPBAR.authHfilterContainer.classList.toggle('open', fstate);
-    FILTERSIDEBAR.filterContainer.classList.toggle('hide', !fstate);
-    FILTERSIDEBAR.filterContainer.classList.toggle('close', ostate);
-    FILTERSIDEBAR.filterHeader.classList.toggle('hide', !fstate);
+  AUTHTOPBAR.authHfilterContainer.classList.toggle('open', fstate);
+  FILTERSIDEBAR.filterContainer.classList.toggle('hide', !fstate);
+  FILTERSIDEBAR.filterContainer.classList.toggle('close', ostate);
+  FILTERSIDEBAR.filterHeader.classList.toggle('hide', !fstate);
 
-    FILTERSIDEBAR.filterHideBtn.classList.toggle('hide', !fstate);
-    FILTERSIDEBAR.filterClearBtn.classList.toggle('hide', !fstate);
-    FILTERSIDEBAR.filterHeaderText.classList.toggle('hide', !fstate);
+  FILTERSIDEBAR.filterHideBtn.classList.toggle('hide', !fstate);
+  FILTERSIDEBAR.filterClearBtn.classList.toggle('hide', !fstate);
+  FILTERSIDEBAR.filterHeaderText.classList.toggle('hide', !fstate);
 
-    if (APPSTATE.isMobileC) {
-        FILTERSIDEBAR.filterHideBtnText.textContent = fstate ? "Hide" : "";
-        FILTERSIDEBAR.filterHideBtnImg.classList.toggle('open', !fstate);
-    } else {
-        FILTERSIDEBAR.filterHideBtnText.textContent = fstate ? "Hide" : "Open";
-    }
+  if (APPSTATE.isMobileC) {
+      FILTERSIDEBAR.filterHideBtnText.textContent = fstate ? "Hide" : "";
+      FILTERSIDEBAR.filterHideBtnImg.classList.toggle('open', !fstate);
+  } else {
+      FILTERSIDEBAR.filterHideBtnText.textContent = fstate ? "Hide" : "Open";
+  }
 }
 
 export function startHeaderAnim(ms) {
