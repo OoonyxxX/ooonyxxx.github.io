@@ -195,6 +195,7 @@ export function setUpMarkerData(marker, data = {}, clear) {
 }
 
 export function markerBuilder(baseData = {}, fullData = {}) {
+  const {icon_id, coords} = baseData;
   const m = createMarker({coords: [coords.lat, coords.lng], icon_id});
   const marker = setUpMarkerData(m, fullData, false);
   bindMarkerPopup(marker);
