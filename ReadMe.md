@@ -4,7 +4,7 @@ Interactive map for Spirit of the North 2 with user accounts, marker tracking, a
 
 
 ## Roadmap
-- [ ] User settings UI
+- [*] User settings UI
 - [ ] Moderation tools
 - [ ] Backup system.
 - [ ] UI Polishing
