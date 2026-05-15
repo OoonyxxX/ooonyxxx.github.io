@@ -591,7 +591,7 @@ class UserModal {
           <span class="statistics-text statistics-collected-text">${USERINFO.collected}/${USERINFO.collectedAll}</span>
         </label>
         <label class="statistics-parameter statistics-visited">
-          <span class="statistics-visited-title content-title">Collected</span>
+          <span class="statistics-visited-title content-title">Visited</span>
           <span class="statistics-text statistics-visited-text">${USERINFO.visited}/${USERINFO.visitedAll}</span>
         </label>
       `,
