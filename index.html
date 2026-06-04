@@ -59,20 +59,21 @@
   </section> -->
   <header class="header-container">
     <div class="header-pos-container">
-	  <div class="header-hopt-container">
-		<h2 class="header northern-bg">Map of the North</h2> <!-- SOTN2 Interactive Map -->
-	  </div>
-	  <div id="auth-hfilter-container"  class="auth-hfilter-container open">
-		<div id="auth-container" class="auth">
-		  <button id="login-button" class="btn-login">Login</button>
-		  <span id="username-display" class="username"></span>
-		  <div id="user-container" class="user-container"> 
-			<img id="auth-img" class="auth-img action-img no-drag" src="/othersvg/account_white.svg"></img>
-			<img id="user-menu" class="user-menu action-img no-drag" src="/othersvg/opt.svg"></img>
-		  </div>
+			<div class="header-hopt-container">
+				<h2 class="header northern-bg">Map of the North</h2> <!-- SOTN2 Interactive Map -->
+				<div id="info-popap-container" class="info-popap-container"></div>
+			</div>
+			<div id="auth-hfilter-container"  class="auth-hfilter-container open">
+				<div id="auth-container" class="auth">
+					<button id="login-button" class="btn-login">Login</button>
+					<span id="username-display" class="username"></span>
+					<div id="user-container" class="user-container"> 
+						<img id="auth-img" class="auth-img action-img no-drag" src="/othersvg/account_white.svg"></img>
+						<img id="user-menu" class="user-menu action-img no-drag" src="/othersvg/opt.svg"></img>
+					</div>
+				</div>
+			</div>
 		</div>
-	  </div>
-	</div>
   </header>
   <div id="-indicators" class="svg-indicators" style="display: none;">
     <svg xmlns="http://www.w3.org/2000/svg" id="--or" class="indicator indicator--or" viewBox="0 0 32 32">
@@ -100,327 +101,335 @@
   <main class="map-container">
     <aside id="map-controls" class="controls">
       <section id="options-container" class="options-container">
-	    <div class="optionheader">
-	      <h3 class="optheader">Options</h3>
-		  <button id="option-hide" class="btn-hide option-hide">
-			<span id="option-hide-text" class="option-hide-text">Hide</span>
-			<img id="option-hide-img" class="option-hide-img" src="/othersvg/opt.svg">
-		  </button>
-		</div>
-		<div class="optparam">
-	      <label class="option-parameter cursor-toggle">
-            <input type="checkbox" class="toggle-cursor-checkbox" id="toggle-cursor" checked>
-            <span class="toggle-text toggle-cursor-text">Custom Cursor</span>
-          </label>
-	      <label class="option-parameter regions-toggle">
-            <input type="checkbox" class="toggle-regions-checkbox" id="toggle-regions">
-            <span class="toggle-text toggle-regions-text">Colored Regions</span>
-          </label>
-	      <label class="option-parameter height-toggle">
-            <input type="checkbox" class="toggle-height-checkbox" id="toggle-height">
-            <span class="toggle-text toggle-height-text">Height Display</span>
-          </label>
-	      <label class="option-parameter color-toggle">
-            <input type="checkbox" class="toggle-color-checkbox" id="toggle-color" checked>
-            <span class="toggle-text toggle-color-text">Colored Markers</span>
-          </label>
-	      <label class="option-parameter customcolor-toggle">
-            <input type="checkbox" class="toggle-customcolor-checkbox" id="toggle-customcolor">
-            <span class="toggle-text toggle-customcolor-text">Custom Colors</span>
-          </label>
-	      <label class="option-parameter instantf-toggle">
-            <input type="checkbox" class="toggle-instantf-checkbox" id="toggle-instantf" checked>
-            <span class="toggle-text toggle-instantf-text">Instant Filter</span>
-          </label>
-		</div>
+				<div class="optionheader">
+					<h3 class="optheader">Options</h3>
+					<button id="option-hide" class="btn-hide option-hide">
+						<span id="option-hide-text" class="option-hide-text">Hide</span>
+						<img id="option-hide-img" class="option-hide-img" src="/othersvg/opt.svg">
+					</button>
+				</div>
+				<div class="optparam">
+					<label class="option-parameter cursor-toggle">
+						<input type="checkbox" class="toggle-cursor-checkbox" id="toggle-cursor" checked>
+						<span class="toggle-text toggle-cursor-text">Custom Cursor</span>
+					</label>
+					<label class="option-parameter regions-toggle">
+						<input type="checkbox" class="toggle-regions-checkbox" id="toggle-regions">
+						<span class="toggle-text toggle-regions-text">Colored Regions</span>
+					</label>
+					<label class="option-parameter height-toggle">
+						<input type="checkbox" class="toggle-height-checkbox" id="toggle-height">
+						<span class="toggle-text toggle-height-text">Height Display</span>
+					</label>
+					<label class="option-parameter color-toggle">
+						<input type="checkbox" class="toggle-color-checkbox" id="toggle-color" checked>
+						<span class="toggle-text toggle-color-text">Colored Markers</span>
+					</label>
+					<label class="option-parameter customcolor-toggle">
+						<input type="checkbox" class="toggle-customcolor-checkbox" id="toggle-customcolor">
+						<span class="toggle-text toggle-customcolor-text">Custom Colors</span>
+					</label>
+					<label class="option-parameter instantf-toggle">
+						<input type="checkbox" class="toggle-instantf-checkbox" id="toggle-instantf" checked>
+						<span class="toggle-text toggle-instantf-text">Instant Filter</span>
+					</label>
+				</div>
       </section>
-	  <section id="filter-container" class="filter-container">
-	    <div id="filterheader" class="filterheader">
-	      <h3 class="filheader">Filters</h3>
-	      <button id="filter-reset" class="btn-reset">Clear</button>
-		  <button id="filter-hide" class="btn-hide filter-hide">
-			  <span id="filter-hide-text" class="filter-hide-text">Hide</span>
-			  <img id="filter-hide-img" class="filter-hide-img" src="/othersvg/filter.svg">
-		  </button>
-		</div>
-		<div id="filter-sections" class="filter-sections">
-		  <section class="filter-section filter-underground" data-filter="underground">
-			<div class="filter-body underground-switch">
-			  <label id="underground" class="underground"><input type="checkbox" value="underground"> Underground</label>
+      <section id="devlog-widget-container" class="widget-container">
+      </section>
+			
+			<section id="filter-container" class="filter-container">
+				<div id="filterheader" class="filterheader">
+					<h3 class="filheader">Filters</h3>
+					<button id="filter-reset" class="btn-reset">Clear</button>
+				<button id="filter-hide" class="btn-hide filter-hide">
+					<span id="filter-hide-text" class="filter-hide-text">Hide</span>
+					<img id="filter-hide-img" class="filter-hide-img" src="/othersvg/filter.svg">
+				</button>
 			</div>
-		  </section>
-		  <section class="filter-section filter-collected" data-filter="collected">
-			<div class="filter-body collected-switch">
-			  <label id="collected" class="collected"><input type="checkbox" value="collected"> Collected</label>
+			<div id="filter-sections" class="filter-sections">
+				<section class="filter-section filter-underground" data-filter="underground">
+				<div class="filter-body underground-switch">
+					<label id="underground" class="underground"><input type="checkbox" value="underground"> Underground</label>
+				</div>
+				</section>
+				<section class="filter-section filter-collected" data-filter="collected">
+				<div class="filter-body collected-switch">
+					<label id="collected" class="collected"><input type="checkbox" value="collected"> Collected</label>
+				</div>
+				</section>
+					<section class="filter-section filter-icon" data-filter="icon">
+				<div class="filter-body icons-grid">
+					<div class="important-icons-external">
+						<h5 class="iconsheader">Important</h5>
+						<div class="important-icons">
+							<label id="icon-item" class="icon-item crypticon">
+							<input type="checkbox" value="crypt" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Cryptv2.svg" alt="Crypt">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Cryptv2.svg" alt="Crypt">
+							</label>
+							<label id="icon-item" class="icon-item obeliskicon">
+							<input type="checkbox" value="obelisk" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Obelisk.svg" alt="Obelisk">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Obelisk.svg" alt="Obelisk">
+							</label>
+							<label id="icon-item" class="icon-item portalicon">
+							<input type="checkbox" value="portal" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Portal.svg" alt="Portal">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Portal.svg" alt="Portal">
+							</label>
+							<label id="icon-item" class="icon-item raccoonGrottoicon">
+							<input type="checkbox" value="raccoonGrotto" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_RaccoonGrottoV4.svg" alt="Raccoon Grotto">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_RaccoonGrottoV4.svg" alt="Raccoon Grotto">
+							</label>
+							<label id="icon-item" class="icon-item playerHomeicon">
+							<input type="checkbox" value="playerHome" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_PlayerHome.svg" alt="Player Home">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_PlayerHome.svg" alt="Player Home">
+							</label>
+							<label id="icon-item" class="icon-item treeicon">
+							<input type="checkbox" value="tree" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Tree.svg" alt="Tree">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Tree.svg" alt="Tree">
+							</label>
+							<label id="icon-item" class="icon-item snakeShrineicon">
+							<input type="checkbox" value="snakeShrine" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_SnakeShrine.svg" alt="Snake Shrine">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_SnakeShrine.svg" alt="Snake Shrine">
+							</label>
+							<label id="icon-item" class="icon-item totemicon">
+							<input type="checkbox" value="totem" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Totem.svg" alt="Totem">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Totem.svg" alt="Totem">
+							</label>
+							<label id="icon-item" class="icon-item wispCollectoricon">
+							<input type="checkbox" value="wispCollector" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_WispCollector.svg" alt="Wisp Collector">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_WispCollector.svg" alt="Wisp Collector">
+							</label>
+						</div>
+					</div>
+					<div class="guardians-icons-external">
+						<h5 class="iconsheader">Guardians</h5>
+						<div class="guardians-icons">
+							<label id="icon-item" class="icon-item foxicon">
+							<input type="checkbox" value="fox" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Fox.svg" alt="Fox">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Fox.svg" alt="Fox">
+							</label>
+							<label id="icon-item" class="icon-item ravenicon">
+							<input type="checkbox" value="raven" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Raven.svg" alt="Raven">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Raven.svg" alt="Raven">
+							</label>
+							<label id="icon-item" class="icon-item stagicon">
+							<input type="checkbox" value="stag" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Stag.svg" alt="Stag">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Stag.svg" alt="Stag">
+							</label>
+							<label id="icon-item" class="icon-item ramicon">
+							<input type="checkbox" value="ram" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Ram.svg" alt="Ram">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Ram.svg" alt="Ram">
+							</label>
+							<label id="icon-item" class="icon-item wolficon">
+							<input type="checkbox" value="wolf" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Wolf.svg" alt="Wolf">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Wolf.svg" alt="Wolf">
+							</label>
+							<label id="icon-item" class="icon-item bearicon">
+							<input type="checkbox" value="bear" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Bear.svg" alt="Bear">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Bear.svg" alt="Bear">
+							</label>
+						</div>
+					</div>
+					<div class="natural-icons-external">
+						<h5 class="iconsheader">Natural</h5>
+						<div class="natural-icons">
+							<label id="icon-item" class="icon-item waterfallicon">
+							<input type="checkbox" value="waterfall" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Waterfall.svg" alt="Waterfall">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Waterfall.svg" alt="Waterfall">
+							</label>
+							<label id="icon-item" class="icon-item pathicon">
+							<input type="checkbox" value="path" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Path.svg" alt="Path">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Path.svg" alt="Path">
+							</label>
+							<label id="icon-item" class="icon-item naturalRockTowericon">
+							<input type="checkbox" value="naturalRockTower" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_NaturalRockTower.svg" alt="Natural Rock Tower">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_NaturalRockTower.svg" alt="Natural Rock Tower">
+							</label>
+							<label id="icon-item" class="icon-item mountainPeakicon">
+							<input type="checkbox" value="mountainPeak" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_MountainPeak.svg" alt="Mountain Peak">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_MountainPeak.svg" alt="Mountain Peak">
+							</label>
+							<label id="icon-item" class="icon-item lakeicon">
+							<input type="checkbox" value="lake" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Lake.svg" alt="Lake">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Lake.svg" alt="Lake">
+							</label>
+							<label id="icon-item" class="icon-item hillicon">
+							<input type="checkbox" value="hill" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Hill.svg" alt="Hill">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Hill.svg" alt="Hill">
+							</label>
+							<label id="icon-item" class="icon-item caveicon">
+							<input type="checkbox" value="cave" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Cave.svg" alt="Cave">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Cave.svg" alt="Cave">
+							</label>
+						</div>
+					</div>
+					<div class="structures-icons-external">
+						<h5 class="iconsheader">Structures</h5>
+						<div class="structures-icons">
+							<label id="icon-item" class="icon-item warTowericon">
+							<input type="checkbox" value="warTower" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_WarTower.svg" alt="War Tower">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_WarTower.svg" alt="War Tower">
+							</label>
+							<label id="icon-item" class="icon-item warGateicon">
+							<input type="checkbox" value="warGate" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_WarGate.svg" alt="War Gate">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_WarGate.svg" alt="War Gate">
+							</label>
+							<label id="icon-item" class="icon-item shipyardicon">
+							<input type="checkbox" value="shipyard" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Shipyard.svg" alt="Shipyard">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Shipyard.svg" alt="Shipyard">
+							</label>
+							<label id="icon-item" class="icon-item ruinsicon">
+							<input type="checkbox" value="ruins" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Ruins.svg" alt="Ruins">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Ruins.svg" alt="Ruins">
+							</label>
+							<label id="icon-item" class="icon-item encampmenticon">
+							<input type="checkbox" value="encampment" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Encampment.svg" alt="Encampment">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Encampment.svg" alt="Encampment">
+							</label>
+							<label id="icon-item" class="icon-item dwellingsStoneicon">
+							<input type="checkbox" value="dwellingsStone" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Dwellings_Stone.svg" alt="Dwellings Stone">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Dwellings_Stone.svg" alt="Dwellings Stone">
+							</label>
+							<label id="icon-item" class="icon-item dwellingsRuinsicon">
+							<input type="checkbox" value="dwellingsRuins" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Dwellings_Ruins.svg" alt="Dwellings Ruins">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Dwellings_Ruins.svg" alt="Dwellings Ruins">
+							</label>
+							<label id="icon-item" class="icon-item dwellingWoodicon">
+							<input type="checkbox" value="dwellingWood" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Dwelling_Wood.svg" alt="Dwelling Wood">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Dwelling_Wood.svg" alt="Dwelling Wood">
+							</label>
+							<label id="icon-item" class="icon-item singleDwellingStoneicon">
+							<input type="checkbox" value="singleDwellingStone" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Single_Dwelling_Stone.svg" alt="Single Dwelling Stone">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Single_Dwelling_Stone.svg" alt="Single Dwelling Stone">
+							</label>
+							<label id="icon-item" class="icon-item bridgeicon">
+							<input type="checkbox" value="bridge" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Bridge.svg" alt="Bridge">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Bridge.svg" alt="Bridge">
+							</label>
+							<label id="icon-item" class="icon-item anceintTowerV2icon">
+							<input type="checkbox" value="anceintTowerV2" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_AnceintTower_V2.svg" alt="Anceint Tower V2">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_AnceintTower_V2.svg" alt="Anceint Tower V2">
+							</label>
+							<label id="icon-item" class="icon-item anceintTowerV1icon">
+							<input type="checkbox" value="anceintTowerV1" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_AnceintTower.svg" alt="Anceint Tower V1">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_AnceintTower.svg" alt="Anceint Tower V1">
+							</label>
+							<label id="icon-item" class="icon-item bearLighthouseicon">
+							<input type="checkbox" value="bearLighthouse" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_BearLighthouse.svg" alt="Bear Lighthouse">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_BearLighthouse.svg" alt="Bear Lighthouse">
+							</label>
+						</div>
+					</div>
+					<div class="collectible-icons-external">
+						<h5 class="iconsheader">Collectible</h5>
+						<div class="collectible-icons">
+							<label id="icon-item" class="icon-item extraWispicon">
+								<input type="checkbox" value="extraWisp" class="iconcheckbox">
+								<img class="imgicon" src="svgiconimg/T_Icon_Map_ExtraWisp.svg" alt="Wisp">
+								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_ExtraWisp.svg" alt="Wisp">
+							</label>
+							<label id="icon-item" class="icon-item loreSeekericon">
+								<input type="checkbox" value="loreSeeker" class="iconcheckbox">
+								<img class="imgicon" src="svgiconimg/T_Icon_Map_LoreSeeker1.svg" alt="Lore Scroll">
+								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_LoreSeeker1.svg" alt="Lore Scroll">
+							</label>
+							<label id="icon-item" class="icon-item skillPointicon">
+								<input type="checkbox" value="skillPoint" class="iconcheckbox">
+								<img class="imgicon" src="svgiconimg/T_Icon_Map_SkillPoint.svg" alt="Skill Point">
+								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_SkillPoint.svg" alt="Skill Point">
+							</label>
+							<label id="icon-item" class="icon-item chesticon">
+								<input type="checkbox" value="chest" class="iconcheckbox">
+								<img class="imgicon" src="svgiconimg/T_Icon_Map_Chest.svg" alt="Common Chest">
+								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Chest.svg" alt="Common Chest">
+							</label>
+							<label id="icon-item" class="icon-item skinChesticon">
+								<input type="checkbox" value="skinChest" class="iconcheckbox">
+								<img class="imgicon" src="svgiconimg/T_Icon_Map_SkinChest.svg" alt="Cosmetic Chest">
+								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_SkinChest.svg" alt="Cosmetic Chest">
+							</label>
+							<label id="icon-item" class="icon-item runeChesticon">
+								<input type="checkbox" value="runeChest" class="iconcheckbox">
+								<img class="imgicon" src="svgiconimg/T_Icon_Map_RuneChest.svg" alt="Rune Chest">
+								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_RuneChest.svg" alt="Rune Chest">
+							</label>
+							<label id="icon-item" class="icon-item lostMelodyicon">
+								<input type="checkbox" value="lostMelody" class="iconcheckbox">
+								<img class="imgicon" src="svgiconimg/T_Icon_Map_LostMelody.svg" alt="Lost Melody">
+								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_LostMelody.svg" alt="Lost Melody">
+							</label>
+						</div>
+					</div>
+					<div class="other-icons-external">
+						<h5 class="iconsheader">Other</h5>
+						<div class="other-icons">
+							<label id="icon-item" class="icon-item mysteryPOIicon">
+							<input type="checkbox" value="mysteryPOI" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_MysteryPOI.svg" alt="Mystery">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_MysteryPOI.svg" alt="Mystery">
+							</label>
+							<label id="icon-item" class="icon-item defaulticon">
+							<input type="checkbox" value="default" class="iconcheckbox">
+							<img class="imgicon" src="svgiconimg/T_Icon_Map_Generic.svg" alt="Default">
+							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Generic.svg" alt="Default">
+							</label>
+						</div>
+					</div>
+					<div id="icon-indicator" class="icon-indicator"></div>
+				</div>
+				</section>
+					<section class="filter-section filter-region" data-filter="region">
+				<h4 class="paramheader">Region</h4>
+				<div class="filter-body region-list">
+					<label id="region-fox_island" class="region region-fox_island"><input type="checkbox" value="fox_island"> Fox Island</label>
+					<label id="region-misthaven" class="region region-misthaven"><input type="checkbox" value="misthaven"> Misthaven</label>
+					<label id="region-mosswood" class="region region-mosswood"><input type="checkbox" value="mosswood"> Mosswood</label>
+					<label id="region-stormvale" class="region region-stormvale"><input type="checkbox" value="stormvale"> Stormvale</label>
+					<label id="region-frigid_peaks" class="region region-frigid_peaks"><input type="checkbox" value="frigid_peaks"> Frigid Peaks</label>
+					<label id="region-ashlands" class="region region-ashlands"><input type="checkbox" value="ashlands"> Ashlands</label>
+					<label id="region-ocean" class="region region-ocean"><input type="checkbox" value="ocean"> Ocean</label>
+				</div>
+				</section>
 			</div>
-		  </section>
-	      <section class="filter-section filter-icon" data-filter="icon">
-			<div class="filter-body icons-grid">
-			  <div class="important-icons-external">
-				  <h5 class="iconsheader">Important</h5>
-				  <div class="important-icons">
-					  <label id="icon-item" class="icon-item crypticon">
-						<input type="checkbox" value="crypt" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Cryptv2.svg" alt="Crypt">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Cryptv2.svg" alt="Crypt">
-					  </label>
-					  <label id="icon-item" class="icon-item obeliskicon">
-						<input type="checkbox" value="obelisk" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Obelisk.svg" alt="Obelisk">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Obelisk.svg" alt="Obelisk">
-					  </label>
-					  <label id="icon-item" class="icon-item portalicon">
-						<input type="checkbox" value="portal" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Portal.svg" alt="Portal">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Portal.svg" alt="Portal">
-					  </label>
-					  <label id="icon-item" class="icon-item raccoonGrottoicon">
-						<input type="checkbox" value="raccoonGrotto" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_RaccoonGrottoV4.svg" alt="Raccoon Grotto">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_RaccoonGrottoV4.svg" alt="Raccoon Grotto">
-					  </label>
-					  <label id="icon-item" class="icon-item playerHomeicon">
-						<input type="checkbox" value="playerHome" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_PlayerHome.svg" alt="Player Home">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_PlayerHome.svg" alt="Player Home">
-					  </label>
-					  <label id="icon-item" class="icon-item treeicon">
-						<input type="checkbox" value="tree" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Tree.svg" alt="Tree">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Tree.svg" alt="Tree">
-					  </label>
-					  <label id="icon-item" class="icon-item snakeShrineicon">
-						<input type="checkbox" value="snakeShrine" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_SnakeShrine.svg" alt="Snake Shrine">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_SnakeShrine.svg" alt="Snake Shrine">
-					  </label>
-					  <label id="icon-item" class="icon-item totemicon">
-						<input type="checkbox" value="totem" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Totem.svg" alt="Totem">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Totem.svg" alt="Totem">
-					  </label>
-					  <label id="icon-item" class="icon-item wispCollectoricon">
-						<input type="checkbox" value="wispCollector" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_WispCollector.svg" alt="Wisp Collector">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_WispCollector.svg" alt="Wisp Collector">
-					  </label>
-				  </div>
-			  </div>
-			  <div class="guardians-icons-external">
-				  <h5 class="iconsheader">Guardians</h5>
-				  <div class="guardians-icons">
-					  <label id="icon-item" class="icon-item foxicon">
-						<input type="checkbox" value="fox" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Fox.svg" alt="Fox">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Fox.svg" alt="Fox">
-					  </label>
-					  <label id="icon-item" class="icon-item ravenicon">
-						<input type="checkbox" value="raven" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Raven.svg" alt="Raven">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Raven.svg" alt="Raven">
-					  </label>
-					  <label id="icon-item" class="icon-item stagicon">
-						<input type="checkbox" value="stag" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Stag.svg" alt="Stag">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Stag.svg" alt="Stag">
-					  </label>
-					  <label id="icon-item" class="icon-item ramicon">
-						<input type="checkbox" value="ram" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Ram.svg" alt="Ram">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Ram.svg" alt="Ram">
-					  </label>
-					  <label id="icon-item" class="icon-item wolficon">
-						<input type="checkbox" value="wolf" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Wolf.svg" alt="Wolf">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Wolf.svg" alt="Wolf">
-					  </label>
-					  <label id="icon-item" class="icon-item bearicon">
-						<input type="checkbox" value="bear" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Bear.svg" alt="Bear">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Bear.svg" alt="Bear">
-					  </label>
-				  </div>
-			  </div>
-			  <div class="natural-icons-external">
-				  <h5 class="iconsheader">Natural</h5>
-				  <div class="natural-icons">
-					  <label id="icon-item" class="icon-item waterfallicon">
-						<input type="checkbox" value="waterfall" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Waterfall.svg" alt="Waterfall">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Waterfall.svg" alt="Waterfall">
-					  </label>
-					  <label id="icon-item" class="icon-item pathicon">
-						<input type="checkbox" value="path" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Path.svg" alt="Path">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Path.svg" alt="Path">
-					  </label>
-					  <label id="icon-item" class="icon-item naturalRockTowericon">
-						<input type="checkbox" value="naturalRockTower" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_NaturalRockTower.svg" alt="Natural Rock Tower">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_NaturalRockTower.svg" alt="Natural Rock Tower">
-					  </label>
-					  <label id="icon-item" class="icon-item mountainPeakicon">
-						<input type="checkbox" value="mountainPeak" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_MountainPeak.svg" alt="Mountain Peak">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_MountainPeak.svg" alt="Mountain Peak">
-					  </label>
-					  <label id="icon-item" class="icon-item lakeicon">
-						<input type="checkbox" value="lake" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Lake.svg" alt="Lake">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Lake.svg" alt="Lake">
-					  </label>
-					  <label id="icon-item" class="icon-item hillicon">
-						<input type="checkbox" value="hill" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Hill.svg" alt="Hill">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Hill.svg" alt="Hill">
-					  </label>
-					  <label id="icon-item" class="icon-item caveicon">
-						<input type="checkbox" value="cave" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Cave.svg" alt="Cave">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Cave.svg" alt="Cave">
-					  </label>
-				  </div>
-			  </div>
-			  <div class="structures-icons-external">
-				  <h5 class="iconsheader">Structures</h5>
-				  <div class="structures-icons">
-					  <label id="icon-item" class="icon-item warTowericon">
-						<input type="checkbox" value="warTower" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_WarTower.svg" alt="War Tower">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_WarTower.svg" alt="War Tower">
-					  </label>
-					  <label id="icon-item" class="icon-item warGateicon">
-						<input type="checkbox" value="warGate" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_WarGate.svg" alt="War Gate">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_WarGate.svg" alt="War Gate">
-					  </label>
-					  <label id="icon-item" class="icon-item shipyardicon">
-						<input type="checkbox" value="shipyard" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Shipyard.svg" alt="Shipyard">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Shipyard.svg" alt="Shipyard">
-					  </label>
-					  <label id="icon-item" class="icon-item ruinsicon">
-						<input type="checkbox" value="ruins" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Ruins.svg" alt="Ruins">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Ruins.svg" alt="Ruins">
-					  </label>
-					  <label id="icon-item" class="icon-item encampmenticon">
-						<input type="checkbox" value="encampment" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Encampment.svg" alt="Encampment">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Encampment.svg" alt="Encampment">
-					  </label>
-					  <label id="icon-item" class="icon-item dwellingsStoneicon">
-						<input type="checkbox" value="dwellingsStone" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Dwellings_Stone.svg" alt="Dwellings Stone">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Dwellings_Stone.svg" alt="Dwellings Stone">
-					  </label>
-					  <label id="icon-item" class="icon-item dwellingsRuinsicon">
-						<input type="checkbox" value="dwellingsRuins" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Dwellings_Ruins.svg" alt="Dwellings Ruins">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Dwellings_Ruins.svg" alt="Dwellings Ruins">
-					  </label>
-					  <label id="icon-item" class="icon-item dwellingWoodicon">
-						<input type="checkbox" value="dwellingWood" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Dwelling_Wood.svg" alt="Dwelling Wood">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Dwelling_Wood.svg" alt="Dwelling Wood">
-					  </label>
-					  <label id="icon-item" class="icon-item singleDwellingStoneicon">
-						<input type="checkbox" value="singleDwellingStone" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Single_Dwelling_Stone.svg" alt="Single Dwelling Stone">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Single_Dwelling_Stone.svg" alt="Single Dwelling Stone">
-					  </label>
-					  <label id="icon-item" class="icon-item bridgeicon">
-						<input type="checkbox" value="bridge" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Bridge.svg" alt="Bridge">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Bridge.svg" alt="Bridge">
-					  </label>
-					  <label id="icon-item" class="icon-item anceintTowerV2icon">
-						<input type="checkbox" value="anceintTowerV2" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_AnceintTower_V2.svg" alt="Anceint Tower V2">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_AnceintTower_V2.svg" alt="Anceint Tower V2">
-					  </label>
-					  <label id="icon-item" class="icon-item anceintTowerV1icon">
-						<input type="checkbox" value="anceintTowerV1" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_AnceintTower.svg" alt="Anceint Tower V1">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_AnceintTower.svg" alt="Anceint Tower V1">
-					  </label>
-					  <label id="icon-item" class="icon-item bearLighthouseicon">
-						<input type="checkbox" value="bearLighthouse" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_BearLighthouse.svg" alt="Bear Lighthouse">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_BearLighthouse.svg" alt="Bear Lighthouse">
-					  </label>
-				  </div>
-			  </div>
-			  <div class="collectible-icons-external">
-				  <h5 class="iconsheader">Collectible</h5>
-				  <div class="collectible-icons">
-					  <label id="icon-item" class="icon-item extraWispicon">
-						<input type="checkbox" value="extraWisp" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_ExtraWisp.svg" alt="Wisp">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_ExtraWisp.svg" alt="Wisp">
-					  </label>
-					  <label id="icon-item" class="icon-item loreSeekericon">
-						<input type="checkbox" value="loreSeeker" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_LoreSeeker1.svg" alt="Lore Scroll">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_LoreSeeker1.svg" alt="Lore Scroll">
-					  </label>
-					  <label id="icon-item" class="icon-item skillPointicon">
-						<input type="checkbox" value="skillPoint" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_SkillPoint.svg" alt="Skill Point">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_SkillPoint.svg" alt="Skill Point">
-					  </label>
-					  <label id="icon-item" class="icon-item chesticon">
-						<input type="checkbox" value="chest" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Chest.svg" alt="Common Chest">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Chest.svg" alt="Common Chest">
-					  </label>
-					  <label id="icon-item" class="icon-item skinChesticon">
-						<input type="checkbox" value="skinChest" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_SkinChest.svg" alt="Cosmetic Chest">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_SkinChest.svg" alt="Cosmetic Chest">
-					  </label>
-					  <label id="icon-item" class="icon-item runeChesticon">
-						<input type="checkbox" value="runeChest" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_RuneChest.svg" alt="Rune Chest">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_RuneChest.svg" alt="Rune Chest">
-					  </label>
-				  </div>
-			  </div>
-			  <div class="other-icons-external">
-				  <h5 class="iconsheader">Other</h5>
-				  <div class="other-icons">
-					  <label id="icon-item" class="icon-item mysteryPOIicon">
-						<input type="checkbox" value="mysteryPOI" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_MysteryPOI.svg" alt="Mystery">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_MysteryPOI.svg" alt="Mystery">
-					  </label>
-					  <label id="icon-item" class="icon-item defaulticon">
-						<input type="checkbox" value="default" class="iconcheckbox">
-						<img class="imgicon" src="svgiconimg/T_Icon_Map_Generic.svg" alt="Default">
-						<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Generic.svg" alt="Default">
-					  </label>
-				  </div>
-			  </div>
-			  <div id="icon-indicator" class="icon-indicator"></div>
+			<div id="filter-sections-footer" class="filter-sections-footer"> 
 			</div>
-		  </section>
-	      <section class="filter-section filter-region" data-filter="region">
-			<h4 class="paramheader">Region</h4>
-			<div class="filter-body region-list">
-			  <label id="region-fox_island" class="region region-fox_island"><input type="checkbox" value="fox_island"> Fox Island</label>
-			  <label id="region-misthaven" class="region region-misthaven"><input type="checkbox" value="misthaven"> Misthaven</label>
-			  <label id="region-mosswood" class="region region-mosswood"><input type="checkbox" value="mosswood"> Mosswood</label>
-			  <label id="region-stormvale" class="region region-stormvale"><input type="checkbox" value="stormvale"> Stormvale</label>
-			  <label id="region-frigid_peaks" class="region region-frigid_peaks"><input type="checkbox" value="frigid_peaks"> Frigid Peaks</label>
-			  <label id="region-ashlands" class="region region-ashlands"><input type="checkbox" value="ashlands"> Ashlands</label>
-			  <label id="region-ocean" class="region region-ocean"><input type="checkbox" value="ocean"> Ocean</label>
-			</div>
-		  </section>
-		</div>
-		<div id="filter-sections-footer" class="filter-sections-footer"> 
-		</div>
-	  </section>
-	</aside>
+			</section>
+		</aside>
     <div id="map" class="map-style"></div>
   </main>
   <footer class="footer-container">

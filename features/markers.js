@@ -14,7 +14,7 @@ export const MAPDATA = {
   allVisibleSet: new Set(),
 };
 
-const collectibleList = ['extraWisp', 'loreSeeker', 'skillPoint', 'chest', 'skinChest', 'runeChest', ]
+const collectibleList = ['extraWisp', 'loreSeeker', 'skillPoint', 'chest', 'skinChest', 'runeChest', 'lostMelody']
 
 export function markerMap(m) {
   const baseData = {
