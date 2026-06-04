@@ -26,7 +26,7 @@ export function markerMap(m) {
         lat: m.lat ?? m.coords?.lat ?? 0,
         lng: m.lng ?? m.coords?.lng ?? 0
       }, 
-      is_collectible: m.is_collectible ?? m.icon_id in collectibleList,
+      is_collectible: m.is_collectible ?? collectibleList.includes(m.icon_id),
       is_collected: m.is_collected ?? false
     }
   const fullData = {
