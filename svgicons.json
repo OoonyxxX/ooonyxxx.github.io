@@ -213,5 +213,10 @@
     "id": "skillPoint",
     "name": "Skill Point",
     "url": "svgicons/T_Icon_Map_SkillPoint.svg"
+  },
+  {
+    "id": "lostMelody",
+    "name": "Lost Melody",
+    "url": "svgicons/T_Icon_Map_LostMelody.svg"
   }
 ]

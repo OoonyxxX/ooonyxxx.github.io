@@ -92,6 +92,7 @@ function standartPopup(id, name, description, collectible) {
       >
       ${collectible ? 'Collected' : 'Visited'}
     </label>
+    
   `
 }
 
@@ -291,13 +292,11 @@ export function paintMarkers(marker = undefined) {
   if (marker === undefined) {
     MAPDATA.existingMarkers.forEach(m => {
       const el = m.getElement();
-      const path = el.querySelector(`#${m.$data.icon_id}_svg`);
-      path.style.color = markerColorPick(m);
+      el.style.color = markerColorPick(m);
     });
   } else {
     const el = marker.getElement();
-    const path = el.querySelector(`#${marker.$data.icon_id}_svg`);
-    path.style.color = markerColorPick(marker);
+    el.style.color = markerColorPick(marker);
   }
 }
 
@@ -305,9 +304,9 @@ export function dynamicPaintMarker(marker, rgbColor) {
   const { r, g, b } = rgbColor;
   const dynamicColor = `rgb(${r}, ${g}, ${b})`;
   const el = marker.getElement();
-  const path = el.querySelector(`#${marker.$data.icon_id}_svg`);
-  path.style.color = dynamicColor;
+  el.style.color = dynamicColor;
 }
+
 
 export function toggleMarkerVisible(id, visible) {
   const marker = MAPDATA.existingMarkers.get(id);
