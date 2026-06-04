@@ -497,6 +497,8 @@ export class MetEditor {
       editingMarker.$data.name = data.get('title') || 'Name_PlaceHolder';
       editingMarker.$data.description = data.get('description') || 'Description_PlaceHolder';
       editingMarker.$data.icon_id = data.get('icon') || 'default';
+      const collectibleList = ['extraWisp', 'loreSeeker', 'skillPoint', 'chest', 'skinChest', 'runeChest', 'lostMelody']
+      editingMarker.$data.is_collectible = editingMarker.$data.icon_id in collectibleList;
       editingMarker.$data.coords = { lat: parseFloat(data.get('lat')), lng: parseFloat(data.get('lng')) }
       const region = data.get('region')
       let regionAuto_id;
@@ -513,8 +515,6 @@ export class MetEditor {
       editingMarker.$data.raw_rgbcolor = { r: r, g: g, b: b };
       const isNow = new Date().toISOString();
       if (isNew) {
-        const collectibleList = ['extraWisp', 'loreSeeker', 'skillPoint', 'chest', 'skinChest', 'runeChest', 'lostMelody']
-        editingMarker.$data.is_collectible = editingMarker.$data.icon_id in collectibleList;
         editingMarker.$data.is_collected = false;
         editingMarker.$data.edit_info = { created_at: isNow, updated_at: isNow };
 
