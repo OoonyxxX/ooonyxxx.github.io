@@ -513,6 +513,8 @@ export class MetEditor {
       editingMarker.$data.raw_rgbcolor = { r: r, g: g, b: b };
       const isNow = new Date().toISOString();
       if (isNew) {
+        const collectibleList = ['extraWisp', 'loreSeeker', 'skillPoint', 'chest', 'skinChest', 'runeChest', 'lostMelody']
+        editingMarker.$data.is_collectible = editingMarker.$data.icon_id in collectibleList;
         editingMarker.$data.is_collected = false;
         editingMarker.$data.edit_info = { created_at: isNow, updated_at: isNow };
 
