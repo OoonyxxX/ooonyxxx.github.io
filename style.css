@@ -1837,7 +1837,7 @@ body::-webkit-scrollbar {
     display: block;
 
     width: min(
-        calc(420px * var(--scale)),
+        calc(220px * var(--scale)),
         70vw
     );
 
