@@ -65,7 +65,7 @@ async function maintenanceStart(){
     document.querySelector('.header-container').classList.add("hide-i");
     document.querySelector('.met').classList.add("hide-i");
     document.querySelector('#map-controls').classList.add("hide-i");
-    document.querySelector('#map').classList.add("hide-i");
+    document.querySelector('#map').classList.remove("hide-i");
     document.querySelector('.footer-container').classList.add("hide-i");
     document.querySelector('#marker-form-template').classList.add("hide-i");
     document.querySelector('#custom-cursor').classList.add("hide-i");
