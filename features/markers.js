@@ -3,6 +3,8 @@ import { getAllMarkers, postCollectedMarker } from "../api/markers_api.js"
 import { fastCollectedFilterReRender } from "./filters.js"
 import { APPSTATE, USERSESSION, USERINFO } from "../core/state.js"
 import { REGION_COLORS, REGION_UNDERGROUND_COLORS } from "../core/config.js"
+import { standartPopup, popupWithContent, markerMap } from "./marker_data.js"
+
 
 export const MAPDATA = {
   icons: {},
@@ -13,89 +15,6 @@ export const MAPDATA = {
   prevVisibleSet: new Set(),
   allVisibleSet: new Set(),
 };
-
-const collectibleList = ['extraWisp', 'loreSeeker', 'skillPoint', 'chest', 'skinChest', 'runeChest', 'lostMelody']
-
-export function markerMap(m) {
-  const baseData = {
-      id: m.id ?? 'temp', 
-      name: m.name ?? 'Name_PlaceHolder', 
-      description: m.description ?? 'Description_PlaceHolder', 
-      icon_id: m.icon_id ?? 'default', 
-      coords: {
-        lat: m.lat ?? m.coords?.lat ?? 0,
-        lng: m.lng ?? m.coords?.lng ?? 0
-      }, 
-      is_collectible: m.is_collectible ?? collectibleList.includes(m.icon_id),
-      is_collected: m.is_collected ?? false
-    }
-  const fullData = {
-    ...baseData,
-    reg_id: m.reg_id ?? 'auto',
-    under_ground: m.under_ground ?? false,
-    height: m.height ?? 0,
-    raw_rgbcolor: {
-      r: m.color_r ?? m.raw_rgbcolor?.r ?? 255,
-      g: m.color_g ?? m.raw_rgbcolor?.g ?? 255,
-      b: m.color_b ?? m.raw_rgbcolor?.b ?? 255
-    },
-    edit_info: {
-      created_at: m.created_at ?? null,
-      updated_at: m.updated_at ?? null
-    }
-  }
-  return {
-    baseData: baseData,
-    fullData: fullData
-  }
-}
-
-export function invertMarkerMap(m) {
-  const baseData = {
-      id: m.id, 
-      name: m.name, 
-      description: m.description, 
-      icon_id: m.icon_id, 
-      lat: m.coords?.lat,
-      lng: m.coords?.lng,
-      is_collectible: m.is_collectible,
-    }
-  const fullData = {
-    ...baseData,
-    reg_id: m.reg_id,
-    under_ground: m.under_ground ?? false,
-    height: m.height,
-    color_r: m.raw_rgbcolor?.r,
-    color_g: m.raw_rgbcolor?.g,
-    color_b: m.raw_rgbcolor?.b,
-  }
-  return fullData
-}
-
-function escapeHtml(str = '') {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function standartPopup(id, name, description, collectible) { 
-  return `
-    <b>${escapeHtml(name)}</b><br>
-    ${escapeHtml(description)}<br>
-    <label>
-      <input 
-        type="checkbox" 
-        class="marker-collected" 
-        data-id="${id}"
-      >
-      ${collectible ? 'Collected' : 'Visited'}
-    </label>
-    
-  `
-}
 
 export function createMarker(marker_data) {
   const {
@@ -120,18 +39,20 @@ export function bindMarkerPopup(marker, p) {
       name,
       description = '',
       is_collectible: collectible = false,
+      content,
     },
   } = marker;
 
-  const popup = p ?? standartPopup(id, name, description, collectible);
+  
+  const popup = p ?? (content ? popupWithContent(id, name, description, collectible, content) : standartPopup(id, name, description, collectible));
 
   marker.bindPopup(popup);
-  attachCollectedPopupHandler(marker);
+  attachInitPopupHandler(marker);
 
   return marker;
 }
 
-function attachCollectedPopupHandler(marker) {
+function attachInitPopupHandler(marker) {
   marker.off('popupopen', handleCollectedPopupOpen);
   marker.on('popupopen', handleCollectedPopupOpen);
 }
@@ -214,6 +135,10 @@ export async function loadMarkersData() {
     if (marker.$data.is_collected) is_collectible ? USERINFO.collected += 1 : USERINFO.visited += 1
     is_collectible ? USERINFO.collectedAll += 1 : USERINFO.visitedAll += 1
     marker.addTo(map);
+    const el = marker.getElement();
+    el._id = marker.$data.id;
+    el._location = {X: marker.$data.coords.lng, Y: marker.$data.coords.lat}
+    el._previewIds = Object.keys(marker.$data.content)
     paintMarkers(marker);
     MAPDATA.existingMarkers.set(marker.$data.id, marker);
   });

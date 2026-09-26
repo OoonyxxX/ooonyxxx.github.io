@@ -1,6 +1,7 @@
 import { APPSTATE, USERSESSION } from "../core/state.js"
 import { paintMarkers } from "../features/markers.js"
 import { subscribeUI } from "./UIUtilities.js"
+import { htmlGenerator } from "../features/utilities.js"
 
 // Обьявление объектов панелей 
 export const OPTSIDEBAR = {};
@@ -70,10 +71,17 @@ export function cacheFilterElements() {
   FILTERSIDEBAR.filterContainer   = document.getElementById('filter-container');
   FILTERSIDEBAR.filterHeader      = FILTERSIDEBAR.filterContainer.querySelector('.filterheader');
   FILTERSIDEBAR.filterHeaderText  = FILTERSIDEBAR.filterHeader.querySelector('.filheader');
+  FILTERSIDEBAR.filterSections    = FILTERSIDEBAR.filterContainer.querySelector('.filter-sections');
+  prepareFilterHTML(FILTERSIDEBAR.filterSections);
   FILTERSIDEBAR.filterHideBtnImg  = document.getElementById('filter-hide-img');
   FILTERSIDEBAR.filterHideBtnText = document.getElementById('filter-hide-text');
   FILTERSIDEBAR.undergroundSwitch = document.getElementById('underground');
   FILTERSIDEBAR.collectedSwitch   = document.getElementById('collected');
+}
+
+function prepareFilterHTML(parent) {
+  parent.querySelector('.filter-icon').innerHTML = `${htmlGenerator("icon-grid")}\n${htmlGenerator("collectible-grid")}`;
+  parent.querySelector('.filter-region').innerHTML = htmlGenerator("region-list");
 }
 
 // Инициализация панели фильтров

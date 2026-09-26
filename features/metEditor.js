@@ -1,4 +1,4 @@
-import { MAPDATA, paintMarkers, createMarker, loadMarkersData, markerBuilder, markerMap, bindMarkerPopup } from "./markers.js"
+import { MAPDATA, paintMarkers, createMarker, loadMarkersData, markerBuilder, bindMarkerPopup } from "./markers.js"
 import { METRequest } from "../api/markers_api.js"
 import { map } from "../core/map.js"
 import { APPSTATE, USERSESSION, USERSETTINGS } from "../core/state.js"
@@ -7,6 +7,7 @@ import { attachColorPicker } from "../ui/colorPicker.js"
 import { setDraggingMode } from "../ui/cursor.js"
 import { MODAL } from "../ui/modal.js"
 import { subscribeUI } from "../ui/UIUtilities.js"
+import { markerMap, getWealthPreset, RUNE_NAMES, COSMETIC_NAMES, MELODY_NAMES, COLLECTIBLELIST } from "./marker_data.js"
 
 //Переменные блока MET
 //START
@@ -16,6 +17,11 @@ export const METSTATE = {
   METAllow: false,
   METInited: false,
   METGenerated: false,
+}
+
+const CONTENT_TAG_OPTIONS = {
+  runes: [],
+  cosmetics: []
 }
 
 // Переменные интерфейса
@@ -44,6 +50,15 @@ export function METActiveController() {
 }
 
 export function cacheMETUIElements() {
+  CONTENT_TAG_OPTIONS.runes = Object.entries(RUNE_NAMES).map(
+    ([id, name]) => ({id, name})
+  )
+  CONTENT_TAG_OPTIONS.cosmetics = Object.entries(COSMETIC_NAMES).map(
+    ([id, name]) => ({id, name})
+  )
+  CONTENT_TAG_OPTIONS.melody = Object.entries(MELODY_NAMES).map(
+    ([id, name]) => ({id, name})
+  )
   METUI.metControls   = document.getElementById('met-controls');
   subscribeUI("METVisible", () => {
     METActiveController()
@@ -135,7 +150,6 @@ export class MetEditor {
 
     this.onMarkerClick_Handle_Click = this._onMarkerClick.bind(this);
     this.onMapClick_Handle_Click = this._onMapClick.bind(this);
-
   }
 
 
@@ -195,7 +209,7 @@ export class MetEditor {
 
   // Метод активации МЕТ
   init() {
-    METUI.metInited = true;
+    METUI.METInited = true;
     METUI.btnActivate.addEventListener('click', this.btnActivateInit_Handle_Click);
     METUI.btnAdd.addEventListener('click', this.btnAddInit_Handle_Click);
     METUI.btnSave.addEventListener('click', this.btnSaveInit_Handle_Click);
@@ -203,7 +217,7 @@ export class MetEditor {
   }
 
   destroy() {
-    METUI.metInited = false;
+    METUI.METInited = false;
     METUI.btnActivate.removeEventListener('click', this.btnActivateInit_Handle_Click);
     METUI.btnAdd.removeEventListener('click', this.btnAddInit_Handle_Click);
     METUI.btnSave.removeEventListener('click', this.btnSaveInit_Handle_Click);
@@ -214,7 +228,7 @@ export class MetEditor {
   _btnActivateInit() {
     if (!this.ctx) {
       (async () => {
-        this.ctx = await this._initRegionCanvas('Regions.png');
+        this.ctx = await this._initRegionCanvas('/assets/other/Regions.png');
       })();
     }
     this._metControlsToggler({
@@ -351,39 +365,11 @@ export class MetEditor {
       btnSave: {disabled: hasChanges},
     });
   }
-
-  _buildPopup(marker) {
-    const content = this.tpl.content.cloneNode(true);
-    const form = content.querySelector('#marker-form');
-    const titleIn = form.querySelector('input[name="title"]');
-    const descIn = form.querySelector('textarea[name="description"]');
-    const iconSel = form.querySelector('select[name="icon"]');
-    const regSel = form.querySelector('select[name="region"]');
-    const levelIn = form.querySelector('input[name="underground"]');
-    
-    const latIn = form.querySelector('input[name="lat"]');
-    const lngIn = form.querySelector('input[name="lng"]');
-    const latlng = marker.getLatLng();
-    //Инициализация colorPicker
-    const colorPicker = attachColorPicker(form, marker);
-
-    //Сборка попапа
-    MAPDATA.iconsData.forEach(ic => {
-      const icOpt = document.createElement('option');
-      icOpt.value = ic.id;
-      icOpt.textContent = ic.name;
-      iconSel.append(icOpt);
-    });
-
-    titleIn.value     = marker.$data?.name ?? 'Name_PlaceHolder';
-    descIn.value      = marker.$data?.description ?? 'Description_PlaceHolder';
-    iconSel.value     = marker.$data?.icon_id || 'default';
-    regSel.value      = marker.$data?.reg_id || 'auto';
-    levelIn.checked   = marker.$data?.under_ground ?? false;
-    latIn.value       = marker.$data?.coords.lat ?? latlng.lat;
-    lngIn.value       = marker.$data?.coords.lng ?? latlng.lng;
-    colorPicker.color.set(marker.$data?.raw_rgbcolor ?? '#fff');
-    return content
+ // IN DEV
+  _makePopupForm(marker) {
+    const markerForm = new MarkerForm();
+    markerForm.fillTemplate(marker);
+    return markerForm
   }
 
   _draggingEnable = (e) => {setDraggingMode(e, true)}
@@ -403,17 +389,14 @@ export class MetEditor {
     }
     editingMarker.unbindPopup();
     editingMarker.setZIndexOffset(1000);
-    const content = this._buildPopup(editingMarker);
-    const form = content.querySelector('#marker-form');
-    
-    const iconSel = form.querySelector('select[name="icon"]');
-    const latIn = form.querySelector('input[name="lat"]');
-    const lngIn = form.querySelector('input[name="lng"]');
+
+    // Экземпляр формы
+    const markerForm = this._makePopupForm(editingMarker);
 
 	  //Создание и открытие попапа
 	  const defShiftedLatLng = this._shiftLatLng(editingMarker.getLatLng(), 40);
 	  this.editPopup.setLatLng(defShiftedLatLng);
-	  this.editPopup.setContent(content);
+	  this.editPopup.setContent(markerForm.template);
 	  if (!this.editPopupOpen) {
       this.editPopupOpen = true;
       this.editPopup.addTo(this.map);
@@ -422,7 +405,7 @@ export class MetEditor {
       this.editPopupOpen = false;
       editingMarker.off('mousedown', this._draggingEnable);
       editingMarker.off('mouseup mouseleave', this._draggingDisable);
-      this.map.off('zoom');
+      this.map.off('zoom', this.onMapZoom_Handle_Zoom);
       editingMarker.dragging.disable();
       editingMarker.setZIndexOffset(0);
       if (isNew && !this.popapsaved) {
@@ -448,31 +431,23 @@ export class MetEditor {
         this._updateSaveState();
       };
 	  });
-    const popupEl = this.editPopup.getElement();
-    const formEl = popupEl.querySelector('#marker-form');
-    const submitBtn = popupEl.querySelector('#submit-btn');
-    const discardBtn = popupEl.querySelector('#discard-btn');
-    const deleteBtn = popupEl.querySelector('#delete-btn');
-    const sel = popupEl.querySelector('select[name="region"]');
 	  
 	  //Динамическое изменение иконки
-    iconSel.addEventListener('change', e => {
+    markerForm.icon.addEventListener('change', e => {
       const ic = MAPDATA.icons[e.target.value] || MAPDATA.icons.default;
       editingMarker.setIcon(ic);
       editingMarker.$data.icon_id = e.target.value;
       paintMarkers(editingMarker);
     });
 	  
-
     editingMarker.on('mousedown', this._draggingEnable);
     editingMarker.on('mouseup mouseleave', this._draggingDisable);
-
 	  // Функция перемещения маркера
     editingMarker.on('drag', e => {
       const { lat, lng } = e.target.getLatLng();
-      latIn.value = lat.toFixed(6);
-      lngIn.value = lng.toFixed(6);
-      e.target.$data.coords = { lat: latIn.value, lng: lngIn.value };
+      markerForm.X.value = lng.toFixed(6);
+      markerForm.Y.value = lat.toFixed(6);
+      e.target.$data.coords = { lat: markerForm.Y.value, lng: markerForm.X.value };
       const dragShiftedLatLng = this._shiftLatLng(e.target.getLatLng(), 40);
       this.editPopup.setLatLng(dragShiftedLatLng)
     });
@@ -482,51 +457,80 @@ export class MetEditor {
 	  });
 	  editingMarker.dragging.enable();
     
-	  this.map.on('zoom', () => {
-      if (!this.editPopupOpen) return;
-      const zoomShiftedLatLng = this._shiftLatLng(editingMarker.getLatLng(), 40);
-      this.editPopup.setLatLng(zoomShiftedLatLng);
-	  });
+    this.onMapZoom_Handle_Zoom = () => {
+      if (!this.editPopupOpen) return
+
+      const shifted = this._shiftLatLng(
+        editingMarker.getLatLng(),
+        40
+      )
+
+      this.editPopup.setLatLng(shifted)
+    }
+
+	  this.map.on('zoom', this.onMapZoom_Handle_Zoom);
 	  
 	  
 	  //Функция обработчик изменений маркера
 	  //START
-    submitBtn.addEventListener('click', ev => {
+    markerForm.submit.addEventListener('click', ev => {
       ev.preventDefault();
-      const data = new FormData(formEl);
-      editingMarker.$data.name = data.get('title') || 'Name_PlaceHolder';
-      editingMarker.$data.description = data.get('description') || 'Description_PlaceHolder';
-      editingMarker.$data.icon_id = data.get('icon') || 'default';
-      const collectibleList = ['extraWisp', 'loreSeeker', 'skillPoint', 'chest', 'skinChest', 'runeChest', 'lostMelody']
-      editingMarker.$data.is_collectible = collectibleList.includes(editingMarker.$data.icon_id);
-      editingMarker.$data.coords = { lat: parseFloat(data.get('lat')), lng: parseFloat(data.get('lng')) }
-      const region = data.get('region')
+      const {
+        title, 
+        description, 
+        uaid, 
+        icon_id,
+        rgbColor, 
+        reg_id,
+        underground,
+        coords,
+        wealthId,
+        runes,
+        runesDropAll,
+        cosmetics,
+        cosmeticsDropAll,
+        cosmeticsDropProbability,
+        melody
+      } = markerForm.retrieveFormData();
       let regionAuto_id;
-      if (region === 'auto') {
-        const reg_index = this._getRegionIndex(this.ctx, editingMarker.$data.coords.lng, editingMarker.$data.coords.lat);
+      if (reg_id === 'auto') {
+        const reg_index = this._getRegionIndex(this.ctx, coords.lng, coords.lat);
         regionAuto_id = REGION_LIST[reg_index] ?? REGION_LIST[7];
       }
-      editingMarker.$data.reg_id = regionAuto_id ?? data.get('region');
-      
-      editingMarker.$data.under_ground = data.get('underground') === 'on';
-
-      const triple = data.get('color') || '255,255,255';
-      const [r, g, b] = triple.split(',').map(n => Number(n));
-      editingMarker.$data.raw_rgbcolor = { r: r, g: g, b: b };
       const isNow = new Date().toISOString();
+
+      editingMarker.$data.name = title || 'Name_PlaceHolder';
+      editingMarker.$data.description = description || 'Description_PlaceHolder';
+      editingMarker.$data.uaid = uaid || 'Description_PlaceHolder';
+      editingMarker.$data.icon_id = icon_id || 'default';
+      editingMarker.$data.raw_rgbcolor = { ...rgbColor };
+      editingMarker.$data.reg_id = regionAuto_id ?? reg_id;
+      editingMarker.$data.under_ground = underground;
+      editingMarker.$data.coords = { lat: parseFloat(coords.lat), lng: parseFloat(coords.lng) }
+
+      editingMarker.$data.is_collectible = COLLECTIBLELIST.includes(editingMarker.$data.icon_id);
+
+      editingMarker.$data.content = {...editingMarker.$data.content};
+      editingMarker.$data.content.wealthId = wealthId || null;
+      editingMarker.$data.content.runes = runes || [];
+      editingMarker.$data.content.runesDropAll = runesDropAll || false;
+      editingMarker.$data.content.cosmetics = cosmetics || [];
+      editingMarker.$data.content.cosmeticsDropAll = cosmeticsDropAll || false;
+      editingMarker.$data.content.cosmeticsDropProbability = cosmeticsDropProbability ?? null;
+      editingMarker.$data.content.melody = melody || "null";
+      
       if (isNew) {
-        editingMarker.$data.is_collected = false;
-        editingMarker.$data.edit_info = { created_at: isNow, updated_at: isNow };
-
-        const oldId = editingMarker.$data.id; // например "temp"
-
+        const oldId = editingMarker.$data.id;
         const newId = this._genId(
-          editingMarker.$data.name,
-          editingMarker.$data.coords.lat,
-          editingMarker.$data.coords.lng
+          title,
+          coords.lat,
+          coords.lng
         );
 
         editingMarker.$data.id = newId;
+        editingMarker.$data.is_collected = false;
+        editingMarker.$data.edit_info = { created_at: isNow, updated_at: isNow };
+        
 
         if (oldId && oldId !== newId) {
           MAPDATA.existingMarkers.delete(oldId);
@@ -544,8 +548,8 @@ export class MetEditor {
         MAPDATA.existingMarkers.set(editingMarker.$data.id, editingMarker);
       }
 
-      editingMarker.setLatLng([editingMarker.$data.coords.lat, editingMarker.$data.coords.lng]);
-      const ic = MAPDATA.icons[editingMarker.$data.icon_id] || MAPDATA.icons.default;
+      editingMarker.setLatLng([coords.lat, coords.lng]);
+      const ic = MAPDATA.icons[icon_id] || MAPDATA.icons.default;
       editingMarker.setIcon(ic);
       this.popapsaved = true;
       this.editPopup.remove();
@@ -555,17 +559,17 @@ export class MetEditor {
 	  //Функция обработчик изменений маркера
 	  
 	  //Функция обработчик отмены изменений маркера
-    discardBtn.addEventListener('click', () => {
+    markerForm.discard.addEventListener('click', () => {
       this.popapsaved = false;
       this.editPopup.remove();
     });
 
     const allowed_role = ALLOWED_MET_DELETE_ROLE.includes(USERSESSION.role);
-    deleteBtn.disabled = !allowed_role;
+    markerForm.delete.disabled = !allowed_role;
     if (!isNew) {
-      MODAL.met.confirmModal.setOuterTargets({open: deleteBtn});
+      MODAL.met.confirmModal.setOuterTargets({open: markerForm.delete});
       MODAL.met.confirmModal.setOuterHandlers();
-      deleteBtn.classList.toggle('hide', false);
+      markerForm.delete.classList.toggle('hide', false);
       const handlerYes = () => {
         this.editPopup.remove();
         const originalMarker = MAPDATA.existingMarkers.get(this.oldMarkerData.id);
@@ -577,7 +581,566 @@ export class MetEditor {
       MODAL.met.confirmModal.setInnerHandlers(handlerYes);
       MODAL.met.confirmModal.initModal();
     } else {
-      deleteBtn.classList.toggle('hide', true);
+      markerForm.delete.classList.toggle('hide', true);
     }
   }
+}
+
+class MarkerForm {
+  constructor(){
+    this.templateRoot = document.getElementById('marker-form-template');
+    this.template = this.templateRoot.content.cloneNode(true);
+    this.form = this.template.querySelector('#marker-form');
+    this.title = this.form.querySelector('[name="title"]');
+    this.description = this.form.querySelector('[name="description"]');
+    this.uaid = this.form.querySelector('[name="uaid"]');
+    this.icon = this.form.querySelector('[name="icon"]');
+    this.colorPicker = null;
+    this.region = this.form.querySelector('[name="region"]');
+    this.underground = this.form.querySelector('[name="underground"]');
+    this.X = this.form.querySelector('[name="lng"]');
+    this.Y = this.form.querySelector('[name="lat"]');
+    this.content = this.form.querySelector('.content-fields');
+    this.wealthId = this.content.querySelector('[name="content.wealth.presetId"]');
+    this.wealthPreview = this.content.querySelectorAll('[data-wealth]');
+    this.runesDropAll = this.content.querySelector('[name="content.runes.dropAll"]');
+
+    this.cosmeticsDropAll = this.content.querySelector('[name="content.cosmetics.dropAll"]');
+    this.cosmeticsDropProbability = this.content.querySelector('[name="content.cosmetics.dropProbability"]');
+
+    this.melodySpecific = this.content.querySelector('[data-melody-specific]');
+
+    this.callbacks = {
+      runes: {
+        setItems: () => {checkboxActivitiUpdate(this.runesDropAll, this.tagInputs.runes)},
+        addItem: () => {checkboxActivitiUpdate(this.runesDropAll, this.tagInputs.runes)},
+        removeItem: () => {checkboxActivitiUpdate(this.runesDropAll, this.tagInputs.runes)},
+      },
+      cosmetics: {
+        setItems: () => {checkboxActivitiUpdate(this.cosmeticsDropAll, this.tagInputs.cosmetics)},
+        addItem: () => {checkboxActivitiUpdate(this.cosmeticsDropAll, this.tagInputs.cosmetics)},
+        removeItem: () => {checkboxActivitiUpdate(this.cosmeticsDropAll, this.tagInputs.cosmetics)},
+      }
+    }
+    this.tagInputContainers = this.content.querySelectorAll(".tag-input")
+    this.tagInputs = {}
+
+    this.submit = this.form.querySelector('[data-action="save"]');
+    this.discard = this.form.querySelector('[data-action="discard"]');
+    this.delete = this.form.querySelector('[data-action="delete"]');
+
+    this._init()
+  }
+  _init() {
+    this.wealthId.addEventListener("change", () => {
+      this._updateWealthPreview(this.wealthId.value || null)
+    })
+
+    for (const element of this.tagInputContainers) {
+      const type = element.dataset.tagType
+
+      this.tagInputs[type] = new TagInput(
+        element,
+        CONTENT_TAG_OPTIONS[type],
+        this.callbacks[type]
+      )
+    }
+    const {autocomplete, setMode, getMode} = initMelodyInput(this.content, CONTENT_TAG_OPTIONS.melody)
+    this.melodyInput = autocomplete
+    this.setMelodyMode = setMode
+    this.getMelodyMode = getMode
+  }
+
+  fillTemplate(marker){
+    this.title.value = marker.$data.name ?? "Name_PlaceHolder";
+    this.description.value = marker.$data.description ?? "Description_PlaceHolder";
+    this.uaid.value = marker.$data.uaid ?? "";
+    MAPDATA.iconsData.forEach(ic => {
+      const icOpt = document.createElement('option');
+      icOpt.value = ic.id;
+      icOpt.textContent = ic.name;
+      this.icon.append(icOpt);
+    });
+    this.icon.value = marker.$data.icon_id || 'default';
+    this.colorPicker = attachColorPicker(this.form, marker);
+    this.colorPicker.color.set(marker.$data?.raw_rgbcolor ?? '#fff');
+    
+    this.region.value = marker.$data.reg_id || 'auto';
+    this.underground.checked = marker.$data.under_ground || false;
+    this.X.value = marker.$data.coords?.lng || 0;
+    this.Y.value = marker.$data.coords?.lat || 0;
+
+    const wealthId = marker.$data.content?.wealthId
+    this.wealthId.value = wealthId ?? "";
+
+    this._updateWealthPreview(wealthId)
+
+    this.tagInputs.runes.setItems(marker.$data.content?.runes || null)
+    this.runesDropAll.checked = marker.$data.content?.runesDropAll || false
+    checkboxActivitiUpdate(this.runesDropAll, this.tagInputs.runes)
+
+    this.tagInputs.cosmetics.setItems(marker.$data.content?.cosmetics || null)
+    this.cosmeticsDropAll.checked = marker.$data.content?.cosmeticsDropAll || false
+    checkboxActivitiUpdate(this.cosmeticsDropAll, this.tagInputs.cosmetics)
+
+    const dropProbability = marker.$data.content?.cosmeticsDropProbability
+    this.cosmeticsDropProbability.value = dropProbability != null ? dropProbability * 100 : ""
+
+    this.setMelodyMode(marker.$data.content?.melody || "none")
+    if ((marker.$data.content?.melody !== "none") && (marker.$data.content?.melody !== "any")) this.melodyInput.setValue(marker.$data.content?.melody || "")
+  }
+  retrieveFormData(){
+    const title = this.title.value;
+    const description = this.description.value;
+    const uaid = this.uaid.value;
+    const icon_id = this.icon.value;
+    const rgbColor = this.colorPicker.color.rgb;
+    const reg_id = this.region.value;
+    const underground = this.underground.checked;
+    const coords = {lng: this.X.value, lat: this.Y.value};
+    const wealthId = this.wealthId.value;
+    const runes = this.tagInputs.runes.getItems();
+    const runesDropAll = this.runesDropAll.checked;
+    const cosmetics = this.tagInputs.cosmetics.getItems();
+    const cosmeticsDropAll = this.cosmeticsDropAll.checked;
+    const cosmeticsDropProbability = this.cosmeticsDropProbability.value / 100;
+
+    const mode = this.getMelodyMode()
+    const melody = (mode == "specific") ? (this.melodyInput.getValue() || "none") : mode
+    return {
+      title, 
+      description, 
+      uaid, 
+      icon_id,
+      rgbColor, 
+      reg_id,
+      underground,
+      coords,
+      wealthId,
+      runes,
+      runesDropAll,
+      cosmetics,
+      cosmeticsDropAll,
+      cosmeticsDropProbability,
+      melody
+    }
+  }
+
+  _updateWealthPreview(wealthId) {
+    const {preset} = getWealthPreset(wealthId)
+
+    for (const preview of this.wealthPreview) {
+      const key = preview.dataset.wealth
+      preview.value = preset[key] ?? 0
+    }
+  }
+}
+
+
+function checkboxActivitiUpdate(checkbox, input) {
+  checkbox.disabled = (input.getItems().length <= 1)
+}
+
+class TagInput {
+  /*
+  callbacks = {
+    setItems: f,
+    addItem: f,
+    removeItem: f,
+    getItems: f,
+    createTagElement: f,
+    updateSuggestions: f,
+    renderSuggestions: f
+  }
+  */
+
+  constructor(element, options, callbacks) {
+    this.callbacks = callbacks
+
+    this.element = element
+    this.input = element.querySelector(".tag-input__input")
+    this.list = element.querySelector("[data-tag-list]")
+    this.suggestions = element.querySelector(".tag-input__suggestions")
+
+    this.options = options
+    this.items = []           // порядок выбранных id
+    this.itemIds = new Set()  // быстрый has(id)
+    this.tagsById = new Map() // id -> DOM element
+    this.optionsById = new Map(
+      options.map(option => [option.id, option])
+    )
+
+    this.init()
+  }
+
+  init() {
+    this.input.addEventListener("input", () => {
+      this.updateSuggestions()
+    })
+    this.input.addEventListener("focus", () => {
+      this.updateSuggestions()
+    })
+    this.input.addEventListener("focusout", () => {
+      this.renderSuggestions([])
+    })
+
+    this.suggestions.addEventListener("mousedown", event => {
+      const suggestion = event.target.closest(".tag-input__suggestion")
+
+      if (!suggestion) {
+        return
+      }
+
+      event.preventDefault()
+
+      this.addItem(suggestion.dataset.id)
+
+      this.input.value = ""
+      this.renderSuggestions([])
+      this.input.focus()
+    })
+  }
+
+  useCallback(callbackName) {
+    this.callbacks[callbackName]?.()
+  }
+
+  setItems(items = []) {
+    const uniqueItems = [...new Set(items ?? [])]
+
+    this.items = uniqueItems
+    this.itemIds = new Set(uniqueItems)
+    this.tagsById.clear()
+
+    this.list.replaceChildren()
+
+    const fragment = document.createDocumentFragment()
+
+    for (const id of uniqueItems) {
+      const tag = this.createTagElement(id)
+
+      this.tagsById.set(id, tag)
+      fragment.append(tag)
+    }
+
+    this.list.append(fragment)
+
+    this.useCallback('setItems')
+  }
+
+  addItem(id) {
+    if (this.itemIds.has(id)) {
+      return
+    }
+    this.items.push(id)
+    this.itemIds.add(id)
+    const tag = this.createTagElement(id)
+    this.tagsById.set(id, tag)
+    this.list.append(tag)
+
+    this.useCallback('addItem')
+  }
+
+  removeItem(id) {
+    if (!this.itemIds.has(id)) {
+      return
+    }
+
+    const index = this.items.indexOf(id)
+
+    if (index !== -1) {
+      this.items.splice(index, 1)
+    }
+
+    this.itemIds.delete(id)
+
+    const tag = this.tagsById.get(id)
+
+    if (tag) {
+      tag.remove()
+      this.tagsById.delete(id)
+    }
+    this.useCallback('removeItem')
+  }
+
+  getItems() {
+    this.useCallback('getItems')
+    return [...this.items]
+  }
+
+  createTagElement(id) {
+    const option = this.optionsById.get(id)
+
+    const tag = document.createElement("div")
+    tag.className = "tag"
+    tag.dataset.tagId = id
+
+    const label = document.createElement("span")
+    label.className = "tag__label"
+    label.textContent = option?.name ?? id
+
+    const remove = document.createElement("button")
+    remove.type = "button"
+    remove.className = "tag__remove"
+    remove.textContent = "x"
+    remove.ariaLabel = `Remove ${option?.name ?? id}`
+    remove.addEventListener("click", () => {this.removeItem(id)})
+
+    tag.append(label, remove)
+    this.useCallback('createTagElement')
+
+    return tag
+  }
+
+  updateSuggestions() {
+    const query = this.input.value.trim().toLowerCase()
+
+    const results = this.options
+      .filter(option => !this.itemIds.has(option.id))
+      .filter(option => {
+        if (!query) {
+          return true
+        }
+
+        return (
+          option.name.toLowerCase().includes(query) ||
+          option.id.toLowerCase().includes(query)
+        )
+      })
+      .slice(0, 10)
+
+    this.renderSuggestions(results)
+    this.useCallback('updateSuggestions')
+  }
+
+  renderSuggestions(options) {
+    this.suggestions.replaceChildren()
+
+    if (options.length === 0) {
+      this.suggestions.hidden = true
+    } else {
+      const fragment = document.createDocumentFragment()
+
+      for (const option of options) {
+        const item = document.createElement("button")
+
+        item.type = "button"
+        item.className = "tag-input__suggestion"
+        item.dataset.id = option.id
+        item.setAttribute("role", "option")
+
+        const name = document.createElement("span")
+        name.className = "tag-input__suggestion-name"
+        name.textContent = option.name
+
+        const id = document.createElement("span")
+        id.className = "tag-input__suggestion-id"
+        id.textContent = option.id
+
+        item.append(name, id)
+        fragment.append(item)
+      }
+
+      this.suggestions.append(fragment)
+      this.suggestions.hidden = false
+    }
+
+    this.useCallback('renderSuggestions')
+  }
+}
+
+class AutocompleteInput {
+  constructor(element, options) {
+    this.element = element
+    this.input = element.querySelector(".autocomplete__input")
+    this.suggestions = element.querySelector(".autocomplete__suggestions")
+
+    this.options = options
+    this.optionsById = new Map(
+      options.map(option => [option.id, option])
+    )
+
+    this.value = null
+
+    this.init()
+  }
+
+  init() {
+    this.input.addEventListener("input", () => {
+      this.clearSelection()
+      this.updateSuggestions()
+    })
+    this.input.addEventListener("focus", () => {
+      this.updateSuggestions()
+    })
+    this.input.addEventListener("focusout", () => {
+      if (this.value) {
+        this.renderSuggestions([])
+        return
+      }
+      const query = this.input.value.trim().toLowerCase()
+      
+      if (!query) {
+        this.value = null
+        this.input.value = ""
+        this.renderSuggestions([])
+        return
+      }
+      const results = this.options.filter(option => {
+        return (
+          option.name.toLowerCase().includes(query) ||
+          option.id.toLowerCase().includes(query)
+        )
+      })
+
+      const perfectMatch = results.find(option =>
+        option.name.toLowerCase() === query ||
+        option.id.toLowerCase() === query
+      )
+      const option = perfectMatch ?? (results.length === 1 ? results[0] : null)
+
+      this.value = option?.id ?? null
+      this.input.value = option?.name ?? ""
+
+      this.renderSuggestions([])
+    })
+
+    this.suggestions.addEventListener("mousedown", event => {
+      const suggestion = event.target.closest(".autocomplete__suggestion")
+
+      if (!suggestion) {
+        return
+      }
+
+      event.preventDefault()
+
+      this.setValue(suggestion.dataset.id)
+      this.input.focus()
+    })
+  }
+
+  setValue(id) {
+    const option = this.optionsById.get(id)
+
+    if (!option) {
+      return
+    }
+
+    this.value = id
+    this.input.value = option.name
+    this.renderSuggestions([])
+  }
+
+  clearSelection(){
+    this.value = null
+  }
+
+  getValue(){
+    return this.value
+  }
+
+  updateSuggestions() {
+    const query = this.input.value.trim().toLowerCase()
+
+    const results = this.options
+      .filter(option => option.id !== this.value)
+      .filter(option => {
+        if (!query) {
+          return true
+        }
+
+        return (
+          option.name.toLowerCase().includes(query) ||
+          option.id.toLowerCase().includes(query)
+        )
+      })
+      .slice(0, 10)
+
+    this.renderSuggestions(results)
+  }
+
+  renderSuggestions(options) {
+    this.suggestions.replaceChildren()
+
+    if (options.length === 0) {
+      this.suggestions.hidden = true
+      return
+    }
+
+    const fragment = document.createDocumentFragment()
+
+    for (const option of options) {
+      const item = document.createElement("button")
+
+      item.type = "button"
+      item.className = "autocomplete__suggestion"
+      item.dataset.id = option.id
+      item.setAttribute("role", "option")
+
+      const name = document.createElement("span")
+      name.className = "autocomplete__suggestion-name"
+      name.textContent = option.name
+
+      const id = document.createElement("span")
+      id.className = "autocomplete__suggestion-id"
+      id.textContent = option.id
+
+      item.append(name, id)
+      fragment.append(item)
+    }
+
+    this.suggestions.append(fragment)
+    this.suggestions.hidden = false
+  }
+}
+
+function initMelodyInput(root, melodyOptions) {
+  const modeInputs = root.querySelectorAll(
+    '[name="content.melody.mode"]'
+  )
+
+  const specificElement = root.querySelector(
+    "[data-melody-specific]"
+  )
+
+  const autocomplete = new AutocompleteInput(
+    specificElement,
+    melodyOptions
+  )
+
+  function updateMode() {
+    const mode = root.querySelector(
+      '[name="content.melody.mode"]:checked'
+    ).value
+
+    specificElement.hidden = mode !== "specific"
+  }
+
+  function setMode(mode) {
+    const modeInputs = root.querySelectorAll('[name="content.melody.mode"]')
+    if ((mode == "none") || (mode == "any")) {
+      for (const mod of modeInputs){
+        mod.checked = mod.value == mode
+      }
+    } else {
+      for (const mod of modeInputs){
+        mod.checked = mod.value == "specific"
+      }
+    }
+    updateMode()
+  }
+
+  function getMode() {
+    return root.querySelector(
+      '[name="content.melody.mode"]:checked'
+    ).value
+  }
+
+  for (const input of modeInputs) {
+    input.addEventListener("change", updateMode)
+  }
+
+  updateMode()
+
+  return {autocomplete, setMode, getMode}
 }

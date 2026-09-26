@@ -84,13 +84,13 @@ class AuthModal {
     this.container.innerHTML = `
 	      <div class="login-modal-content modal-content no-select">
           <button id="login-modal-exit" class="modal-exit-btn">
-            <img id="login-modal-exit-img" class="modal-exit-img no-drag" src="/othersvg/cancel.svg">
+            <img id="login-modal-exit-img" class="modal-exit-img no-drag" src="/assets/othersvg/cancel.svg">
           </button>
 		      <p id="login-modal-text-h" class="modal-text-h">
 		        Select your authorization method
 		      </p>
 		      <div id="login-modal-providerlist" class="login-modal-providerlist">
-		        <img id="login-modal-google-img" class="login-modal-google-img login-modal-element action-img no-drag" src="/svglogin/google_dark.svg">
+		        <img id="login-modal-google-img" class="login-modal-google-img login-modal-element action-img no-drag" src="/assets/svglogin/google_dark.svg">
 		      </div>
 	      </div>
     `;
@@ -201,7 +201,7 @@ class MarkerDeleteModal {
     this.container.innerHTML = `
         <div class="confirm-modal-content modal-content">
           <button id="confirm-modal-exit" class="modal-exit-btn">
-            <img id="confirm-modal-exit-img" class="modal-exit-img no-drag" src="/othersvg/cancel.svg">
+            <img id="confirm-modal-exit-img" class="modal-exit-img no-drag" src="/assets/othersvg/cancel.svg">
           </button>
           <p id="confirm-modal-text-h" class="modal-text-h">Are you sure you want to remove this marker?</p>
           <div id="confirm-modal-buttons" class="modal-buttons">
@@ -325,7 +325,7 @@ class METExitModal {
     this.container.innerHTML = `
         <div class="exit-modal-content modal-content">
           <button id="exit-modal-exit" class="modal-exit-btn">
-            <img id="exit-modal-exit-img" class="modal-exit-img no-drag" src="/othersvg/cancel.svg">
+            <img id="exit-modal-exit-img" class="modal-exit-img no-drag" src="/assets/othersvg/cancel.svg">
           </button>
           <p id="exit-modal-text-h" class="modal-text-h">
             <span>Are you sure you want to exit without saving the changes?</span>
@@ -461,7 +461,7 @@ class UserModal {
     this.container.innerHTML = `
         <div id="user-modal-content" class="user-modal-content modal-content">
           <button id="user-modal-exit" class="modal-exit-btn">
-            <img id="user-modal-exit-img" class="modal-exit-img no-drag" src="/othersvg/cancel.svg">
+            <img id="user-modal-exit-img" class="modal-exit-img no-drag" src="/assets/othersvg/cancel.svg">
           </button>
           <div role="tablist" id="user-modal-tablist" class="user-modal-tablist"></div>
           <div id="user-modal-tabcontent" class="user-modal-tabcontent"></div>
@@ -864,6 +864,121 @@ class UserModal {
   closeModal() {
     if (!this.modalOpened) return
     toggleModalVisible(this, false);
+    this.modalOpened = false;
+  }
+}
+
+class DevLogModal {
+  constructor(){
+    this.modalName          = "DevLog Modal"
+    this.openHendler        = null;
+    this.closeHendler       = null;
+    this.openTarget         = null;
+    this.closeTarget        = null;
+    this.visible            = false;
+    this.generated          = false;
+    this.initialized        = false;
+    this.container          = MODAL.ui.modalBlock.querySelector('#login-modal-container');
+    this.googleLoginHendler = null;
+  }
+
+  _generateModal() {
+    this.container.innerHTML = `
+	      <div class="login-modal-content modal-content no-select">
+          <button id="login-modal-exit" class="modal-exit-btn">
+            <img id="login-modal-exit-img" class="modal-exit-img no-drag" src="/assets/othersvg/cancel.svg">
+          </button>
+		      <p id="login-modal-text-h" class="modal-text-h">
+		        Select your authorization method
+		      </p>
+		      <div id="login-modal-providerlist" class="login-modal-providerlist">
+		        <img id="login-modal-google-img" class="login-modal-google-img login-modal-element action-img no-drag" src="/assets/svglogin/google_dark.svg">
+		      </div>
+	      </div>
+    `;
+    this.closeBtn      = this.container.querySelector('.modal-exit-btn');
+    this.closeImg      = this.closeBtn.querySelector('.modal-exit-img');
+    this.innerText     = this.container.querySelector('.modal-text-h');
+    this.providerlist  = this.container.querySelector('#login-modal-providerlist');
+    this.googleLogin   = this.providerlist.querySelector('#login-modal-google-img');
+    this.generated     = true;
+  }
+  _deleteModal() {
+    this.container.innerHTML = ``;
+    this.generated = false;
+  }
+
+  setOuterHandlers(handlerIn = () => {}, handlerOut = () => {}) {
+    this.openHendler = () => {
+      if (handlerIn) handlerIn();
+      this.openModal()
+    }
+    this.closeHendler = () => {
+      this.closeModal()
+      if (handlerOut) handlerOut();
+    }
+  }
+  setInnerHandlers(googleLogin = () => {}) {
+    this.googleLoginHendler = () => {
+      if (googleLogin) googleLogin();
+    }
+  }
+  setOuterTargets({open, close}) {
+    this.openTarget    = open;
+    this.closeTarget   = close ?? null;
+  }
+
+  initModal() {
+    if (this.openTarget === null) {
+      console.log(`The targets for opening the ${this.modalName} have not been specified. Use setTargets(openTarget, closeTarget)`);
+      return
+    }
+    if ((this.openHendler === null) || (this.closeHendler === null)) {
+      console.log(`No opening and closing hendler have been defined for the ${this.modalName}. Use setOuterHandlers(openHendler, closeHendler)`);
+      return
+    }
+    if (!this.generated) this._generateModal();
+    this.openTarget.addEventListener('click', this.openHendler);
+    if (this.closeTarget !== null) this.closeTarget.addEventListener('click', this.closeHendler);
+    this.closeBtn.addEventListener('click', this.closeHendler);
+    this.initialized    = true;
+  }
+
+  deinitModal() {
+    this.openTarget.removeEventListener('click', this.openHendler);
+    this.closeBtn.removeEventListener('click', this.closeHendler);
+    if (this.closeTarget !== null) this.closeTarget.removeEventListener('click', this.closeHendler);
+    if (this.generated) this._deleteModal();
+    this.openTarget         = null
+    this.closeTarget        = null
+    this.openHendler        = null
+    this.closeHendler       = null
+    this.generated          = false;
+    this.initialized        = false;
+    this.googleLoginHendler = null
+  }
+
+  openModal() {
+    if (!this.initialized) {
+      console.log(`${this.modalName} not initialized`);
+      return
+    };
+    if (this.googleLogin === null) {
+      console.log(`No buttons handlers have been defined for the ${this.modalName}`);
+      return
+    }
+    this.googleLogin.addEventListener('click', this.googleLoginHendler);
+    toggleModalVisible(this, true);
+    this.modalOpened = true;
+  }
+  closeModal() {
+    if (!this.modalOpened) return
+    if (!this.initialized) {
+      console.log(`${this.modalName} not initialized`);
+      return
+    };
+    toggleModalVisible(this, false);
+    this.googleLogin.removeEventListener('click', this.googleLoginHendler);
     this.modalOpened = false;
   }
 }

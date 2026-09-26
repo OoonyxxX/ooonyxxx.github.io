@@ -3,12 +3,12 @@
     "id": "google",
     "class": "google_icon",
     "name": "Google",
-    "url": "svglogin/Google.svg"
+    "url": "assets/svglogin/google.svg"
   },
   {
     "id": "github",
     "class": "github_icon",
     "name": "GitHub",
-    "url": "svglogin/GitHub.svg"
+    "url": "assets/svglogin/GitHub.svg"
   }
 ]

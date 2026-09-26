@@ -16,7 +16,7 @@ export function cacheFilterData() {
     and:   document.getElementById('--and')
   };
   FILTERDATA.states = ['none', 'and', 'exclude'];
-  FILTERDATA.filtersAllState = { iconsAll: 0, regionsAll: 0 } //Заготовка на будущее. Можно будет добавить капитальные фильтры, или просто удалить этот параметр
+  FILTERDATA.filtersAllState = { iconAll: 0, regionAll: 0, contentTypeAll: 0, contentIdAll: 0 } //Заготовка на будущее. Можно будет добавить капитальные фильтры, или просто удалить этот параметр
   FILTERDATA.filtersState = { underground: 0, collected: 0 }
   FILTERDATA.filtersValues = { underground: null, collected: null }
   FILTERDATA.filterStateMap = {
@@ -25,16 +25,28 @@ export function cacheFilterData() {
   }
   FILTERDATA.iconParam = new Map();
   FILTERDATA.regionParam = new Map();
+  FILTERDATA.contentTypeParam = new Map();
+  FILTERDATA.contentIdParam = new Map();
   FILTERDATA.iconAllTokensCache = { and: [], exclude: [] };
   FILTERDATA.regionAllTokensCache = { and: [], exclude: [] };
+  FILTERDATA.contentTypeAllTokensCache = { and: [], exclude: [] };
+  FILTERDATA.contentIdAllTokensCache = { and: [], exclude: [] };
   FILTERDATA.cache = {
-    icons: { 
+    icon: { 
       "1": FILTERDATA.iconAllTokensCache.and, 
       "-1": FILTERDATA.iconAllTokensCache.exclude
     },
-    regions: {
+    region: {
       "1": FILTERDATA.regionAllTokensCache.and, 
       "-1": FILTERDATA.regionAllTokensCache.exclude
+    },
+    contentType: {
+      "1": FILTERDATA.contentTypeAllTokensCache.and, 
+      "-1": FILTERDATA.contentTypeAllTokensCache.exclude
+    },
+    contentId: {
+      "1": FILTERDATA.contentIdAllTokensCache.and, 
+      "-1": FILTERDATA.contentIdAllTokensCache.exclude
     }
   }
   FILTERDATA.bullStateMap = {
@@ -67,12 +79,22 @@ function cacheAllRegionTokens(value) {
   FILTERDATA.regionAllTokensCache.and.push("+" + value)
   FILTERDATA.regionAllTokensCache.exclude.push("-" + value)
 }
+function cacheAllContentTypeTokens(value) {
+  FILTERDATA.contentTypeAllTokensCache.and.push("+" + value)
+  FILTERDATA.contentTypeAllTokensCache.exclude.push("-" + value)
+}
+function cacheAllContentIdTokens(value) {
+  FILTERDATA.contentIdAllTokensCache.and.push("+" + value)
+  FILTERDATA.contentIdAllTokensCache.exclude.push("-" + value)
+}
 
 export function initFilters() {
   updateDebounce();
   initUIControl();
   initIconFilter();
   initRegionFilter();
+  initContentTypeFilter();
+  initContentIdFilter();
   initUndergroundFilter();
   initCollectedFilter();
 }
@@ -88,6 +110,8 @@ function initUIControl() {
   FILTERSIDEBAR.filterClearBtn.addEventListener('click', () => {
     FILTERDATA.iconParam.clear(); 
     FILTERDATA.regionParam.clear();
+    FILTERDATA.contentTypeParam.clear();
+    FILTERDATA.contentIdParam.clear();
     FILTERDATA.filtersState.underground = 0;
     FILTERDATA.filtersState.collected = 0;
     FILTERDATA.filtersValues.underground = null;
@@ -117,6 +141,22 @@ function initRegionFilter() {
     rootSelector: '.filter-region',
     cacheToken: cacheAllRegionTokens,
     targetMap: FILTERDATA.regionParam
+  });
+}
+
+function initContentTypeFilter() {
+  initTriStateFilter({
+    rootSelector: '.filter-content-type',
+    cacheToken: cacheAllContentTypeTokens,
+    targetMap: FILTERDATA.contentTypeParam
+  });
+}
+
+function initContentIdFilter() {
+  initTriStateFilter({
+    rootSelector: '.filter-content-id',
+    cacheToken: cacheAllContentIdTokens,
+    targetMap: FILTERDATA.contentIdParam
   });
 }
 
@@ -216,32 +256,29 @@ function buildToken(state, value) {
   return prefix ? prefix + value : null;
 }
 
-function buildTokensObject() {
-  const iconTokens = [];
-  const allIconState = FILTERDATA.filtersAllState.iconsAll;
-  if (allIconState !== 0) {
-    const cachedTokens = FILTERDATA.cache.icons[allIconState];
-    iconTokens.push(...cachedTokens)
+function prepareArrayToken(paramName) {
+  const arrayTokens = [];
+  const allParamState = FILTERDATA.filtersAllState[`${paramName}All`];
+  if (allParamState !== 0) {
+    const cachedTokens = FILTERDATA.cache[`${paramName}`][allParamState];
+    arrayTokens.push(...cachedTokens)
   } else {
-    FILTERDATA.iconParam.forEach((state, value) => {
+    FILTERDATA[`${paramName}Param`].forEach((state, value) => {
       const token = buildToken(state, value);
-      if (token) iconTokens.push(token);
+      if (token) arrayTokens.push(token);
     });
   }
+  return arrayTokens
+}
 
-  const regionTokens = [];
-  const allRegionState = FILTERDATA.filtersAllState.regionsAll;
-  if (allRegionState !== 0) {
-    const cachedTokens = FILTERDATA.cache.regions[allRegionState];
-    regionTokens.push(...cachedTokens)
-  } else {
-    FILTERDATA.regionParam.forEach((state, value) => {regionTokens.push(buildToken(state, value))});
-  }
-  
+function buildTokensObject() {
+  const iconTokens = prepareArrayToken("icon");
+  const regionTokens = prepareArrayToken("region");
+  const contentTypeTokens = prepareArrayToken("contentType");
+  const contentIdTokens = prepareArrayToken("contentId");
   const underGround = FILTERDATA.filtersValues.underground;
-  
   const userIdToken = buildToken(FILTERDATA.filtersState.collected, USERSESSION.user_id);
-  return { iconTokens, regionTokens, underGround, userIdToken }
+  return { iconTokens, regionTokens, contentTypeTokens, contentIdTokens, underGround, userIdToken }
 }
 
 function visibleSetBufferSolver(nextVisibleSet) {
@@ -266,6 +303,8 @@ async function filterMarkers() {
   if (
     (filterParams.regionTokens.length === 0) && 
     (filterParams.iconTokens.length === 0) && 
+    (filterParams.contentTypeTokens.length === 0) && 
+    (filterParams.contentIdTokens.length === 0) && 
     (filterParams.underGround === null) && 
     (filterParams.userIdToken === null)
   ) {

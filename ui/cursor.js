@@ -1,6 +1,7 @@
 import { APPSTATE, USERSETTINGS } from "../core/state.js"
 import { OPTSIDEBAR } from "./sidebar.js"
 import { subscribeUI } from "./UIUtilities.js"
+import { switchAgentTarget } from "../features/contentPreview.js"
 
 const CURSORITEM = {
   scaleGroup: null,
@@ -24,6 +25,7 @@ export function cacheCursor() {
   .underground, 
   .collected, 
   .region`;
+  CURSORITEM.markerSelector = `.leaflet-marker-icon`;
   CURSORITEM.ticking = false;
   CURSORITEM.cursorCenter = { X: 26, Y: 26 };
   CURSORITEM.mouse = { X: 0, Y: 0 };
@@ -119,17 +121,28 @@ function cursorHoverSet(isHover) {
 }
 
 function cursorHoverStartHendler(e) {
-  const isNowActive = e.target.closest(CURSORITEM.activeSelectors);
-  const wasActive = e.relatedTarget?.closest(CURSORITEM.activeSelectors);
+  const target = e.target
+  const relatedTarget = e.relatedTarget
+  const isNowActive = target.closest(CURSORITEM.activeSelectors);
+  const wasActive = relatedTarget?.closest(CURSORITEM.activeSelectors);
 
+  const marker = target.closest(CURSORITEM.markerSelector);
+  switchAgentTarget(marker);
+  
   if (isNowActive && !wasActive) {
     cursorHoverSet(true);
   }
+
 }
 
 function cursorHoverStopHendler(e) {
-  const wasActive = e.target.closest(CURSORITEM.activeSelectors);
-  const isNowActive = e.relatedTarget?.closest(CURSORITEM.activeSelectors);
+  const target = e.target
+  const relatedTarget = e.relatedTarget
+  const wasActive = target.closest(CURSORITEM.activeSelectors);
+  const isNowActive = relatedTarget?.closest(CURSORITEM.activeSelectors);
+
+  const marker = relatedTarget?.closest(CURSORITEM.markerSelector);
+  switchAgentTarget(marker);
 
   if (wasActive && !isNowActive) {
     cursorHoverSet(false);

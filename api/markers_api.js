@@ -1,6 +1,6 @@
 import { apiRequest, buildJsonOptions } from "./request.js"
 import { API_RAW } from "../api/config_api.js"
-import { invertMarkerMap } from "../features/markers.js"
+import { invertMarkerMap } from "../features/marker_data.js"
 
 export async function getAllMarkers() {
   return await apiRequest(API_RAW.markers.all, {}, []);
@@ -26,6 +26,16 @@ export async function getFilteredMarkers(options = {}) {
   if (options.iconTokens != null && options.iconTokens.length !== 0) {
     for (const token of options.iconTokens) {
       params.append("iconTokens", token);
+    }
+  }
+  if (options.contentTypesTokens != null && options.contentTypesTokens.length !== 0) {
+    for (const token of options.contentTypesTokens) {
+      params.append("contentTypesTokens", token);
+    }
+  }
+  if (options.contentIdTokens != null && options.contentIdTokens.length !== 0) {
+    for (const token of options.contentIdTokens) {
+      params.append("contentIdTokens", token);
     }
   }
 

@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'Nordic';
-  src: url('/fonts/Nordic-Regular-Extended-Web.woff2?v=1') format('woff2');
+  src: url('/assets/fonts/Nordic-Regular-Extended-Web.woff2?v=1') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Runescript';
-  src: url('/fonts/Runescript-Web.woff2?v=1') format('woff2');
+  src: url('/assets/fonts/Runescript-Web.woff2?v=1') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

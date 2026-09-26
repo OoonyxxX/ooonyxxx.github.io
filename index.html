@@ -57,6 +57,16 @@
     <p><strong>Map of the North</strong> is a community-made interactive map for <em>Spirit of the North 2</em>. Explore regions, secrets, relics, collectibles and hidden locations with filters and markers.</p>
     <p>Popular regions: Fox Island, Misthaven, Mosswood, Stormvale, Frigid Peaks, Ashlands.</p>
   </section> -->
+	<div id="maintenanceTag" class="maintenanceTag hide-i">Maintenance Mode</div>
+	<div id="maintenanceModal" class="maintenanceModal hide-i no-pointer-events-i">
+		<span id="maintenance-message" class="maintenance-message">
+			<img class="maintenance-img" src="/assets/maintenance/await.gif" alt="Maintenance in progress">
+			<p class="maintenance-text">
+				The map is getting an update!<br>
+				We'll be back soon.
+			</p>
+		</span>
+	</div>
   <header class="header-container">
     <div class="header-pos-container">
 			<div class="header-hopt-container">
@@ -68,8 +78,8 @@
 					<button id="login-button" class="btn-login">Login</button>
 					<span id="username-display" class="username"></span>
 					<div id="user-container" class="user-container"> 
-						<img id="auth-img" class="auth-img action-img no-drag" src="/othersvg/account_white.svg"></img>
-						<img id="user-menu" class="user-menu action-img no-drag" src="/othersvg/opt.svg"></img>
+						<img id="auth-img" class="auth-img action-img no-drag" src="/assets/othersvg/account_white.svg"></img>
+						<img id="user-menu" class="user-menu action-img no-drag" src="/assets/othersvg/opt.svg"></img>
 					</div>
 				</div>
 			</div>
@@ -105,7 +115,7 @@
 					<h3 class="optheader">Options</h3>
 					<button id="option-hide" class="btn-hide option-hide">
 						<span id="option-hide-text" class="option-hide-text">Hide</span>
-						<img id="option-hide-img" class="option-hide-img" src="/othersvg/opt.svg">
+						<img id="option-hide-img" class="option-hide-img" src="/assets/othersvg/opt.svg">
 					</button>
 				</div>
 				<div class="optparam">
@@ -135,6 +145,7 @@
 					</label>
 				</div>
       </section>
+
       <section id="devlog-widget-container" class="widget-container">
       </section>
 			
@@ -142,292 +153,29 @@
 				<div id="filterheader" class="filterheader">
 					<h3 class="filheader">Filters</h3>
 					<button id="filter-reset" class="btn-reset">Clear</button>
-				<button id="filter-hide" class="btn-hide filter-hide">
-					<span id="filter-hide-text" class="filter-hide-text">Hide</span>
-					<img id="filter-hide-img" class="filter-hide-img" src="/othersvg/filter.svg">
-				</button>
-			</div>
-			<div id="filter-sections" class="filter-sections">
-				<section class="filter-section filter-underground" data-filter="underground">
-				<div class="filter-body underground-switch">
-					<label id="underground" class="underground"><input type="checkbox" value="underground"> Underground</label>
+					<button id="filter-hide" class="btn-hide filter-hide">
+						<span id="filter-hide-text" class="filter-hide-text">Hide</span>
+						<img id="filter-hide-img" class="filter-hide-img" src="/assets/othersvg/filter.svg">
+					</button>
 				</div>
-				</section>
-				<section class="filter-section filter-collected" data-filter="collected">
-				<div class="filter-body collected-switch">
-					<label id="collected" class="collected"><input type="checkbox" value="collected"> Collected</label>
+				<div id="filter-sections" class="filter-sections">
+
+					<section class="filter-section filter-underground" data-filter="underground">
+						<div class="filter-body underground-switch">
+							<label id="underground" class="underground"><input type="checkbox" value="underground"> Underground</label>
+						</div>
+					</section>
+
+					<section class="filter-section filter-collected" data-filter="collected">
+						<div class="filter-body collected-switch">
+							<label id="collected" class="collected"><input type="checkbox" value="collected"> Collected</label>
+						</div>
+					</section>
+					<section class="filter-section filter-icon" data-filter="icon"></section>
+					<section class="filter-section filter-region" data-filter="region"></section>
+					</div><div id="filter-sections-footer" class="filter-sections-footer"> 
 				</div>
-				</section>
-					<section class="filter-section filter-icon" data-filter="icon">
-				<div class="filter-body icons-grid">
-					<div class="important-icons-external">
-						<h5 class="iconsheader">Important</h5>
-						<div class="important-icons">
-							<label id="icon-item" class="icon-item crypticon">
-							<input type="checkbox" value="crypt" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Cryptv2.svg" alt="Crypt">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Cryptv2.svg" alt="Crypt">
-							</label>
-							<label id="icon-item" class="icon-item obeliskicon">
-							<input type="checkbox" value="obelisk" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Obelisk.svg" alt="Obelisk">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Obelisk.svg" alt="Obelisk">
-							</label>
-							<label id="icon-item" class="icon-item portalicon">
-							<input type="checkbox" value="portal" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Portal.svg" alt="Portal">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Portal.svg" alt="Portal">
-							</label>
-							<label id="icon-item" class="icon-item raccoonGrottoicon">
-							<input type="checkbox" value="raccoonGrotto" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_RaccoonGrottoV4.svg" alt="Raccoon Grotto">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_RaccoonGrottoV4.svg" alt="Raccoon Grotto">
-							</label>
-							<label id="icon-item" class="icon-item playerHomeicon">
-							<input type="checkbox" value="playerHome" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_PlayerHome.svg" alt="Player Home">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_PlayerHome.svg" alt="Player Home">
-							</label>
-							<label id="icon-item" class="icon-item treeicon">
-							<input type="checkbox" value="tree" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Tree.svg" alt="Tree">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Tree.svg" alt="Tree">
-							</label>
-							<label id="icon-item" class="icon-item snakeShrineicon">
-							<input type="checkbox" value="snakeShrine" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_SnakeShrine.svg" alt="Snake Shrine">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_SnakeShrine.svg" alt="Snake Shrine">
-							</label>
-							<label id="icon-item" class="icon-item totemicon">
-							<input type="checkbox" value="totem" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Totem.svg" alt="Totem">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Totem.svg" alt="Totem">
-							</label>
-							<label id="icon-item" class="icon-item wispCollectoricon">
-							<input type="checkbox" value="wispCollector" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_WispCollector.svg" alt="Wisp Collector">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_WispCollector.svg" alt="Wisp Collector">
-							</label>
-						</div>
-					</div>
-					<div class="guardians-icons-external">
-						<h5 class="iconsheader">Guardians</h5>
-						<div class="guardians-icons">
-							<label id="icon-item" class="icon-item foxicon">
-							<input type="checkbox" value="fox" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Fox.svg" alt="Fox">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Fox.svg" alt="Fox">
-							</label>
-							<label id="icon-item" class="icon-item ravenicon">
-							<input type="checkbox" value="raven" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Raven.svg" alt="Raven">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Raven.svg" alt="Raven">
-							</label>
-							<label id="icon-item" class="icon-item stagicon">
-							<input type="checkbox" value="stag" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Stag.svg" alt="Stag">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Stag.svg" alt="Stag">
-							</label>
-							<label id="icon-item" class="icon-item ramicon">
-							<input type="checkbox" value="ram" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Ram.svg" alt="Ram">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Ram.svg" alt="Ram">
-							</label>
-							<label id="icon-item" class="icon-item wolficon">
-							<input type="checkbox" value="wolf" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Wolf.svg" alt="Wolf">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Wolf.svg" alt="Wolf">
-							</label>
-							<label id="icon-item" class="icon-item bearicon">
-							<input type="checkbox" value="bear" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Bear.svg" alt="Bear">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_GuardianTemple_Bear.svg" alt="Bear">
-							</label>
-						</div>
-					</div>
-					<div class="natural-icons-external">
-						<h5 class="iconsheader">Natural</h5>
-						<div class="natural-icons">
-							<label id="icon-item" class="icon-item waterfallicon">
-							<input type="checkbox" value="waterfall" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Waterfall.svg" alt="Waterfall">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Waterfall.svg" alt="Waterfall">
-							</label>
-							<label id="icon-item" class="icon-item pathicon">
-							<input type="checkbox" value="path" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Path.svg" alt="Path">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Path.svg" alt="Path">
-							</label>
-							<label id="icon-item" class="icon-item naturalRockTowericon">
-							<input type="checkbox" value="naturalRockTower" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_NaturalRockTower.svg" alt="Natural Rock Tower">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_NaturalRockTower.svg" alt="Natural Rock Tower">
-							</label>
-							<label id="icon-item" class="icon-item mountainPeakicon">
-							<input type="checkbox" value="mountainPeak" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_MountainPeak.svg" alt="Mountain Peak">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_MountainPeak.svg" alt="Mountain Peak">
-							</label>
-							<label id="icon-item" class="icon-item lakeicon">
-							<input type="checkbox" value="lake" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Lake.svg" alt="Lake">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Lake.svg" alt="Lake">
-							</label>
-							<label id="icon-item" class="icon-item hillicon">
-							<input type="checkbox" value="hill" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Hill.svg" alt="Hill">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Hill.svg" alt="Hill">
-							</label>
-							<label id="icon-item" class="icon-item caveicon">
-							<input type="checkbox" value="cave" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Cave.svg" alt="Cave">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Cave.svg" alt="Cave">
-							</label>
-						</div>
-					</div>
-					<div class="structures-icons-external">
-						<h5 class="iconsheader">Structures</h5>
-						<div class="structures-icons">
-							<label id="icon-item" class="icon-item warTowericon">
-							<input type="checkbox" value="warTower" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_WarTower.svg" alt="War Tower">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_WarTower.svg" alt="War Tower">
-							</label>
-							<label id="icon-item" class="icon-item warGateicon">
-							<input type="checkbox" value="warGate" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_WarGate.svg" alt="War Gate">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_WarGate.svg" alt="War Gate">
-							</label>
-							<label id="icon-item" class="icon-item shipyardicon">
-							<input type="checkbox" value="shipyard" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Shipyard.svg" alt="Shipyard">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Shipyard.svg" alt="Shipyard">
-							</label>
-							<label id="icon-item" class="icon-item ruinsicon">
-							<input type="checkbox" value="ruins" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Ruins.svg" alt="Ruins">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Ruins.svg" alt="Ruins">
-							</label>
-							<label id="icon-item" class="icon-item encampmenticon">
-							<input type="checkbox" value="encampment" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Encampment.svg" alt="Encampment">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Encampment.svg" alt="Encampment">
-							</label>
-							<label id="icon-item" class="icon-item dwellingsStoneicon">
-							<input type="checkbox" value="dwellingsStone" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Dwellings_Stone.svg" alt="Dwellings Stone">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Dwellings_Stone.svg" alt="Dwellings Stone">
-							</label>
-							<label id="icon-item" class="icon-item dwellingsRuinsicon">
-							<input type="checkbox" value="dwellingsRuins" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Dwellings_Ruins.svg" alt="Dwellings Ruins">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Dwellings_Ruins.svg" alt="Dwellings Ruins">
-							</label>
-							<label id="icon-item" class="icon-item dwellingWoodicon">
-							<input type="checkbox" value="dwellingWood" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Dwelling_Wood.svg" alt="Dwelling Wood">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Dwelling_Wood.svg" alt="Dwelling Wood">
-							</label>
-							<label id="icon-item" class="icon-item singleDwellingStoneicon">
-							<input type="checkbox" value="singleDwellingStone" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Single_Dwelling_Stone.svg" alt="Single Dwelling Stone">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Single_Dwelling_Stone.svg" alt="Single Dwelling Stone">
-							</label>
-							<label id="icon-item" class="icon-item bridgeicon">
-							<input type="checkbox" value="bridge" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Bridge.svg" alt="Bridge">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Bridge.svg" alt="Bridge">
-							</label>
-							<label id="icon-item" class="icon-item anceintTowerV2icon">
-							<input type="checkbox" value="anceintTowerV2" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_AnceintTower_V2.svg" alt="Anceint Tower V2">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_AnceintTower_V2.svg" alt="Anceint Tower V2">
-							</label>
-							<label id="icon-item" class="icon-item anceintTowerV1icon">
-							<input type="checkbox" value="anceintTowerV1" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_AnceintTower.svg" alt="Anceint Tower V1">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_AnceintTower.svg" alt="Anceint Tower V1">
-							</label>
-							<label id="icon-item" class="icon-item bearLighthouseicon">
-							<input type="checkbox" value="bearLighthouse" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_BearLighthouse.svg" alt="Bear Lighthouse">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_BearLighthouse.svg" alt="Bear Lighthouse">
-							</label>
-						</div>
-					</div>
-					<div class="collectible-icons-external">
-						<h5 class="iconsheader">Collectible</h5>
-						<div class="collectible-icons">
-							<label id="icon-item" class="icon-item extraWispicon">
-								<input type="checkbox" value="extraWisp" class="iconcheckbox">
-								<img class="imgicon" src="svgiconimg/T_Icon_Map_ExtraWisp.svg" alt="Wisp">
-								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_ExtraWisp.svg" alt="Wisp">
-							</label>
-							<label id="icon-item" class="icon-item loreSeekericon">
-								<input type="checkbox" value="loreSeeker" class="iconcheckbox">
-								<img class="imgicon" src="svgiconimg/T_Icon_Map_LoreSeeker1.svg" alt="Lore Scroll">
-								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_LoreSeeker1.svg" alt="Lore Scroll">
-							</label>
-							<label id="icon-item" class="icon-item skillPointicon">
-								<input type="checkbox" value="skillPoint" class="iconcheckbox">
-								<img class="imgicon" src="svgiconimg/T_Icon_Map_SkillPoint.svg" alt="Skill Point">
-								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_SkillPoint.svg" alt="Skill Point">
-							</label>
-							<label id="icon-item" class="icon-item chesticon">
-								<input type="checkbox" value="chest" class="iconcheckbox">
-								<img class="imgicon" src="svgiconimg/T_Icon_Map_Chest.svg" alt="Common Chest">
-								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Chest.svg" alt="Common Chest">
-							</label>
-							<label id="icon-item" class="icon-item skinChesticon">
-								<input type="checkbox" value="skinChest" class="iconcheckbox">
-								<img class="imgicon" src="svgiconimg/T_Icon_Map_SkinChest.svg" alt="Cosmetic Chest">
-								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_SkinChest.svg" alt="Cosmetic Chest">
-							</label>
-							<label id="icon-item" class="icon-item runeChesticon">
-								<input type="checkbox" value="runeChest" class="iconcheckbox">
-								<img class="imgicon" src="svgiconimg/T_Icon_Map_RuneChest.svg" alt="Rune Chest">
-								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_RuneChest.svg" alt="Rune Chest">
-							</label>
-							<label id="icon-item" class="icon-item lostMelodyicon">
-								<input type="checkbox" value="lostMelody" class="iconcheckbox">
-								<img class="imgicon" src="svgiconimg/T_Icon_Map_LostMelody.svg" alt="Lost Melody">
-								<img class="imgbackicon" src="svgiconimg/T_Icon_Map_LostMelody.svg" alt="Lost Melody">
-							</label>
-						</div>
-					</div>
-					<div class="other-icons-external">
-						<h5 class="iconsheader">Other</h5>
-						<div class="other-icons">
-							<label id="icon-item" class="icon-item mysteryPOIicon">
-							<input type="checkbox" value="mysteryPOI" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_MysteryPOI.svg" alt="Mystery">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_MysteryPOI.svg" alt="Mystery">
-							</label>
-							<label id="icon-item" class="icon-item defaulticon">
-							<input type="checkbox" value="default" class="iconcheckbox">
-							<img class="imgicon" src="svgiconimg/T_Icon_Map_Generic.svg" alt="Default">
-							<img class="imgbackicon" src="svgiconimg/T_Icon_Map_Generic.svg" alt="Default">
-							</label>
-						</div>
-					</div>
-					<div id="icon-indicator" class="icon-indicator"></div>
-				</div>
-				</section>
-					<section class="filter-section filter-region" data-filter="region">
-				<h4 class="paramheader">Region</h4>
-				<div class="filter-body region-list">
-					<label id="region-fox_island" class="region region-fox_island"><input type="checkbox" value="fox_island"> Fox Island</label>
-					<label id="region-misthaven" class="region region-misthaven"><input type="checkbox" value="misthaven"> Misthaven</label>
-					<label id="region-mosswood" class="region region-mosswood"><input type="checkbox" value="mosswood"> Mosswood</label>
-					<label id="region-stormvale" class="region region-stormvale"><input type="checkbox" value="stormvale"> Stormvale</label>
-					<label id="region-frigid_peaks" class="region region-frigid_peaks"><input type="checkbox" value="frigid_peaks"> Frigid Peaks</label>
-					<label id="region-ashlands" class="region region-ashlands"><input type="checkbox" value="ashlands"> Ashlands</label>
-					<label id="region-ocean" class="region region-ocean"><input type="checkbox" value="ocean"> Ocean</label>
-				</div>
-				</section>
-			</div>
-			<div id="filter-sections-footer" class="filter-sections-footer"> 
-			</div>
+
 			</section>
 		</aside>
     <div id="map" class="map-style"></div>
@@ -435,206 +183,430 @@
   <footer class="footer-container">
     <span class="footer-text">You can support me here: </span>
   </footer>
-  <template id="marker-form-template">
-	  <form id="marker-form">
-		<label>Title
-		  <input name="title" placeholder="Name_PlaceHolder" required />
-		</label><br/>
+	<template id="marker-form-template">
+		<form class="marker-form">
+			<!-- Основная информация -->
+			<fieldset class="form-section">
+				<legend>Marker information</legend>
 
-		<label>Description
-		  <textarea name="description" maxlength="600" placeholder="Description_PlaceHolder"></textarea>
-		</label><br/>
+				<label class="form-field">
+					<span class="form-field__label">Title</span>
+					<input type="text" name="title" placeholder="Name_PlaceHolder" required>
+				</label>
 
-		<label>Region
-		  <select name="region">
-			<option value="auto" selected>Auto</option>
-			<option value="fox_island" >Fox Island</option>
-			<option value="misthaven" >Misthaven</option>
-			<option value="mosswood" >Mosswood</option>
-			<option value="stormvale" >Stormvale</option>
-			<option value="frigid_peaks" >Frigid Peaks</option>
-			<option value="ashlands" >Ashlands</option>
-			<option value="ocean" >Ocean</option>
-		  </select>
-		</label><br/>
+				<label class="form-field">
+					<span class="form-field__label">Description</span>
+					<textarea name="description" maxlength="600" placeholder="Description_PlaceHolder" rows="5"></textarea>
+				</label>
+			</fieldset>
+			<!-- UAID -->
+			<details class="form-section form-collapsible">
+				<summary class="form-collapsible__summary">
+					<span>UAID</span> <img class="form-collapsible__icon" src="/assets/othersvg/edit_white.svg" alt="">
+				</summary>
 
-		<label>
-		  <input type="checkbox" name="underground" />
-		  Underground
-		</label>
+				<div class="form-collapsible__content">
+					<label class="form-field">
+						<span class="form-field__label">UAID</span>
+						<input type="text" name="uaid" minlength="34" maxlength="34" placeholder="None">
+					</label>
+				</div>
+			</details>
 
-		<label>Icon
-		  <select name="icon">
-		  </select>
-		</label><br/>
-		<label>Color
-		  <div class="color-picker"></div>
-		  <input type="hidden" name="color" class="color-input" />
-		</label>
-		<label>Y
-		  <input type="number" name="lat" step="any" required />
-		</label>
-		<label>X
-		  <input type="number" name="lng" step="any" required />
-		</label><br/>
+			<!-- Внешний вид -->
+			<fieldset class="form-section">
+				<legend>Appearance</legend>
 
-		<button type="button" id="submit-btn" class="btn-submit">Save</button>
-		<button type="button" id="discard-btn" class="btn-discard">Discard</button>
-		<button type="button" id="delete-btn" class="btn-delete hide">Delete</button>
-	  </form>
-  </template>
+				<label class="form-field form-field--inline">
+					<span class="form-field__label">Icon</span>
+					<select name="icon" required>
+						<option value="" selected disabled>Select icon</option>
+					</select>
+				</label>
+
+				<div class="form-field">
+					<span class="form-field__label">Color</span>
+					<div class="color-picker" role="button" tabindex="0" aria-label="Select marker color"></div>
+					<input type="hidden" name="color" class="color-input">
+				</div>
+			</fieldset>
+
+			<!-- Расположение -->
+			<fieldset class="form-section">
+				<legend>Location</legend>
+				<label class="form-field form-field--inline">
+					<span class="form-field__label">Region</span>
+					<select name="region">
+						<option value="auto" selected>Auto</option>
+						<option value="fox_island">Fox Island</option>
+						<option value="misthaven">Misthaven</option>
+						<option value="mosswood">Mosswood</option>
+						<option value="stormvale">Stormvale</option>
+						<option value="frigid_peaks">Frigid Peaks</option>
+						<option value="ashlands">Ashlands</option>
+						<option value="ocean">Ocean</option>
+					</select>
+				</label>
+
+				<label class="checkbox-field">
+					<input type="checkbox" name="underground">
+					<span>Underground</span>
+				</label>
+
+				<div class="coordinate-fields">
+					<label class="form-field">
+						<span class="form-field__label">X</span>
+						<input type="number" name="lng" step="any" required>
+					</label>
+
+					<label class="form-field">
+						<span class="form-field__label">Y</span>
+						<input type="number" name="lat" step="any" required>
+					</label>
+				</div>
+			</fieldset>
+
+			<!-- Содержимое маркера -->
+			<details class="form-section form-collapsible">
+				<summary class="form-collapsible__summary">
+					<span>Content</span>
+					<img class="form-collapsible__icon" src="/assets/othersvg/edit_white.svg" alt="">
+				</summary>
+
+				<fieldset class="content-fields">
+					<legend class="visually-hidden">Marker content</legend>
+
+					<!-- Wealth -->
+					<fieldset class="form-subsection content-wealth">
+						<legend>Wealth</legend>
+
+						<label class="form-field form-field--inline">
+							<span class="form-field__label">Preset</span>
+
+							<select name="content.wealth.presetId">
+								<option value="" selected>None</option>
+								<option value="common">Common</option>
+								<option value="uncommon">Uncommon</option>
+								<option value="rare">Rare</option>
+								<option value="turtle">Turtle</option>
+							</select>
+						</label>
+
+						<div class="wealth-preview" hidden>
+							<span>G: <output data-wealth="G">0</output></span>
+							<span>B: <output data-wealth="B">0</output></span>
+							<span>P: <output data-wealth="P">0</output></span>
+						</div>
+					</fieldset>
+
+
+					<!-- Runes -->
+					<fieldset class="form-subsection content-runes">
+						<legend>Runes</legend>
+
+						<div class="tag-input ordered-tag-input" data-tag-type="runes">
+							<div class="tag-list" data-tag-list></div>
+
+							<div class="tag-input__control">
+								<input
+									type="text"
+									class="tag-input__input"
+									placeholder="Add rune..."
+									autocomplete="off"
+									aria-label="Add rune"
+								>
+
+								<div
+									class="tag-input__suggestions"
+									role="listbox"
+									hidden
+								></div>
+							</div>
+						</div>
+
+						<label class="checkbox-field">
+							<input type="checkbox" name="content.runes.dropAll">
+							<span>Drop all runes</span>
+						</label>
+					</fieldset>
+
+
+					<!-- Cosmetics -->
+					<fieldset class="form-subsection content-cosmetics">
+						<legend>Cosmetics</legend>
+
+						<div class="tag-input ordered-tag-input" data-tag-type="cosmetics">
+							<div class="tag-list" data-tag-list></div>
+
+							<div class="tag-input__control">
+								<input
+									type="text"
+									class="tag-input__input"
+									placeholder="Add cosmetic..."
+									autocomplete="off"
+									aria-label="Add cosmetic"
+								>
+
+								<div
+									class="tag-input__suggestions"
+									role="listbox"
+									hidden
+								></div>
+							</div>
+						</div>
+
+						<label class="checkbox-field">
+							<input type="checkbox" name="content.cosmetics.dropAll">
+							<span>Drop all cosmetics</span>
+						</label>
+
+						<label class="form-field form-field--inline">
+							<span class="form-field__label">Drop probability</span>
+
+							<div class="number-field number-field--percent">
+								<input
+									type="number"
+									name="content.cosmetics.dropProbability"
+									min="0"
+									max="100"
+									step="0.01"
+									inputmode="decimal"
+								>
+								<span>%</span>
+							</div>
+						</label>
+					</fieldset>
+
+
+					<!-- Melody -->
+					<fieldset class="form-subsection content-melody">
+						<legend>Melody</legend>
+
+						<div class="radio-group">
+							<label class="radio-field">
+								<input
+									type="radio"
+									name="content.melody.mode"
+									value="none"
+									checked
+								>
+								<span>None</span>
+							</label>
+
+							<label class="radio-field">
+								<input
+									type="radio"
+									name="content.melody.mode"
+									value="specific"
+								>
+								<span>Specific</span>
+							</label>
+
+							<label class="radio-field">
+								<input
+									type="radio"
+									name="content.melody.mode"
+									value="any"
+								>
+								<span>Any melody</span>
+							</label>
+						</div>
+
+						<div
+							class="autocomplete"
+							data-melody-specific
+							hidden
+						>
+							<input
+								type="text"
+								class="autocomplete__input"
+								placeholder="Select melody..."
+								autocomplete="off"
+								aria-label="Select melody"
+							>
+
+							<div
+								class="autocomplete__suggestions"
+								role="listbox"
+								hidden
+							></div>
+						</div>
+					</fieldset>
+
+
+					<!-- Skill point -->
+					<fieldset class="form-subsection content-skill">
+						<legend>Skill</legend>
+
+						<label class="checkbox-field">
+							<input type="checkbox" name="content.skill">
+							<span>Skill Point</span>
+						</label>
+					</fieldset>
+				</fieldset>
+			</details>
+
+			<!-- Действия -->
+			<div class="form-actions">
+				<button type="submit" class="btn-submit" data-action="save">Save</button>
+				<button type="button" class="btn-discard" data-action="discard">Discard</button>
+				<button type="button" class="btn-delete hide" data-action="delete">Delete</button>
+			</div>
+		</form>
+	</template>
+
   <div id="custom-cursor" class="cursor-base">
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" class="custom-cursor-svg">
-	  <defs>
-		<clipPath id="clipTimer">
-		  <path d="M26,26 L26,0 A24,24 0 0,1 52,26 Z" fill="#FFFFFF"/>
-		</clipPath>
-		<mask id="timerMask">
-		  <circle id="timerProgressCircle" cx="26" cy="26" r="24" stroke="white" fill="none" stroke-width="48" stroke-dasharray="150" stroke-dashoffset="0">
-		  </circle>
-		</mask>
-		<clipPath id="clipL1">
-		  <circle cx="26" cy="26" r="24"/>
-		</clipPath>
-		<filter id="layerBlur80" x="-400%" y="-400%" width="900%" height="900%">
-		  <feGaussianBlur stdDeviation="8"/>
-		</filter>
-		<filter id="layerBlur60" x="-400%" y="-400%" width="900%" height="900%">
-		  <feGaussianBlur stdDeviation="6"/>
-		</filter>
-		<filter id="layerBlur40" x="-50%" y="-50%" width="200%" height="200%">
-		  <feGaussianBlur stdDeviation="4"/>
-		</filter>
-		<filter id="layerBlur20" x="-200%" y="-200%" width="500%" height="500%">
-		  <feGaussianBlur stdDeviation="2"/>
-		</filter>
-		<filter id="layerBlur14" x="-400%" y="-400%" width="900%" height="900%">
-		  <feGaussianBlur stdDeviation="1.4"/>
-		</filter>
-		<filter id="layerBlur10" x="-200%" y="-200%" width="500%" height="500%">
-		  <feGaussianBlur stdDeviation="1"/>
-		</filter>
-		<filter id="layerBlur06" x="-400%" y="-400%" width="900%" height="900%">
-		  <feGaussianBlur stdDeviation="0.6"/>
-		</filter>
-	  </defs>
-	  <g id="Cursor" class="CursorStack">
-		  <g id="base" class="baseStack" style="mix-blend-mode: color;"> <!-- style="mix-blend-mode: none;  -->
-			<g id="scaleSup" class="baseScaleAnchor">
-			  <circle class="base_anim_borderCircle" cx="26" cy="26" r="24" fill="none" stroke="#D9D9D9" stroke-opacity="0.85" stroke-width="6" filter="url(#layerBlur40)" clip-path="url(#clipL1)"/>
-			  <!-- from class="base_anim_borderCircle" to stroke-width="4" filter="url(#layerBlur14)"  -->
-			  <circle class="base_anim_innerCircle1" cx="26" cy="26" r="24" fill="#D9D9D9" fill-opacity="0.4" filter="url(#layerBlur06)"/>
-			  <!-- noanim  -->
-			  <circle class="base_anim_innerCircle2" cx="26" cy="26" r="2" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="2" filter="url(#layerBlur20)"/>
-			  <!-- from class="base_anim_innerCircle" to r="12" stroke-width="1" filter="url(#layerBlur10)"  -->
-			  <circle class="base_anim_centerCircle" cx="26" cy="26" r="1" fill="none" stroke="#FFFFFF" stroke-opacity="1" stroke-width="2" filter="url(#layerBlur10)"/>
-			  <!-- noanim  -->
-			  <g id="pointArrayToHover" class="hoverAnimPointArray"> <!-- transform: rotate Ndeg -->
-				  <circle class="Point5" cx="26" cy="43" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-				  <circle class="Point5" cx="26" cy="43" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
-				  <circle class="Point3" cx="43" cy="26" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-				  <circle class="Point3" cx="43" cy="26" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
-				  <circle class="Point7" cx="9" cy="26" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-				  <circle class="Point7" cx="9" cy="26" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
-				  <circle class="Point1" cx="26" cy="9" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-				  <circle class="Point1" cx="26" cy="9" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
-				  <circle class="Point4" cx="38" cy="38" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-				  <circle class="Point4" cx="38" cy="38" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
-				  <circle class="Point8" cx="14" cy="14" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-				  <circle class="Point8" cx="14" cy="14" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
-				  <circle class="Point2" cx="38" cy="14" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-				  <circle class="Point2" cx="38" cy="14" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
-				  <circle class="Point6" cx="14" cy="38" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-				  <circle class="Point6" cx="14" cy="38" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
-			  </g>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" class="custom-cursor-svg">
+			<defs>
+			<clipPath id="clipTimer">
+				<path d="M26,26 L26,0 A24,24 0 0,1 52,26 Z" fill="#FFFFFF"/>
+			</clipPath>
+			<mask id="timerMask">
+				<circle id="timerProgressCircle" cx="26" cy="26" r="24" stroke="white" fill="none" stroke-width="48" stroke-dasharray="150" stroke-dashoffset="0">
+				</circle>
+			</mask>
+			<clipPath id="clipL1">
+				<circle cx="26" cy="26" r="24"/>
+			</clipPath>
+			<filter id="layerBlur80" x="-400%" y="-400%" width="900%" height="900%">
+				<feGaussianBlur stdDeviation="8"/>
+			</filter>
+			<filter id="layerBlur60" x="-400%" y="-400%" width="900%" height="900%">
+				<feGaussianBlur stdDeviation="6"/>
+			</filter>
+			<filter id="layerBlur40" x="-50%" y="-50%" width="200%" height="200%">
+				<feGaussianBlur stdDeviation="4"/>
+			</filter>
+			<filter id="layerBlur20" x="-200%" y="-200%" width="500%" height="500%">
+				<feGaussianBlur stdDeviation="2"/>
+			</filter>
+			<filter id="layerBlur14" x="-400%" y="-400%" width="900%" height="900%">
+				<feGaussianBlur stdDeviation="1.4"/>
+			</filter>
+			<filter id="layerBlur10" x="-200%" y="-200%" width="500%" height="500%">
+				<feGaussianBlur stdDeviation="1"/>
+			</filter>
+			<filter id="layerBlur06" x="-400%" y="-400%" width="900%" height="900%">
+				<feGaussianBlur stdDeviation="0.6"/>
+			</filter>
+			</defs>
+			<g id="Cursor" class="CursorStack">
+				<g id="base" class="baseStack" style="mix-blend-mode: color;"> <!-- style="mix-blend-mode: none;  -->
+				<g id="scaleSup" class="baseScaleAnchor">
+					<circle class="base_anim_borderCircle" cx="26" cy="26" r="24" fill="none" stroke="#D9D9D9" stroke-opacity="0.85" stroke-width="6" filter="url(#layerBlur40)" clip-path="url(#clipL1)"/>
+					<!-- from class="base_anim_borderCircle" to stroke-width="4" filter="url(#layerBlur14)"  -->
+					<circle class="base_anim_innerCircle1" cx="26" cy="26" r="24" fill="#D9D9D9" fill-opacity="0.4" filter="url(#layerBlur06)"/>
+					<!-- noanim  -->
+					<circle class="base_anim_innerCircle2" cx="26" cy="26" r="2" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="2" filter="url(#layerBlur20)"/>
+					<!-- from class="base_anim_innerCircle" to r="12" stroke-width="1" filter="url(#layerBlur10)"  -->
+					<circle class="base_anim_centerCircle" cx="26" cy="26" r="1" fill="none" stroke="#FFFFFF" stroke-opacity="1" stroke-width="2" filter="url(#layerBlur10)"/>
+					<!-- noanim  -->
+					<g id="pointArrayToHover" class="hoverAnimPointArray"> <!-- transform: rotate Ndeg -->
+						<circle class="Point5" cx="26" cy="43" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+						<circle class="Point5" cx="26" cy="43" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+						<circle class="Point3" cx="43" cy="26" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+						<circle class="Point3" cx="43" cy="26" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+						<circle class="Point7" cx="9" cy="26" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+						<circle class="Point7" cx="9" cy="26" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+						<circle class="Point1" cx="26" cy="9" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+						<circle class="Point1" cx="26" cy="9" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+						<circle class="Point4" cx="38" cy="38" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+						<circle class="Point4" cx="38" cy="38" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+						<circle class="Point8" cx="14" cy="14" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+						<circle class="Point8" cx="14" cy="14" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+						<circle class="Point2" cx="38" cy="14" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+						<circle class="Point2" cx="38" cy="14" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+						<circle class="Point6" cx="14" cy="38" r="2" fill="#D9D9D9" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+						<circle class="Point6" cx="14" cy="38" r="1" fill="#D9D9D9" fill-opacity="1" filter="url(#layerBlur06)"/>
+					</g>
+				</g>
+				</g>
+				<g id="Timer" class="TimerEffect" mask="url(#timerMask)" > <!-- clip-path="url(#clipTimer)" -->
+					<g id="TimerBlue" class="TimerBlueEffect">
+						<circle class="base_anim_borderCircle" cx="26" cy="26" r="24" fill="none" stroke="#00897a" stroke-opacity="0.85" stroke-width="6" filter="url(#layerBlur40)" clip-path="url(#clipL1)"/>
+						<circle class="base_anim_innerCircle1" cx="26" cy="26" r="24" fill="#067F72" fill-opacity="0.4" filter="url(#layerBlur06)"/>
+						<circle class="base_anim_innerCircle2" cx="26" cy="26" r="2" fill="none" stroke="#0ce7d0" stroke-opacity="0.5" stroke-width="2" filter="url(#layerBlur20)"/>
+						<circle class="base_anim_centerCircle" cx="26" cy="26" r="1" fill="none" stroke="#0ce7d0" stroke-opacity="1" stroke-width="2" filter="url(#layerBlur10)"/>
+						<g id="pointArrayToHoverB" class="hoverAnimPointArrayB"> <!-- transform: rotate Ndeg -->
+							<circle class="Point5" cx="26" cy="43" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point5" cx="26" cy="43" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point3" cx="43" cy="26" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point3" cx="43" cy="26" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point7" cx="9" cy="26" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point7" cx="9" cy="26" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point1" cx="26" cy="9" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point1" cx="26" cy="9" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point4" cx="38" cy="38" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point4" cx="38" cy="38" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point8" cx="14" cy="14" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point8" cx="14" cy="14" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point2" cx="38" cy="14" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point2" cx="38" cy="14" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point6" cx="14" cy="38" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point6" cx="14" cy="38" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
+						</g>
+					</g>
+					<g id="TimerRed" class="TimerRedEffect">
+						<circle class="base_anim_borderCircle" cx="26" cy="26" r="24" fill="none" stroke="#e32525" stroke-opacity="0.85" stroke-width="6" filter="url(#layerBlur40)" clip-path="url(#clipL1)"/>
+						<circle class="base_anim_innerCircle1" cx="26" cy="26" r="24" fill="#b11c1c" fill-opacity="0.4" filter="url(#layerBlur06)"/>
+						<circle class="base_anim_innerCircle2" cx="26" cy="26" r="2" fill="none" stroke="#b11c1c" stroke-opacity="0.5" stroke-width="2" filter="url(#layerBlur20)"/>
+						<circle class="base_anim_centerCircle" cx="26" cy="26" r="1" fill="none" stroke="#ff2b2b" stroke-opacity="1" stroke-width="2" filter="url(#layerBlur10)"/>
+						<g id="pointArrayToHoverR" class="hoverAnimPointArrayR"> <!-- transform: rotate Ndeg -->
+							<circle class="Point5" cx="26" cy="43" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point5" cx="26" cy="43" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point3" cx="43" cy="26" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point3" cx="43" cy="26" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point7" cx="9" cy="26" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point7" cx="9" cy="26" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point1" cx="26" cy="9" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point1" cx="26" cy="9" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point4" cx="38" cy="38" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point4" cx="38" cy="38" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point8" cx="14" cy="14" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point8" cx="14" cy="14" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point2" cx="38" cy="14" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point2" cx="38" cy="14" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+							<circle class="Point6" cx="14" cy="38" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
+							<circle class="Point6" cx="14" cy="38" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
+						</g>
+					</g>
+				</g>
 			</g>
-		  </g>
-		  <g id="Timer" class="TimerEffect" mask="url(#timerMask)" > <!-- clip-path="url(#clipTimer)" -->
-			  <g id="TimerBlue" class="TimerBlueEffect">
-				  <circle class="base_anim_borderCircle" cx="26" cy="26" r="24" fill="none" stroke="#00897a" stroke-opacity="0.85" stroke-width="6" filter="url(#layerBlur40)" clip-path="url(#clipL1)"/>
-				  <circle class="base_anim_innerCircle1" cx="26" cy="26" r="24" fill="#067F72" fill-opacity="0.4" filter="url(#layerBlur06)"/>
-				  <circle class="base_anim_innerCircle2" cx="26" cy="26" r="2" fill="none" stroke="#0ce7d0" stroke-opacity="0.5" stroke-width="2" filter="url(#layerBlur20)"/>
-				  <circle class="base_anim_centerCircle" cx="26" cy="26" r="1" fill="none" stroke="#0ce7d0" stroke-opacity="1" stroke-width="2" filter="url(#layerBlur10)"/>
-				  <g id="pointArrayToHoverB" class="hoverAnimPointArrayB"> <!-- transform: rotate Ndeg -->
-					  <circle class="Point5" cx="26" cy="43" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point5" cx="26" cy="43" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point3" cx="43" cy="26" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point3" cx="43" cy="26" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point7" cx="9" cy="26" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point7" cx="9" cy="26" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point1" cx="26" cy="9" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point1" cx="26" cy="9" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point4" cx="38" cy="38" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point4" cx="38" cy="38" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point8" cx="14" cy="14" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point8" cx="14" cy="14" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point2" cx="38" cy="14" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point2" cx="38" cy="14" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point6" cx="14" cy="38" r="2" fill="#0dd4bf" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point6" cx="14" cy="38" r="1" fill="#0dd4bf" fill-opacity="1" filter="url(#layerBlur06)"/>
-				  </g>
-			  </g>
-			  <g id="TimerRed" class="TimerRedEffect">
-				  <circle class="base_anim_borderCircle" cx="26" cy="26" r="24" fill="none" stroke="#e32525" stroke-opacity="0.85" stroke-width="6" filter="url(#layerBlur40)" clip-path="url(#clipL1)"/>
-				  <circle class="base_anim_innerCircle1" cx="26" cy="26" r="24" fill="#b11c1c" fill-opacity="0.4" filter="url(#layerBlur06)"/>
-				  <circle class="base_anim_innerCircle2" cx="26" cy="26" r="2" fill="none" stroke="#b11c1c" stroke-opacity="0.5" stroke-width="2" filter="url(#layerBlur20)"/>
-				  <circle class="base_anim_centerCircle" cx="26" cy="26" r="1" fill="none" stroke="#ff2b2b" stroke-opacity="1" stroke-width="2" filter="url(#layerBlur10)"/>
-				  <g id="pointArrayToHoverR" class="hoverAnimPointArrayR"> <!-- transform: rotate Ndeg -->
-					  <circle class="Point5" cx="26" cy="43" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point5" cx="26" cy="43" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point3" cx="43" cy="26" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point3" cx="43" cy="26" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point7" cx="9" cy="26" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point7" cx="9" cy="26" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point1" cx="26" cy="9" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point1" cx="26" cy="9" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point4" cx="38" cy="38" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point4" cx="38" cy="38" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point8" cx="14" cy="14" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point8" cx="14" cy="14" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point2" cx="38" cy="14" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point2" cx="38" cy="14" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
-					  <circle class="Point6" cx="14" cy="38" r="2" fill="#d72525" fill-opacity="0.2" filter="url(#layerBlur14)"/>
-					  <circle class="Point6" cx="14" cy="38" r="1" fill="#e72626" fill-opacity="1" filter="url(#layerBlur06)"/>
-				  </g>
-			  </g>
-		  </g>
-	  </g>
-	  <g id="blink" class="blink_effect">
-		  <g id="blueBlink" class="blueBlinkEffect">
-			  <circle cx="26" cy="26" r="16" fill="#0EFBE2" fill-opacity="0.5" filter="url(#layerBlur60)" clip-path="url(#clipL1)"/>
-			  <circle cx="26" cy="26" r="10" fill="#0EFBE2" fill-opacity="0.8" filter="url(#layerBlur80)" clip-path="url(#clipL1)"/>
-		  </g>
-		  <g id="redBlink" class="redBlinkEffect">
-			  <circle cx="26" cy="26" r="16" fill="#DF2323" fill-opacity="0.5" filter="url(#layerBlur60)" clip-path="url(#clipL1)"/>
-			  <circle cx="26" cy="26" r="10" fill="#DF2323" fill-opacity="0.8" filter="url(#layerBlur80)" clip-path="url(#clipL1)"/>
-		  </g>
-	  </g>
-	</svg>
+			<g id="blink" class="blink_effect">
+				<g id="blueBlink" class="blueBlinkEffect">
+					<circle cx="26" cy="26" r="16" fill="#0EFBE2" fill-opacity="0.5" filter="url(#layerBlur60)" clip-path="url(#clipL1)"/>
+					<circle cx="26" cy="26" r="10" fill="#0EFBE2" fill-opacity="0.8" filter="url(#layerBlur80)" clip-path="url(#clipL1)"/>
+				</g>
+				<g id="redBlink" class="redBlinkEffect">
+					<circle cx="26" cy="26" r="16" fill="#DF2323" fill-opacity="0.5" filter="url(#layerBlur60)" clip-path="url(#clipL1)"/>
+					<circle cx="26" cy="26" r="10" fill="#DF2323" fill-opacity="0.8" filter="url(#layerBlur80)" clip-path="url(#clipL1)"/>
+				</g>
+			</g>
+		</svg>
   </div>
 
   <div id="modal-block" class="modal-block">
-	<!-- модальные окна из MET-modal-block используются только внутри MET -->
-	<div id="MET-modal-block" class="MET-modal-block">
-	  <!-- confirm-modal используется для подтверждения удаления маркера -->
-	  <div role="dialog" id="confirm-modal-container" class="confirm-modal modal-container hidden">
-	  </div>
-	
-	  <!-- exit-modal используется для подтверждения выхода из MET без сохранения изменений -->
-	  <div role="dialog" id="exit-modal-container" class="exit-modal modal-container hidden">
-	  </div>
-	</div>
-	
-	<!-- модальные окна из UI-modal-block используются во всем интерфейсе карты -->
-	<div id="UI-modal-block" class="UI-modal-block">
-	  <!-- login-modal используется для авторизации -->
-	  <div role="dialog" id="login-modal-container" class="login-modal modal-container hidden">
-	  </div>
+		<!-- модальные окна из MET-modal-block используются только внутри MET -->
+		<div id="MET-modal-block" class="MET-modal-block">
+			<!-- confirm-modal используется для подтверждения удаления маркера -->
+			<div role="dialog" id="confirm-modal-container" class="confirm-modal modal-container hidden">
+			</div>
+		
+			<!-- exit-modal используется для подтверждения выхода из MET без сохранения изменений -->
+			<div role="dialog" id="exit-modal-container" class="exit-modal modal-container hidden">
+			</div>
+		</div>
+		
+		<!-- модальные окна из UI-modal-block используются во всем интерфейсе карты -->
+		<div id="UI-modal-block" class="UI-modal-block">
+			<!-- login-modal используется для авторизации -->
+			<div role="dialog" id="login-modal-container" class="login-modal modal-container hidden">
+			</div>
 
-	  <!-- user-modal используется как окно пользовательских настроек -->
-	  <div role="dialog" id="user-modal-container" class="user-modal modal-container hidden">
-	  </div>
-	</div>
+			<!-- user-modal используется как окно пользовательских настроек -->
+			<div role="dialog" id="user-modal-container" class="user-modal modal-container hidden">
+			</div>
+		</div>
   </div>
   <script src="https://unpkg.com/@jaames/iro@5.5.2/dist/iro.min.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

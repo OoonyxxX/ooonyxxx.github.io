@@ -1,6 +1,7 @@
 export const API_BASE = "https://api.mapofthenorth.com/api";
 
 export const API = {
+  status: `${API_BASE}/status`,
   auth: {
     me: `${API_BASE}/auth/me`,
     googleLogin: `${API_BASE}/auth/google/login`,
@@ -21,6 +22,8 @@ export const API = {
 };
 
 export const API_RAW = {
+  app: {status: `/app/status`},
+
   auth: {
     me: `/auth/me`,
     logout: `/auth/logout`,

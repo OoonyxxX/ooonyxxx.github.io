@@ -17,7 +17,7 @@ export const map = L.map('map', {
 
 
 // Инициализация тайлинга карты
-L.tileLayer('MapTiles/{z}/{x}/{y}.webp?t=' + Date.now(), {
+L.tileLayer('assets/MapTiles/{z}/{x}/{y}.webp?t=' + Date.now(), {
   noWrap: true,
   minNativeZoom: MAP_CONFIG.tileMinZoom,
   maxNativeZoom: MAP_CONFIG.tileMaxZoom,

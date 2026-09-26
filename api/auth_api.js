@@ -1,9 +1,8 @@
 import { API_RAW, API, USERSESSIONDEFAULT } from "../api/config_api.js"
 import { apiRequest, buildJsonOptions } from "./request.js";
-import { ALLOWED_MET_ROLE } from "../core/config.js"
 import { AUTHTOPBAR, toggleAuthorizationUI } from "../ui/sidebar.js"
-import { METActiveController, MetEditor, METSTATE } from "../features/metEditor.js"
-import { APPSTATE, USERSESSION, USERSETTINGS} from "../core/state.js"
+import { METActiveController, } from "../features/metEditor.js"
+import { USERSESSION, USERSETTINGS} from "../core/state.js"
 import { MODAL } from "../ui/modal.js"
 import { requestGetUserOptions } from "../api/users_api.js"
 
