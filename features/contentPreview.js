@@ -33,19 +33,21 @@ export function switchAgentTarget(marker) {
 }
 
 export function commandToAllAgents(command, ...args) {
-  if ((command !== null) || ((typeof command) === Object)) {
-    command
-    for (const agent of Object.values(AGENTS)) {
-      const c = command[agent.id]
-      if (c !== null) {
-        agent.commandTerminal(c, ...args)
-      }
-    }
-  } 
-  if ((typeof command) === String) {
+  if (typeof command === "string") {
     for (const agent of Object.values(AGENTS)) {
       agent.commandTerminal(command, ...args)
     }
+    return
+  }
+  if (command && typeof command === "object") {
+    for (const agent of Object.values(AGENTS)) {
+      const c = command[agent.id]
+
+      if (c != null) {
+        agent.commandTerminal(c, ...args)
+      }
+    }
+    return
   }
   return "Unknown command"
 }

@@ -215,9 +215,14 @@
     "url": "assets/svgicons/T_Icon_Map_LoreRam.svg"
   },
   {
-    "id": "loreWolf",
-    "name": "Lore Wolf",
-    "url": "assets/svgicons/T_Icon_Map_LoreWolf.svg"
+    "id": "loreMoonWolf",
+    "name": "Lore Moon Wolf",
+    "url": "assets/svgicons/T_Icon_Map_LoreMoonWolf.svg"
+  },
+  {
+    "id": "loreSunWolf",
+    "name": "Lore Sun Wolf",
+    "url": "assets/svgicons/T_Icon_Map_LoreSunWolf.svg"
   },
   {
     "id": "loreBear",
