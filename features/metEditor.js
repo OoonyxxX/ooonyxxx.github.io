@@ -590,7 +590,7 @@ class MarkerForm {
   constructor(){
     this.templateRoot = document.getElementById('marker-form-template');
     this.template = this.templateRoot.content.cloneNode(true);
-    this.form = this.template.querySelector('#marker-form');
+    this.form = this.template.querySelector('.marker-form');
     this.title = this.form.querySelector('[name="title"]');
     this.description = this.form.querySelector('[name="description"]');
     this.uaid = this.form.querySelector('[name="uaid"]');

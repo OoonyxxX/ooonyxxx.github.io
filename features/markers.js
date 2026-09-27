@@ -44,7 +44,7 @@ export function bindMarkerPopup(marker, p) {
   } = marker;
 
   
-  const popup = p ?? (content ? popupWithContent(id, name, description, collectible, content) : standartPopup(id, name, description, collectible));
+  const popup = p ?? (content ? popupWithContent(id, name, description, content, collectible) : standartPopup(id, name, description, collectible));
 
   marker.bindPopup(popup);
   attachInitPopupHandler(marker);
