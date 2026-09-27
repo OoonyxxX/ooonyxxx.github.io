@@ -490,7 +490,8 @@ export class MetEditor {
         cosmetics,
         cosmeticsDropAll,
         cosmeticsDropProbability,
-        melody
+        melody,
+        skillPoint
       } = markerForm.retrieveFormData();
       let regionAuto_id;
       if (reg_id === 'auto') {
@@ -518,6 +519,7 @@ export class MetEditor {
       editingMarker.$data.content.cosmeticsDropAll = cosmeticsDropAll || false;
       editingMarker.$data.content.cosmeticsDropProbability = cosmeticsDropProbability ?? null;
       editingMarker.$data.content.melody = melody || "null";
+      editingMarker.$data.content.skillPoint = skillPoint || false;
       
       if (isNew) {
         const oldId = editingMarker.$data.id;
@@ -610,6 +612,8 @@ class MarkerForm {
 
     this.melodySpecific = this.content.querySelector('[data-melody-specific]');
 
+    this.skillPoint = this.content.querySelector('[name="content.skill"]');
+
     this.callbacks = {
       runes: {
         setItems: () => {checkboxActivitiUpdate(this.runesDropAll, this.tagInputs.runes)},
@@ -688,6 +692,8 @@ class MarkerForm {
 
     this.setMelodyMode(marker.$data.content?.melody || "none")
     if ((marker.$data.content?.melody !== "none") && (marker.$data.content?.melody !== "any")) this.melodyInput.setValue(marker.$data.content?.melody || "")
+
+    this.skillPoint.checked = marker.$data.content?.skillPoint || false;
   }
   retrieveFormData(){
     const title = this.title.value;
@@ -707,6 +713,7 @@ class MarkerForm {
 
     const mode = this.getMelodyMode()
     const melody = (mode == "specific") ? (this.melodyInput.getValue() || "none") : mode
+    const skillPoint = this.skillPoint.checked
     return {
       title, 
       description, 
@@ -722,7 +729,8 @@ class MarkerForm {
       cosmetics,
       cosmeticsDropAll,
       cosmeticsDropProbability,
-      melody
+      melody,
+      skillPoint
     }
   }
 

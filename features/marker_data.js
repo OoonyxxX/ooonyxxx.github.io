@@ -379,6 +379,17 @@ export function popupWithContent(id, name, description, content, collectible) {
     contentBlock.push(melody)
   }
 
+  if (content.skillPoint) {
+    const skillPoint = `
+      <div class="__content">
+        <label class="field">
+          <span class="field__label">Have Skill Point</span>
+        </label>
+      </div>
+    `
+    contentBlock.push(skillPoint)
+  }
+
   return `
     <b>${escapeHtml(name)}</b><br>
     ${escapeHtml(description)}<br>
