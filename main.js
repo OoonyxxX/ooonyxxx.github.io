@@ -12,7 +12,7 @@ switch (status.maintenance) {
         break;
     case "admin_maintenance":
         await normalStart();
-        document.getElementById('maintanceTag').classList.remove("hide-i");
+        document.getElementById('maintenanceTag').classList.remove("hide-i");
         break;
     default:
         break;

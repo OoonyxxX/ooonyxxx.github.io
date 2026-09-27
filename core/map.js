@@ -1,6 +1,16 @@
 import { MAP_CONFIG } from './config.js';
 
 
+const tileBounds = [
+  [0, 0],
+  [MAP_CONFIG.mapTile, MAP_CONFIG.mapTile]
+];
+
+const initialCameraBounds = [
+  [MAP_CONFIG.mapTileHB, MAP_CONFIG.mapTileWL],
+  [MAP_CONFIG.mapTileHT, MAP_CONFIG.mapTileWR]
+];
+
 // Инициализация Карты
 export const map = L.map('map', {
   crs: L.CRS.Simple,
@@ -10,7 +20,7 @@ export const map = L.map('map', {
   zoomDelta: MAP_CONFIG.zoomDelta,
   zoom: MAP_CONFIG.zoom,
   zoomControl: MAP_CONFIG.zoomControl,
-  maxBounds: [[MAP_CONFIG.mapTileHB, MAP_CONFIG.mapTileWL], [MAP_CONFIG.mapTileHT, MAP_CONFIG.mapTileWR]],
+  maxBounds: initialCameraBounds,
   maxBoundsViscosity: MAP_CONFIG.maxBoundsViscosity,
   center: MAP_CONFIG.center
 });
@@ -18,6 +28,7 @@ export const map = L.map('map', {
 
 // Инициализация тайлинга карты
 L.tileLayer('assets/MapTiles/{z}/{x}/{y}.webp?t=' + Date.now(), {
+  bounds: tileBounds,
   noWrap: true,
   minNativeZoom: MAP_CONFIG.tileMinZoom,
   maxNativeZoom: MAP_CONFIG.tileMaxZoom,
