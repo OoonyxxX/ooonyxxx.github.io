@@ -111,7 +111,7 @@
   </div>
   <main class="map-container">
     <aside id="map-controls" class="controls hide-i">
-      <section id="options-container" class="options-container">
+      <section id="options-container" class="options-container transition">
 				<div class="optionheader">
 					<h3 class="optheader">Options</h3>
 					<button id="option-hide" class="btn-hide option-hide">
@@ -150,17 +150,16 @@
       <section id="devlog-widget-container" class="widget-container">
       </section>
 			
-			<section id="filter-container" class="filter-container">
-				<div id="filterheader" class="filterheader">
-					<h3 class="filheader">Filters</h3>
-					<button id="filter-reset" class="btn-reset">Clear</button>
-					<button id="filter-hide" class="btn-hide filter-hide">
+			<section id="filter-container" class="filter-container transition">
+				<div id="filterheader" class="filterheader ftransition">
+					<h3 class="filheader transition">Filters</h3>
+					<button id="filter-reset" class="btn-reset transition">Clear</button>
+					<button id="filter-hide" class="btn-hide filter-hide transition">
 						<span id="filter-hide-text" class="filter-hide-text">Hide</span>
 						<img id="filter-hide-img" class="filter-hide-img" src="/assets/othersvg/filter.svg">
 					</button>
 				</div>
 				<div id="filter-sections" class="filter-sections">
-
 					<section class="filter-section filter-underground" data-filter="underground">
 						<div class="filter-body underground-switch">
 							<label id="underground" class="underground"><input type="checkbox" value="underground"> Underground</label>
@@ -174,7 +173,7 @@
 					</section>
 					<section class="filter-section filter-icon" data-filter="icon"></section>
 					<section class="filter-section filter-region" data-filter="region"></section>
-					</div><div id="filter-sections-footer" class="filter-sections-footer"> 
+					<div id="filter-sections-footer" class="filter-sections-footer"> </div>
 				</div>
 
 			</section>
