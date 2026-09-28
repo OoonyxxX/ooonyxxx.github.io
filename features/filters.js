@@ -130,7 +130,12 @@ function initUIControl() {
 
 function initIconFilter() {
   initTriStateFilter({
-    rootSelector: '.icons-grid',
+    rootSelector: '.icon-grid',
+    cacheToken: cacheAllIconTokens,
+    targetMap: FILTERDATA.iconParam
+  });
+  initTriStateFilter({
+    rootSelector: '.collectible-grid',
     cacheToken: cacheAllIconTokens,
     targetMap: FILTERDATA.iconParam
   });
@@ -146,7 +151,7 @@ function initRegionFilter() {
 
 function initContentTypeFilter() {
   initTriStateFilter({
-    rootSelector: '.filter-content-type',
+    rootSelector: '.content-grid',
     cacheToken: cacheAllContentTypeTokens,
     targetMap: FILTERDATA.contentTypeParam
   });

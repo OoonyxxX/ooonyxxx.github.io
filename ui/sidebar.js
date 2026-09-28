@@ -80,7 +80,7 @@ export function cacheFilterElements() {
 }
 
 function prepareFilterHTML(parent) {
-  parent.querySelector('.filter-icon').innerHTML = `${htmlGenerator("icon-grid")}\n${htmlGenerator("collectible-grid")}`;
+  parent.querySelector('.filter-icon').innerHTML = `${htmlGenerator("content-grid")}\n${htmlGenerator("collectible-grid")}\n${htmlGenerator("icon-grid")}`;
   parent.querySelector('.filter-region').innerHTML = htmlGenerator("region-list");
 }
 

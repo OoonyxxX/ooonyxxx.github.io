@@ -216,6 +216,19 @@ const collectibleData = {
       ]
     },
     {
+      blockHeader: "Other",
+      blockClass: "collectible-other",
+      content: [
+        {value: 'extraWisp', svgName: 'T_Icon_Map_ExtraWisp'},
+      ]
+    },
+  ]
+}
+
+const contentData = {
+  blockType: "content-grid",
+  blocks: [
+    {
       blockHeader: "Content",
       blockClass: "collectible-content",
       content: [
@@ -224,14 +237,7 @@ const collectibleData = {
         {value: 'skillPoint', svgName: 'T_Icon_Map_Skill'},
         {value: 'melody', svgName: 'T_Icon_Map_Melody'},
       ]
-    },
-    {
-      blockHeader: "Other",
-      blockClass: "collectible-other",
-      content: [
-        {value: 'extraWisp', svgName: 'T_Icon_Map_ExtraWisp'},
-      ]
-    },
+    }
   ]
 }
 // Создать необходимые иконки.
@@ -310,6 +316,8 @@ export function htmlGenerator(dataType) {
       return iconGridGenerator(iconData, dataType)
     case "collectible-grid":
       return iconGridGenerator(collectibleData, dataType)
+    case "content-grid":
+      return iconGridGenerator(contentData, dataType)
     case "region-list":
       return regionListGenerator(regionData)
     default:
