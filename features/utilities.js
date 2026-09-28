@@ -241,9 +241,9 @@ const collectibleData = {
 //
 
 
-function iconGridGenerator(data){
+function iconGridGenerator(data, gridType){
   const grid = []
-  const start = `						<div class="filter-body icons-grid">`
+  const start = `						<div class="filter-body icons-grid ${gridType}">`
   grid.push(start)
 
   const body = []
@@ -251,7 +251,7 @@ function iconGridGenerator(data){
     const blockStart = `
                   <div class="${block.blockClass}-icons-external">
                     <h5 class="iconsheader">${block.blockHeader}</h5>
-                    <div class="${block.blockClass}-icons">
+                    <div class="filter-icon-grid ${block.blockClass}-icons">
     `
     const content = []
     for (const item of block.content) {
@@ -307,9 +307,9 @@ function regionListGenerator(data){
 export function htmlGenerator(dataType) {
   switch (dataType){
     case "icon-grid":
-      return iconGridGenerator(iconData)
+      return iconGridGenerator(iconData, dataType)
     case "collectible-grid":
-      return iconGridGenerator(collectibleData)
+      return iconGridGenerator(collectibleData, dataType)
     case "region-list":
       return regionListGenerator(regionData)
     default:

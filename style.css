@@ -1110,42 +1110,7 @@ body::-webkit-scrollbar {
     justify-content: center;
 }
 
-.important-icons {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 5px;
-    justify-content: center;
-}
-
-.guardians-icons {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 5px;
-    justify-content: center;
-}
-
-.natural-icons {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 5px;
-    justify-content: center;
-}
-
-.structures-icons {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 5px;
-    justify-content: center;
-}
-
-.collectible-icons {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 5px;
-    justify-content: center;
-}
-
-.other-icons {
+.filter-icon-grid {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 5px;
