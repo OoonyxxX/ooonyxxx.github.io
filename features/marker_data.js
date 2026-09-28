@@ -201,6 +201,23 @@ export const MELODY_NAMES = {
   'Melody_093': "When Fate Calls"
 }
 
+const ARRAY_CONTENT_TYPES = new Set([
+  'runes',
+  'cosmetics'
+]);
+
+function normalizeContent(content = {}) {
+  return Object.fromEntries(
+    Object.entries(content).map(([key, value]) => [
+      key,
+      Array.isArray(value)
+        && value.length === 1
+        && !ARRAY_CONTENT_TYPES.has(key)
+          ? value[0]
+          : value
+    ])
+  );
+}
 
 export function markerMap(m) {
   const baseData = {
@@ -221,7 +238,7 @@ export function markerMap(m) {
     under_ground: m.under_ground ?? false,
     height: m.height ?? 0,
     uaid: m.uaid ?? null,
-    content: m.content ?? {},
+    content: normalizeContent(m.content),
     raw_rgbcolor: {
       r: m.color_r ?? m.raw_rgbcolor?.r ?? 255,
       g: m.color_g ?? m.raw_rgbcolor?.g ?? 255,
