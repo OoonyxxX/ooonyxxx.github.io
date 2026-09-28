@@ -251,7 +251,7 @@ function iconGridGenerator(data){
     const blockStart = `
                   <div class="${block.blockClass}-icons-external">
                     <h5 class="iconsheader">${block.blockHeader}</h5>
-                    <div class="${block.blockClass}">
+                    <div class="${block.blockClass}-icons">
     `
     const content = []
     for (const item of block.content) {
