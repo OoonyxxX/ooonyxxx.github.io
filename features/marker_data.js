@@ -223,7 +223,11 @@ function serializeContent(content = {}) {
   return Object.fromEntries(
     Object.entries(content).map(([key, value]) => [
       key,
-      Array.isArray(value) ? value : [value]
+      Array.isArray(value)
+        ? value.filter(item => item != null)
+        : value != null
+          ? [value]
+          : []
     ])
   );
 }
