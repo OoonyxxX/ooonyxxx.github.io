@@ -739,7 +739,7 @@ class MarkerForm {
 
     for (const preview of this.wealthPreview) {
       const key = preview.dataset.wealth
-      preview.value = preset[key] ?? 0
+      preview.value = preset ? preset[key] ?? 0 : 0
     }
   }
 }

@@ -264,7 +264,7 @@ export function invertMarkerMap(m) {
 
 export function getWealthPreset(wealthId){
   const preset = wealthMap[wealthId]
-  if (!preset) return
+  if (!preset) return {preset: null, cost: {}, max_cost: 0}
   const cost = {}
   let max_cost = 0
   for (const [type, count] of Object.entries(preset)){
