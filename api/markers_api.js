@@ -28,9 +28,9 @@ export async function getFilteredMarkers(options = {}) {
       params.append("iconTokens", token);
     }
   }
-  if (options.contentTypesTokens != null && options.contentTypesTokens.length !== 0) {
-    for (const token of options.contentTypesTokens) {
-      params.append("contentTypesTokens", token);
+  if (options.contentTypeTokens != null && options.contentTypeTokens.length !== 0) {
+    for (const token of options.contentTypeTokens) {
+      params.append("contentTypeTokens", token);
     }
   }
   if (options.contentIdTokens != null && options.contentIdTokens.length !== 0) {
