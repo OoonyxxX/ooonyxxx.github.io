@@ -219,6 +219,15 @@ function normalizeContent(content = {}) {
   );
 }
 
+function serializeContent(content = {}) {
+  return Object.fromEntries(
+    Object.entries(content).map(([key, value]) => [
+      key,
+      Array.isArray(value) ? value : [value]
+    ])
+  );
+}
+
 export function markerMap(m) {
   const baseData = {
       id: m.id ?? 'temp', 
@@ -271,7 +280,7 @@ export function invertMarkerMap(m) {
     under_ground: m.under_ground ?? false,
     height: m.height,
     uaid: m.uaid,
-    content: m.content,
+    content: serializeContent(m.content),
     color_r: m.raw_rgbcolor?.r,
     color_g: m.raw_rgbcolor?.g,
     color_b: m.raw_rgbcolor?.b,
