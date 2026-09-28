@@ -191,13 +191,13 @@ const collectibleData = {
       blockHeader: "Scrolls",
       blockClass: "collectible-scrolls",
       content: [
-        {value: 'foxScrolls', svgName: 'T_Icon_Map_LoreFox'},
-        {value: 'ravenScrolls', svgName: 'T_Icon_Map_LoreRaven'},
-        {value: 'stagScrolls', svgName: 'T_Icon_Map_LoreStag'},
-        {value: 'ramScrolls', svgName: 'T_Icon_Map_LoreRam'},
-        {value: 'moonWolfScrolls', svgName: 'T_Icon_Map_LoreWolf'},//На будущее: сделать разделение
-        {value: 'sunWolfScrolls', svgName: 'T_Icon_Map_LoreWolf'},//На будущее: сделать разделение
-        {value: 'bearScrolls', svgName: 'T_Icon_Map_LoreBear'}
+        {value: 'loreFox', svgName: 'T_Icon_Map_LoreFox'},
+        {value: 'loreRaven', svgName: 'T_Icon_Map_LoreRaven'},
+        {value: 'loreStag', svgName: 'T_Icon_Map_LoreStag'},
+        {value: 'loreRam', svgName: 'T_Icon_Map_LoreRam'},
+        {value: 'loreMoonWolf', svgName: 'T_Icon_Map_LoreMoonWolf'},
+        {value: 'loreSunWolf', svgName: 'T_Icon_Map_LoreSunWolf'},
+        {value: 'loreBear', svgName: 'T_Icon_Map_LoreBear'}
       ]
     },
     {
@@ -219,9 +219,9 @@ const collectibleData = {
       blockHeader: "Content",
       blockClass: "collectible-content",
       content: [
-        {value: 'rune', svgName: 'T_Icon_Map_Rune'},
-        {value: 'cosmetic', svgName: 'T_Icon_Map_Cosmetic'},
-        {value: 'skill', svgName: 'T_Icon_Map_Skill'},
+        {value: 'runes', svgName: 'T_Icon_Map_Rune'},
+        {value: 'cosmetics', svgName: 'T_Icon_Map_Cosmetic'},
+        {value: 'skillPoint', svgName: 'T_Icon_Map_Skill'},
         {value: 'melody', svgName: 'T_Icon_Map_Melody'},
       ]
     },
