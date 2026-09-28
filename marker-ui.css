@@ -426,7 +426,6 @@
 }
 
 :is(.leaflet-popup.marker-popup, .leaflet-popup:has(.marker-collected, .marker-form)) .leaflet-popup-content {
-  width: fit-content !important;
   min-width: 0;
   max-width: calc(100vw - 72px);
   margin: 18px 20px 16px;
@@ -560,4 +559,13 @@
   :is(.leaflet-popup.marker-popup, .leaflet-popup:has(.marker-collected)) .collapsible__summary::before {
     transition: none;
   }
+}
+
+
+.fit-content {
+  width: fit-content !important;
+}
+
+.edit-popup-class{
+  width: 445px;
 }
