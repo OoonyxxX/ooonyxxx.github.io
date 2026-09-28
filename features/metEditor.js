@@ -674,8 +674,8 @@ class MarkerForm {
     this.X.value = marker.$data.coords?.lng || 0;
     this.Y.value = marker.$data.coords?.lat || 0;
 
-    const wealthId = marker.$data.content?.wealthId
-    this.wealthId.value = wealthId ?? "";
+    const wealthId = marker.$data.content?.wealthId || "";
+    this.wealthId.value = wealthId;
 
     this._updateWealthPreview(wealthId)
 
