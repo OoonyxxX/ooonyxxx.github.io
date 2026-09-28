@@ -1864,3 +1864,8 @@ body::-webkit-scrollbar {
 
     filter: var(--svg-blue-text-glow);
 }
+
+
+.content-preview {
+    position: fixed;
+}
