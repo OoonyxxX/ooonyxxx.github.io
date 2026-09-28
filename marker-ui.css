@@ -129,7 +129,7 @@
 
 .marker-form select {
   padding-right: 6px;
-  cursor: pointer;
+  cursor: none;
 }
 
 .marker-form :is(input, textarea)::placeholder {
@@ -164,7 +164,7 @@
   gap: 9px;
   min-height: 36px;
   margin: 0;
-  cursor: pointer;
+  cursor: none;
 }
 
 .marker-form :is(input[type="checkbox"], input[type="radio"]),
@@ -174,7 +174,7 @@
   height: 17px;
   margin: 0;
   accent-color: var(--marker-accent-hover);
-  cursor: pointer;
+  cursor: none;
 }
 
 .marker-form :is(.checkbox-field, .radio-field):has(input:disabled) {
@@ -200,7 +200,7 @@
   background-color: var(--marker-color, #2ba997);
   border: 1px solid var(--marker-muted);
   border-radius: 6px;
-  cursor: pointer;
+  cursor: none;
 }
 
 .marker-form .number-field--percent {
@@ -229,7 +229,7 @@
   color: var(--marker-accent-hover);
   font-weight: 600;
   list-style: none;
-  cursor: pointer;
+  cursor: none;
   border-radius: var(--marker-radius);
 }
 
@@ -339,7 +339,7 @@
   background: transparent;
   border: 1px solid var(--marker-border);
   border-radius: 4px;
-  cursor: pointer;
+  cursor: none;
 }
 
 .marker-form :is(.tag-input__control, .autocomplete) {
@@ -373,7 +373,7 @@
   border-radius: 4px;
   text-align: left;
   overflow-wrap: anywhere;
-  cursor: pointer;
+  cursor: none;
 }
 
 .marker-form :is(.tag-input__suggestions, .autocomplete__suggestions) [role="option"]:is(:hover, [aria-selected="true"]) {
@@ -398,7 +398,7 @@
   border: 1px solid var(--marker-muted);
   border-radius: 7px;
   font-weight: 650;
-  cursor: pointer;
+  cursor: none;
   transition: background-color 150ms ease, border-color 150ms ease;
 }
 
@@ -467,7 +467,7 @@
   background: var(--marker-panel);
   border: 1px solid var(--marker-border);
   border-radius: 7px;
-  cursor: pointer;
+  cursor: none;
 }
 
 :is(.leaflet-popup.marker-popup, .leaflet-popup:has(.marker-collected)) label:has(> .marker-collected:checked) {
