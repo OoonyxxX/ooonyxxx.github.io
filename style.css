@@ -1096,11 +1096,6 @@ body::-webkit-scrollbar {
     display: none;
 }
 
-.iconsheader {
-    margin-block-end: 0.5em;
-    margin-block-start: 0.5em;
-}
-
 .icon-item {
     margin-top: 8px;
     margin-left: 4px;
@@ -1167,12 +1162,15 @@ body::-webkit-scrollbar {
     margin-block-start: 0.2em;
     padding-top: 0.3em;
     padding-bottom: 0.3em;
-    width: calc(100% - 2em);
+    width: calc(100% - 5em);
     border: solid;
     border-color: #12ffe585;
     border-radius: 10px;
     border-width: 2px;
     background: #00100fa6;
+    min-width: fit-content;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .category-list input[type="checkbox"] {
