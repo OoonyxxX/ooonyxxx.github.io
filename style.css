@@ -1110,6 +1110,13 @@ body::-webkit-scrollbar {
     justify-content: center;
 }
 
+.filter-icon-grid-external {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
 .filter-icon-grid {
     display: flex;
     flex-wrap: wrap;
@@ -1131,52 +1138,28 @@ body::-webkit-scrollbar {
 }
 
 .important-icons-external {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 13.775em;
-    margin-bottom: 12px;
     margin-top: 6px;
 }
 
 .guardians-icons-external {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 16.575em;
-    margin-bottom: 12px;
 }
 
 .natural-icons-external {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 11em;
-    margin-bottom: 12px;
 }
 
 .structures-icons-external {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 13.8em;
-    margin-bottom: 12px;
 }
 
 .collectible-icons-external {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 8.25em;
-    margin-bottom: 12px;
 }
 
 .other-icons-external {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 5.55em;
-    margin-bottom: 12px;
 }
 
 .iconsheader {
