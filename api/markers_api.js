@@ -38,7 +38,8 @@ export async function getFilteredMarkers(options = {}) {
       params.append("contentIdTokens", token);
     }
   }
-
+  console.log(options)
+  console.log(params)
   const query = params.toString();
   const path = query
     ? `${API_RAW.markers.filter}?${query}`
