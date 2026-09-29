@@ -1814,4 +1814,7 @@ body::-webkit-scrollbar {
 
 .content-preview {
     position: fixed;
+    pointer-events: none;
+    max-width: calc(24px * var(--scale));
+    max-height: calc(24px * var(--scale));
 }

@@ -71,3 +71,7 @@ export const REGION_LIST = {
     6: "ashlands",
     7: "undefined"
 };
+
+export const ALLOWED_AGENT_CONTENT_CONFIG = new Set([
+    "wealthId", "runes", "cosmetics", "melody", "skillPoint"
+]);

@@ -2,7 +2,7 @@ import { map } from "../core/map.js"
 import { getAllMarkers, postCollectedMarker } from "../api/markers_api.js"
 import { fastCollectedFilterReRender } from "./filters.js"
 import { APPSTATE, USERSESSION, USERINFO } from "../core/state.js"
-import { REGION_COLORS, REGION_UNDERGROUND_COLORS } from "../core/config.js"
+import { REGION_COLORS, REGION_UNDERGROUND_COLORS, ALLOWED_AGENT_CONTENT_CONFIG } from "../core/config.js"
 import { standartPopup, popupWithContent, markerMap } from "./marker_data.js"
 
 
@@ -137,8 +137,7 @@ export async function loadMarkersData() {
     marker.addTo(map);
     const el = marker.getElement();
     el._id = marker.$data.id;
-    el._location = {X: marker.$data.coords.lng, Y: marker.$data.coords.lat}
-    el._previewIds = Object.keys(marker.$data.content)
+    el._previewIds = previewIdsMapping(marker);
     paintMarkers(marker);
     MAPDATA.existingMarkers.set(marker.$data.id, marker);
   });
@@ -247,4 +246,34 @@ export function toggleMarkerVisible(id, visible) {
     marker.closePopup?.();
     marker.closeTooltip?.();
   }
+}
+
+export function previewIdsMapping(marker) {
+  return Object.entries(marker.$data.content ?? {})
+  .filter(([key, value]) =>
+    ALLOWED_AGENT_CONTENT_CONFIG.has(key) &&
+    value != null &&
+    value !== false &&
+    value !== "null" &&
+    (!Array.isArray(value) || value.length > 0)
+  )
+  .map(([key]) => key);
+}
+
+export function markerToViewportPoint(marker) {
+  const point = map.latLngToContainerPoint(marker.getLatLng());
+  const rect = map.getContainer().getBoundingClientRect();
+
+  return {
+    X: rect.left + point.x,
+    Y: rect.top + point.y
+  };
+}
+
+export function markerElementToViewportPoint(markerEl) {
+  const point = markerEl.getBoundingClientRect()
+  return {
+    X: point.x,
+    Y: point.y
+  };
 }

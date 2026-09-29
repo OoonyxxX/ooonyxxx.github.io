@@ -50,6 +50,8 @@ export function initCursor() {
   OPTSIDEBAR.customCursorToggle.addEventListener("change", (e) => {
     cursorConductor(APPSTATE.hasTouch);
   });
+  document.addEventListener('pointerover', pointerOverHendler);
+  document.addEventListener('pointerout', pointerOutHendler);
 }
 
 function cursorConductor(touch) {
@@ -67,13 +69,6 @@ function cursorConductor(touch) {
 function cursorActive(isActive) {
   document.body.classList.toggle('custom-cursor-on', isActive);
   CURSORITEM.customCursor.classList.toggle('active', isActive);
-  if (isActive) {
-    document.addEventListener('pointerover', cursorHoverStartHendler);
-    document.addEventListener('pointerout', cursorHoverStopHendler);
-  } else {
-    document.removeEventListener('pointerover', cursorHoverStartHendler);
-    document.removeEventListener('pointerout', cursorHoverStopHendler);
-  }
 }
 
 function handleMouseMove(e) {
@@ -120,29 +115,45 @@ function cursorHoverSet(isHover) {
   }
 }
 
-function cursorHoverStartHendler(e) {
+function pointerOverHendler(e){
+  if (USERSETTINGS.contentPreview) {
+    const target = e.target
+    const marker = target.closest(CURSORITEM.markerSelector);
+    switchAgentTarget(marker);
+  }
+  
+  if (!CURSORITEM.customCursorAllowed) return
+  cursorHoverStart(e)
+}
+
+function cursorHoverStart(e) {
   const target = e.target
   const relatedTarget = e.relatedTarget
   const isNowActive = target.closest(CURSORITEM.activeSelectors);
   const wasActive = relatedTarget?.closest(CURSORITEM.activeSelectors);
 
-  const marker = target.closest(CURSORITEM.markerSelector);
-  switchAgentTarget(marker);
-  
   if (isNowActive && !wasActive) {
     cursorHoverSet(true);
   }
-
 }
 
-function cursorHoverStopHendler(e) {
+function pointerOutHendler(e) {
+  if (USERSETTINGS.contentPreview) {
+    const relatedTarget = e.relatedTarget
+    const marker = relatedTarget?.closest(CURSORITEM.markerSelector);
+    switchAgentTarget(marker);
+  }
+  
+  if (!CURSORITEM.customCursorAllowed) return
+  cursorHoverStop(e)
+}
+
+
+function cursorHoverStop(e) {
   const target = e.target
   const relatedTarget = e.relatedTarget
   const wasActive = target.closest(CURSORITEM.activeSelectors);
   const isNowActive = relatedTarget?.closest(CURSORITEM.activeSelectors);
-
-  const marker = relatedTarget?.closest(CURSORITEM.markerSelector);
-  switchAgentTarget(marker);
 
   if (wasActive && !isNowActive) {
     cursorHoverSet(false);

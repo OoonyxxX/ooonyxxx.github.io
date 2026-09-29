@@ -1,27 +1,77 @@
 import {vectorSubtract, vectorAdd, vectorEqual, vectorScalar} from "./mathUtils.js"
+import {USERSETTINGS} from "../core/state.js"
+import {subscribeUI} from "../ui/UIUtilities.js"
+import {markerElementToViewportPoint} from "./markers.js"
 
 const AGENTS = {}
 
+const commandList = new Set()
+
 const BASEAGENTDATA = [
   {
-    id: "wealth",
-    iconId: "preview_wealth",
+    id: "wealthId",
+    classId: "preview-wealth",
     iconSrc: "/assets/othersvg/content_preview_wealth.svg",
-    relativeLocation: {X: -36, Y: 48}
+    relativeLocation: {X: 0, Y: 48}
   },
+  {
+    id: "runes",
+    classId: "preview-runes",
+    iconSrc: "/assets/othersvg/content_preview_rune.svg",
+    relativeLocation: {X: 48, Y: 16}
+  },
+  {
+    id: "cosmetics",
+    classId: "preview-cosmetics",
+    iconSrc: "/assets/othersvg/content_preview_cosmetic.svg",
+    relativeLocation: {X: -48, Y: 16}
+  },
+  {
+    id: "melody",
+    classId: "preview-melody",
+    iconSrc: "/assets/othersvg/content_preview_melody.svg",
+    relativeLocation: {X: -35, Y: -48}
+  },
+  {
+    id: "skillPoint",
+    classId: "preview-skill",
+    iconSrc: "/assets/othersvg/content_preview_skill.svg",
+    relativeLocation: {X: 35, Y: -48}
+  }
 ]
 
 export function initContentPreview() {
   createAgents();
-  commandToAllAgents("start");
+  subscribeUI("contentPreview", () => {
+    toggleContentPreview()
+  })
+  toggleContentPreview()
 }
 
+function toggleContentPreview() {
+  if (USERSETTINGS.contentPreview) {
+    commandToAllAgents("start");
+  } else {
+    commandToAllAgents("stop");
+  }
+}
+
+function isValidMarker(marker) {
+  if (!marker) return false
+  const previewIds = marker._previewIds ?? null
+  const id = marker._id ?? null
+  if ((previewIds === null) || (id === null)) return false
+  return true
+}
+
+
+
 export function switchAgentTarget(marker) {
-  if (marker) {
+  if (isValidMarker(marker)) {
     const contentList = marker._previewIds
     for (const id of Object.keys(AGENTS)) {
       if (contentList.includes(id)) {
-        commandToAgent(id, "setTarget", marker._id, {...marker._location})
+        commandToAgent(id, "setTarget", marker._id, {...markerElementToViewportPoint(marker)})
         commandToAgent(id, "show")
       } else {
         commandToAgent(id, "hide")
@@ -53,8 +103,8 @@ export function commandToAllAgents(command, ...args) {
 }
 
 export function commandToAgent(agId, command, ...args) {
+  if (!commandList.has(command)) return "Unknown command"
   AGENTS[agId].commandTerminal(command, ...args)
-  return "Unknown command"
 }
 
 function createAgents() {
@@ -67,7 +117,7 @@ function createAgents() {
 class ContentIconAgent {
   constructor(data) {
     this.id = data.id
-    this.iconId = data.iconId
+    this.classId = data.classId
     this.iconSrc = data.iconSrc
     this.relativeLocation = data.relativeLocation
     this.scalarRelativeLocation = vectorScalar(this.relativeLocation)
@@ -109,15 +159,18 @@ class ContentIconAgent {
 
 
     this.commandList = {
-      "play": () => {this._resume()},
-      "pause": () => {this._pause()},
-      "start": () => {this._start()},
-      "stop": () => {this.started = false; this._resume();},
+      "play": () => {this._resume(); this._openContainer()},
+      "pause": () => {this._pause(); this._hideContainer();},
+      "start": () => {this._start(); this._openContainer()},
+      "stop": () => {this.started = false; this._resume(); this._hideContainer();},
       "setTarget": (targetId, targetLocation = {}) => {this._setTarget(targetId, targetLocation)},
       "createContainer": () => {this._createAgentContainer()},
       "removeContainer": () => {this._removeAgentContainer()},
       "show": () => {this.active = true},
       "hide": () => {this.active = false; this._dropTarget()},
+    }
+    for (const key of Object.keys(this.commandList)){
+      commandList.add(key)
     }
     this._createAgentContainer()
   }
@@ -168,6 +221,7 @@ class ContentIconAgent {
       this.imgContainer.src = this.iconSrc
       this.imgContainer.classList.add('content-preview-img');
       this.container.classList.add('content-preview');
+      this.container.classList.add(this.classId);
       this.container.append(this.imgContainer);
       const p = document.getElementById('custom-cursor')
       p.after(this.container)
@@ -180,6 +234,16 @@ class ContentIconAgent {
     this.container = null;
     this.imgContainer = null;
     this.created = false
+  }
+  _hideContainer() {
+    if (this.containerHided) return;
+    this.container.classList.add("hide")
+    this.containerHided = true
+  }
+  _openContainer() {
+    if (!this.containerHided) return;
+    this.container.classList.remove("hide")
+    this.containerHided = false
   }
 
   _setTarget(targetId, targetLocation) {

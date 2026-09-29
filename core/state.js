@@ -32,5 +32,6 @@ export const USERSETTINGS = proxifyObjToUpdateUI({
   METVisible: true,
   customCursor: true,
   instantFilter: true,
-  theme: "Northern Lights"
+  theme: "Northern Lights",
+  contentPreview: false
 })

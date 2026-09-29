@@ -1,4 +1,4 @@
-import { MAPDATA, paintMarkers, createMarker, loadMarkersData, markerBuilder, bindMarkerPopup } from "./markers.js"
+import { MAPDATA, paintMarkers, createMarker, loadMarkersData, markerBuilder, bindMarkerPopup, previewIdsMapping } from "./markers.js"
 import { METRequest } from "../api/markers_api.js"
 import { map } from "../core/map.js"
 import { APPSTATE, USERSESSION, USERSETTINGS } from "../core/state.js"
@@ -553,6 +553,9 @@ export class MetEditor {
       editingMarker.setLatLng([coords.lat, coords.lng]);
       const ic = MAPDATA.icons[icon_id] || MAPDATA.icons.default;
       editingMarker.setIcon(ic);
+      const el = editingMarker.getElement();
+      el._id = editingMarker.$data.id;
+      el._previewIds = previewIdsMapping(editingMarker);
       this.popapsaved = true;
       this.editPopup.remove();
       this._updateSaveState();

@@ -495,6 +495,8 @@ class UserModal {
     this.options.customCursorToggle = this.options.cont.querySelector(".toggle-cursor-checkbox");
     this.options.METVisible          = this.options.cont.querySelector(".met-toggle");
     this.options.METVisibleToggle    = this.options.cont.querySelector(".toggle-met-checkbox");
+    this.options.contentPreview      = this.options.cont.querySelector(".contentPreview-toggle");
+    this.options.contentPreviewToggle = this.options.cont.querySelector(".toggle-contentPreview-checkbox");
 
     this.statistics.cont            = this.tabcontent.querySelector("#user-statistics-body");
     this.statistics.collected       = this.statistics.cont.querySelector(".statistics-collected-text")
@@ -578,7 +580,15 @@ class UserModal {
         <label class="option-parameter met-toggle">
           <input type="checkbox" class="toggle-met-checkbox" id="toggle-met" ${USERSETTINGS.METVisible ? 'checked' : ''}>
           <span class="toggle-text-container toggle-met-text-container">
-            <span class="toggle-text toggle-met-text">Enable MET</span>
+            <span class="toggle-text toggle-met-text">Marker Editor Tool</span>
+          </span>
+        </label>
+      `,
+      "contentPreview": `
+        <label class="option-parameter contentPreview-toggle">
+          <input type="checkbox" class="toggle-contentPreview-checkbox" id="toggle-contentPreview" ${USERSETTINGS.contentPreview ? 'checked' : ''}>
+          <span class="toggle-text-container toggle-contentPreview-text-container">
+            <span class="toggle-text toggle-contentPreview-text">Content Preview</span>
           </span>
         </label>
       `
@@ -683,6 +693,7 @@ class UserModal {
     this._appendDisplayNameChangeEvents();
     this._appendCursorToggleEvent();
     this._appendMETToggleEvent();
+    this._appendContentPreviewToggleEvent();
     this._appendLogoutEvent();
   }
   _tabButtonEvent(e) {
@@ -779,6 +790,19 @@ class UserModal {
       };
     }
     this.options.METVisible.addEventListener("change", METActiveHandler);
+  }
+
+  _appendContentPreviewToggleEvent() {
+    const contentPreviewActiveHandler = async () => {
+      const currentState = this.options.contentPreviewToggle.checked;
+      USERSETTINGS.contentPreview = currentState;
+      const savedState = await saveOption("contentPreview", currentState);
+      if (savedState === "error") {
+        this.options.contentPreviewToggle.checked = !currentState;
+        USERSETTINGS.contentPreview = !currentState;
+      };
+    }
+    this.options.contentPreview.addEventListener("change", contentPreviewActiveHandler);
   }
 
   _toggleTabVisible(index, is_visible) {
