@@ -12,31 +12,31 @@ const BASEAGENTDATA = [
     id: "wealthId",
     classId: "preview-wealth",
     iconSrc: "/assets/othersvg/content_preview_wealth.svg",
-    relativeLocation: {X: 0, Y: 48}
+    relativeLocation: {X: 0, Y: -34}
   },
   {
     id: "runes",
     classId: "preview-runes",
     iconSrc: "/assets/othersvg/content_preview_rune.svg",
-    relativeLocation: {X: 48, Y: 16}
+    relativeLocation: {X: 34, Y: -11}
   },
   {
     id: "cosmetics",
     classId: "preview-cosmetics",
     iconSrc: "/assets/othersvg/content_preview_cosmetic.svg",
-    relativeLocation: {X: -48, Y: 16}
+    relativeLocation: {X: -34, Y: -11}
   },
   {
     id: "melody",
     classId: "preview-melody",
     iconSrc: "/assets/othersvg/content_preview_melody.svg",
-    relativeLocation: {X: -35, Y: -48}
+    relativeLocation: {X: -25, Y: 34}
   },
   {
     id: "skillPoint",
     classId: "preview-skill",
     iconSrc: "/assets/othersvg/content_preview_skill.svg",
-    relativeLocation: {X: 35, Y: -48}
+    relativeLocation: {X: 25, Y: 34}
   }
 ]
 
@@ -127,7 +127,7 @@ class ContentIconAgent {
     this.container = null
     this.imgContainer = null;
     this.stiffness = 100
-    this.damping = 0.9
+    this.damping = 0.8
     this.velocity = {}
     this.velocity.X = 0
     this.velocity.Y = 0
