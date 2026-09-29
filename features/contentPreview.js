@@ -304,7 +304,7 @@ class ContentIconAgent {
     this.location.Y += this.velocity.Y * dt;
 
     this.container.style.transform =
-      `translate3d(${this.location.X}px, ${this.location.Y}px, 0)`;
+      `translate(${this.location.X}px, ${this.location.Y}px)`;
   }
 
   _hideDriver() {
