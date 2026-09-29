@@ -1813,8 +1813,15 @@ body::-webkit-scrollbar {
 
 
 .content-preview {
+    left: 0;
+    top: 0;
     position: fixed;
     pointer-events: none;
+    max-width: calc(24px * var(--scale));
+    max-height: calc(24px * var(--scale));
+}
+
+.content-preview-img {
     max-width: calc(24px * var(--scale));
     max-height: calc(24px * var(--scale));
 }
