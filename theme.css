@@ -470,7 +470,7 @@
 @media (min-width: 1920px) { :root { --scale: 1.25; } }
 @media (min-width: 2560px) { :root { --scale: 1.5; } }
 @media (min-width: 3200px) { :root { --scale: 1.75; } }
-@media (prefers-reduced-motion: reduce) {
+/*@media (prefers-reduced-motion: reduce) {
   :root {
     --motion-duration-fast: 0s;
     --motion-duration-control: 0s;
@@ -487,3 +487,4 @@
     --sidebar-scan-gradient: linear-gradient(90deg, var(--color-page-bg), #00a98a, var(--color-page-bg));
   }
 }
+*/
