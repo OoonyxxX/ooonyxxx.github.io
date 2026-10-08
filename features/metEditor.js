@@ -515,11 +515,11 @@ export class MetEditor {
       editingMarker.$data.content = {...editingMarker.$data.content};
       editingMarker.$data.content.wealthId = wealthId || null;
       editingMarker.$data.content.runes = runes || [];
-      editingMarker.$data.content.runesDropAll = runesDropAll || false;
+      editingMarker.$data.content.runesDropAll = runes.length == 0 ? false : runesDropAll || false;
       editingMarker.$data.content.cosmetics = cosmetics || [];
-      editingMarker.$data.content.cosmeticsDropAll = cosmeticsDropAll || false;
-      editingMarker.$data.content.cosmeticsDropProbability = cosmeticsDropProbability ?? null;
-      editingMarker.$data.content.melody = melody || "null";
+      editingMarker.$data.content.cosmeticsDropAll = cosmetics.length == 0 ? false : cosmeticsDropAll || false;
+      editingMarker.$data.content.cosmeticsDropProbability = cosmetics.length == 0 ? null : cosmeticsDropProbability ?? 0;
+      editingMarker.$data.content.melody = melody || null;
       editingMarker.$data.content.skillPoint = skillPoint || false;
       
       if (isNew) {
@@ -716,7 +716,7 @@ class MarkerForm {
     const cosmeticsDropProbability = this.cosmeticsDropProbability.value / 100;
 
     const mode = this.getMelodyMode()
-    const melody = (mode == "specific") ? (this.melodyInput.getValue() || "none") : mode
+    const melody = (mode == "specific") ? (this.melodyInput.getValue() || null) : mode
     const skillPoint = this.skillPoint.checked
     return {
       title, 
