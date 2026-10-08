@@ -1,0 +1,40 @@
+/* components — functional styles; values are defined in theme.css. */
+
+.base-btn,
+.warning-btn {
+  background: var(--button-bg);
+  border: var(--button-border-width) solid var(--button-border);
+  color: var(--color-ui-text);
+  border-radius: var(--button-radius);
+  font: var(--button-font-size) var(--font-ui);
+  cursor: pointer;
+  box-shadow: var(--button-shadow);
+  filter: var(--button-glow);
+  transform: none;
+  transition: var(--button-transition);
+}
+
+.base-btn:not(:disabled):active,
+.warning-btn:not(:disabled):active {
+  transform: scale(var(--button-pressed-scale));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .base-btn:not(:disabled):hover:not(:active),
+      .warning-btn:not(:disabled):hover:not(:active) {
+    background: var(--button-hover-bg);
+    border-color: var(--button-hover-border);
+    box-shadow: var(--button-hover-shadow);
+    filter: var(--button-hover-glow);
+    transform: scale(var(--button-hover-scale));
+  }
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+:where(button, input, select, textarea, summary, a, [tabindex]):focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}

@@ -4,7 +4,6 @@ import { subscribeUI } from "./UIUtilities.js"
 import { switchAgentTarget } from "../features/contentPreview.js"
 
 const CURSORITEM = {
-  scaleGroup: null,
   activeSelectors: null,
   ticking: false,
 }
@@ -13,7 +12,6 @@ export function cacheCursor() {
   CURSORITEM.customCursor = document.getElementById('custom-cursor');
   CURSORITEM.customCursorActive = false;
   CURSORITEM.customCursorAllowed = false;
-  CURSORITEM.scaleGroup = document.getElementById('scaleSup');
   CURSORITEM.activeSelectors = `
   .leaflet-marker-icon, 
   a, 
@@ -27,7 +25,8 @@ export function cacheCursor() {
   .region`;
   CURSORITEM.markerSelector = `.leaflet-marker-icon`;
   CURSORITEM.ticking = false;
-  CURSORITEM.cursorCenter = { X: 26, Y: 26 };
+  const center = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cursor-size')) / 2;
+  CURSORITEM.cursorCenter = { X: center, Y: center };
   CURSORITEM.mouse = { X: 0, Y: 0 };
 
   CURSORITEM.timerProgress = document.getElementById('timerProgressCircle');
@@ -45,9 +44,11 @@ export function initCursor() {
     cursorConductor(APPSTATE.hasTouch);
   });
   subscribeUI("customCursor", () => {
+    OPTSIDEBAR.customCursorToggle.checked = USERSETTINGS.customCursor;
     cursorConductor(APPSTATE.hasTouch);
   })
   OPTSIDEBAR.customCursorToggle.addEventListener("change", (e) => {
+    USERSETTINGS.customCursor = e.target.checked;
     cursorConductor(APPSTATE.hasTouch);
   });
   document.addEventListener('pointerover', pointerOverHendler);
@@ -55,11 +56,7 @@ export function initCursor() {
 }
 
 function cursorConductor(touch) {
-  if (touch) {
-    CURSORITEM.customCursorAllowed = false;
-    return
-  }
-  CURSORITEM.customCursorAllowed = USERSETTINGS.customCursor;
+  CURSORITEM.customCursorAllowed = !touch && USERSETTINGS.customCursor;
   if (!CURSORITEM.customCursorAllowed && CURSORITEM.customCursorActive) {
     CURSORITEM.customCursorActive = false;
     cursorActive(CURSORITEM.customCursorAllowed);
@@ -68,7 +65,7 @@ function cursorConductor(touch) {
 
 function cursorActive(isActive) {
   document.body.classList.toggle('custom-cursor-on', isActive);
-  CURSORITEM.customCursor.classList.toggle('active', isActive);
+  CURSORITEM.customCursor.classList.toggle('is-active', isActive);
 }
 
 function handleMouseMove(e) {
@@ -107,11 +104,9 @@ function cursorHoverSet(isHover) {
   if (isHover) {
     CURSORITEM.customCursor.classList.remove('cursor-base');
     CURSORITEM.customCursor.classList.add('cursor-base--hover');
-    CURSORITEM.scaleGroup.style.transform = 'scale(0.9)';
   } else {
     CURSORITEM.customCursor.classList.remove('cursor-base--hover');
     CURSORITEM.customCursor.classList.add('cursor-base');
-    CURSORITEM.scaleGroup.style.transform = 'scale(0.65)';
   }
 }
 

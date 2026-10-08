@@ -127,37 +127,27 @@ export function cacheHeaderElements() {
 
 // Переключатель состояния панели параметров
 export function optmenuStyleSet(ostate, fstate) {
-  OPTSIDEBAR.optionsContainer.classList.toggle('hide', !ostate);
-  OPTSIDEBAR.optionsContainer.classList.toggle('close', fstate);
-  OPTSIDEBAR.optionsHeader.classList.toggle('hide', !ostate);
-  OPTSIDEBAR.optHideBtn.classList.toggle('hide', !ostate);
-  
-  OPTSIDEBAR.optionsHeaderText.classList.toggle('hide', !ostate);
-  
-  if (APPSTATE.isMobileC) {
-      OPTSIDEBAR.optHideBtnText.textContent = ostate ? "Hide" : "";
-      OPTSIDEBAR.optHideBtnImg.classList.toggle('open', !ostate);
-  } else {
-      OPTSIDEBAR.optHideBtnText.textContent = ostate ? "Hide" : "Open";
-  }
+  const displaced = APPSTATE.isMobile && fstate;
+  setPanelState(OPTSIDEBAR.optionsContainer, OPTSIDEBAR.optHideBtn, ostate, displaced);
+  OPTSIDEBAR.optHideBtnText.textContent = ostate ? "Hide" : "Open";
 }
 // Переключатель состояния панели фильтров
 export function filtermenuStyleSet(fstate, ostate) {
   AUTHTOPBAR.authHfilterContainer.classList.toggle('open', fstate);
-  FILTERSIDEBAR.filterContainer.classList.toggle('hide', !fstate);
-  FILTERSIDEBAR.filterContainer.classList.toggle('close', ostate);
-  FILTERSIDEBAR.filterHeader.classList.toggle('hide', !fstate);
+  const displaced = APPSTATE.isMobile && ostate;
+  setPanelState(FILTERSIDEBAR.filterContainer, FILTERSIDEBAR.filterHideBtn, fstate, displaced);
+  FILTERSIDEBAR.filterHideBtnText.textContent = fstate ? "Hide" : "Open";
+}
 
-  FILTERSIDEBAR.filterHideBtn.classList.toggle('hide', !fstate);
-  FILTERSIDEBAR.filterClearBtn.classList.toggle('hide', !fstate);
-  FILTERSIDEBAR.filterHeaderText.classList.toggle('hide', !fstate);
-
-  if (APPSTATE.isMobileC) {
-      FILTERSIDEBAR.filterHideBtnText.textContent = fstate ? "Hide" : "";
-      FILTERSIDEBAR.filterHideBtnImg.classList.toggle('open', !fstate);
-  } else {
-      FILTERSIDEBAR.filterHideBtnText.textContent = fstate ? "Hide" : "Open";
-  }
+function setPanelState(container, button, expanded, displaced) {
+  container.classList.toggle('is-collapsed', !expanded);
+  container.classList.toggle('is-displaced', displaced);
+  container.toggleAttribute('inert', displaced);
+  container.setAttribute('aria-hidden', String(displaced));
+  button.setAttribute('aria-expanded', String(expanded));
+  const body = container.querySelector('.sidebar-body');
+  body.toggleAttribute('inert', !expanded);
+  body.setAttribute('aria-hidden', String(!expanded));
 }
 
 export function startHeaderAnim(ms) {

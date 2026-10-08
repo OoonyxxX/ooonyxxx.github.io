@@ -13,12 +13,6 @@
   font-display: swap;
 }
 
-@keyframes northernFlow {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 @keyframes northernFlowCircle {
   0%   { background-position: 50% 0%; }
   25%  { background-position: 100% 50%; }
@@ -27,35 +21,469 @@
   100% { background-position: 50% 0%; }
 }
 
-
+/* Component settings live here; their application belongs to functional files.
+   Media thresholds cannot use var(). Layout: 400px / 768px, matching
+   ui/adaptability.js; MET form: 480px viewport / 320px container; scale:
+   768px / 1920px / 2560px / 3200px. JS reads cursor-size, met-form-width
+   and popup-pan-padding in CSS pixels, so keep those three settings in px. */
 :root {
-  --scale: 1;
-  --gradient-northern-lights: linear-gradient(
-    135deg,
-    #00e5ff,
-    #00ffde,
-    #00d3d3,
-    #3effcb,
-    #00bfa6,
-    #00f3ff,
-    #2ee581
+  /* Typography */
+  --font-size-root: 16px;
+  --font-size-control: 14px;
+  --font-size-met-heading: 1.17em;
+  --font-ui: 'Nordic', sans-serif;
+
+  /* Shared palette */
+  --color-page-bg: #0b0b0b;
+  --color-white: white;
+  --color-ui-text: #e5e5e5;
+  --color-panel-bg: #002d2887;
+  --color-panel-border: #00100fd4;
+  --color-button-bg: #066b60;
+  --color-button-hover-bg: #0a9f8f;
+  --color-button-hover-border: #14c3b0;
+  --color-button-hover-text: #befcff;
+  --color-reset-bg: #612828;
+  --color-reset-hover-bg: #8b2323;
+  --color-reset-hover-border: #b51717;
+  --color-reset-hover-text: #ffbebe;
+  --color-option-border: #00ffe3a6;
+  --color-option-active-border: #00ffe3d4;
+  --color-option-active: #00ffe3;
+  --color-indicator-bg: #00ffe73b;
+  --color-indicator-border: #00ffe76e;
+  --color-indicator-active-bg: #00ffe7ad;
+  --color-indicator-active-border: #007368a3;
+  --color-filter-row-bg: #00d1ba4a;
+  --color-transition: color var(--motion-duration-control) var(--motion-easing), background var(--motion-duration-control) var(--motion-easing), border-color var(--motion-duration-control) var(--motion-easing);
+
+  /* Motion */
+  --motion-duration-fast: 150ms;
+  --motion-duration-control: 0.2s;
+  --motion-duration-panel: 0.6s;
+  --motion-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-duration-icon: 0.3s;
+
+  /* Main UI */
+  --main-header-height: 4rem;
+  --main-footer-height: 2.9rem;
+  --main-mobile-auth-width: 7rem;
+  --main-mobile-user-width: 6.5rem;
+  --main-mobile-title-size: clamp(1rem, 4.5vw, 1.5rem);
+  --main-ui-map-background: #153843;
+  --main-ui-footer-text-margin-left: 1.25rem;
+  --main-title-width: 18.4em;
+  --main-auth-width: 18.2em;
+  --main-auth-expanded-width: 21em;
+  --main-avatar-size: 2.75rem;
+  --main-ui-auth-img-border-color: #14cdb9;
+  --main-ui-auth-img-background: #0caf9e;
+  --main-ui-user-container-width: calc(2 * var(--main-avatar-size) + var(--space-16));
+  --main-ui-btn-login-border-color: #01a36f;
+  --main-ui-btn-login-background-color: #067F72;
+  --main-ui-btn-login-height: 2em;
+  --main-ui-btn-login-width: 5em;
+  --main-ui-btn-login-border-color-active: #03d390;
+  --main-ui-btn-login-background-color-active: #07b19f;
+  --main-ui-btn-login-border-color-hover: #01bb7f;
+  --main-ui-btn-login-background-color-hover: #059182;
+  --main-avatar-rest-scale: 0.9;
+  --main-avatar-active-scale: 0.85;
+
+  /* Sidebars and filters */
+  --sidebar-border-width: 0.25rem;
+  --sidebar-radius: 1rem;
+  --sidebar-top: calc(var(--main-header-height) - var(--sidebar-header-overlap));
+  --sidebar-header-overlap: 5px;
+  --sidebar-options-inset: 3.375rem;
+  --sidebar-filter-inset: 1.25rem;
+  --sidebar-mobile-inset: 0.25rem;
+  --sidebar-options-width: 13.5625rem;
+  --sidebar-filter-width: 18.25rem;
+  --sidebar-options-header-width: 11.25rem;
+  --sidebar-filter-header-width: 16rem;
+  --sidebar-header-height: 2.75rem;
+  --sidebar-available-height: calc(var(--viewport-height) - var(--sidebar-top) - var(--main-footer-height) - var(--space-16));
+  --sidebar-options-padding: 0 1.78125rem 1.625rem;
+  --sidebar-option-line-height: 2rem;
+  --sidebar-button-width: 3.5em;
+  --sidebar-button-height: 1.8em;
+  --sidebar-compact-size: 3.5rem;
+  --sidebar-compact-icon: 1.75rem;
+  --sidebar-text-indicator-size: 1em;
+  --sidebar-icon-indicator-size: 32px;
+  --sidebar-indicator-border-width: 0.125em;
+  --sidebar-switch-border-width: 3px;
+  --sidebar-footer-fade-height: 3rem;
+  --sidebar-footer-gradient: linear-gradient(180deg, transparent, #0b0b0b94);
+  --sidebar-scan-width: 5%;
+  --sidebar-section-icon-size: 30px;
+  --sidebar-filter-section-margin-top: -1rem;
+  --sidebar-filter-section-padding-top: 1rem;
+  --sidebar-region-list-margin-bottom: 3rem;
+  --sidebar-icons-grid-width: 15em;
+  --sidebar-paramheader-padding-top: 0.5em;
+  --sidebar-paramheader-padding-right: 3em;
+  --sidebar-paramheader-padding-bottom: 0.5em;
+  --sidebar-paramheader-padding-left: 3em;
+  --sidebar-paramheader-margin-top: 0.83em;
+  --sidebar-paramheader-margin-bottom: 0.83em;
+  --sidebar-paramheader-border-color: #12ffe54f;
+  --sidebar-important-icons-external-width: 13.775em;
+  --sidebar-guardians-icons-external-width: 16.575em;
+  --sidebar-natural-icons-external-width: 11em;
+  --sidebar-structures-icons-external-width: 13.8em;
+  --sidebar-other-icons-external-width: 5.55em;
+  --sidebar-iconsheader-margin-block-end: 0.2em;
+  --sidebar-iconsheader-margin-block-start: 0.2em;
+  --sidebar-iconsheader-padding-top: 0.3em;
+  --sidebar-iconsheader-padding-bottom: 0.3em;
+  --sidebar-iconsheader-width: calc(100% - 5em);
+  --sidebar-iconsheader-border-color: #12ffe585;
+  --sidebar-iconsheader-background: #00100fa6;
+  --sidebar-iconsheader-padding-left: 0.5em;
+  --sidebar-iconsheader-padding-right: 0.5em;
+  --sidebar-grid-icon-size: 28px;
+  --sidebar-checkmark-size: 14px;
+  --sidebar-region-width: 7.5em;
+
+  /* Marker editor */
+  --met-form-width: 400px;
+  --met-disabled-bg: #04433c;
+  --met-disabled-text: #bfbfbf;
+  --met-disabled-border: #065f55;
+  --met-hover-bg: #08897b;
+  --met-hover-border: #12d7c2;
+  --met-panel-position: translateX(calc(50vw - 50%));
+  --met-panel-width: 120px;
+  --met-panel-overlap: -4px;
+  --met-button-height: 1.8em;
+  --met-button-width: 7.8em;
+  --met-button-bg: #044f47;
+  --met-add-mode-bg: #067f72;
+  --met-button-border: #0ca796;
+  --met-form-subsection-padding: 0 6px;
+  --met-form-subsection-font-size: 13px;
+  --met-form-field-label-font-size: 12px;
+  --met-input-height: 40px;
+  --met-input-padding: 9px 10px;
+  --met-textarea-height: 110px;
+  --met-radio-field-min-height: 36px;
+  --met-radio-group-gap: 4px 16px;
+  --met-form-collapsible-summary-padding: 11px 12px;
+  --met-wealth-preview-gap: 8px 16px;
+  --met-tag-list-padding: 5px 8px;
+  --met-tag-list-font-size: 12px;
+  --met-tag-remove-size: 28px;
+  --met-tag-remove-padding: 2px 5px;
+  --met-autocomplete-suggestions-top: calc(100% + 5px);
+  --met-autocomplete-suggestions-max-height: 200px;
+  --met-autocomplete-suggestions-box-shadow: 0 10px 24px rgb(0 0 0 / 45%);
+  --met-form-actions-flex: 1 1 90px;
+  --met-form-actions-min-height: 42px;
+  --met-form-actions-padding: 9px 14px;
+  --met-mobile-input-font-size: 16px;
+  --met-inline-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+
+  /* Dialogs */
+  --modal-viewport-gap: 16px;
+  --modal-user-width: 50%;
+  --modal-user-height: 60%;
+  --modal-tablist-width: 20%;
+  --modal-user-mobile-height: 85%;
+  --modal-tab-close-clearance: 3.5rem;
+  --modal-tablist-border: #0a9354;
+  --modal-mobile-tab-height: 3.5rem;
+  --modal-mobile-tab-font-size: 0.9rem;
+  --modal-buttons-width: 8em;
+  --modal-tab-header-font-size: 1.75em;
+  --modal-tab-header-padding-bottom: 0.2em;
+  --modal-tab-header-padding-left: 1em;
+  --modal-tab-header-padding-right: 1em;
+  --modal-tab-header-border-radius: 1em;
+  --modal-user-content-background: #002d28e0;
+  --modal-user-glow: radial-gradient(
+  circle at 30% 20%,
+  rgba(80,220,255,0.08),
+  transparent 60%
   );
-  --svg-nonglow: drop-shadow(0 0 0px rgba(0, 0, 0, 0));
+  --modal-account-info-label-container-margin-bottom: 1.5em;
+  --modal-content-title-font-size: 1.4em;
+  --modal-content-title-padding-left: 0.5em;
+  --modal-content-title-padding-right: 0.5em;
+  --modal-content-title-padding-bottom: 0.125em;
+  --modal-content-title-border-radius: 0.5em;
+  --modal-content-title-margin-bottom: 0.5em;
+  --modal-container-background: rgba(0,0,0,0.5);
+  --modal-container-backdrop-filter: blur(4px);
+  --modal-container-border: 1px solid rgba(255,255,255,0.08);
+  --modal-container-box-shadow: 0 0 30px rgba(0, 200, 255, 0.08),
+  inset 0 0 20px rgba(255,255,255,0.03);
+  --modal-content-border: 1px solid rgba(255, 255, 255, 0.08);
+  --modal-content-box-shadow: 0px 0px 40px 12px rgb(0 0 0 / 60%), inset -2px -2px 10px 0px rgb(0 255 246 / 14%);
+  --modal-close-size: 2.5rem;
+  --modal-exit-btn-top: 1rem;
+  --modal-exit-btn-right: 1rem;
+  --modal-text-h-margin-top: 1em;
+  --modal-text-h-font-size: 1.35em;
+  --modal-text-h-padding: 1em;
+  --modal-text-h-width: calc(100% - (2.5em * 2));
+  --modal-tab-button-color: #4eeb27;
+  --modal-tab-button-border-color: #05a55d;
+  --modal-user-tablist-margin-right: 0.5em;
+  --modal-tab-button-font-size: 1.2em;
+  --modal-tab-button-height: 3em;
+  --modal-tab-border: #087141;
+  --modal-tab-button-background: #007b5e3b;
+  --modal-user-tab-0-border-top-left-radius: 1em;
+  --modal-user-close-size: 3rem;
+  --modal-toggle-text-container-margin-left: 0.25rem;
+  --modal-text-warning-color: #bf2828;
+  --modal-text-warning-text-shadow: 0 0 4px #000000;
+  --modal-parameter-value-font-size: 1.2em;
+  --modal-parameter-value-margin-left: 0.55em;
+  --modal-parameter-value-padding-left: 0.5em;
+  --modal-parameter-value-padding-right: 0.5em;
+  --modal-parameter-value-padding-top: 0.15em;
+  --modal-parameter-value-padding-bottom: 0.05em;
+  --modal-parameter-value-border-radius: 0.3em;
+  --modal-exit-content-background: #230c0ccc;
+  --modal-exit-content-width: 40em;
+  --modal-confirm-content-width: 28em;
+  --modal-login-text-font-size: 1rem;
+  --modal-login-text-margin-top: 2rem;
+  --modal-login-content-width: 25rem;
+  --modal-login-content-height: 12.5rem;
+  --modal-login-content-border-radius: 1.5em;
+  --modal-login-providerlist-bottom: 2.5em;
+  --modal-login-providerlist-height: 40px;
+  --modal-tab-button-color-hover: #3fe914;
+  --modal-tab-button-border-color-hover: #0b9959;
+  --modal-tab-button-background-hover: #0097743b;
+
+  /* Marker display */
+  --marker-icon-size: 32px;
+  --marker-title-line-height: 1.3;
+
+  /* Shared popup shell */
+  --popup-disclosure-summary-padding: 11px 12px;
+  --popup-content-wrapper-box-shadow: 0 10px 32px rgb(0 0 0 / 55%);
+  --popup-tip-box-shadow: 3px 3px 8px rgb(0 0 0 / 25%);
+  --popup-content-margin: 18px 20px 16px;
+  --popup-close-button-font: 22px/28px sans-serif;
+  --popup-content-font-size: 17px;
+  --popup-collected-min-height: 40px;
+  --popup-collected-padding: 8px 10px;
+  --popup-disclosure-content-padding: 10px 12px;
+  --popup-content-padding: 10px 12px;
+  --popup-label-font-size: 13px;
+  --popup-viewport-clearance: 72px;
+  --popup-pan-padding: 16px;
+  --popup-shell-clearance: 60px;
+  --popup-available-height: calc(var(--viewport-height) - var(--main-header-height) - var(--main-footer-height) - var(--popup-shell-clearance) - 2 * var(--popup-pan-padding));
+  --popup-font: 14px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --popup-checkbox-size: 17px;
+  --popup-arrow-size: 6px;
+  --popup-arrow-border: 2px solid currentColor;
+  --popup-disclosure-icon-size: 16px;
+  --popup-max-width: calc(100vw - var(--popup-viewport-clearance));
+  --popup-close-size: 28px;
+
+  /* Content preview */
+  --preview-icon-size: calc(24px * var(--scale));
+
+  /* Cursor */
+  --cursor-size: 52px;
+  --cursor-center: calc(var(--cursor-size) / 2);
+  --cursor-timer-path-length: 150;
+  --cursor-rest-transform: scale(0.65);
+  --cursor-hover-transform: scale(0.9);
+  --cursor-orbit-animation: spin-hover 8s linear infinite;
+  --cursor-timer-progress-animation: fill-timer 0.4s linear forwards;
+
+  /* Maintenance screen */
+  --maintenance-maintenanceTag-letter-spacing: 0.08em;
+  --maintenance-maintenanceTag-color: rgba(80, 220, 255, 0.65);
+  --maintenance-maintenanceModal-width: 100vw;
+  --maintenance-maintenance-text-letter-spacing: 0.04em;
+  --maintenance-maintenance-text-color: #00e5ff;
+  --maintenance-tag-top: calc(16px * var(--scale));
+  --maintenance-tag-left: calc(13% * var(--scale));
+  --maintenance-tag-font-size: calc(18.5px * var(--scale));
+  --maintenance-overlay-bg: radial-gradient(circle, black, transparent);
+  --maintenance-message-gap: calc(20px * var(--scale));
+  --maintenance-image-width: min(calc(220px * var(--scale)), 70vw);
+  --maintenance-text-font-size: calc(22px * var(--scale));
+  --maintenance-line-height: 1.5;
+
+  /* Leaflet controls */
+  --leaflet-overrides-leaflet-bar-background-color: #008778e8;
+  --leaflet-overrides-leaflet-bar-border-bottom: 1px solid #00ffe3a6;
+  --leaflet-overrides-leaflet-bar-color: #00ffe7cf;
+  --leaflet-overrides-leaflet-bar-background-color-active: #00bba6e8;
+  --leaflet-overrides-leaflet-control-margin-top: calc(5em + 10px);
+  --leaflet-overrides-leaflet-control-border: 2px solid #0B0B0B;
+
+  /* Spacing */
+  --space-1: 1px;
+  --space-3: 3px;
+  --space-4: 4px;
+  --space-5: 5px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-9: 9px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-14: 14px;
+  --space-16: 16px;
+  --space-18: 18px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+
+  /* Radii */
+  --radius-4: 4px;
+  --radius-5: 5px;
+  --radius-6: 6px;
+  --radius-7: 7px;
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;
+  --radius-14: 14px;
+  --radius-16: 16px;
+  --radius-circle: 50%;
+
+  /* Borders */
+  --border-thin: 1px;
+  --border-control: 2px;
+  --border-strong: 4px;
+  --border-none: 0;
+  --border-strong: 0.25rem;
+  --border-none: 0px;
+
+  /* Buttons */
+  --button-border-width: 3px;
+  --button-radius: 0.5em;
+  --button-font-size: 1em;
+  --button-hover-scale: 1.05;
+  --button-pressed-scale: 0.95;
+  --button-transition: color var(--motion-duration-control) var(--motion-easing), background var(--motion-duration-control) var(--motion-easing), border-color var(--motion-duration-control) var(--motion-easing), filter var(--motion-duration-control) var(--motion-easing), transform var(--motion-duration-control) var(--motion-easing), box-shadow var(--motion-duration-control) var(--motion-easing);
+
+  /* SVG effects */
+  --svg-nonglow: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
   --svg-blue-text-glow: drop-shadow(0 0 16px rgba(80, 220, 255, 0.4));
   --svg-red-glow: drop-shadow(0 0 3px rgba(207, 69, 69, 0.8));
   --svg-red-soft-glow: drop-shadow(0 0 7px rgba(184, 68, 68, 0.4));
   --svg-blue-glow: drop-shadow(0 0 3px rgba(80, 220, 255, 0.8));
   --svg-blue-soft-btn-glow: drop-shadow(0 0 7px rgba(80, 220, 255, 0.4));
   --svg-blue-soft-glow: drop-shadow(0 0 2px rgba(80, 220, 255, 0.2));
-  --gradient-glow:  linear-gradient(90deg, #0097743b 90%, #0a935461, #0a9354a1, #0a9354);
-  --font-ui: 'Nordic';
-  --font-accent: 'Runescript';
-  --bg-northern-flow: northernFlow 12s ease infinite;
+
+  /* Stacking */
+  --layer-ui: 2;
+  --layer-preview: 9997;
+  --layer-cursor: 10001;
+  --layer-modal: 9998;
+  --layer-maintenance: 9999;
+  --layer-maintenance-tag: 10000;
+  --layer-autocomplete: 20;
+
+  /* Focus */
+  --focus-outline: 2px solid #ffce00;
+  --focus-offset: 3px;
+
+  /* Other shared defaults */
+  --viewport-height: 100vh;
+  --scale: 1;
+  --opacity-disabled: 0.5;
+  --opacity-disclosure: 0.65;
+  --opacity-indicator: 0.8;
+  --gradient-northern-lights: linear-gradient(135deg, #00e5ff, #00ffde, #00d3d3, #3effcb, #00bfa6, #00f3ff, #2ee581);
+  --gradient-glow: linear-gradient(90deg, #0097743b 90%, #0a935461, #0a9354a1, #0a9354);
   --bg-northern-flow-circle: northernFlowCircle 12s ease infinite;
-  --color-transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --filter-transition: filter 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)
-  /*--touch-target: clamp(40px, 3.2rem, 56px);
-  --icon: calc(var(--touch-target)*0.6);
-  --radius: 12px;
-  --gap: calc(8px * var(--scale));*/
+  --filter-transition: filter var(--motion-duration-control) var(--motion-easing), transform var(--motion-duration-control) var(--motion-easing);
+}
+/* Popup and editor palette is inherited only by these components. */
+:is(.marker-popup, .edit-popup-class, .marker-form) {
+  --marker-bg: #0b0b0b;
+  --marker-panel: #061d25;
+  --marker-accent: #067f72;
+  --marker-accent-hover: #2ba997;
+  --marker-muted: #717574;
+  --marker-text: #9da6a4;
+  --marker-highlight: #ffce00;
+  --marker-danger: #661010;
+  --marker-border: rgb(157 166 164 / 24%);
+  --marker-radius: 10px;
+}
+.marker-form {
+  --met-invalid-shadow: inset 3px 0 var(--marker-danger);
+}
+
+.filterheader {
+  --w: var(--sidebar-scan-width);
+  --sidebar-scan-animation: filter-scan var(--debounce-ms, 1500ms) linear both;
+  --sidebar-scan-gradient: linear-gradient(90deg, var(--color-page-bg) 0%, var(--color-page-bg) clamp(0%, calc(var(--p) - var(--w)), 100%), #00a98a var(--p), var(--color-page-bg) clamp(0%, calc(var(--p) + var(--w)), 100%), var(--color-page-bg) 100%);
+}
+
+.base-btn {
+  --button-bg: var(--color-button-bg);
+  --button-border: var(--color-button-bg);
+  --button-shadow: 0 0 10px 1px black, inset 0 0 3px var(--color-button-bg);
+  --button-glow: var(--svg-blue-soft-btn-glow);
+  --button-hover-bg: var(--color-button-hover-bg);
+  --button-hover-border: var(--color-button-hover-border);
+  --button-hover-shadow: inset 0 0 10px var(--color-button-hover-border);
+  --button-hover-glow: var(--svg-blue-glow);
+}
+.warning-btn {
+  --button-bg: #791a1a;
+  --button-border: var(--button-bg);
+  --button-shadow: 0 0 10px 1px black, inset 0 0 3px var(--button-bg);
+  --button-glow: var(--svg-red-soft-glow);
+  --button-hover-bg: #681616;
+  --button-hover-border: #a02323;
+  --button-hover-shadow: inset 0 0 10px var(--button-hover-border);
+  --button-hover-glow: var(--svg-red-glow);
+}
+/* Complete hiding has priority over every component's display declaration.
+   Collapsed/displaced panels use separate states and never use these classes. */
+[hidden], .hide, .hidden, .hide-i { display: none !important; }
+.no-pointer-events-i { pointer-events: none !important; }
+.no-select, .no-drag { -webkit-user-select: none; user-select: none; }
+.no-drag { -webkit-user-drag: none; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.northern-bg { background: var(--gradient-northern-lights); background-size: 200% 200%; animation: var(--bg-northern-flow-circle); }
+@supports (height: 100dvh) { :root { --viewport-height: 100dvh; } }
+@media (max-width: 768px) { :root { --scale: 0.75; --modal-viewport-gap: 8px; } }
+@media (min-width: 1920px) { :root { --scale: 1.25; } }
+@media (min-width: 2560px) { :root { --scale: 1.5; } }
+@media (min-width: 3200px) { :root { --scale: 1.75; } }
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-fast: 0s;
+    --motion-duration-control: 0s;
+    --motion-duration-panel: 0s;
+    --motion-duration-icon: 0s;
+    --bg-northern-flow-circle: none;
+    --cursor-orbit-animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filterheader {
+    --sidebar-scan-animation: none;
+    --sidebar-scan-gradient: linear-gradient(90deg, var(--color-page-bg), #00a98a, var(--color-page-bg));
+  }
 }

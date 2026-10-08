@@ -1,0 +1,57 @@
+/* maintenance — functional styles; values are defined in theme.css. */
+
+.maintenanceTag {
+  position: fixed;
+  top: var(--maintenance-tag-top);
+  left: var(--maintenance-tag-left);
+  z-index: var(--layer-maintenance-tag);
+  font-family: var(--font-ui);
+  font-size: var(--maintenance-tag-font-size);
+  letter-spacing: var(--maintenance-maintenanceTag-letter-spacing);
+  text-transform: uppercase;
+  color: var(--maintenance-maintenanceTag-color);
+  filter: var(--svg-blue-text-glow);
+  user-select: none;
+  pointer-events: none;
+}
+
+.maintenanceModal {
+  background: var(--maintenance-overlay-bg);
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-maintenance);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--maintenance-maintenanceModal-width);
+  height: var(--viewport-height);
+  pointer-events: none;
+}
+
+.maintenance-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--maintenance-message-gap);
+  text-align: center;
+}
+
+.maintenance-img {
+  display: block;
+  width: var(--maintenance-image-width);
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+.maintenance-text {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--maintenance-text-font-size);
+  line-height: var(--maintenance-line-height);
+  letter-spacing: var(--maintenance-maintenance-text-letter-spacing);
+  color: var(--maintenance-maintenance-text-color);
+  filter: var(--svg-blue-text-glow);
+}

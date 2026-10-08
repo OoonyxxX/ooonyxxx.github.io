@@ -122,6 +122,7 @@ function initUIControl() {
       const checkbox = label.querySelector('input[type="checkbox"]');
       indicatorContainer.innerHTML = '';
       label.dataset.state = 'none';
+      checkbox.setAttribute('aria-checked', 'false');
     });
 
     FILTERDATA.filterMarkers();
@@ -226,6 +227,12 @@ function initTriStateFilter({ rootSelector, cacheToken, targetMap }) {
 }
 
 function setUpFilterListener({ filterElement, valueId, callback }) {
+  const checkbox = filterElement.querySelector('input[type="checkbox"]');
+  checkbox.classList.add('visually-hidden');
+  checkbox.setAttribute('aria-checked', 'false');
+  if (filterElement.classList.contains('icon-item')) {
+    checkbox.setAttribute('aria-label', valueId.replace(/([a-z])([A-Z])/g, '$1 $2') + ' filter');
+  }
   const indicatorContainer = document.createElement('span');
   indicatorContainer.className = 'indicator-container';
   filterElement.prepend(indicatorContainer);
@@ -252,6 +259,7 @@ function setUpFilterListener({ filterElement, valueId, callback }) {
     callback(valueId, nextState);
 
     filterElement.dataset.state = nextState;
+    checkbox.setAttribute('aria-checked', nextState === 'exclude' ? 'mixed' : String(nextState === 'and'));
     FILTERDATA.filterMarkers();
   });
 }

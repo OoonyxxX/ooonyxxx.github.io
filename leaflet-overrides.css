@@ -1,0 +1,41 @@
+/* leaflet-overrides — functional styles; values are defined in theme.css. */
+
+.leaflet-bar a {
+  background-color: var(--leaflet-overrides-leaflet-bar-background-color);
+  border-bottom: var(--leaflet-overrides-leaflet-bar-border-bottom);
+  color: var(--leaflet-overrides-leaflet-bar-color);
+}
+
+.leaflet-bar a:active, .leaflet-bar a:focus {
+  background-color: var(--leaflet-overrides-leaflet-bar-background-color-active);
+}
+
+.leaflet-top .leaflet-control {
+  margin-top: var(--leaflet-overrides-leaflet-control-margin-top);
+  border: var(--leaflet-overrides-leaflet-control-border);
+}
+
+.leaflet-control-attribution.leaflet-control {
+  display: none;
+}
+
+.leaflet-bar a:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}
+
+.leaflet-bar a:active {
+  background-color: var(--leaflet-overrides-leaflet-bar-background-color-active);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .leaflet-bar a:hover {
+    background-color: var(--leaflet-overrides-leaflet-bar-background-color-active);
+  }
+}
+
+@media (max-width: 768px) {
+  .leaflet-control-zoom {
+    display: none;
+  }
+}

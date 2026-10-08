@@ -1,6 +1,6 @@
 import { METActiveController } from "../features/metEditor.js"
 import { APPSTATE } from "../core/state.js"
-import { OPTSIDEBAR, FILTERSIDEBAR, AUTHTOPBAR, optmenuStyleSet, filtermenuStyleSet } from "../ui/sidebar.js"
+import { AUTHTOPBAR, optmenuStyleSet, filtermenuStyleSet } from "../ui/sidebar.js"
 
 
 export function cacheWindowMatches() {
@@ -16,106 +16,21 @@ export function cacheWindowMatches() {
 }
 
 export function initWindowEvents() {
-  let mobileC = window.matchMedia("(max-width: 400px)");
-  let mobile = window.matchMedia("(max-width: 768px)");
-
-  window.addEventListener("load", () => {
-    if (APPSTATE.isMobileC) {
-      onEnterMobileC();
+  // Initialization can finish after window.load because it waits for the API.
+  // CSS owns transitions; refresh state immediately and on viewport changes.
+  let previousMobile = APPSTATE.isMobile;
+  const refresh = () => {
+    cacheWindowMatches();
+    if (APPSTATE.isMobile !== previousMobile) {
+      APPSTATE.optMenuState = !APPSTATE.isMobile;
+      APPSTATE.filterMenuState = !APPSTATE.isMobile;
+      previousMobile = APPSTATE.isMobile;
     }
-    if (APPSTATE.isMobile && APPSTATE.isMobileC) {
-      setTimeout(() => {
-        OPTSIDEBAR.optionsContainer.classList.add("transition");
-        OPTSIDEBAR.optionsHeader.classList.add("transition");
-        OPTSIDEBAR.optionsParams.classList.add("transition");
-        FILTERSIDEBAR.filterContainer.classList.add("transition");
-        FILTERSIDEBAR.filterHeader.classList.add("ftransition");
-        FILTERSIDEBAR.filterHeaderText.classList.add("transition");
-        FILTERSIDEBAR.filterHideBtn.classList.add("transition");
-        FILTERSIDEBAR.filterClearBtn.classList.add("transition");
-      }, 200);
-    } else {
-      OPTSIDEBAR.optionsContainer.classList.add("transition");
-      OPTSIDEBAR.optionsHeader.classList.add("transition");
-      OPTSIDEBAR.optionsParams.classList.add("transition");
-      FILTERSIDEBAR.filterContainer.classList.add("transition");
-      FILTERSIDEBAR.filterHeader.classList.add("ftransition");
-      FILTERSIDEBAR.filterHeaderText.classList.add("transition");
-      FILTERSIDEBAR.filterHideBtn.classList.add("transition");
-      FILTERSIDEBAR.filterClearBtn.classList.add("transition");
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    APPSTATE.isTablet = window.matchMedia("(min-width: 769px) and (max-width: 1024px)").matches;
-    APPSTATE.isDesktop_HD = window.matchMedia("(min-width: 1025px) and (max-width: 1280px)").matches;
-    APPSTATE.isDesktop_HDPlus = window.matchMedia("(min-width: 1281px) and (max-width: 1600px)").matches;
-    APPSTATE.isDesktop_FullHD = window.matchMedia("(min-width: 1601px) and (max-width: 1920px)").matches;
-    APPSTATE.isDesktop_2K = window.matchMedia("(min-width: 1921px) and (max-width: 2560px)").matches;
-    APPSTATE.isDesktop_4K = window.matchMedia("(min-width: 2560px) and (max-width: 3840px)").matches;
-    APPSTATE.hasTouch = navigator.maxTouchPoints > 0;
-  });
-
-  mobile.addEventListener('change', (e) => {
-    const next = e.matches;
-    if (next === APPSTATE.isMobile) return;
-    APPSTATE.isMobile = next;
-    if (APPSTATE.isMobile) onEnterMobile();
-    else onExitMobile();
-  });
-
-  mobileC.addEventListener('change', (e) => {
-    const next = e.matches;
-    if (next === APPSTATE.isMobileC) return;
-    APPSTATE.isMobileC = next;
-    if (APPSTATE.isMobileC) onEnterMobileC();
-    else onExitMobileC();
-  });
-
-  if (APPSTATE.isMobile) {
-    AUTHTOPBAR.loginButton.textContent = "";
-  } else {
-    AUTHTOPBAR.loginButton.textContent = "Login";
+    optmenuStyleSet(APPSTATE.optMenuState, APPSTATE.isMobile && APPSTATE.filterMenuState);
+    filtermenuStyleSet(APPSTATE.filterMenuState, APPSTATE.isMobile && APPSTATE.optMenuState);
+    AUTHTOPBAR.loginButton.textContent = APPSTATE.isMobile ? '' : 'Login';
+    METActiveController();
   };
+  window.addEventListener('resize', refresh);
+  refresh();
 }
-
-
-
-//Функции адаптивности
-//START
-function onEnterMobile() {
-  APPSTATE.filterMenuState = false;
-  filtermenuStyleSet(false, false);
-
-  APPSTATE.optMenuState = false;
-  optmenuStyleSet(false, false);
-
-  METActiveController()
-  
-  AUTHTOPBAR.loginButton.textContent = "";
-}
-
-function onExitMobile() {
-  METActiveController();
-  AUTHTOPBAR.loginButton.textContent = "Login";
-}
-
-function onEnterMobileC() {
-  OPTSIDEBAR.optHideBtnText.textContent = APPSTATE.optMenuState ? "Hide" : "";
-  OPTSIDEBAR.optHideBtnImg.classList.toggle('open', !APPSTATE.optMenuState);
-  FILTERSIDEBAR.filterHideBtnText.textContent = APPSTATE.filterMenuState ? "Hide" : "";
-  FILTERSIDEBAR.filterHideBtnImg.classList.toggle('open', !APPSTATE.filterMenuState);
-  
-  AUTHTOPBAR.loginButton.textContent = "";
-}
-
-function onExitMobileC() {
-  OPTSIDEBAR.optHideBtnText.textContent = APPSTATE.optMenuState ? "Hide" : "open";
-  FILTERSIDEBAR.filterHideBtnText.textContent = APPSTATE.filterMenuState ? "Hide" : "open";
-  OPTSIDEBAR.optHideBtnImg.classList.remove('open');
-  FILTERSIDEBAR.filterHideBtnImg.classList.remove('open');
-  
-  AUTHTOPBAR.loginButton.textContent = "Login";
-}
-//END
-//Функции адаптивности

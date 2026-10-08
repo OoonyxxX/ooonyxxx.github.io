@@ -1,55 +1,25 @@
-/* CUSTOM CURSORS */
-/* START */
-.cursor-base {
-  display: none !important;
-}
-
-.active {
-  display: inline !important;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 52px;
-  height: 52px;
-  pointer-events: none;
-  z-index: 9999;
-  /*
-  transition: 
-    filter 0.2s, 
-    transform 0.2s,
-    opacity 0.2s;
-  */
-  transform-origin: 26px 26px;
-}
-
-
-#scaleSup {
-  transform: scale(0.65);
-  transform-origin: 26px 26px;
-  transition: transform 0.2s ease;
-}
+/* cursor — functional styles; values are defined in theme.css. */
 
 @keyframes spin-hover {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
+  from {
+    transform: rotate(0deg);
+  }
 
-@keyframes scaleup-hover {
-  from { transform: scale(0.65); }
-  to   { transform: scale(0.9); }
-}
-
-@keyframes scaledown-hover {
-  from { transform: scale(0.9); }
-  to   { transform: scale(0.65); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fill-timer {
-  from { stroke-dashoffset: 150; }
-  to   { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: var(--cursor-timer-path-length);
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-/* cursor mode */
 .custom-cursor-on .TimerBlueEffect,
 .custom-cursor-on .TimerRedEffect,
 .custom-cursor-on .blueBlinkEffect,
@@ -58,91 +28,79 @@
   display: none;
 }
 
-.custom-cursor-on .cursor-base {
-  display: block;
-}
 .custom-cursor-on .cursor-base .baseStack {
   display: inline;
-  transform-origin: 26px 26px;
+  transform-origin: var(--cursor-center) var(--cursor-center);
 }
+
 .custom-cursor-on .cursor-base .hoverAnimPointArray {
   display: none;
 }
-.custom-cursor-on .cursor-base--hover {
-  display: block;
-}
+
 .custom-cursor-on .cursor-base--hover .baseStack {
   display: inline;
-  transform-origin: 26px 26px;
+  transform-origin: var(--cursor-center) var(--cursor-center);
 }
+
 .custom-cursor-on .cursor-base--hover .hoverAnimPointArray,
 .custom-cursor-on .cursor-base--hover .hoverAnimPointArrayB,
 .custom-cursor-on .cursor-base--hover .hoverAnimPointArrayR {
   display: inline;
-  animation: spin-hover 8s linear infinite;
-  transform-origin: 26px 26px;
-}
-.custom-cursor-on .scaleup .baseScaleAnchor {
-  display: inline;
-  transform: scale(0.9);
-  transition: transform 0.2s ease;
-  transform-origin: 26px 26px;
-}
-.custom-cursor-on .scaledown .baseScaleAnchor {
-  display: inline;
-  transform: scale(0.65);
-  transition: transform 0.2s ease;
-  transform-origin: 26px 26px;
+  animation: var(--cursor-orbit-animation);
+  transform-origin: var(--cursor-center) var(--cursor-center);
 }
 
-.custom-cursor-on .cursor-base--active {
-	
-}
-.custom-cursor-on .cursor-input {
-	
-}
-.custom-cursor-on .cursor-background{
-	
-}
-.custom-cursor-on .cursor-grab-map{
-	
-}
-.custom-cursor-on .cursor-grab-marker{
-	
-}
-/* cursor modifier */
-.custom-cursor-on .cursor-blink-blue{
-	
-}
-.custom-cursor-on .cursor-blink-red{
-	
-}
 .timer-progress {
-	animation: fill-timer 0.4s linear forwards;
+  animation: var(--cursor-timer-progress-animation);
 }
+
 .custom-cursor-on .cursor-base--hover .TimerEffect {
-  transform: scale(0.9);
+  transform: var(--cursor-hover-transform);
 }
+
 .custom-cursor-on .cursor-base .TimerEffect {
-  transform: scale(0.65);
+  transform: var(--cursor-rest-transform);
 }
 
 .TimerEffect {
-  transform-origin: 26px 26px;
-  transition: transform 0.2s ease;
+  transform-origin: var(--cursor-center) var(--cursor-center);
+  transition: transform var(--motion-duration-control) ease;
 }
 
-.custom-cursor-on .cursor-timer .TimerEffect .TimerRedEffect{
-	
+.custom-cursor {
+  display: none;
 }
-.custom-cursor-on .cursor-scale-up{
-	
+
+.custom-cursor.is-active {
+  display: inline;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--cursor-size);
+  height: var(--cursor-size);
+  pointer-events: none;
+  z-index: var(--layer-cursor);
+  transform-origin: var(--cursor-center) var(--cursor-center);
 }
-.custom-cursor-on .cursor-scale-down{
-	
+
+body.custom-cursor-on,
+body.custom-cursor-on * {
+  cursor: none !important;
 }
-.custom-cursor-on .cursor-attenuation{
-	
+
+#scaleSup {
+  transform: var(--cursor-rest-transform);
+  transform-origin: var(--cursor-center) var(--cursor-center);
+  transition: transform var(--motion-duration-control) ease;
 }
-/* END */
-/* CUSTOM CURSORS */
+
+.cursor-base--hover #scaleSup {
+  transform: var(--cursor-hover-transform);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timer-progress {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

@@ -1,3 +1,4 @@
+import { popupViewportOptions } from "../ui/popupLayout.js"
 import { MAPDATA, paintMarkers, createMarker, loadMarkersData, markerBuilder, bindMarkerPopup, previewIdsMapping } from "./markers.js"
 import { METRequest } from "../api/markers_api.js"
 import { map } from "../core/map.js"
@@ -72,9 +73,9 @@ function generateMETUIControls() {
       <h3 class="optheader">MET Controllers</h3>
       <div class="met-button-container">
         <button id="activate-met" class="btn-met btn-start open">Activate MET</button>
-        <button id="exit-met" class="btn-met btn-exit disabled" disabled>Exit MET</button>
-        <button id="add-marker" class="btn-met btn-add disabled" disabled>Add Marker</button>
-        <button id="save-changes" class="btn-met btn-save disabled" disabled>Save Changes</button>
+        <button id="exit-met" class="btn-met btn-exit" disabled>Exit MET</button>
+        <button id="add-marker" class="btn-met btn-add" disabled>Add Marker</button>
+        <button id="save-changes" class="btn-met btn-save" disabled>Save Changes</button>
       </div>
     </div>
   `;
@@ -108,13 +109,12 @@ function applyButtonState(button, state = {}) {
 
   if (disabled !== undefined) {
     button.disabled = disabled;
-    button.classList.toggle('disabled', disabled);
   }
 
   if (open !== undefined) {
     button.classList.toggle('open', open);
   }
-} // btn: ['open', 'disabled']
+} // Visibility uses a class; availability uses the native disabled property.
 
 
 
@@ -124,9 +124,9 @@ function applyButtonState(button, state = {}) {
 export class MetEditor {
   constructor(){
     this.editPopup = L.popup({
+      ...popupViewportOptions(true),
       autoClose: false,
       closeOnClick: false,
-      autoPan: false,
       closeButton: false,
       className: 'edit-popup-class'
     });
@@ -275,8 +275,9 @@ export class MetEditor {
     }
     MODAL.met.exitModal.setOuterHandlers(handlerIn);
     const handlerYes = () => {
-      this._globalDiscardChanges();
+      // Close the editor while its marker still has a dragging handler.
       this._exitWithoutModal();
+      this._globalDiscardChanges();
     };
     MODAL.met.exitModal.setInnerHandlers(handlerYes);
     MODAL.met.exitModal.initModal();
@@ -378,9 +379,9 @@ export class MetEditor {
   _openEditPopup(editingMarker, isNew) {
     this.popapsaved = false;
     this.editPopup = L.popup({
+      ...popupViewportOptions(true),
       autoClose: false,
       closeOnClick: false,
-      autoPan: false,
       closeButton: false,
       className: 'edit-popup-class'
     });

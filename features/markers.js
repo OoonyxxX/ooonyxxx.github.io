@@ -4,6 +4,7 @@ import { fastCollectedFilterReRender } from "./filters.js"
 import { APPSTATE, USERSESSION, USERINFO } from "../core/state.js"
 import { REGION_COLORS, REGION_UNDERGROUND_COLORS, ALLOWED_AGENT_CONTENT_CONFIG } from "../core/config.js"
 import { standartPopup, popupWithContent, markerMap } from "./marker_data.js"
+import { popupViewportOptions } from "../ui/popupLayout.js"
 
 
 export const MAPDATA = {
@@ -46,7 +47,7 @@ export function bindMarkerPopup(marker, p) {
   
   const popup = p ?? (content ? popupWithContent(id, name, description, content, collectible) : standartPopup(id, name, description, collectible));
 
-  marker.bindPopup(popup);
+  marker.bindPopup(popup, { ...popupViewportOptions(), className: 'marker-popup' });
   attachInitPopupHandler(marker);
 
   return marker;

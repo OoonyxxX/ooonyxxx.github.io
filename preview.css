@@ -1,0 +1,16 @@
+/* preview — functional styles; values are defined in theme.css. */
+
+.content-preview-img {
+  max-width: var(--preview-icon-size);
+  max-height: var(--preview-icon-size);
+}
+
+.content-preview {
+  left: 0;
+  top: 0;
+  position: fixed;
+  pointer-events: none;
+  max-width: var(--preview-icon-size);
+  max-height: var(--preview-icon-size);
+  z-index: var(--layer-preview);
+}

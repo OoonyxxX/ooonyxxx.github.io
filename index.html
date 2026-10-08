@@ -44,12 +44,17 @@
   <link rel="icon" href="/mapofthenorth_favicon.ico">
   <link rel="stylesheet" href="https://unpkg.com/@jaames/iro@5.5.2/dist/iro.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="theme.css" />
-  <link rel="stylesheet" href="modal.css" />
-  <link rel="stylesheet" href="globalStyle.css" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="cursor.css" />
-	<link rel="stylesheet" href="marker-ui.css" />
+  <link rel="stylesheet" href="theme.css?v=20261005" />
+  <link rel="stylesheet" href="components.css?v=20261005" />
+  <link rel="stylesheet" href="main-ui.css?v=20261006" />
+  <link rel="stylesheet" href="leaflet-overrides.css?v=20261005" />
+  <link rel="stylesheet" href="sidebar.css?v=20261005" />
+  <link rel="stylesheet" href="modal.css?v=20261005" />
+  <link rel="stylesheet" href="marker-ui.css?v=20261005" />
+  <link rel="stylesheet" href="met.css?v=20261005" />
+  <link rel="stylesheet" href="maintenance.css?v=20261005" />
+  <link rel="stylesheet" href="preview.css?v=20261005" />
+  <link rel="stylesheet" href="cursor.css?v=20261005" />
 </head>
 <body>
   <canvas id="regions-canvas" style="display:none;"></canvas>
@@ -111,15 +116,16 @@
   </div>
   <main class="map-container">
     <aside id="map-controls" class="controls hide-i">
-      <section id="options-container" class="options-container transition">
-				<div class="optionheader transition">
+      <section id="options-container" class="options-container">
+				<div class="optionheader">
 					<h3 class="optheader">Options</h3>
-					<button id="option-hide" class="btn-hide option-hide">
+					<button id="option-hide" class="btn-hide option-hide" aria-expanded="true" aria-controls="options-body" aria-label="Toggle options">
 						<span id="option-hide-text" class="option-hide-text">Hide</span>
-						<img id="option-hide-img" class="option-hide-img" src="/assets/othersvg/opt.svg">
+						<img id="option-hide-img" class="option-hide-img" src="/assets/othersvg/opt.svg" alt="">
 					</button>
 				</div>
-				<div class="optparam transition">
+				<div id="options-body" class="sidebar-body">
+				<div class="optparam">
 					<label class="option-parameter cursor-toggle">
 						<input type="checkbox" class="toggle-cursor-checkbox" id="toggle-cursor" checked>
 						<span class="toggle-text toggle-cursor-text">Custom Cursor</span>
@@ -145,20 +151,22 @@
 						<span class="toggle-text toggle-instantf-text">Instant Filter</span>
 					</label>
 				</div>
+				</div>
       </section>
 
       <section id="devlog-widget-container" class="widget-container">
       </section>
 			
-			<section id="filter-container" class="filter-container transition">
-				<div id="filterheader" class="filterheader ftransition">
-					<h3 class="filheader transition">Filters</h3>
-					<button id="filter-reset" class="btn-reset transition">Clear</button>
-					<button id="filter-hide" class="btn-hide filter-hide transition">
+			<section id="filter-container" class="filter-container">
+				<div id="filterheader" class="filterheader">
+					<h3 class="filheader">Filters</h3>
+					<button id="filter-reset" class="btn-reset">Clear</button>
+					<button id="filter-hide" class="btn-hide filter-hide" aria-expanded="true" aria-controls="filters-body" aria-label="Toggle filters">
 						<span id="filter-hide-text" class="filter-hide-text">Hide</span>
-						<img id="filter-hide-img" class="filter-hide-img" src="/assets/othersvg/filter.svg">
+						<img id="filter-hide-img" class="filter-hide-img" src="/assets/othersvg/filter.svg" alt="">
 					</button>
 				</div>
+				<div id="filters-body" class="sidebar-body">
 				<div id="filter-sections" class="filter-sections">
 					<section class="filter-section filter-underground" data-filter="underground">
 						<div class="filter-body underground-switch">
@@ -175,13 +183,14 @@
 					<section class="filter-section filter-region" data-filter="region"></section>
 					<div id="filter-sections-footer" class="filter-sections-footer"> </div>
 				</div>
+				</div>
 
 			</section>
 		</aside>
     <div id="map" class="map-style"></div>
   </main>
   <footer class="footer-container hide-i">
-    <span class="footer-text">You can support me here: </span>
+    <a class="footer-text footer-support-link" href="/donate/">Support Map of the North <span aria-hidden="true">&rarr;</span></a>
   </footer>
 	<template id="marker-form-template" class="hide-i">
 		<form class="marker-form">
@@ -455,7 +464,7 @@
 		</form>
 	</template>
 
-  <div id="custom-cursor" class="cursor-base hide-i">
+  <div id="custom-cursor" class="custom-cursor cursor-base hide-i">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" class="custom-cursor-svg">
 			<defs>
 			<clipPath id="clipTimer">

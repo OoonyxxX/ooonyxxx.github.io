@@ -1,0 +1,516 @@
+/* met — functional styles; values are defined in theme.css. */
+
+.met.open {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.met-controls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+.met-button-container {
+  background: var(--color-panel-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom-right-radius: var(--radius-16);
+  border-bottom-left-radius: var(--radius-16);
+  border: solid;
+  border-color: var(--color-panel-border);
+  border-width: var(--space-4);
+  width: var(--met-panel-width);
+  padding-bottom: var(--space-24);
+  padding-right: var(--space-20);
+  padding-left: var(--space-20);
+  margin-top: var(--met-panel-overlap);
+  pointer-events: none;
+}
+
+.btn-met.btnAddMode {
+  background: var(--met-add-mode-bg);
+}
+
+.marker-form,
+.marker-form *,
+.marker-form *::before,
+.marker-form *::after {
+  box-sizing: border-box;
+}
+
+.marker-form :is(.form-section, .form-subsection) {
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-12);
+  border: var(--border-thin) solid var(--marker-border);
+  border-radius: var(--marker-radius);
+  background: var(--marker-panel);
+}
+
+.marker-form :is(.form-section, .form-subsection) > legend {
+  max-width: 100%;
+  padding: var(--met-form-subsection-padding);
+  color: var(--marker-accent-hover);
+  font-size: var(--met-form-subsection-font-size);
+  font-weight: 650;
+}
+
+.marker-form :is(.form-section, .form-subsection) > :not(legend) + :not(legend) {
+  margin-top: var(--space-12);
+}
+
+.marker-form .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+  margin: 0;
+}
+
+.marker-form .form-field--inline {
+  display: grid;
+  grid-template-columns: var(--met-inline-columns);
+  align-items: center;
+  gap: var(--space-10);
+}
+
+.marker-form .form-field__label {
+  font-size: var(--met-form-field-label-font-size);
+  font-weight: 600;
+}
+
+.marker-form :is(input, textarea, select, button) {
+  font: inherit;
+}
+
+.marker-form :is(input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]), textarea, select) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--met-input-height);
+  margin: 0;
+  padding: var(--met-input-padding);
+  color: var(--marker-text);
+  background: var(--marker-bg);
+  border: var(--border-thin) solid var(--marker-muted);
+  border-radius: var(--radius-6);
+  transition: border-color var(--motion-duration-fast) ease, box-shadow var(--motion-duration-fast) ease;
+}
+
+.marker-form textarea {
+  min-height: var(--met-textarea-height);
+  resize: vertical;
+}
+
+.marker-form select {
+  padding-right: var(--space-6);
+  cursor: pointer;
+}
+
+.marker-form :is(input, textarea)::placeholder {
+  color: var(--marker-muted);
+  opacity: 1;
+}
+
+.marker-form :is(input, textarea, select):focus {
+  border-color: var(--marker-accent-hover);
+}
+
+.marker-form :is(input, textarea, select, button, summary, [tabindex]):focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--space-3);
+}
+
+.marker-form :is(input, textarea, select)[aria-invalid="true"],
+.marker-form :is(input, textarea, select):user-invalid {
+  border-color: var(--marker-highlight);
+  box-shadow: var(--met-invalid-shadow);
+}
+
+.marker-form :is(input, textarea, select, button):disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.marker-form :is(.checkbox-field, .radio-field) {
+  display: flex;
+  align-items: center;
+  gap: var(--space-9);
+  min-height: var(--met-radio-field-min-height);
+  margin: 0;
+  cursor: pointer;
+}
+
+.marker-form :is(input[type="checkbox"], input[type="radio"]) {
+  flex: 0 0 auto;
+  width: var(--popup-checkbox-size);
+  height: var(--popup-checkbox-size);
+  margin: 0;
+  accent-color: var(--marker-accent-hover);
+  cursor: pointer;
+}
+
+.marker-form :is(.checkbox-field, .radio-field):has(input:disabled) {
+  color: var(--marker-muted);
+  cursor: not-allowed;
+}
+
+.marker-form .radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--met-radio-group-gap);
+}
+
+.marker-form .color-picker {
+  width: 100%;
+  cursor: pointer;
+}
+
+.marker-form .number-field--percent {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+.marker-form .number-field--percent > span {
+  flex: 0 0 auto;
+  color: var(--marker-accent-hover);
+}
+
+.marker-form details.form-section {
+  padding: 0;
+}
+
+.marker-form .form-collapsible__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--met-form-collapsible-summary-padding);
+  color: var(--marker-accent-hover);
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+  border-radius: var(--marker-radius);
+}
+
+.marker-form .form-collapsible__summary::-webkit-details-marker {
+  display: none;
+}
+
+.marker-form .form-collapsible__summary::before {
+  content: "";
+  flex: 0 0 auto;
+  width: var(--popup-arrow-size);
+  height: var(--popup-arrow-size);
+  border-right: var(--popup-arrow-border);
+  border-bottom: var(--popup-arrow-border);
+  transform: rotate(-45deg);
+  transition: transform var(--motion-duration-fast) ease;
+}
+
+.marker-form details[open] > .form-collapsible__summary::before {
+  transform: rotate(45deg);
+}
+
+.marker-form .form-collapsible > :is(.form-collapsible__content, .content-fields) {
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-12);
+  border: 0;
+  border-top: var(--border-thin) solid var(--marker-border);
+}
+
+.marker-form .content-fields {
+  display: grid;
+  gap: var(--space-14);
+}
+
+.marker-form .form-subsection {
+  background: var(--marker-bg);
+}
+
+.marker-form .wealth-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--met-wealth-preview-gap);
+  padding: var(--met-input-padding);
+  border-radius: var(--radius-6);
+  background: var(--marker-panel);
+  font-variant-numeric: tabular-nums;
+}
+
+.marker-form .wealth-preview output {
+  color: var(--marker-highlight);
+  font-weight: 650;
+}
+
+.marker-form .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.marker-form .tag-list:empty {
+  display: none;
+}
+
+.marker-form .tag-list > * {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  max-width: 100%;
+  min-width: 0;
+  padding: var(--met-tag-list-padding);
+  color: var(--marker-text);
+  background: var(--marker-panel);
+  border: var(--border-thin) solid var(--marker-accent);
+  border-radius: var(--radius-6);
+  font-size: var(--met-tag-list-font-size);
+  overflow-wrap: anywhere;
+}
+
+.marker-form .tag-list > * > span {
+  min-width: 0;
+}
+
+.marker-form .tag-list button {
+  flex-shrink: 0;
+  min-width: var(--met-tag-remove-size);
+  min-height: var(--met-tag-remove-size);
+  padding: var(--met-tag-remove-padding);
+  color: var(--marker-text);
+  background: transparent;
+  border: var(--border-thin) solid var(--marker-border);
+  border-radius: var(--radius-4);
+  cursor: pointer;
+}
+
+.marker-form :is(.tag-input__control, .autocomplete) {
+  position: relative;
+  min-width: 0;
+}
+
+.marker-form :is(.tag-input__suggestions, .autocomplete__suggestions) {
+  position: absolute;
+  z-index: var(--layer-autocomplete);
+  top: var(--met-autocomplete-suggestions-top);
+  right: 0;
+  left: 0;
+  max-height: var(--met-autocomplete-suggestions-max-height);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-4);
+  background: var(--marker-panel);
+  border: var(--border-thin) solid var(--marker-accent);
+  border-radius: var(--radius-8);
+  box-shadow: var(--met-autocomplete-suggestions-box-shadow);
+}
+
+.marker-form :is(.tag-input__suggestions, .autocomplete__suggestions) [role="option"] {
+  display: block;
+  width: 100%;
+  padding: var(--met-input-padding);
+  color: var(--marker-text);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-4);
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.marker-form :is(.tag-input__suggestions, .autocomplete__suggestions) [role="option"][aria-selected="true"] {
+  color: var(--marker-highlight);
+  background: var(--marker-bg);
+}
+
+.marker-form .form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  padding-top: var(--space-12);
+  border-top: var(--border-thin) solid var(--marker-border);
+}
+
+.marker-form .form-actions button {
+  flex: var(--met-form-actions-flex);
+  min-height: var(--met-form-actions-min-height);
+  padding: var(--met-form-actions-padding);
+  color: var(--marker-text);
+  background: var(--marker-panel);
+  border: var(--border-thin) solid var(--marker-muted);
+  border-radius: var(--radius-7);
+  font-weight: 650;
+  cursor: pointer;
+  transition: background-color var(--motion-duration-fast) ease, border-color var(--motion-duration-fast) ease;
+}
+
+.marker-form .form-actions .btn-submit {
+  color: var(--marker-bg);
+  background: var(--marker-accent-hover);
+  border-color: var(--marker-accent-hover);
+}
+
+.marker-form .form-actions .btn-delete {
+  color: var(--marker-text);
+  background: var(--marker-danger);
+  border-color: var(--marker-danger);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .marker-form :is(.tag-input__suggestions, .autocomplete__suggestions) [role="option"]:hover {
+    color: var(--marker-highlight);
+    background: var(--marker-bg);
+  }
+
+  .marker-form .form-actions button:not(:disabled):hover {
+    border-color: var(--marker-highlight);
+  }
+
+  .marker-form .form-actions .btn-submit:not(:disabled):hover {
+    background: var(--marker-highlight);
+  }
+
+  .marker-form .form-collapsible__summary:hover {
+    color: var(--marker-highlight);
+  }
+}
+
+@container marker-form (max-width: 320px) {
+  .marker-form .form-field--inline {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 480px) {
+  .marker-form {
+    padding: var(--space-12);
+    gap: var(--space-12);
+  }
+
+  .marker-form :is(input:not([type="checkbox"]):not([type="radio"]), textarea, select) {
+    font-size: var(--met-mobile-input-font-size);
+  }
+
+  .marker-form .form-field--inline {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.met {
+  display: none;
+  position: absolute;
+  z-index: var(--layer-ui);
+  transform: var(--met-panel-position);
+}
+
+.met .optheader {
+  background: var(--color-page-bg);
+  border-bottom-right-radius: var(--radius-16);
+  border-bottom-left-radius: var(--radius-16);
+  margin: 0;
+  padding-top: var(--space-18);
+  padding-right: var(--space-40);
+  padding-bottom: var(--space-18);
+  padding-left: var(--space-40);
+  font-size: var(--font-size-met-heading);
+}
+
+.btn-met {
+  margin-top: var(--space-10);
+  height: var(--met-button-height);
+  width: var(--met-button-width);
+  border-radius: var(--radius-8);
+  background: var(--met-button-bg);
+  color: var(--color-white);
+  font-size: var(--font-size-control);
+  border: solid;
+  border-width: var(--border-control);
+  border-color: var(--met-button-border);
+  pointer-events: auto;
+  display: none;
+  cursor: pointer;
+}
+
+.btn-met.open {
+  display: block;
+}
+
+.btn-met:disabled {
+  background: var(--met-disabled-bg);
+  color: var(--met-disabled-text);
+  border-color: var(--met-disabled-border);
+  cursor: not-allowed;
+}
+
+.btn-met:not(:disabled):active {
+  background: var(--met-hover-bg);
+  border-color: var(--met-hover-border);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-met:not(:disabled):hover {
+    background: var(--met-hover-bg);
+    border-color: var(--met-hover-border);
+  }
+}
+
+.marker-form {
+  color: var(--marker-text);
+  color-scheme: dark;
+  font: var(--popup-font);
+  display: grid;
+  gap: var(--space-16);
+  width: var(--met-form-width);
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-18);
+  background: var(--marker-bg);
+  border: var(--border-thin) solid var(--marker-border);
+  border-radius: var(--radius-14);
+  overflow-wrap: anywhere;
+  container: marker-form / inline-size;
+}
+
+.marker-form .coordinate-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-10);
+  margin-top: var(--space-12);
+}
+
+.marker-form .form-collapsible__icon {
+  flex: 0 0 auto;
+  width: var(--popup-disclosure-icon-size);
+  height: var(--popup-disclosure-icon-size);
+  margin-left: auto;
+  object-fit: contain;
+  opacity: var(--opacity-disclosure);
+  transition: transform var(--motion-duration-fast) var(--motion-easing);
+}
+
+.marker-form .form-collapsible[open] .form-collapsible__icon {
+  transform: rotate(90deg);
+}
+
+.edit-popup-class .leaflet-popup-content {
+  /* Leaflet writes an inline width; theme remains authoritative for the editor. */
+  width: min(var(--met-form-width), calc(100vw - var(--popup-viewport-clearance))) !important;
+  max-height: var(--popup-available-height);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.edit-popup-class .marker-form {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}

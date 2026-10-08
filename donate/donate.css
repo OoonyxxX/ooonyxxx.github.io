@@ -1,0 +1,274 @@
+/* Shared tokens and controls come from theme.css and components.css.
+   This page uses document scrolling, independently of the map's fixed layout. */
+.donate-page {
+  --donate-muted: #a6bdb8;
+  --donate-panel-bg: #06201de6;
+  --donate-divider: #14c3b033;
+  margin: 0;
+  min-height: var(--viewport-height);
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(ellipse at 75% 15%, #066b6029, transparent 55%), var(--color-page-bg);
+  color: var(--color-ui-text);
+  font: 1rem/1.7 system-ui, sans-serif;
+}
+
+.donate-page *,
+.donate-page *::before,
+.donate-page *::after {
+  box-sizing: border-box;
+}
+
+.donate-shell {
+  width: min(100% - var(--space-48), 68rem);
+  margin-inline: auto;
+}
+
+.donate-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  padding-block: var(--space-24);
+  border-bottom: var(--border-thin) solid var(--donate-divider);
+}
+
+.donate-brand,
+.donate-title-accent {
+  color: var(--color-option-active);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.donate-brand {
+  font: 1.25rem/1.4 var(--font-ui);
+  text-decoration: none;
+}
+
+.donate-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  min-height: 44px;
+  color: var(--color-ui-text);
+  text-decoration: none;
+  transition: color var(--motion-duration-control) var(--motion-easing);
+}
+
+.donate-back span {
+  color: var(--color-option-active);
+}
+
+.donate-main {
+  flex: 1;
+  padding-block: clamp(2rem, 6vw, 5rem);
+}
+
+.donate-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.donate-eyebrow {
+  margin: 0 0 var(--space-16);
+  color: var(--color-option-active);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.donate-page h1,
+.donate-page h2,
+.donate-page h3 {
+  font-family: var(--font-ui);
+  font-weight: normal;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.donate-page h1 {
+  margin: 0 0 var(--space-24);
+  font-size: clamp(2rem, 4.3vw, 3.25rem);
+}
+
+.donate-title-accent {
+  display: block;
+}
+
+.donate-story > p:not(.donate-eyebrow) {
+  max-width: 38rem;
+}
+
+.donate-story > p:last-child {
+  margin-bottom: 0;
+}
+
+.donate-lead {
+  color: var(--color-white);
+  font-size: 1.15rem;
+}
+
+.donate-story > p:not(.donate-eyebrow):not(.donate-lead),
+.donate-panel > p:not(.donate-eyebrow),
+.donate-impact-list p {
+  color: var(--donate-muted);
+}
+
+.donate-panel {
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: var(--border-thin) solid var(--donate-divider);
+  border-top: var(--border-control) solid var(--color-button-hover-border);
+  border-radius: var(--radius-16);
+  background: var(--donate-panel-bg);
+  box-shadow: var(--modal-container-box-shadow);
+}
+
+.donate-panel h2 {
+  margin: 0 0 var(--space-16);
+  font-size: 1.5rem;
+}
+
+.donate-patreon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+  min-height: 64px;
+  margin-top: var(--space-24);
+  padding: var(--space-12);
+  text-align: center;
+  text-decoration: none;
+}
+
+.donate-patreon img {
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+/* Remove aria-disabled when the real Patreon URL is available. Override shared
+   button hover/press effects while this is an informational placeholder. */
+.donate-patreon[aria-disabled="true"] {
+  pointer-events: none;
+  background: var(--color-panel-bg);
+  border-color: var(--donate-divider);
+  box-shadow: none;
+  filter: none;
+}
+
+.donate-note {
+  margin-block: var(--space-16);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.donate-panel > .donate-back {
+  font-size: 0.875rem;
+}
+
+.donate-impact {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding-top: var(--space-32);
+  border-top: var(--border-thin) solid var(--donate-divider);
+}
+
+.donate-impact > h2 {
+  margin: 0 0 var(--space-24);
+  font-size: 1.25rem;
+}
+
+.donate-impact-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.donate-impact-number {
+  color: var(--color-button-hover-border);
+  font: 0.875rem/1.5 var(--font-ui);
+}
+
+.donate-impact-list h3 {
+  margin: var(--space-8) 0;
+  font-size: 1rem;
+}
+
+.donate-impact-list p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.donate-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-24);
+  padding-block: var(--space-20);
+  border-top: var(--border-thin) solid var(--donate-divider);
+  color: var(--donate-muted);
+  font-size: 0.75rem;
+}
+
+.donate-footer p {
+  margin: 0;
+}
+
+.donate-skip-link {
+  position: absolute;
+  top: var(--space-8);
+  left: var(--space-8);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-8);
+  background: var(--color-page-bg);
+  color: var(--color-white);
+  transform: translateY(-200%);
+  z-index: var(--layer-ui);
+}
+
+.donate-skip-link:focus {
+  transform: none;
+}
+
+.donate-back:active {
+  color: var(--color-option-active);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .donate-back:hover {
+    color: var(--color-button-hover-text);
+    text-decoration: underline;
+    text-underline-offset: var(--space-4);
+  }
+}
+
+@media (max-width: 768px) {
+  .donate-intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .donate-impact-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-24);
+  }
+}
+
+@media (max-width: 480px) {
+  .donate-shell {
+    width: calc(100% - var(--space-32));
+  }
+
+  .donate-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding-block: var(--space-16);
+  }
+}

@@ -83,7 +83,7 @@ class AuthModal {
   _generateModal() {
     this.container.innerHTML = `
 	      <div class="login-modal-content modal-content no-select">
-          <button id="login-modal-exit" class="modal-exit-btn">
+          <button id="login-modal-exit" class="modal-exit-btn" aria-label="Close dialog">
             <img id="login-modal-exit-img" class="modal-exit-img no-drag" src="/assets/othersvg/cancel.svg">
           </button>
 		      <p id="login-modal-text-h" class="modal-text-h">
@@ -200,7 +200,7 @@ class MarkerDeleteModal {
   _generateModal() {
     this.container.innerHTML = `
         <div class="confirm-modal-content modal-content">
-          <button id="confirm-modal-exit" class="modal-exit-btn">
+          <button id="confirm-modal-exit" class="modal-exit-btn" aria-label="Close dialog">
             <img id="confirm-modal-exit-img" class="modal-exit-img no-drag" src="/assets/othersvg/cancel.svg">
           </button>
           <p id="confirm-modal-text-h" class="modal-text-h">Are you sure you want to remove this marker?</p>
@@ -324,7 +324,7 @@ class METExitModal {
   _generateModal() {
     this.container.innerHTML = `
         <div class="exit-modal-content modal-content">
-          <button id="exit-modal-exit" class="modal-exit-btn">
+          <button id="exit-modal-exit" class="modal-exit-btn" aria-label="Close dialog">
             <img id="exit-modal-exit-img" class="modal-exit-img no-drag" src="/assets/othersvg/cancel.svg">
           </button>
           <p id="exit-modal-text-h" class="modal-text-h">
@@ -460,7 +460,7 @@ class UserModal {
   _generateModal() {
     this.container.innerHTML = `
         <div id="user-modal-content" class="user-modal-content modal-content">
-          <button id="user-modal-exit" class="modal-exit-btn">
+          <button id="user-modal-exit" class="modal-exit-btn" aria-label="Close dialog">
             <img id="user-modal-exit-img" class="modal-exit-img no-drag" src="/assets/othersvg/cancel.svg">
           </button>
           <div role="tablist" id="user-modal-tablist" class="user-modal-tablist"></div>
@@ -909,7 +909,7 @@ class DevLogModal {
   _generateModal() {
     this.container.innerHTML = `
 	      <div class="login-modal-content modal-content no-select">
-          <button id="login-modal-exit" class="modal-exit-btn">
+          <button id="login-modal-exit" class="modal-exit-btn" aria-label="Close dialog">
             <img id="login-modal-exit-img" class="modal-exit-img no-drag" src="/assets/othersvg/cancel.svg">
           </button>
 		      <p id="login-modal-text-h" class="modal-text-h">
