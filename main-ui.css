@@ -36,7 +36,7 @@
 @media (hover: hover) and (pointer: fine) {
   .footer-support-link:hover {
     color: var(--color-button-hover-text);
-    text-decoration-color: var(--color-button-hover-text);
+    text-decoration-color: var(--motion-duration-panel);
     text-decoration: underline;
     text-underline-offset: var(--space-4);
   }
