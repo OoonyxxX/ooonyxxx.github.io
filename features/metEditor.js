@@ -716,7 +716,18 @@ class MarkerForm {
     const cosmeticsDropProbability = this.cosmeticsDropProbability.value / 100;
 
     const mode = this.getMelodyMode()
-    const melody = (mode == "specific") ? (this.melodyInput.getValue() || null) : mode
+    let melody = null;
+    switch (mode) {
+      case "specific":
+        melody = this.melodyInput.getValue() || null
+        break;
+      case "none":
+        melody = null
+        break;
+      case "any":
+        melody = mode
+        break;
+    }
     const skillPoint = this.skillPoint.checked
     return {
       title, 
