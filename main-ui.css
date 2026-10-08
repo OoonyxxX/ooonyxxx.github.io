@@ -21,7 +21,8 @@
   font-family: var(--font-ui);
   font-size: var(--font-accent-size-control);
   text-decoration: none;
-  transition: color var(--motion-duration-control) var(--motion-easing);
+  text-decoration-color: transparent;
+  transition: color var(--motion-duration-control) var(--motion-easing), text-decoration-color var(--motion-duration-control) var(--motion-easing);
 }
 
 .footer-support-link span {
@@ -35,6 +36,7 @@
 @media (hover: hover) and (pointer: fine) {
   .footer-support-link:hover {
     color: var(--color-button-hover-text);
+    text-decoration-color: var(--color-button-hover-text);
     text-decoration: underline;
     text-underline-offset: var(--space-4);
   }

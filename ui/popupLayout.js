@@ -7,7 +7,7 @@ export function popupViewportOptions(editor = false) {
   const header = document.querySelector('.header-container');
   const headerHeight = header ? parseFloat(getComputedStyle(header).height) : 0;
   return {
-    autoPan: true,
+    autoPan: !editor,
     keepInView: true,
     autoPanPaddingTopLeft: [padding, headerHeight + padding],
     autoPanPaddingBottomRight: [padding, padding],
