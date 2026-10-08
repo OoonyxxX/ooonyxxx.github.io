@@ -19,7 +19,7 @@
   margin-right: var(--space-16);
   color: var(--color-ui-text);
   font-family: var(--font-ui);
-  font-size: var(--font-size-control);
+  font-size: var(--font-accent-size-control);
   text-decoration: none;
   transition: color var(--motion-duration-control) var(--motion-easing);
 }
