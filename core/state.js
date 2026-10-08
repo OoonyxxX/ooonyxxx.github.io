@@ -33,5 +33,5 @@ export const USERSETTINGS = proxifyObjToUpdateUI({
   customCursor: true,
   instantFilter: true,
   theme: "Northern Lights",
-  contentPreview: false
+  contentPreview: true
 })
