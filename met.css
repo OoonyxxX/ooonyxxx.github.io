@@ -515,7 +515,7 @@
   border-radius: 0;
 }
 
-/*Тест функции*/
+/*Тест функции
 @supports (appearance: base-select) {
   .icon-select,
   .icon-select::picker(select) {
@@ -556,4 +556,4 @@
   .icon-select option:hover {
     background: #304960;
   }
-}
+}*/
