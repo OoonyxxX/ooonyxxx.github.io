@@ -514,3 +514,46 @@
   border: 0;
   border-radius: 0;
 }
+
+/*Тест функции*/
+@supports (appearance: base-select) {
+  .icon-select,
+  .icon-select::picker(select) {
+    appearance: base-select;
+  }
+
+  .icon-select option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+  }
+
+  .icon-select .icon-option-img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .icon-select .icon-option-text {
+    flex: 1;
+  }
+
+  .icon-select selectedcontent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .icon-select::picker(select) {
+    background: #101010;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 6px;
+  }
+
+  .icon-select option:hover {
+    background: #304960;
+  }
+}

@@ -663,12 +663,31 @@ class MarkerForm {
     this.title.value = marker.$data.name ?? "Name_PlaceHolder";
     this.description.value = marker.$data.description ?? "Description_PlaceHolder";
     this.uaid.value = marker.$data.uaid ?? "";
+    this.icon.classList.add('icon-select');
+
+    //Тест функции
+    const button = document.createElement('button');
+    const selectedContent = document.createElement('selectedcontent');
+    button.append(selectedContent);
+    this.icon.prepend(button);
+
     MAPDATA.iconsData.forEach(ic => {
       const icOpt = document.createElement('option');
       icOpt.value = ic.id;
-      icOpt.textContent = ic.name;
+
+      const icOptImg = document.createElement('img');
+      icOptImg.classList.add('icon-option-img');
+      icOptImg.src = `/icons/${ic.id}.svg`; // Пример пути
+      icOptImg.alt = '';
+
+      const icOptText = document.createElement('span');
+      icOptText.classList.add('icon-option-text');
+      icOptText.textContent = ic.name;
+
+      icOpt.append(icOptImg, icOptText);
       this.icon.append(icOpt);
     });
+
     this.icon.value = marker.$data.icon_id || 'default';
     this.colorPicker = attachColorPicker(this.form, marker);
     this.colorPicker.color.set(marker.$data?.raw_rgbcolor ?? '#fff');
