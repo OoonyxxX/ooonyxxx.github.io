@@ -5,7 +5,7 @@ import { map } from "../core/map.js"
 import { APPSTATE, USERSESSION, USERSETTINGS } from "../core/state.js"
 import { REGION_LIST, ALLOWED_MET_ROLE, ALLOWED_MET_DELETE_ROLE } from "../core/config.js"
 import { attachColorPicker } from "../ui/colorPicker.js"
-import { setDraggingMode } from "../ui/cursor.js"
+import { setDraggingMode, raiseCursor } from "../ui/cursor.js"
 import { MODAL } from "../ui/modal.js"
 import { subscribeUI } from "../ui/UIUtilities.js"
 import { markerMap, getWealthPreset, RUNE_NAMES, COSMETIC_NAMES, MELODY_NAMES, COLLECTIBLELIST } from "./marker_data.js"
@@ -689,6 +689,8 @@ class MarkerForm {
     });
 
     this.icon.value = marker.$data.icon_id || 'default';
+    this.icon.addEventListener('click', raiseCursor.bind(this));
+    this.icon.addEventListener('keydown', raiseCursor.bind(this));
     this.colorPicker = attachColorPicker(this.form, marker);
     this.colorPicker.color.set(marker.$data?.raw_rgbcolor ?? '#fff');
     

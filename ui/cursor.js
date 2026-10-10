@@ -16,6 +16,7 @@ export function cacheCursor() {
   .leaflet-marker-icon, 
   a, 
   button, 
+  option,
   input[type="checkbox"], 
   .leaflet-popup-close-button, 
   .action-img,
@@ -197,4 +198,17 @@ function stopTimerAnim() {
   clearTimeout(CURSORITEM.timer.dragTimer);
   CURSORITEM.timerProgress.classList.remove('timer-progress');
   CURSORITEM.blueTimer.style.display = 'none';
+}
+
+
+CURSORITEM.customCursor.popover = 'manual';
+CURSORITEM.customCursor.showPopover();
+
+export function raiseCursor() {
+  requestAnimationFrame(() => {
+    if (!this.icon.matches(':open')) return;
+
+    CURSORITEM.customCursor.hidePopover();
+    CURSORITEM.customCursor.showPopover();
+  });
 }
