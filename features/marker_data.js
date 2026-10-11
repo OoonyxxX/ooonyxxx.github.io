@@ -207,12 +207,13 @@ const ARRAY_CONTENT_TYPES = new Set([
 ]);
 
 const BOOLEAN_CONTENT_TYPES = new Set([
-  'enabled',
-  'dropAll'
+  'runesDropAll',
+  'cosmeticsDropAll',
+  'skillPoint'
 ]);
 
 const NUMBER_CONTENT_TYPES = new Set([
-  'dropProbability'
+  'cosmeticsDropProbability'
 ]);
 
 
