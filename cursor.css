@@ -112,4 +112,5 @@ body.custom-cursor-on * {
   border: none;
   background: transparent;
   pointer-events: none;
+  overflow: hidden;
 }
