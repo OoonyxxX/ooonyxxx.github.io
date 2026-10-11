@@ -83,13 +83,15 @@ export async function METRequest(diff) {
   };
   console.log(markers)
   console.log(ids)
+  
+  if (ids.length > 0) {
+    result.deleteResult = await deleteMarkersArray(ids);
+  }
+
   if (markers.length > 0) {
     result.postResult = await postMarkersArray(markers);
   }
 
-  if (ids.length > 0) {
-    result.deleteResult = await deleteMarkersArray(ids);
-  }
 
   return result;
 }
