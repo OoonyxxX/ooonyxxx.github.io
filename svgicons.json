@@ -2,276 +2,331 @@
   {
     "id": "crypt",
     "name": "Crypt",
-    "url": "assets/svgicons/T_Icon_Map_Cryptv2.svg"
+    "url": "assets/svgicons/T_Icon_Map_Cryptv2.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Cryptv2.svg"
   },
   {
     "id": "obelisk",
     "name": "Obelisk",
-    "url": "assets/svgicons/T_Icon_Map_Obelisk.svg"
+    "url": "assets/svgicons/T_Icon_Map_Obelisk.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Obelisk.svg"
   },
   {
     "id": "playerHome",
     "name": "Player Home",
-    "url": "assets/svgicons/T_Icon_Map_PlayerHome.svg"
+    "url": "assets/svgicons/T_Icon_Map_PlayerHome.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_PlayerHome.svg"
   },
   {
     "id": "default",
     "name": "Default",
-    "url": "assets/svgicons/T_Icon_Map_Generic.svg"
+    "url": "assets/svgicons/T_Icon_Map_Generic.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Generic.svg"
   },
   {
     "id": "wispCollector",
     "name": "Wisp Collector",
-    "url": "assets/svgicons/T_Icon_Map_WispCollector.svg"
+    "url": "assets/svgicons/T_Icon_Map_WispCollector.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_WispCollector.svg"
   },
   {
     "id": "waterfall",
     "name": "Waterfall",
-    "url": "assets/svgicons/T_Icon_Map_Waterfall.svg"
+    "url": "assets/svgicons/T_Icon_Map_Waterfall.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Waterfall.svg"
   },
   {
     "id": "warTower",
     "name": "War Tower",
-    "url": "assets/svgicons/T_Icon_Map_WarTower.svg"
+    "url": "assets/svgicons/T_Icon_Map_WarTower.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_WarTower.svg"
   },
   {
     "id": "warGate",
     "name": "War Gate",
-    "url": "assets/svgicons/T_Icon_Map_WarGate.svg"
+    "url": "assets/svgicons/T_Icon_Map_WarGate.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_WarGate.svg"
   },
   {
     "id": "tree",
     "name": "Tree",
-    "url": "assets/svgicons/T_Icon_Map_Tree.svg"
+    "url": "assets/svgicons/T_Icon_Map_Tree.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Tree.svg"
   },
   {
     "id": "totem",
     "name": "Totem",
-    "url": "assets/svgicons/T_Icon_Map_Totem.svg"
+    "url": "assets/svgicons/T_Icon_Map_Totem.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Totem.svg"
   },
   {
     "id": "snakeShrine",
     "name": "Snake Shrine",
-    "url": "assets/svgicons/T_Icon_Map_SnakeShrine.svg"
+    "url": "assets/svgicons/T_Icon_Map_SnakeShrine.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_SnakeShrine.svg"
   },
   {
     "id": "shipyard",
     "name": "Shipyard",
-    "url": "assets/svgicons/T_Icon_Map_Shipyard.svg"
+    "url": "assets/svgicons/T_Icon_Map_Shipyard.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Shipyard.svg"
   },
   {
     "id": "ruins",
     "name": "Ruins",
-    "url": "assets/svgicons/T_Icon_Map_Ruins.svg"
+    "url": "assets/svgicons/T_Icon_Map_Ruins.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Ruins.svg"
   },
   {
     "id": "raccoonGrotto",
     "name": "Raccoon Grotto",
-    "url": "assets/svgicons/T_Icon_Map_RaccoonGrottoV4.svg"
+    "url": "assets/svgicons/T_Icon_Map_RaccoonGrottoV4.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_RaccoonGrottoV4.svg"
   },
   {
     "id": "portal",
     "name": "Portal",
-    "url": "assets/svgicons/T_Icon_Map_Portal.svg"
+    "url": "assets/svgicons/T_Icon_Map_Portal.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Portal.svg"
   },
   {
     "id": "path",
     "name": "Path",
-    "url": "assets/svgicons/T_Icon_Map_Path.svg"
+    "url": "assets/svgicons/T_Icon_Map_Path.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Path.svg"
   },
   {
     "id": "naturalRockTower",
     "name": "Natural Rock Tower",
-    "url": "assets/svgicons/T_Icon_Map_NaturalRockTower.svg"
+    "url": "assets/svgicons/T_Icon_Map_NaturalRockTower.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_NaturalRockTower.svg"
   },
   {
     "id": "mysteryPOI",
     "name": "Mystery",
-    "url": "assets/svgicons/T_Icon_Map_MysteryPOI.svg"
+    "url": "assets/svgicons/T_Icon_Map_MysteryPOI.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_MysteryPOI.svg"
   },
   {
     "id": "mountainPeak",
     "name": "Mountain Peak",
-    "url": "assets/svgicons/T_Icon_Map_MountainPeak.svg"
+    "url": "assets/svgicons/T_Icon_Map_MountainPeak.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_MountainPeak.svg"
   },
   {
     "id": "lake",
     "name": "Lake",
-    "url": "assets/svgicons/T_Icon_Map_Lake.svg"
+    "url": "assets/svgicons/T_Icon_Map_Lake.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Lake.svg"
   },
   {
     "id": "hill",
     "name": "Hill",
-    "url": "assets/svgicons/T_Icon_Map_Hill.svg"
+    "url": "assets/svgicons/T_Icon_Map_Hill.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Hill.svg"
   },
   {
     "id": "wolf",
     "name": "Wolf",
-    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Wolf.svg"
+    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Wolf.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_GuardianTemple_Wolf.svg"
   },
   {
     "id": "stag",
     "name": "Stag",
-    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Stag.svg"
+    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Stag.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_GuardianTemple_Stag.svg"
   },
   {
     "id": "raven",
     "name": "Raven",
-    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Raven.svg"
+    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Raven.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_GuardianTemple_Raven.svg"
   },
   {
     "id": "ram",
     "name": "Ram",
-    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Ram.svg"
+    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Ram.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_GuardianTemple_Ram.svg"
   },
   {
     "id": "fox",
     "name": "Fox",
-    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Fox.svg"
+    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Fox.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_GuardianTemple_Fox.svg"
   },
   {
     "id": "bear",
     "name": "Bear",
-    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Bear.svg"
+    "url": "assets/svgicons/T_Icon_Map_GuardianTemple_Bear.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_GuardianTemple_Bear.svg"
   },
   {
     "id": "encampment",
     "name": "Encampment",
-    "url": "assets/svgicons/T_Icon_Map_Encampment.svg"
+    "url": "assets/svgicons/T_Icon_Map_Encampment.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Encampment.svg"
   },
   {
     "id": "dwellingsStone",
     "name": "Dwellings Stone",
-    "url": "assets/svgicons/T_Icon_Map_Dwellings_Stone.svg"
+    "url": "assets/svgicons/T_Icon_Map_Dwellings_Stone.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Dwellings_Stone.svg"
   },
   {
     "id": "dwellingsRuins",
     "name": "Dwellings Ruins",
-    "url": "assets/svgicons/T_Icon_Map_Dwellings_Ruins.svg"
+    "url": "assets/svgicons/T_Icon_Map_Dwellings_Ruins.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Dwellings_Ruins.svg"
   },
   {
     "id": "dwellingWood",
     "name": "Dwelling Wood",
-    "url": "assets/svgicons/T_Icon_Map_Dwelling_Wood.svg"
+    "url": "assets/svgicons/T_Icon_Map_Dwelling_Wood.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Dwelling_Wood.svg"
   },
   {
     "id": "singleDwellingStone",
     "name": "Single Dwelling Stone",
-    "url": "assets/svgicons/T_Icon_Map_Single_Dwelling_Stone.svg"
+    "url": "assets/svgicons/T_Icon_Map_Single_Dwelling_Stone.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Single_Dwelling_Stone.svg"
   },
   {
     "id": "cave",
     "name": "Cave",
-    "url": "assets/svgicons/T_Icon_Map_Cave.svg"
+    "url": "assets/svgicons/T_Icon_Map_Cave.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Cave.svg"
   },
   {
     "id": "bridge",
     "name": "Bridge",
-    "url": "assets/svgicons/T_Icon_Map_Bridge.svg"
+    "url": "assets/svgicons/T_Icon_Map_Bridge.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_Bridge.svg"
   },
   {
     "id": "bearLighthouse",
     "name": "Bear Lighthouse",
-    "url": "assets/svgicons/T_Icon_Map_BearLighthouse.svg"
+    "url": "assets/svgicons/T_Icon_Map_BearLighthouse.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_BearLighthouse.svg"
   },
   {
     "id": "ancientTowerV2",
     "name": "Ancient Tower V2",
-    "url": "assets/svgicons/T_Icon_Map_AncientTower_V2.svg"
+    "url": "assets/svgicons/T_Icon_Map_AncientTower_V2.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_AncientTower_V2.svg"
   },
   {
     "id": "ancientTowerV1",
     "name": "Ancient Tower V1",
-    "url": "assets/svgicons/T_Icon_Map_AncientTower.svg"
+    "url": "assets/svgicons/T_Icon_Map_AncientTower.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_AncientTower.svg"
   },
   {
     "id": "extraWisp",
     "name": "Wisp",
-    "url": "assets/svgicons/T_Icon_Map_ExtraWisp.svg"
+    "url": "assets/svgicons/T_Icon_Map_ExtraWisp.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_ExtraWisp.svg"
   },
   {
     "id": "loreGeneric",
     "name": "Lore Generic",
-    "url": "assets/svgicons/T_Icon_Map_LoreGeneric.svg"
+    "url": "assets/svgicons/T_Icon_Map_LoreGeneric.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_LoreGeneric.svg"
   },
   {
     "id": "loreFox",
     "name": "Lore Fox",
-    "url": "assets/svgicons/T_Icon_Map_LoreFox.svg"
+    "url": "assets/svgicons/T_Icon_Map_LoreFox.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_LoreFox.svg"
   },
   {
     "id": "loreRaven",
     "name": "Lore Raven",
-    "url": "assets/svgicons/T_Icon_Map_LoreRaven.svg"
+    "url": "assets/svgicons/T_Icon_Map_LoreRaven.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_LoreRaven.svg"
   },
   {
     "id": "loreStag",
     "name": "Lore Stag",
-    "url": "assets/svgicons/T_Icon_Map_LoreStag.svg"
+    "url": "assets/svgicons/T_Icon_Map_LoreStag.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_LoreStag.svg"
   },
   {
     "id": "loreRam",
     "name": "Lore Ram",
-    "url": "assets/svgicons/T_Icon_Map_LoreRam.svg"
+    "url": "assets/svgicons/T_Icon_Map_LoreRam.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_LoreRam.svg"
   },
   {
     "id": "loreMoonWolf",
     "name": "Lore Moon Wolf",
-    "url": "assets/svgicons/T_Icon_Map_LoreMoonWolf.svg"
+    "url": "assets/svgicons/T_Icon_Map_LoreMoonWolf.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_LoreMoonWolf.svg"
   },
   {
     "id": "loreSunWolf",
     "name": "Lore Sun Wolf",
-    "url": "assets/svgicons/T_Icon_Map_LoreSunWolf.svg"
+    "url": "assets/svgicons/T_Icon_Map_LoreSunWolf.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_LoreSunWolf.svg"
   },
   {
     "id": "loreBear",
     "name": "Lore Bear",
-    "url": "assets/svgicons/T_Icon_Map_LoreBear.svg"
+    "url": "assets/svgicons/T_Icon_Map_LoreBear.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_LoreBear.svg"
   },
   {
     "id": "chestCommon",
     "name": "Common Chest",
-    "url": "assets/svgicons/T_Icon_Map_ChestCommon.svg"
+    "url": "assets/svgicons/T_Icon_Map_ChestCommon.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_ChestCommon.svg"
   },
   {
     "id": "chestUncommon",
     "name": "Uncommon Chest",
-    "url": "assets/svgicons/T_Icon_Map_ChestUncommon.svg"
+    "url": "assets/svgicons/T_Icon_Map_ChestUncommon.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_ChestUncommon.svg"
   },
   {
     "id": "chestRareFox",
     "name": "Fox Chest",
-    "url": "assets/svgicons/T_Icon_Map_ChestRareFox.svg"
+    "url": "assets/svgicons/T_Icon_Map_ChestRareFox.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_ChestRareFox.svg"
   },
   {
     "id": "chestRareRaven",
     "name": "Raven Chest",
-    "url": "assets/svgicons/T_Icon_Map_ChestRareRaven.svg"
+    "url": "assets/svgicons/T_Icon_Map_ChestRareRaven.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_ChestRareRaven.svg"
   },
   {
     "id": "chestRareStag",
     "name": "Stag Chest",
-    "url": "assets/svgicons/T_Icon_Map_ChestRareStag.svg"
+    "url": "assets/svgicons/T_Icon_Map_ChestRareStag.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_ChestRareStag.svg"
   },
   {
     "id": "chestRareRam",
     "name": "Ram Chest",
-    "url": "assets/svgicons/T_Icon_Map_ChestRareRam.svg"
+    "url": "assets/svgicons/T_Icon_Map_ChestRareRam.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_ChestRareRam.svg"
   },
   {
     "id": "chestRareMoonWolf",
     "name": "Moon Wolf Chest",
-    "url": "assets/svgicons/T_Icon_Map_ChestRareMoonWolf.svg"
+    "url": "assets/svgicons/T_Icon_Map_ChestRareMoonWolf.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_ChestRareMoonWolf.svg"
   },
   {
     "id": "chestRareSunWolf",
     "name": "Sun Wolf Chest",
-    "url": "assets/svgicons/T_Icon_Map_ChestRareSunWolf.svg"
+    "url": "assets/svgicons/T_Icon_Map_ChestRareSunWolf.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_ChestRareSunWolf.svg"
   },
   {
     "id": "chestRareBear",
     "name": "Bear Chest",
-    "url": "assets/svgicons/T_Icon_Map_ChestRareBear.svg"
+    "url": "assets/svgicons/T_Icon_Map_ChestRareBear.svg",
+	"img": "assets/svgiconimg/T_Icon_Map_ChestRareBear.svg"
   }
 ]

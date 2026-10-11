@@ -677,7 +677,7 @@ class MarkerForm {
 
       const icOptImg = document.createElement('img');
       icOptImg.classList.add('icon-option-img');
-      icOptImg.src = `/icons/${ic.id}.svg`; // Пример пути
+      icOptImg.src = ic.img;
       icOptImg.alt = '';
 
       const icOptText = document.createElement('span');
