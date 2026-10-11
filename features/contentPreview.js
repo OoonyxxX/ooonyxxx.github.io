@@ -134,6 +134,11 @@ class ContentIconAgent {
     this.location = {}
     this.location.X = 0
     this.location.Y = 0
+    this.isSettled = true
+    
+    this.epsilonVel = 0.1
+    this.epsilonLoc = 0.025
+
     this.opacity = 0
     this.baseOpacity = 0.85
 
@@ -166,8 +171,8 @@ class ContentIconAgent {
       "setTarget": (targetId, targetLocation = {}) => {this._setTarget(targetId, targetLocation)},
       "createContainer": () => {this._createAgentContainer()},
       "removeContainer": () => {this._removeAgentContainer()},
-      "show": () => {this.active = true},
-      "hide": () => {this.active = false; this._dropTarget()},
+      "show": () => {this.active = true; this.isSettled = false;},
+      "hide": () => {this.active = false; this.isSettled = false; this._dropTarget();},
     }
     for (const key of Object.keys(this.commandList)){
       commandList.add(key)
@@ -247,6 +252,7 @@ class ContentIconAgent {
   }
 
   _setTarget(targetId, targetLocation) {
+    this.isSettled = false
     this.hideAnchor = this.anchorId
     this.hideAnchorLocation = {...this.anchorLocation}
     this.anchorId = targetId
@@ -284,6 +290,7 @@ class ContentIconAgent {
       const time = await new Promise(requestAnimationFrame);
       const dt = Math.min((time - lastTime) / 1000, 0.05);
       lastTime = time;
+      if (this.isSettled) continue
       this._positionDriver(dt);
       this._hideDriver();
     }
@@ -305,6 +312,18 @@ class ContentIconAgent {
 
     this.container.style.transform =
       `translate(${this.location.X}px, ${this.location.Y}px)`;
+
+
+    const velocityMod = Math.hypot(this.velocity.X, this.velocity.Y);
+
+    const deltaLocationMod = Math.hypot(dx, dy);
+
+    if (velocityMod <= this.epsilonVel && deltaLocationMod <= this.epsilonLoc) {
+      this.isSettled = true;
+      this.location = {...targetLocation};
+      this.velocity.X = 0;
+      this.velocity.Y = 0;
+    }
   }
 
   _hideDriver() {
