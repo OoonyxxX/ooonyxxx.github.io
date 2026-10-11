@@ -206,18 +206,52 @@ const ARRAY_CONTENT_TYPES = new Set([
   'cosmetics'
 ]);
 
+const BOOLEAN_CONTENT_TYPES = new Set([
+  'enabled',
+  'dropAll'
+]);
+
+const NUMBER_CONTENT_TYPES = new Set([
+  'dropProbability'
+]);
+
+
 function normalizeContent(content = {}) {
+  const normalizeValue = (key, value) => {
+    if (BOOLEAN_CONTENT_TYPES.has(key)) {
+      if (value === 'true') return true;
+      if (value === 'false') return false;
+    }
+
+    if (NUMBER_CONTENT_TYPES.has(key)) {
+      if (typeof value === 'string' && value.trim() !== '') {
+        const num = Number(value);
+        if (Number.isFinite(num)) return num;
+      }
+    }
+
+    return value;
+  };
+
   return Object.fromEntries(
-    Object.entries(content).map(([key, value]) => [
-      key,
-      Array.isArray(value)
-        && value.length === 1
-        && !ARRAY_CONTENT_TYPES.has(key)
-          ? value[0]
-          : value
-    ])
+    Object.entries(content).map(([key, value]) => {
+      const normalized = Array.isArray(value)
+        ? value.map(v => normalizeValue(key, v))
+        : normalizeValue(key, value);
+
+      return [
+        key,
+        Array.isArray(normalized)
+          && normalized.length === 1
+          && !ARRAY_CONTENT_TYPES.has(key)
+            ? normalized[0]
+            : normalized
+      ];
+    })
   );
 }
+
+
 
 function serializeContent(content = {}) {
   return Object.fromEntries(
