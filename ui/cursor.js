@@ -52,6 +52,8 @@ export function initCursor() {
     USERSETTINGS.customCursor = e.target.checked;
     cursorConductor(APPSTATE.hasTouch);
   });
+  CURSORITEM.customCursor.popover = 'manual';
+  CURSORITEM.customCursor.showPopover();
   document.addEventListener('pointerover', pointerOverHendler);
   document.addEventListener('pointerout', pointerOutHendler);
 }
@@ -199,10 +201,6 @@ function stopTimerAnim() {
   CURSORITEM.timerProgress.classList.remove('timer-progress');
   CURSORITEM.blueTimer.style.display = 'none';
 }
-
-
-CURSORITEM.customCursor.popover = 'manual';
-CURSORITEM.customCursor.showPopover();
 
 export function raiseCursor() {
   requestAnimationFrame(() => {
