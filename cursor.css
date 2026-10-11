@@ -79,7 +79,6 @@
   width: var(--cursor-size);
   height: var(--cursor-size);
   pointer-events: none;
-  z-index: var(--layer-cursor);
   transform-origin: var(--cursor-center) var(--cursor-center);
 }
 
@@ -103,4 +102,14 @@ body.custom-cursor-on * {
     animation: none;
     stroke-dashoffset: 0;
   }
+}
+
+#custom-cursor[popover] {
+  position: fixed;
+  inset: 0 auto auto 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  pointer-events: none;
 }
