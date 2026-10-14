@@ -14,5 +14,9 @@ export function vectorAdd(a, b) {
 }
 
 export function vectorScalar(a) {
-  return Math.hypot(a.X, a.Y)
+  return Math.hypot(a.X, a.Y);
+}
+
+export function clampValue(v, a, b) {
+  return Math.max(Math.min(v, b), a);
 }

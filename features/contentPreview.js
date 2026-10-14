@@ -1,4 +1,4 @@
-import {vectorSubtract, vectorAdd, vectorEqual, vectorScalar} from "./mathUtils.js"
+import {vectorSubtract, vectorAdd, vectorEqual, vectorScalar, clampValue} from "./mathUtils.js"
 import {USERSETTINGS} from "../core/state.js"
 import {subscribeUI} from "../ui/UIUtilities.js"
 import {markerElementToViewportPoint} from "./markers.js"
@@ -135,7 +135,7 @@ class ContentIconAgent {
     this.location.X = 0
     this.location.Y = 0
     this.isSettled = true
-    
+
     this.epsilonVel = 0.1
     this.epsilonLoc = 0.025
 
@@ -225,6 +225,7 @@ class ContentIconAgent {
       this.imgContainer = document.createElement('img');
       this.imgContainer.src = this.iconSrc
       this.imgContainer.classList.add('content-preview-img');
+      this.imgContainer.style = "opacity: 0; transform: scale(0.5);";
       this.container.classList.add('content-preview');
       this.container.classList.add(this.classId);
       this.container.append(this.imgContainer);
@@ -329,9 +330,9 @@ class ContentIconAgent {
   _hideDriver() {
     const realDistance = vectorSubtract(this.location, this.anchorLocation)
     const realDistanceScalar = vectorScalar(realDistance)
-
-    this.opacity = Math.max((Math.min(this.cutedScalarRelativeLocation, realDistanceScalar) / this.cutedScalarRelativeLocation) - (1 - this.baseOpacity), 0)
-    const scale = (Math.min(0.5, this.opacity) + 0.5)
+    const distanceFactor = clampValue(realDistanceScalar / this.cutedScalarRelativeLocation, 0, 1);
+    this.opacity = Math.max(distanceFactor + (this.baseOpacity - 1), 0);
+    const scale = clampValue(distanceFactor, 0.5, 1)
 
     this.imgContainer.style.opacity =
       `${this.opacity}`;
