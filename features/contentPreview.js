@@ -332,7 +332,8 @@ class ContentIconAgent {
     const realDistanceScalar = vectorScalar(realDistance)
     const distanceFactor = clampValue(realDistanceScalar / this.cutedScalarRelativeLocation, 0, 1);
     this.opacity = Math.max(distanceFactor + (this.baseOpacity - 1), 0);
-    const scale = clampValue(distanceFactor, 0.5, 1)
+    //const scale = clampValue(distanceFactor, 0.5, 1)
+    const scale = 1
 
     this.imgContainer.style.opacity =
       `${this.opacity}`;
