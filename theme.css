@@ -70,7 +70,7 @@
   --main-footer-height: 2.9rem;
   --main-mobile-auth-width: 7rem;
   --main-mobile-user-width: 6.5rem;
-  --main-mobile-title-size: clamp(1rem, 4.5vw, 1.5rem);
+  --main-mobile-title-size: clamp(0.75rem, 5.5vw, 1.5rem);
   --main-ui-map-background: #153843;
   --main-ui-footer-text-margin-left: 1.25rem;
   --main-title-width: 18.4em;
@@ -102,7 +102,10 @@
   --sidebar-options-width: 13.5625rem;
   --sidebar-filter-width: 18.25rem;
   --sidebar-options-header-width: 11.25rem;
-  --sidebar-filter-header-width: 16rem;
+  --sidebar-filter-header-width: 12.5625rem;
+  --sidebar-filter-header-open-width: 16rem;
+  --sidebar-filter-header-padding-left: 1.5625rem;
+  --sidebar-filter-header-padding-right: 1.875rem;
   --sidebar-header-height: 2.75rem;
   --sidebar-available-height: calc(var(--viewport-height) - var(--sidebar-top) - var(--main-footer-height) - var(--space-16));
   --sidebar-options-padding: 0 1.78125rem 1.625rem;
@@ -110,7 +113,7 @@
   --sidebar-button-width: 3.5em;
   --sidebar-button-height: 1.8em;
   --sidebar-compact-size: 3.5rem;
-  --sidebar-compact-icon: 1.75rem;
+  --sidebar-compact-icon: 2.5rem;
   --sidebar-text-indicator-size: 1em;
   --sidebar-icon-indicator-size: 32px;
   --sidebar-indicator-border-width: 0.125em;
@@ -404,6 +407,7 @@
   --gradient-glow: linear-gradient(90deg, #0097743b 90%, #0a935461, #0a9354a1, #0a9354);
   --bg-northern-flow-circle: northernFlowCircle 12s ease infinite;
   --filter-transition: filter var(--motion-duration-control) var(--motion-easing), transform var(--motion-duration-control) var(--motion-easing);
+  --filter-full-transition: transform var(--motion-duration-panel) cubic-bezier(0.4, 0, 0.4, 1), height var(--motion-duration-panel) var(--motion-easing), width var(--motion-duration-panel) var(--motion-easing), padding var(--motion-duration-panel) var(--motion-easing), margin var(--motion-duration-panel) var(--motion-easing), border-radius var(--motion-duration-panel) var(--motion-easing), right var(--motion-duration-panel) var(--motion-easing), left var(--motion-duration-panel) var(--motion-easing), min-height var(--motion-duration-panel) var(--motion-easing) !important;
 }
 /* Popup and editor palette is inherited only by these components. */
 :is(.marker-popup, .edit-popup-class, .marker-form) {

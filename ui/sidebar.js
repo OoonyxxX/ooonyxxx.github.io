@@ -7,30 +7,29 @@ import { htmlGenerator } from "../features/utilities.js"
 export const OPTSIDEBAR = {};
 export const FILTERSIDEBAR = {};
 export const AUTHTOPBAR = {};
-export const HEADERTOPBAR = {};
 
 // Кешироние DOM елементов панели параметров
 export function cacheOptElements() {
-  OPTSIDEBAR.optHideBtn           = document.getElementById('option-hide');
-  OPTSIDEBAR.optionsContainer     = document.getElementById('options-container');
-  OPTSIDEBAR.optionsHeader        = OPTSIDEBAR.optionsContainer.querySelector('.optionheader');
+  OPTSIDEBAR.optionsSection       = document.getElementById('options-section');
+  OPTSIDEBAR.optionsHeader        = OPTSIDEBAR.optionsSection.querySelector('.optionheader');
   OPTSIDEBAR.optionsHeaderText    = OPTSIDEBAR.optionsHeader.querySelector('.optheader');
-  OPTSIDEBAR.optionsParams        = OPTSIDEBAR.optionsContainer.querySelector('.optparam');
-  OPTSIDEBAR.optHideBtnImg        = document.getElementById('option-hide-img');
-  OPTSIDEBAR.optHideBtnText       = document.getElementById('option-hide-text');
-  OPTSIDEBAR.customCursorToggle   = document.getElementById('toggle-cursor');
-  OPTSIDEBAR.coloredRegionsToggle = document.getElementById('toggle-regions');
-  OPTSIDEBAR.heightDisplayToggle  = document.getElementById('toggle-height');
-  OPTSIDEBAR.coloredMarkersToggle = document.getElementById('toggle-color');
-  OPTSIDEBAR.customColorsToggle   = document.getElementById('toggle-customcolor');
-  OPTSIDEBAR.instantFilterToggle  = document.getElementById('toggle-instantf');
+  OPTSIDEBAR.optHideBtn           = OPTSIDEBAR.optionsHeader.querySelector('.option-hide');
+  OPTSIDEBAR.optHideBtnImg        = OPTSIDEBAR.optHideBtn.querySelector('.option-hide-img');
+  OPTSIDEBAR.optHideBtnText       = OPTSIDEBAR.optHideBtn.querySelector('.option-hide-text');
+  OPTSIDEBAR.optionsBody          = OPTSIDEBAR.optionsSection.querySelector('.options-body');
+  OPTSIDEBAR.optionsParams        = OPTSIDEBAR.optionsBody.querySelector('.optparam');
+  OPTSIDEBAR.customCursorToggle   = OPTSIDEBAR.optionsParams.querySelector('.toggle-cursor-checkbox');
+  OPTSIDEBAR.coloredRegionsToggle = OPTSIDEBAR.optionsParams.querySelector('.toggle-regions-checkbox');
+  OPTSIDEBAR.heightDisplayToggle  = OPTSIDEBAR.optionsParams.querySelector('.toggle-height-checkbox');
+  OPTSIDEBAR.coloredMarkersToggle = OPTSIDEBAR.optionsParams.querySelector('.toggle-color-checkbox');
+  OPTSIDEBAR.customColorsToggle   = OPTSIDEBAR.optionsParams.querySelector('.toggle-customcolor-checkbox');
+  OPTSIDEBAR.instantFilterToggle  = OPTSIDEBAR.optionsParams.querySelector('.toggle-instantf-checkbox');
 }
 
 // Инициализация панели параметров
 export function initOptElements() {
   APPSTATE.optMenuState = !APPSTATE.isMobile;
-  optmenuStyleSet(!APPSTATE.isMobile, false);
-  //Слушатель адаптации панели параметров
+  optmenuStyleSet(APPSTATE.optMenuState, false);
   OPTSIDEBAR.optHideBtn.addEventListener('click', () => {
     APPSTATE.optMenuState = !APPSTATE.optMenuState;
     if (APPSTATE.isMobile) {
@@ -69,6 +68,7 @@ export function cacheFilterElements() {
   FILTERSIDEBAR.filterHideBtn     = document.getElementById('filter-hide');
   FILTERSIDEBAR.filterClearBtn    = document.getElementById('filter-reset');
   FILTERSIDEBAR.filterContainer   = document.getElementById('filter-container');
+  FILTERSIDEBAR.filterBody        = FILTERSIDEBAR.filterContainer.querySelector('.filters-body');
   FILTERSIDEBAR.filterHeader      = FILTERSIDEBAR.filterContainer.querySelector('.filterheader');
   FILTERSIDEBAR.filterHeaderText  = FILTERSIDEBAR.filterHeader.querySelector('.filheader');
   FILTERSIDEBAR.filterSections    = FILTERSIDEBAR.filterContainer.querySelector('.filter-sections');
@@ -86,18 +86,16 @@ function prepareFilterHTML(parent) {
 
 // Инициализация панели фильтров
 export function initFilterElements() {
-    APPSTATE.filterMenuState = !APPSTATE.isMobile;
-    filtermenuStyleSet(!APPSTATE.isMobile, false);
-    //Слушатель адаптации панели фильтров
-    FILTERSIDEBAR.filterHideBtn.addEventListener('click', () => {
-        APPSTATE.filterMenuState = !APPSTATE.filterMenuState;
-        if (APPSTATE.isMobile) {
-            APPSTATE.optMenuState = false;
-            optmenuStyleSet(APPSTATE.optMenuState, APPSTATE.filterMenuState);
-        };
-        filtermenuStyleSet(APPSTATE.filterMenuState, false);
-    });
-
+  APPSTATE.filterMenuState = !APPSTATE.isMobile;
+  filtermenuStyleSet(APPSTATE.filterMenuState, false);
+  FILTERSIDEBAR.filterHideBtn.addEventListener('click', () => {
+    APPSTATE.filterMenuState = !APPSTATE.filterMenuState;
+    if (APPSTATE.isMobile) {
+        APPSTATE.optMenuState = false;
+        optmenuStyleSet(APPSTATE.optMenuState, APPSTATE.filterMenuState);
+    };
+    filtermenuStyleSet(APPSTATE.filterMenuState, false);
+  });
 }
 
 // Кешироние DOM елементов панели авторизации(верхняя панель)
@@ -120,20 +118,21 @@ export function toggleAuthorizationUI(authorized) {
   AUTHTOPBAR.authImg.classList.toggle('authorized', authorized);
 }
 
-export function cacheHeaderElements() {
-    HEADERTOPBAR.header = document.getElementById('filterheader');
-}
-
 
 // Переключатель состояния панели параметров
 export function optmenuStyleSet(ostate, fstate) {
   const displaced = APPSTATE.isMobile && fstate;
-  setPanelState(OPTSIDEBAR.optionsContainer, OPTSIDEBAR.optHideBtn, ostate, displaced);
+  setPanelState(OPTSIDEBAR.optionsSection, OPTSIDEBAR.optHideBtn, ostate, displaced);
   OPTSIDEBAR.optHideBtnText.textContent = ostate ? "Hide" : "Open";
 }
+
 // Переключатель состояния панели фильтров
 export function filtermenuStyleSet(fstate, ostate) {
   AUTHTOPBAR.authHfilterContainer.classList.toggle('open', fstate);
+  FILTERSIDEBAR.filterHeader.classList.toggle('open', fstate);
+  FILTERSIDEBAR.filterClearBtn.classList.toggle('open', fstate);
+  FILTERSIDEBAR.filterHeaderText.classList.toggle('open', fstate);
+  FILTERSIDEBAR.filterHideBtn.classList.toggle('open', fstate);
   const displaced = APPSTATE.isMobile && ostate;
   setPanelState(FILTERSIDEBAR.filterContainer, FILTERSIDEBAR.filterHideBtn, fstate, displaced);
   FILTERSIDEBAR.filterHideBtnText.textContent = fstate ? "Hide" : "Open";
@@ -151,13 +150,13 @@ function setPanelState(container, button, expanded, displaced) {
 }
 
 export function startHeaderAnim(ms) {
-  HEADERTOPBAR.header.style.setProperty('--debounce-ms', ms + 'ms');
-  HEADERTOPBAR.header.classList.remove('debouncing');
-  HEADERTOPBAR.header.offsetWidth;
-  HEADERTOPBAR.header.classList.add('debouncing');
+  FILTERSIDEBAR.filterHeader.style.setProperty('--debounce-ms', ms + 'ms');
+  FILTERSIDEBAR.filterHeader.classList.remove('debouncing');
+  FILTERSIDEBAR.filterHeader.offsetWidth;
+  FILTERSIDEBAR.filterHeader.classList.add('debouncing');
 }
 
 export function stopHeaderAnim() {
-  HEADERTOPBAR.header.classList.remove('debouncing');
-  HEADERTOPBAR.header.style.removeProperty('--debounce-ms');
+  FILTERSIDEBAR.filterHeader.classList.remove('debouncing');
+  FILTERSIDEBAR.filterHeader.style.removeProperty('--debounce-ms');
 }

@@ -55,6 +55,7 @@
   position: relative;
   height: var(--main-header-height);
   justify-content: space-between;
+  pointer-events: none;
 }
 
 .header-hopt-container {
@@ -66,6 +67,7 @@
   position: relative;
   z-index: 1;
   user-select: none;
+  pointer-events: auto;
 }
 
 .auth-hfilter-container {
@@ -79,6 +81,7 @@
   position: relative;
   z-index: 1;
   transition: width var(--motion-duration-panel) var(--motion-easing);
+  pointer-events: auto;
 }
 
 .auth-hfilter-container.open {
@@ -277,9 +280,11 @@ body {
   }
 
   .header-hopt-container {
+    display: flex;
     background: none;
     width: auto;
     min-width: 0;
+    align-items: center;
   }
 
   .auth-hfilter-container, .auth-hfilter-container.open {

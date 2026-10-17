@@ -116,41 +116,41 @@
   </div>
   <main class="map-container">
     <aside id="map-controls" class="controls hide-i">
-      <section id="options-container" class="options-container">
+      <section id="options-section" class="options-section">
 				<div class="optionheader">
 					<h3 class="optheader">Options</h3>
-					<button id="option-hide" class="btn-hide option-hide" aria-expanded="true" aria-controls="options-body" aria-label="Toggle options">
-						<span id="option-hide-text" class="option-hide-text">Hide</span>
-						<img id="option-hide-img" class="option-hide-img" src="/assets/othersvg/opt.svg" alt="">
+					<button class="btn-hide option-hide" aria-expanded="true" aria-controls="options-body" aria-label="Toggle options">
+						<span class="option-hide-text">Hide</span>
+						<img class="option-hide-img" src="/assets/othersvg/opt.svg" alt="">
 					</button>
 				</div>
-				<div id="options-body" class="sidebar-body">
-				<div class="optparam">
-					<label class="option-parameter cursor-toggle">
-						<input type="checkbox" class="toggle-cursor-checkbox" id="toggle-cursor" checked>
-						<span class="toggle-text toggle-cursor-text">Custom Cursor</span>
-					</label>
-					<label class="option-parameter regions-toggle">
-						<input type="checkbox" class="toggle-regions-checkbox" id="toggle-regions">
-						<span class="toggle-text toggle-regions-text">Colored Regions</span>
-					</label>
-					<label class="option-parameter height-toggle">
-						<input type="checkbox" class="toggle-height-checkbox" id="toggle-height">
-						<span class="toggle-text toggle-height-text">Height Display</span>
-					</label>
-					<label class="option-parameter color-toggle">
-						<input type="checkbox" class="toggle-color-checkbox" id="toggle-color" checked>
-						<span class="toggle-text toggle-color-text">Colored Markers</span>
-					</label>
-					<label class="option-parameter customcolor-toggle">
-						<input type="checkbox" class="toggle-customcolor-checkbox" id="toggle-customcolor">
-						<span class="toggle-text toggle-customcolor-text">Custom Colors</span>
-					</label>
-					<label class="option-parameter instantf-toggle">
-						<input type="checkbox" class="toggle-instantf-checkbox" id="toggle-instantf" checked>
-						<span class="toggle-text toggle-instantf-text">Instant Filter</span>
-					</label>
-				</div>
+				<div id="options-body" class="options-body sidebar-body">
+					<div class="optparam">
+						<label class="option-parameter cursor-toggle">
+							<input type="checkbox" class="toggle-cursor-checkbox" id="toggle-cursor" checked>
+							<span class="toggle-text toggle-cursor-text">Custom Cursor</span>
+						</label>
+						<label class="option-parameter regions-toggle">
+							<input type="checkbox" class="toggle-regions-checkbox" id="toggle-regions">
+							<span class="toggle-text toggle-regions-text">Colored Regions</span>
+						</label>
+						<label class="option-parameter height-toggle">
+							<input type="checkbox" class="toggle-height-checkbox" id="toggle-height">
+							<span class="toggle-text toggle-height-text">Height Display</span>
+						</label>
+						<label class="option-parameter color-toggle">
+							<input type="checkbox" class="toggle-color-checkbox" id="toggle-color" checked>
+							<span class="toggle-text toggle-color-text">Colored Markers</span>
+						</label>
+						<label class="option-parameter customcolor-toggle">
+							<input type="checkbox" class="toggle-customcolor-checkbox" id="toggle-customcolor">
+							<span class="toggle-text toggle-customcolor-text">Custom Colors</span>
+						</label>
+						<label class="option-parameter instantf-toggle">
+							<input type="checkbox" class="toggle-instantf-checkbox" id="toggle-instantf" checked>
+							<span class="toggle-text toggle-instantf-text">Instant Filter</span>
+						</label>
+					</div>
 				</div>
       </section>
 
@@ -166,23 +166,23 @@
 						<img id="filter-hide-img" class="filter-hide-img" src="/assets/othersvg/filter.svg" alt="">
 					</button>
 				</div>
-				<div id="filters-body" class="sidebar-body">
-				<div id="filter-sections" class="filter-sections">
-					<section class="filter-section filter-underground" data-filter="underground">
-						<div class="filter-body underground-switch">
-							<label id="underground" class="underground"><input type="checkbox" value="underground"> Underground</label>
-						</div>
-					</section>
+				<div id="filters-body" class="filters-body sidebar-body">
+					<div id="filter-sections" class="filter-sections">
+						<section class="filter-section filter-underground" data-filter="underground">
+							<div class="filter-body underground-switch">
+								<label id="underground" class="underground"><input type="checkbox" value="underground"> Underground</label>
+							</div>
+						</section>
 
-					<section class="filter-section filter-collected" data-filter="collected">
-						<div class="filter-body collected-switch">
-							<label id="collected" class="collected"><input type="checkbox" value="collected"> Collected</label>
-						</div>
-					</section>
-					<section class="filter-section filter-icon" data-filter="icon"></section>
-					<section class="filter-section filter-region" data-filter="region"></section>
-					<div id="filter-sections-footer" class="filter-sections-footer"> </div>
-				</div>
+						<section class="filter-section filter-collected" data-filter="collected">
+							<div class="filter-body collected-switch">
+								<label id="collected" class="collected"><input type="checkbox" value="collected"> Collected</label>
+							</div>
+						</section>
+						<section class="filter-section filter-icon" data-filter="icon"></section>
+						<section class="filter-section filter-region" data-filter="region"></section>
+						<div id="filter-sections-footer" class="filter-sections-footer"> </div>
+					</div>
 				</div>
 
 			</section>

@@ -26,8 +26,7 @@ async function normalStart(){
             initOptToggle, 
             cacheFilterElements, 
             initFilterElements, 
-            cacheAuthElements, 
-            cacheHeaderElements,
+            cacheAuthElements,
             } = await import ("./ui/sidebar.js")
     const { cacheModalElements, initModals } = await import ("./ui/modal.js")
     const { cacheWindowMatches, initWindowEvents } = await import ("./ui/adaptability.js")
@@ -41,7 +40,6 @@ async function normalStart(){
     cacheOptElements();
     cacheFilterElements();
     cacheFilterData()
-    cacheHeaderElements();
     cacheMETUIElements();
     cacheWindowMatches();
     cacheCursor();
