@@ -22,22 +22,22 @@ export const MAP_CONFIG = {
 }
 
 export const REGION_COLORS = {
-  fox_island:   '#ffb257',
+  foxIsland:   '#ffb257',
   misthaven:    '#b890f9',
   mosswood:     '#69ec72',
   stormvale:    '#e6f368',
-  frigid_peaks: '#89e1f0',
+  frigidPeaks: '#89e1f0',
   ashlands:     '#fa7a7a',
   ocean:        '#7497f7',
   auto:         '#ffffff',
 };
 
 export const REGION_UNDERGROUND_COLORS = {
-  fox_island:   '#a16826',
+  foxIsland:   '#a16826',
   misthaven:    '#684d93',
   mosswood:     '#4c9b46',
   stormvale:    '#9ca630',
-  frigid_peaks: '#27acc4',
+  frigidPeaks: '#27acc4',
   ashlands:     '#993d3d',
   ocean:        '#385299',
   auto:         '#ffffff',
@@ -63,11 +63,11 @@ export const ALLOWED_MET_DELETE_ROLE = [
 
 export const REGION_LIST = {
     0: "ocean",
-    1: "fox_island",
+    1: "foxIsland",
     2: "misthaven",
     3: "mosswood",
     4: "stormvale",
-    5: "frigid_peaks",
+    5: "frigidPeaks",
     6: "ashlands",
     7: "undefined"
 };
