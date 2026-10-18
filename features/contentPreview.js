@@ -1,5 +1,5 @@
 import {vectorSubtract, vectorAdd, vectorEqual, vectorScalar, clampValue} from "./mathUtils.js"
-import {USERSETTINGS} from "../core/state.js"
+import {USERSETTINGS, APPSTATE} from "../core/state.js"
 import {subscribeUI} from "../ui/UIUtilities.js"
 import {markerBoundsToViewportPoint} from "./markers.js"
 
@@ -49,7 +49,7 @@ export function initContentPreview() {
 }
 
 function toggleContentPreview() {
-  if (USERSETTINGS.contentPreview) {
+  if (USERSETTINGS.contentPreview && !APPSTATE.hasTouch) {
     commandToAllAgents("start");
   } else {
     commandToAllAgents("stop");
