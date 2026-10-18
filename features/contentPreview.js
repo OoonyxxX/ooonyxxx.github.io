@@ -1,4 +1,4 @@
-import {vectorSubtract, vectorAdd, vectorEqual, vectorScalar, clampValue} from "./mathUtils.js"
+import {vectorSubtract, vectorAdd, vectorEqual, vectorScalar, vectorDot, clampValue} from "./mathUtils.js"
 import {USERSETTINGS, APPSTATE} from "../core/state.js"
 import {subscribeUI} from "../ui/UIUtilities.js"
 import {markerBoundsToViewportPoint} from "./markers.js"
@@ -267,11 +267,11 @@ class ContentIconAgent {
   _dropTarget() {
     if (this.hideAnchor === null) return;
     if (vectorEqual(this.anchorLocation, this.hideAnchorLocation)) return
-    const absVector = vectorSubtract(this.anchorLocation, this.hideAnchorLocation)
-    const realVector = vectorSubtract(this.location, this.anchorLocation)
-    if (vectorScalar(realVector) > (vectorScalar(absVector) / 2)) {
-      this.anchorId = this.hideAnchor
-      this.anchorLocation = {...this.hideAnchorLocation}
+    const delta = vectorSubtract(this.hideAnchorLocation, this.anchorLocation);
+    const relative = vectorSubtract(this.location, this.anchorLocation);
+    if (vectorDot(relative, delta) > vectorDot(delta, delta) / 2) {
+      this.anchorId = this.hideAnchor;
+      this.anchorLocation = {...this.hideAnchorLocation};
     }
   }
 
