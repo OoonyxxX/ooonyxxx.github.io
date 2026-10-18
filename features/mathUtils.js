@@ -17,10 +17,6 @@ export function vectorScalar(a) {
   return Math.hypot(a.X, a.Y);
 }
 
-export function vectorScalar(a) {
-  return Math.hypot(a.X, a.Y);
-}
-
 export function vectorDot(a, b) {
   return (a.X * b.X + a.Y * b.Y);
 }
