@@ -254,8 +254,13 @@ class ContentIconAgent {
 
   _setTarget(targetId, targetLocation) {
     this.isSettled = false
-    this.hideAnchor = this.anchorId
-    this.hideAnchorLocation = {...this.anchorLocation}
+    if (this.anchorId === targetId) {
+      this.hideAnchor = targetId
+      this.hideAnchorLocation = {...targetLocation}
+    } else {
+      this.hideAnchor = this.anchorId
+      this.hideAnchorLocation = {...this.anchorLocation}
+    }
     this.anchorId = targetId
     this.anchorLocation = {...targetLocation}
     if (this.opacity < 0.15) {
