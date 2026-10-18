@@ -326,6 +326,8 @@ class ContentIconAgent {
 
     if (velocityMod <= this.epsilonVel && deltaLocationMod <= this.epsilonLoc) {
       this.isSettled = true;
+      this.hideAnchor = this.anchorId
+      this.hideAnchorLocation = {...this.anchorLocation}
       this.location = {...targetLocation};
       this.velocity.X = 0;
       this.velocity.Y = 0;
