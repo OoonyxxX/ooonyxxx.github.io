@@ -322,61 +322,45 @@ async function filterMarkers() {
     (filterParams.userIdToken === null)
   ) {
     const nextVisibleSet = new Set(MAPDATA.allVisibleSet);
-    FILTERDATA.solvedObj = visibleSetBufferSolver(nextVisibleSet);
-    renderFilter(FILTERDATA.solvedObj);
-    MAPDATA.prevVisibleSet = nextVisibleSet;
+    renderFilter(nextVisibleSet, requestId);
   } else {
     const ids = await getFilteredMarkers(filterParams);
     if (requestId !== FILTERDATA.filterRequestId) return;
     const nextVisibleSet = new Set(ids);
-    FILTERDATA.solvedObj = visibleSetBufferSolver(nextVisibleSet);
-    renderFilter(FILTERDATA.solvedObj);
-    MAPDATA.prevVisibleSet = nextVisibleSet;
+    renderFilter(nextVisibleSet, requestId);
   }
 }
 
-function renderFilter({ becameVisible, becameHidden }) {
+function renderFilter(nextVisibleSet, requestId) {
   requestAnimationFrame(() => {
+    if (requestId !== FILTERDATA.filterRequestId) return;
+    const { becameVisible, becameHidden } = visibleSetBufferSolver(nextVisibleSet);
     for (const id of becameVisible) {
       toggleMarkerVisible(id, true);
     }
     for (const id of becameHidden) {
       toggleMarkerVisible(id, false);
     }
+    MAPDATA.prevVisibleSet = new Set([...nextVisibleSet].filter(id => MAPDATA.existingMarkers.has(id)));
   });
   stopHeaderAnim();
 }
 
+export function refreshMarkerFilters() { return filterMarkers(); }
+
 export function fastCollectedFilterReRender(marker) {
-  if (!marker) return;
-
-  const isCollected = marker.$data.is_collected;
+  if (!marker || FILTERDATA.filtersState.collected === 0) return;
   const markerId = marker.$data.id;
-
-  let shouldBeVisible;
-
-  switch (FILTERDATA.filtersState.collected) {
-    case 1:
-      shouldBeVisible = isCollected;
-      break;
-    case -1:
-      shouldBeVisible = !isCollected;
-      break;
-    default:
-      return;
-  }
-
-  if (marker._$visible === shouldBeVisible) return;
-
-  if (shouldBeVisible) {
-    MAPDATA.prevVisibleSet.add(markerId);
-  } else {
-    MAPDATA.prevVisibleSet.delete(markerId);
-  }
-
   requestAnimationFrame(() => {
+    if (MAPDATA.existingMarkers.get(markerId) !== marker || FILTERDATA.filtersState.collected === 0) return;
+    const shouldBeVisible = FILTERDATA.filtersState.collected === 1 ? marker.$data.is_collected : !marker.$data.is_collected;
     toggleMarkerVisible(markerId, shouldBeVisible);
+    if (shouldBeVisible) MAPDATA.prevVisibleSet.add(markerId);
+    else MAPDATA.prevVisibleSet.delete(markerId);
   });
+  // Invalidate any response requested before the collected mutation and
+  // reconcile against all current server-side filter conditions.
+  refreshMarkerFilters().catch(error => console.error('Failed to refresh collected filter:', error));
 }
 
 

@@ -267,6 +267,9 @@
 
   /* Marker display */
   --marker-icon-size: 32px;
+  --marker-navigator-top: 80px;
+  --marker-navigator-left: 64px;
+  --marker-navigator-z-index: 1000;
   --marker-title-line-height: 1.3;
 
   /* Shared popup shell */

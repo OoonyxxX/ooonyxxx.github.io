@@ -1,5 +1,6 @@
 import { popupViewportOptions } from "../ui/popupLayout.js"
-import { MAPDATA, paintMarkers, createMarker, loadMarkersData, markerBuilder, bindMarkerPopup, previewIdsMapping } from "./markers.js"
+import { MAPDATA, paintMarkers, createMarker, loadMarkersData, bindMarkerPopup, registerMarker, refreshMarkerMetadata } from "./markers.js"
+import { refreshMarkerFilters } from './filters.js'
 import { METRequest } from "../api/markers_api.js"
 import { map } from "../core/map.js"
 import { APPSTATE, USERSESSION, USERSETTINGS } from "../core/state.js"
@@ -8,7 +9,7 @@ import { attachColorPicker } from "../ui/colorPicker.js"
 import { setDraggingMode, raiseCursor } from "../ui/cursor.js"
 import { MODAL } from "../ui/modal.js"
 import { subscribeUI } from "../ui/UIUtilities.js"
-import { markerMap, getWealthPreset, RUNE_NAMES, COSMETIC_NAMES, MELODY_NAMES, COLLECTIBLELIST } from "./marker_data.js"
+import { getWealthPreset, RUNE_NAMES, COSMETIC_NAMES, MELODY_NAMES, COLLECTIBLELIST } from "./marker_data.js"
 
 //Переменные блока MET
 //START
@@ -209,7 +210,7 @@ export class MetEditor {
 
   // Метод активации МЕТ
   init() {
-    METUI.METInited = true;
+    METSTATE.METInited = true;
     METUI.btnActivate.addEventListener('click', this.btnActivateInit_Handle_Click);
     METUI.btnAdd.addEventListener('click', this.btnAddInit_Handle_Click);
     METUI.btnSave.addEventListener('click', this.btnSaveInit_Handle_Click);
@@ -217,7 +218,7 @@ export class MetEditor {
   }
 
   destroy() {
-    METUI.METInited = false;
+    METSTATE.METInited = false;
     METUI.btnActivate.removeEventListener('click', this.btnActivateInit_Handle_Click);
     METUI.btnAdd.removeEventListener('click', this.btnAddInit_Handle_Click);
     METUI.btnSave.removeEventListener('click', this.btnSaveInit_Handle_Click);
@@ -255,13 +256,22 @@ export class MetEditor {
   }
 
   //Кнопка сохранения изменений
-  _btnSaveInit() {
+  async _btnSaveInit() {
+    if (this.saving) return;
     this.editPopup.remove();
-    METRequest(this.diff);
-	  this.diff.added   = [];
-	  this.diff.updated = [];
-	  this.diff.deleted = [];
-    this._updateSaveState();
+    this.saving = true;
+    this._metControlsToggler({ btnSave: { disabled: true }, btnAdd: { disabled: true }, btnExit: { disabled: true } });
+    try {
+      await METRequest(this.diff);
+      this.diff.added = [];
+      this.diff.updated = [];
+      this.diff.deleted = [];
+    } catch (error) { console.error('Failed to save marker changes:', error); }
+    finally {
+      this.saving = false;
+      this._metControlsToggler({ btnAdd: { disabled: false }, btnExit: { disabled: false } });
+      this._updateSaveState();
+    }
   }
 
   //Кнопка выключения МЕТ
@@ -309,13 +319,8 @@ export class MetEditor {
   }
 
   async _globalDiscardChanges() {
-    for (const marker of MAPDATA.existingMarkers.values()) {
-      marker.remove();
-    }
-
-    MAPDATA.existingMarkers.clear();
-
     await loadMarkersData();
+    await refreshMarkerFilters();
 
     this.diff.added.length = 0;
     this.diff.updated.length = 0;
@@ -325,6 +330,7 @@ export class MetEditor {
   }
 
   _onMarkerClick(e) {
+    if (this.saving) return;
     if (this.editPopupOpen) return;
     if (this.addingMarker) return;
     const marker = e.target;
@@ -385,9 +391,13 @@ export class MetEditor {
       closeButton: false,
       className: 'edit-popup-class'
     });
-    if (!isNew) {
-      this.oldMarkerData = {...editingMarker.$data}
-    }
+    if (!isNew) this.oldMarkerData = structuredClone(editingMarker.$data);
+    const originalPosition = editingMarker.getLatLng();
+    const originalIcon = editingMarker.options.icon;
+    let deleted = false;
+    const popup = this.editPopup;
+    const onUnavailable = e => { if (e.type === 'remove' || !e.visible) popup.remove(); };
+    editingMarker.on('remove visibilitychange', onUnavailable);
     editingMarker.unbindPopup();
     editingMarker.setZIndexOffset(1000);
 
@@ -404,26 +414,25 @@ export class MetEditor {
 	  }
 	  this.editPopup.on('remove', () => {
       this.editPopupOpen = false;
+      editingMarker.off('remove visibilitychange', onUnavailable);
+      if (MODAL.met.confirmModal.initialized) MODAL.met.confirmModal.deinitModal();
+      setDraggingMode({ target: editingMarker }, false);
       editingMarker.off('mousedown', this._draggingEnable);
-      editingMarker.off('mouseup mouseleave', this._draggingDisable);
+      editingMarker.off('mouseup dragstart', this._draggingDisable);
+      editingMarker.off('drag', onDrag);
+      editingMarker.off('dragend', onDragEnd);
       this.map.off('zoom', this.onMapZoom_Handle_Zoom);
-      editingMarker.dragging.disable();
+      editingMarker.setDraggable(false);
       editingMarker.setZIndexOffset(0);
-      if (isNew && !this.popapsaved) {
+      if (deleted) {
+        editingMarker.remove();
+      } else if (isNew && !this.popapsaved) {
         this.map.removeLayer(editingMarker);
       } else if (!isNew && !this.popapsaved) {
-        this.diff.added = this.diff.added.filter(u => u.id !== editingMarker.$data.id);
-        this.diff.updated = this.diff.updated.filter(u => u.id !== editingMarker.$data.id);
-        const originalMarkerData = markerMap(this.oldMarkerData)
-        const originalMarker = markerBuilder(originalMarkerData.baseData, originalMarkerData.fullData);
-        MAPDATA.existingMarkers.delete(editingMarker.$data.id);
-        MAPDATA.existingMarkers.delete(originalMarker.$data.id);
-        editingMarker.remove();
-        originalMarker.addTo(map);
-        MAPDATA.existingMarkers.set(originalMarker.$data.id, originalMarker);
-        paintMarkers(originalMarker);
-        originalMarker.unbindPopup();
-        originalMarker.on('click', this.onMarkerClick_Handle_Click);
+        editingMarker.$data = this.oldMarkerData;
+        editingMarker.setLatLng(originalPosition).setIcon(originalIcon);
+        refreshMarkerMetadata(editingMarker);
+        paintMarkers(editingMarker);
         this._updateSaveState();
       } else {
         editingMarker.setLatLng([editingMarker.$data.coords.lat, editingMarker.$data.coords.lng]);
@@ -431,6 +440,7 @@ export class MetEditor {
         paintMarkers(editingMarker);
         this._updateSaveState();
       };
+      refreshMarkerFilters();
 	  });
 	  
 	  //Динамическое изменение иконки
@@ -442,21 +452,20 @@ export class MetEditor {
     });
 	  
     editingMarker.on('mousedown', this._draggingEnable);
-    editingMarker.on('mouseup mouseleave', this._draggingDisable);
+    editingMarker.on('mouseup dragstart', this._draggingDisable);
 	  // Функция перемещения маркера
-    editingMarker.on('drag', e => {
+    const onDrag = e => {
       const { lat, lng } = e.target.getLatLng();
       markerForm.X.value = lng.toFixed(6);
       markerForm.Y.value = lat.toFixed(6);
       e.target.$data.coords = { lat: markerForm.Y.value, lng: markerForm.X.value };
       const dragShiftedLatLng = this._shiftLatLng(e.target.getLatLng(), 40);
       this.editPopup.setLatLng(dragShiftedLatLng)
-    });
-    editingMarker.on('dragend', () => { 
-      editingMarker.dragging.disable();
-      editingMarker.dragging.enable();
-	  });
-	  editingMarker.dragging.enable();
+    };
+    const onDragEnd = () => setDraggingMode({ target: editingMarker }, false);
+    editingMarker.on('drag', onDrag);
+    editingMarker.on('dragend', onDragEnd);
+	  editingMarker.setDraggable(true);
     
     this.onMapZoom_Handle_Zoom = () => {
       if (!this.editPopupOpen) return
@@ -536,27 +545,24 @@ export class MetEditor {
         
 
         if (oldId && oldId !== newId) {
-          MAPDATA.existingMarkers.delete(oldId);
           this.diff.added = this.diff.added.filter(u => u.id !== oldId);
           this.diff.updated = this.diff.updated.filter(u => u.id !== oldId);
         }
 
-        MAPDATA.existingMarkers.set(newId, editingMarker);
+        registerMarker(editingMarker);
         this.diff.added.push({ id: newId, marker: editingMarker });
       } else {
         editingMarker.$data.edit_info = { created_at: editingMarker.$data.edit_info.created_at ?? isNow, updated_at: isNow };
-        this.diff.added = this.diff.added.filter(u => u.id !== editingMarker.$data.id);
+        const wasAdded = this.diff.added.some(u => u.marker === editingMarker);
         this.diff.updated = this.diff.updated.filter(u => u.id !== editingMarker.$data.id);
-        this.diff.updated.push({ id: editingMarker.$data.id, marker: editingMarker });
-        MAPDATA.existingMarkers.set(editingMarker.$data.id, editingMarker);
+        if (!wasAdded) this.diff.updated.push({ id: editingMarker.$data.id, marker: editingMarker });
+        registerMarker(editingMarker);
       }
 
       editingMarker.setLatLng([coords.lat, coords.lng]);
       const ic = MAPDATA.icons[icon_id] || MAPDATA.icons.default;
       editingMarker.setIcon(ic);
-      const el = editingMarker.getElement();
-      el._id = editingMarker.$data.id;
-      el._previewIds = previewIdsMapping(editingMarker);
+      refreshMarkerMetadata(editingMarker);
       this.popapsaved = true;
       this.editPopup.remove();
       this._updateSaveState();
@@ -577,11 +583,13 @@ export class MetEditor {
       MODAL.met.confirmModal.setOuterHandlers();
       markerForm.delete.classList.toggle('hide', false);
       const handlerYes = () => {
+        const id = editingMarker.$data.id;
+        const wasAdded = this.diff.added.some(u => u.marker === editingMarker);
+        this.diff.added = this.diff.added.filter(u => u.marker !== editingMarker);
+        this.diff.updated = this.diff.updated.filter(u => u.marker !== editingMarker);
+        if (!wasAdded && !this.diff.deleted.includes(id)) this.diff.deleted.push(id);
+        deleted = true;
         this.editPopup.remove();
-        const originalMarker = MAPDATA.existingMarkers.get(this.oldMarkerData.id);
-        this.diff.deleted.push(originalMarker.$data.id);
-        originalMarker.remove();
-        MAPDATA.existingMarkers.delete(originalMarker.$data.id);
         this._updateSaveState();
       }
       MODAL.met.confirmModal.setInnerHandlers(handlerYes);

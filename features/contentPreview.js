@@ -1,7 +1,7 @@
 import {vectorSubtract, vectorAdd, vectorEqual, vectorScalar, clampValue} from "./mathUtils.js"
 import {USERSETTINGS} from "../core/state.js"
 import {subscribeUI} from "../ui/UIUtilities.js"
-import {markerElementToViewportPoint} from "./markers.js"
+import {markerBoundsToViewportPoint} from "./markers.js"
 
 const AGENTS = {}
 
@@ -59,7 +59,7 @@ function toggleContentPreview() {
 function isValidMarker(marker) {
   if (!marker) return false
   const previewIds = marker._previewIds ?? null
-  const id = marker._id ?? null
+  const id = marker.$data?.id ?? null
   if ((previewIds === null) || (id === null)) return false
   return true
 }
@@ -71,7 +71,7 @@ export function switchAgentTarget(marker) {
     const contentList = marker._previewIds
     for (const id of Object.keys(AGENTS)) {
       if (contentList.includes(id)) {
-        commandToAgent(id, "setTarget", marker._id, {...markerElementToViewportPoint(marker)})
+        commandToAgent(id, "setTarget", marker.$data.id, {...markerBoundsToViewportPoint(marker)})
         commandToAgent(id, "show")
       } else {
         commandToAgent(id, "hide")

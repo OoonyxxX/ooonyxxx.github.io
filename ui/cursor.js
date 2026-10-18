@@ -2,6 +2,7 @@ import { APPSTATE, USERSETTINGS } from "../core/state.js"
 import { OPTSIDEBAR } from "./sidebar.js"
 import { subscribeUI } from "./UIUtilities.js"
 import { switchAgentTarget } from "../features/contentPreview.js"
+import { markerLayer } from '../features/markers.js'
 
 const CURSORITEM = {
   activeSelectors: null,
@@ -13,7 +14,6 @@ export function cacheCursor() {
   CURSORITEM.customCursorActive = false;
   CURSORITEM.customCursorAllowed = false;
   CURSORITEM.activeSelectors = `
-  .leaflet-marker-icon, 
   a, 
   button, 
   option,
@@ -24,7 +24,7 @@ export function cacheCursor() {
   .underground, 
   .collected, 
   .region`;
-  CURSORITEM.markerSelector = `.leaflet-marker-icon`;
+  CURSORITEM.markerHovered = false;
   CURSORITEM.ticking = false;
   const center = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cursor-size')) / 2;
   CURSORITEM.cursorCenter = { X: center, Y: center };
@@ -56,6 +56,11 @@ export function initCursor() {
   CURSORITEM.customCursor.showPopover();
   document.addEventListener('pointerover', pointerOverHendler);
   document.addEventListener('pointerout', pointerOutHendler);
+  markerLayer.on('hoverchange', ({ marker }) => {
+    CURSORITEM.markerHovered = !!marker;
+    if (USERSETTINGS.contentPreview) switchAgentTarget(marker);
+    if (CURSORITEM.customCursorAllowed) cursorHoverSet(!!marker || CURSORITEM.uiHovered);
+  });
 }
 
 function cursorConductor(touch) {
@@ -114,12 +119,6 @@ function cursorHoverSet(isHover) {
 }
 
 function pointerOverHendler(e){
-  if (USERSETTINGS.contentPreview) {
-    const target = e.target
-    const marker = target.closest(CURSORITEM.markerSelector);
-    switchAgentTarget(marker);
-  }
-  
   if (!CURSORITEM.customCursorAllowed) return
   cursorHoverStart(e)
 }
@@ -129,6 +128,7 @@ function cursorHoverStart(e) {
   const relatedTarget = e.relatedTarget
   const isNowActive = target.closest(CURSORITEM.activeSelectors);
   const wasActive = relatedTarget?.closest(CURSORITEM.activeSelectors);
+  CURSORITEM.uiHovered = !!isNowActive;
 
   if (isNowActive && !wasActive) {
     cursorHoverSet(true);
@@ -136,12 +136,6 @@ function cursorHoverStart(e) {
 }
 
 function pointerOutHendler(e) {
-  if (USERSETTINGS.contentPreview) {
-    const relatedTarget = e.relatedTarget
-    const marker = relatedTarget?.closest(CURSORITEM.markerSelector);
-    switchAgentTarget(marker);
-  }
-  
   if (!CURSORITEM.customCursorAllowed) return
   cursorHoverStop(e)
 }
@@ -152,9 +146,10 @@ function cursorHoverStop(e) {
   const relatedTarget = e.relatedTarget
   const wasActive = target.closest(CURSORITEM.activeSelectors);
   const isNowActive = relatedTarget?.closest(CURSORITEM.activeSelectors);
+  CURSORITEM.uiHovered = !!isNowActive;
 
   if (wasActive && !isNowActive) {
-    cursorHoverSet(false);
+    cursorHoverSet(CURSORITEM.markerHovered);
   }
 }
 
@@ -166,8 +161,6 @@ export function setDraggingMode(e, dragging) {
     CURSORITEM.timer.cancelOnMove = () => {
       stopTimerAnim();
       editingMarker.off('mousemove', CURSORITEM.timer.cancelOnMove);
-      editingMarker.dragging.disable();
-      editingMarker.dragging.enable();
     };
     startTimerAnim();
     editingMarker.on('mousemove', CURSORITEM.timer.cancelOnMove);
@@ -179,7 +172,6 @@ export function setDraggingMode(e, dragging) {
     if (CURSORITEM.timer.cancelOnMove) {
       editingMarker.off('mousemove', CURSORITEM.timer.cancelOnMove);
     }
-    editingMarker.dragging.enable();
   }
 }
 

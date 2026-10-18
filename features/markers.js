@@ -5,6 +5,10 @@ import { APPSTATE, USERSESSION, USERINFO } from "../core/state.js"
 import { REGION_COLORS, REGION_UNDERGROUND_COLORS, ALLOWED_AGENT_CONTENT_CONFIG } from "../core/config.js"
 import { standartPopup, popupWithContent, markerMap } from "./marker_data.js"
 import { popupViewportOptions } from "../ui/popupLayout.js"
+import { CanvasMarker, CanvasMarkerLayer } from './canvasMarkers.js'
+
+export const markerLayer = new CanvasMarkerLayer();
+let replacingMarkers = false;
 
 
 export const MAPDATA = {
@@ -24,7 +28,7 @@ export function createMarker(marker_data) {
   } = marker_data;
   const icon  = MAPDATA.icons[icon_id] || MAPDATA.icons.default;
 
-  const marker = L.marker(coords, { icon })
+  const marker = new CanvasMarker(coords, { icon, renderer: markerLayer })
 
   marker.$data = { coords, icon_id }
 
@@ -76,24 +80,23 @@ function handleCollectedPopupOpen(e) {
   checkbox.onchange = async (ev) => {
     const id = ev.target.dataset.id;
     const checked = ev.target.checked;
+    checkbox.disabled = true;
 
     try {
       await postCollectedMarker(id);
 
       md.is_collected = checked;
+      const currentMarker = MAPDATA.existingMarkers.get(id);
+      if (currentMarker) currentMarker.$data.is_collected = checked;
 
-      const delta = checked ? 1 : -1;
+      updateMarkerStats();
 
-      md.is_collectible
-        ? USERINFO.collected += delta
-        : USERINFO.visited += delta;
-
-      fastCollectedFilterReRender(marker);
+      fastCollectedFilterReRender(currentMarker);
     } catch (err) {
       console.error('Failed to update collected state:', err);
       md.is_collected = !checked;
       ev.target.checked = !checked;
-    }
+    } finally { checkbox.disabled = !USERSESSION.user_id; }
   };
 }
 
@@ -122,26 +125,68 @@ export function markerBuilder(baseData = {}, fullData = {}) {
   const m = createMarker(baseData);
   const marker = setUpMarkerData(m, fullData, false);
   bindMarkerPopup(marker);
+  refreshMarkerMetadata(marker);
   return marker
 }
 
+export function refreshMarkerMetadata(marker) {
+  marker._previewIds = previewIdsMapping(marker);
+  markerLayer.invalidate();
+}
+
+export function updateMarkerStats() {
+  let collected = 0, visited = 0, collectedAll = 0, visitedAll = 0;
+  for (const marker of MAPDATA.existingMarkers.values()) {
+    if (marker.$data.is_collectible) { collectedAll++; if (marker.$data.is_collected) collected++; }
+    else { visitedAll++; if (marker.$data.is_collected) visited++; }
+  }
+  Object.assign(USERINFO, { collected, visited, collectedAll, visitedAll });
+}
+
+export function registerMarker(marker, updateStats = true) {
+  if (marker._registryId && marker._registryId !== marker.$data.id) unregisterMarker(marker, false);
+  const id = marker.$data.id;
+  marker._registryId = id;
+  MAPDATA.existingMarkers.set(id, marker);
+  MAPDATA.allVisibleSet.add(id);
+  if (marker._$visible) MAPDATA.prevVisibleSet.add(id);
+  else MAPDATA.prevVisibleSet.delete(id);
+  marker.off('remove', onRegisteredMarkerRemoved).on('remove', onRegisteredMarkerRemoved);
+  refreshMarkerMetadata(marker);
+  if (updateStats) updateMarkerStats();
+  return marker;
+}
+
+function onRegisteredMarkerRemoved(e) { unregisterMarker(e.target, !replacingMarkers); }
+
+export function unregisterMarker(marker, updateStats = true) {
+  const id = marker._registryId;
+  if (MAPDATA.existingMarkers.get(id) === marker) {
+    MAPDATA.existingMarkers.delete(id);
+    MAPDATA.allVisibleSet.delete(id);
+    MAPDATA.prevVisibleSet.delete(id);
+  }
+  marker._registryId = null;
+  marker.off('remove', onRegisteredMarkerRemoved);
+  if (updateStats) updateMarkerStats();
+}
+
 export async function loadMarkersData() {
-  MAPDATA.markersData = (await getAllMarkers()).map((m) => (markerMap(m)));
+  const data = (await getAllMarkers()).map((m) => (markerMap(m)));
+  replacingMarkers = true;
+  try { for (const marker of [...markerLayer.markers]) marker.remove(); }
+  finally { replacingMarkers = false; }
+  MAPDATA.existingMarkers.clear();
+  MAPDATA.prevVisibleSet.clear();
+  MAPDATA.allVisibleSet.clear();
+  MAPDATA.markersData = data;
   MAPDATA.markersData.forEach(m => {
-    const id = m.baseData.id
-    MAPDATA.prevVisibleSet.add(id);
-    MAPDATA.allVisibleSet.add(id);
     const marker = markerBuilder(m.baseData, m.fullData)
-    const is_collectible = marker.$data.is_collectible
-    if (marker.$data.is_collected) is_collectible ? USERINFO.collected += 1 : USERINFO.visited += 1
-    is_collectible ? USERINFO.collectedAll += 1 : USERINFO.visitedAll += 1
     marker.addTo(map);
-    const el = marker.getElement();
-    el._id = marker.$data.id;
-    el._previewIds = previewIdsMapping(marker);
     paintMarkers(marker);
-    MAPDATA.existingMarkers.set(marker.$data.id, marker);
+    registerMarker(marker, false);
   });
+  updateMarkerStats();
 }
 
 export async function loadMapData() {
@@ -149,20 +194,7 @@ export async function loadMapData() {
     MAPDATA.iconsData = await fetch(`svgicons.json?_=${Date.now()}`)
       .then(r => r.json());
 
-    await Promise.all(MAPDATA.iconsData.map(async (ic) => {
-      const svgText = await fetch(ic.url).then(r => r.text());
-
-      const html = `<div class="svg-icon" data-icon-id="${ic.id}">${svgText}</div>`;
-
-      MAPDATA.icons[ic.id] = L.divIcon({
-        html,
-        className: '',
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
-      });
-    }));
-    MAPDATA.icons.default = MAPDATA.icons.default || Object.values(MAPDATA.icons)[0];
+    MAPDATA.icons = await markerLayer.icons.load(MAPDATA.iconsData);
 
     await loadMarkersData();
   } catch (err) {
@@ -170,7 +202,7 @@ export async function loadMapData() {
   }
 }
 
-function markerColorPick (marker) {
+export function markerColorPick (marker) {
   const markerUnderground = APPSTATE.heightDisplayEnabled && marker.$data.under_ground;
   const cssHexColor = REGION_COLORS[marker.$data.reg_id] || '#fff';
   const cssHeightHexColor = REGION_UNDERGROUND_COLORS[marker.$data.reg_id] || '#7f7f7f';
@@ -217,20 +249,17 @@ function markerColorPick (marker) {
 export function paintMarkers(marker = undefined) {
   if (marker === undefined) {
     MAPDATA.existingMarkers.forEach(m => {
-      const el = m.getElement();
-      el.style.color = markerColorPick(m);
+      m.setColor(markerColorPick(m));
     });
   } else {
-    const el = marker.getElement();
-    el.style.color = markerColorPick(marker);
+    marker.setColor(markerColorPick(marker));
   }
 }
 
 export function dynamicPaintMarker(marker, rgbColor) {
   const { r, g, b } = rgbColor;
   const dynamicColor = `rgb(${r}, ${g}, ${b})`;
-  const el = marker.getElement();
-  el.style.color = dynamicColor;
+  marker.setColor(dynamicColor);
 }
 
 
@@ -239,14 +268,7 @@ export function toggleMarkerVisible(id, visible) {
   if (!marker) return;
 
   if (marker._$visible === visible) return;
-  marker._$visible = visible;
-
-  const el = marker.getElement?.() || marker._icon;
-  if (el) el.classList.toggle('is-hidden', !visible);
-  if (!visible) {
-    marker.closePopup?.();
-    marker.closeTooltip?.();
-  }
+  marker.setVisible(visible);
 }
 
 export function previewIdsMapping(marker) {
@@ -262,19 +284,17 @@ export function previewIdsMapping(marker) {
 }
 
 export function markerToViewportPoint(marker) {
-  const point = map.latLngToContainerPoint(marker.getLatLng());
+  const bounds = marker.getScreenBounds();
   const rect = map.getContainer().getBoundingClientRect();
 
   return {
-    X: rect.left + point.x,
-    Y: rect.top + point.y
+    X: rect.left + bounds.x + 16,
+    Y: rect.top + bounds.y + 32
   };
 }
 
-export function markerElementToViewportPoint(markerEl) {
-  const point = markerEl.getBoundingClientRect()
-  return {
-    X: point.x,
-    Y: point.y
-  };
+export function markerBoundsToViewportPoint(marker) {
+  const bounds = marker.getScreenBounds();
+  const rect = map.getContainer().getBoundingClientRect();
+  return { X: rect.left + bounds.x, Y: rect.top + bounds.y };
 }
