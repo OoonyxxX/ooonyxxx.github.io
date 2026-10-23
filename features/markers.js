@@ -6,6 +6,7 @@ import { REGION_COLORS, REGION_UNDERGROUND_COLORS, ALLOWED_AGENT_CONTENT_CONFIG 
 import { standartPopup, popupWithContent, markerMap } from "./marker_data.js"
 import { popupViewportOptions } from "../ui/popupLayout.js"
 import { CanvasMarker, CanvasMarkerLayer } from './canvasMarkers.js'
+import { copyMarkerURL } from './URLRouter.js'
 
 export const markerLayer = new CanvasMarkerLayer();
 let replacingMarkers = false;
@@ -64,39 +65,41 @@ function attachInitPopupHandler(marker) {
 
 function handleCollectedPopupOpen(e) {
   const popupEl = e.popup.getElement();
-  const checkbox = popupEl.querySelector('.marker-collected');
-  if (!checkbox) return;
+  const collectedCheckbox = popupEl.querySelector('.marker-collected');
+  if (collectedCheckbox) {
+    if (!USERSESSION.user_id) {
+      collectedCheckbox.disabled = true;
+    } else {
+      const marker = e.target;
+      const md = marker.$data;
+      collectedCheckbox.checked = md.is_collected;
 
-  const marker = e.target;
-  const md = marker.$data;
+      collectedCheckbox.onchange = async (ev) => {
+        const id = ev.target.dataset.id;
+        const checked = ev.target.checked;
+        collectedCheckbox.disabled = true;
 
-  if (!USERSESSION.user_id) {
-    checkbox.disabled = true;
-    return;
+        try {
+          await postCollectedMarker(id);
+
+          md.is_collected = checked;
+          const currentMarker = MAPDATA.existingMarkers.get(id);
+          if (currentMarker) currentMarker.$data.is_collected = checked;
+
+          updateMarkerStats();
+
+          fastCollectedFilterReRender(currentMarker);
+        } catch (err) {
+          console.error('Failed to update collected state:', err);
+          md.is_collected = !checked;
+          ev.target.checked = !checked;
+        } finally { collectedCheckbox.disabled = !USERSESSION.user_id; }
+      };
+    }
   }
-
-  checkbox.checked = md.is_collected;
-
-  checkbox.onchange = async (ev) => {
-    const id = ev.target.dataset.id;
-    const checked = ev.target.checked;
-    checkbox.disabled = true;
-
-    try {
-      await postCollectedMarker(id);
-
-      md.is_collected = checked;
-      const currentMarker = MAPDATA.existingMarkers.get(id);
-      if (currentMarker) currentMarker.$data.is_collected = checked;
-
-      updateMarkerStats();
-
-      fastCollectedFilterReRender(currentMarker);
-    } catch (err) {
-      console.error('Failed to update collected state:', err);
-      md.is_collected = !checked;
-      ev.target.checked = !checked;
-    } finally { checkbox.disabled = !USERSESSION.user_id; }
+  const shareButton = popupEl.querySelector('.marker-share');
+  if (shareButton) {
+    shareButton.addEventListener("click", (ev) => {copyMarkerURL(shareButton.dataset.id)})
   };
 }
 

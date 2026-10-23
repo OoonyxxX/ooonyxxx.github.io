@@ -1,4 +1,4 @@
-import { APPSTATE, USERSETTINGS } from "../core/state.js"
+import { APPSTATE, USERSETTINGS, TOOLSTATE } from "../core/state.js"
 import { OPTSIDEBAR } from "./sidebar.js"
 import { subscribeUI } from "./UIUtilities.js"
 import { switchAgentTarget } from "../features/contentPreview.js"
@@ -47,6 +47,9 @@ export function initCursor() {
   subscribeUI("customCursor", () => {
     OPTSIDEBAR.customCursorToggle.checked = USERSETTINGS.customCursor;
     cursorConductor(APPSTATE.hasTouch);
+  })
+  subscribeUI("pointShare", () => {
+    CURSORITEM.customCursor.classList.toggle('point-share-mode', TOOLSTATE.pointShare);
   })
   OPTSIDEBAR.customCursorToggle.addEventListener("change", (e) => {
     USERSETTINGS.customCursor = e.target.checked;

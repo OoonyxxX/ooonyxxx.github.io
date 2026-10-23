@@ -19,6 +19,10 @@ export const APPSTATE = {
     isDesktop_4K: false,
 };
 
+export const TOOLSTATE = proxifyObjToUpdateUI({
+    pointShare: false,
+})
+
 export const USERSESSION = proxifyObjToUpdateUI({...USERSESSIONDEFAULT})
 
 export const USERINFO = proxifyObjToUpdateUI({

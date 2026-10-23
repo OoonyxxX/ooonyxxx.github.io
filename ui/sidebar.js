@@ -1,12 +1,53 @@
-import { APPSTATE, USERSESSION } from "../core/state.js"
+import { APPSTATE, USERSESSION, TOOLSTATE } from "../core/state.js"
 import { paintMarkers } from "../features/markers.js"
 import { subscribeUI } from "./UIUtilities.js"
 import { htmlGenerator } from "../features/utilities.js"
+import { startPointShareMode, stopPointShareMode } from "../features/URLRouter.js"
 
 // Обьявление объектов панелей 
 export const OPTSIDEBAR = {};
 export const FILTERSIDEBAR = {};
 export const AUTHTOPBAR = {};
+export const TOOLSIDEBAR = {};
+
+/*
+export const INFOPOPAP = {};
+
+export function cacheInfoElements() {
+  INFOPOPAP.infoSection       = document.getElementById('info-section');
+  INFOPOPAP.infoPopap         = INFOPOPAP.infoSection.querySelector('.info-popap');
+  INFOPOPAP.closeButton       = INFOPOPAP.infoPopap.querySelector('.info-popap-close-button');
+  INFOPOPAP.closeImg          = INFOPOPAP.closeButton.querySelector('.info-popap-close-img');
+  INFOPOPAP.popapBody         = INFOPOPAP.infoPopap.querySelector('.info-popap-body');
+}
+
+export function initInfoElements(){
+  INFOPOPAP.popapBody
+}*/
+
+export function cacheToolElements() {
+  TOOLSIDEBAR.toolSection       = document.getElementById('tool-section');
+  TOOLSIDEBAR.toolPanel         = TOOLSIDEBAR.toolSection.querySelector('.tool-panel');
+  TOOLSIDEBAR.pointShareButton  = TOOLSIDEBAR.toolPanel.querySelector('.point-share-tool');
+  TOOLSIDEBAR.pointShareImg     = TOOLSIDEBAR.pointShareButton.querySelector('.share-img');
+}
+
+export function initToolElements(){
+  TOOLSIDEBAR.pointShareButton.addEventListener("click", togglePointShareMode)
+  subscribeUI("pointShare", () => {
+    TOOLSIDEBAR.pointShareButton.classList.toggle('active', TOOLSTATE.pointShare)
+  })
+}
+
+
+function togglePointShareMode() {
+  TOOLSTATE.pointShare = !TOOLSTATE.pointShare
+  if (TOOLSTATE.pointShare) {
+    startPointShareMode();
+  } else {
+    stopPointShareMode();
+  }
+}
 
 // Кешироние DOM елементов панели параметров
 export function cacheOptElements() {

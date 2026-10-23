@@ -363,6 +363,13 @@ export function fastCollectedFilterReRender(marker) {
   refreshMarkerFilters().catch(error => console.error('Failed to refresh collected filter:', error));
 }
 
+export function filterMarkerManually(markers_ids){
+  const requestId = ++FILTERDATA.filterRequestId;
+  if (requestId !== FILTERDATA.filterRequestId) return;
+  const nextVisibleSet = new Set(markers_ids);
+  renderFilter(nextVisibleSet, requestId);
+}
+
 
 function normalizeSearchQuery(raw) {
   return raw

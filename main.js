@@ -27,11 +27,14 @@ async function normalStart(){
             cacheFilterElements, 
             initFilterElements, 
             cacheAuthElements,
+            initToolElements,
+            cacheToolElements
             } = await import ("./ui/sidebar.js")
     const { cacheModalElements, initModals } = await import ("./ui/modal.js")
     const { cacheWindowMatches, initWindowEvents } = await import ("./ui/adaptability.js")
     const { cacheCursor, initCursor } = await import ("./ui/cursor.js")
     const { loadMapData } = await import ("./features/markers.js")
+    const { prepareURLAction } = await import ("./features/URLRouter.js")
     const { initContentPreview } = await import ("./features/contentPreview.js")
     const { checkAuth, loadAuthorizationModals } = await import ("./api/auth_api.js")
 
@@ -39,7 +42,8 @@ async function normalStart(){
     cacheModalElements();
     cacheOptElements();
     cacheFilterElements();
-    cacheFilterData()
+    cacheFilterData();
+    cacheToolElements()
     cacheMETUIElements();
     cacheWindowMatches();
     cacheCursor();
@@ -47,7 +51,10 @@ async function normalStart(){
     initOptElements();
     initOptToggle();
     initFilterElements();
+    initToolElements();
     initContentPreview();
+    prepareURLAction();
+    const event = new Event("executeURLAction");
 
     initWindowEvents();
     initFilters();
@@ -64,6 +71,7 @@ async function normalStart(){
     document.querySelector('.footer-container').classList.remove("hide-i");
     document.querySelector('#marker-form-template').classList.remove("hide-i");
     document.querySelector('#custom-cursor').classList.remove("hide-i");
+    document.dispatchEvent(event);
 }
 
 async function maintenanceStart(){

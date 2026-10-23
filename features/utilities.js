@@ -324,3 +324,14 @@ export function htmlGenerator(dataType) {
       throw new Error(`Unknown html type: ${dataType}`)
   };
 }
+
+export function validateCoord(coord) {
+  return typeof coord === "number"
+    && Number.isFinite(coord)
+    && coord >= 0
+    && coord <= 256;
+}
+
+export function validateMarkerId(id) {
+  return typeof id === "string" && id.trim().length > 0;
+}
