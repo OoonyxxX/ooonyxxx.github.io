@@ -24,12 +24,13 @@
 }
 
 .point-share-tool {
-  width: var(--preview-icon-size);
-  height: var(--preview-icon-size);
+  width: calc(var(--preview-icon-size) - var(--sidebar-border-width));
+  height: calc(var(--preview-icon-size) - var(--sidebar-border-width));
   background: var(--color-button-hover-bg);
-  border-style: none;
-  border-width: 0;
+  border-style: solid;
+  border-width: var(--sidebar-border-width);
   border-radius: var(--radius-8);
+  border-color: var(--color-button-hover-bg);
   padding: 0px;
   transform: scale(1);
   transform-origin: center;
@@ -37,15 +38,13 @@
 }
 
 .point-share-tool.active {
-  background: var(--color-button-hover-border);
-  border-style: solid;
-  border-width: var(--sidebar-border-width);
   border-color: var(--color-button-hover-text);
 }
 
 .point-share-tool:hover {
   transform: scale(1.125);
   background: var(--color-button-hover-border);
+  border-color: var(--color-button-hover-border);
 }
 
 .share-img {
