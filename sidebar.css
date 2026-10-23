@@ -6,7 +6,8 @@
   left: 0;
   top: 50%;
   width: fit-content;
-  padding: 0.5em;
+  padding: calc(0.5em * (var(--scale) / 1.25));
+  padding-left: 0.5em;
   border-radius: 0 0.5em 0.5em 0;
   border-style: solid;
   border-right-width: calc(var(--sidebar-border-width) / 2);
@@ -19,8 +20,10 @@
 }
 
 .marker-share {
-  width: calc(var(--preview-icon-size) * 1.5);
-  height: calc(var(--preview-icon-size) * 1.5);
+  display: flex;
+  padding: 0;
+  width: 36px;
+  height: 36px;
   background: var(--marker-panel);
   border: var(--border-thin) solid var(--marker-border);
   border-radius: var(--marker-radius);
@@ -28,20 +31,19 @@
   right: 0;
   bottom: 0;
   transition: background var(--motion-duration-panel) var(--motion-easing), transform var(--motion-duration-panel) var(--motion-easing), border var(--motion-duration-panel) var(--motion-easing);
+  align-items: center;
+  justify-content: center;
 }
 
-.marker-share:hover {
-  background: var(--marker-accent);
-}
 
 .tool-panel {
-  width: var(--preview-icon-size);
-  height: var(--preview-icon-size);
+  width: 32px;
+  height: 32px;
 }
 
 .point-share-tool {
-  width: var(--preview-icon-size);
-  height: var(--preview-icon-size);
+  width: 32px;
+  height: 32px;
   background: var(--color-button-hover-bg);
   border-style: solid;
   border-width: var(--sidebar-border-width);
@@ -57,15 +59,9 @@
   border-color: var(--color-button-hover-text);
 }
 
-.point-share-tool:hover {
-  transform: scale(1.125);
-  background: var(--color-button-hover-border);
-  border-color: var(--color-button-hover-border);
-}
-
 .point-share-tool .share-img {
-  width: var(--preview-icon-size);
-  height: var(--preview-icon-size);
+  width: 32px;
+  height: 32px;
   pointer-events: none;
 }
 
@@ -322,6 +318,16 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .point-share-tool:hover {
+    transform: scale(1.125);
+    background: var(--color-button-hover-border);
+    border-color: var(--color-button-hover-border);
+  }
+
+  .marker-share:hover {
+    background: var(--marker-accent);
+  }
+
   .option-parameter:hover {
     border-bottom-color: var(--color-option-active-border);
     color: var(--color-option-active);

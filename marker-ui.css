@@ -120,7 +120,7 @@
   font: inherit;
   overflow-wrap: anywhere;
   max-height: var(--popup-available-height);
-  overflow-y: auto;
+  overflow-y: none;
   overscroll-behavior: contain;
 }
 
