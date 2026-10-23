@@ -39,8 +39,8 @@
 }
 
 .point-share-tool {
-  width: calc(var(--preview-icon-size) - var(--sidebar-border-width));
-  height: calc(var(--preview-icon-size) - var(--sidebar-border-width));
+  width: var(--preview-icon-size);
+  height: var(--preview-icon-size);
   background: var(--color-button-hover-bg);
   border-style: solid;
   border-width: var(--sidebar-border-width);
@@ -62,10 +62,14 @@
   border-color: var(--color-button-hover-border);
 }
 
-.share-img {
+.point-share-tool .share-img {
   width: var(--preview-icon-size);
   height: var(--preview-icon-size);
   pointer-events: none;
+}
+
+.point-share-tool .share-img {
+  transform: translate(calc(var(--sidebar-border-width) * -1), calc(var(--sidebar-border-width) * -1));
 }
 
 
