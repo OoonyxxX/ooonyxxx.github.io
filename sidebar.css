@@ -1,5 +1,52 @@
 /* sidebar — functional styles; values are defined in theme.css. */
 
+.tool-section {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  width: fit-content;
+  padding: 0.5em;
+  border-radius: 0 0.5em 0.5em 0;
+  border-style: solid;
+  border-right-width: calc(var(--sidebar-border-width) / 2);
+  border-top-width: calc(var(--sidebar-border-width) / 2);
+  border-bottom-width: calc(var(--sidebar-border-width) / 2);
+  border-left-width: 0;
+  border-color: var(--color-page-bg);
+  height: fit-content;
+  background: var(--color-button-bg);
+}
+
+.tool-panel {
+  width: var(--preview-icon-size);
+  height: var(--preview-icon-size);
+}
+
+.point-share-tool {
+  width: var(--preview-icon-size);
+  height: var(--preview-icon-size);
+  background: var(--color-button-hover-bg);
+  border-style: none;
+  border-radius: var(--radius-8);
+  padding: 0px;
+  transform: scale(1);
+  transform-origin: center;
+  transition: background var(--motion-duration-panel) var(--motion-easing), transform var(--motion-duration-panel) var(--motion-easing);
+}
+
+.point-share-tool:hover {
+  transform: scale(1.125);
+  background: var(--color-button-hover-border);
+}
+
+.share-img {
+  width: var(--preview-icon-size);
+  height: var(--preview-icon-size);
+  pointer-events: none;
+}
+
+
+
 .options-body, .filters-body {
   width: calc(100% - (var(--sidebar-border-width) * 2));
   position: relative;
