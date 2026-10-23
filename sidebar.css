@@ -72,6 +72,10 @@
   transform: translate(calc(var(--sidebar-border-width) * -1), calc(var(--sidebar-border-width) * -1));
 }
 
+.marker-share-box {
+  height: fit-content;
+  display: flex;
+}
 
 
 .options-body, .filters-body {
