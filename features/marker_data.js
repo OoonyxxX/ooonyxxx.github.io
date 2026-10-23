@@ -467,10 +467,8 @@ export function popupWithContent(id, name, description, content, collectible) {
       ${collectible ? 'Collected' : 'Visited'}
     </label>
     ${contentBlock.join("\n")}
-    <label>
-      <button class="marker-share" data-id="${id}">
-        <img class="share-img" src="/assets/othersvg/map_share.svg" alt="">
-      </button>
-    </label>
+    <button class="marker-share" data-id="${id}">
+      <img class="share-img" src="/assets/othersvg/map_share.svg" alt="">
+    </button>
   `
 }

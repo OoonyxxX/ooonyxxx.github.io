@@ -18,6 +18,17 @@
   background: var(--color-button-bg);
 }
 
+.marker-share {
+  width: calc(var(--preview-icon-size) * 1.5);
+  height: calc(var(--preview-icon-size) * 1.5);
+  background: var(--marker-panel);
+  border: var(--border-thin) solid var(--marker-border);
+  border-radius: var(--marker-radius);
+  position: relative;
+  right: 0;
+  bottom: 0;
+}
+
 .tool-panel {
   width: var(--preview-icon-size);
   height: var(--preview-icon-size);
