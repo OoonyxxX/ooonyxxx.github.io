@@ -29,6 +29,10 @@
   bottom: 0;
 }
 
+.marker-share:hover {
+  background: var(--marker-accent);
+}
+
 .tool-panel {
   width: var(--preview-icon-size);
   height: var(--preview-icon-size);
