@@ -1,6 +1,7 @@
 /* sidebar — functional styles; values are defined in theme.css. */
 
 .tool-section {
+  pointer-events: auto;
   position: fixed;
   left: 0;
   top: 50%;
@@ -27,11 +28,19 @@
   height: var(--preview-icon-size);
   background: var(--color-button-hover-bg);
   border-style: none;
+  border-width: 0;
   border-radius: var(--radius-8);
   padding: 0px;
   transform: scale(1);
   transform-origin: center;
-  transition: background var(--motion-duration-panel) var(--motion-easing), transform var(--motion-duration-panel) var(--motion-easing);
+  transition: background var(--motion-duration-panel) var(--motion-easing), transform var(--motion-duration-panel) var(--motion-easing), border var(--motion-duration-panel) var(--motion-easing);
+}
+
+.point-share-tool.active {
+  background: var(--color-button-hover-border);
+  border-style: solid;
+  border-width: var(--sidebar-border-width);
+  border-color: var(--color-button-hover-text);
 }
 
 .point-share-tool:hover {
