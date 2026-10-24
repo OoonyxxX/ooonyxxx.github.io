@@ -16,11 +16,13 @@ function parseURL() {
         const rawY = params.get('Y') ?? params.get('lat');
         const rawZoom = params.get('scale') ?? params.get('zoom');
 
-        if (!rawX?.trim() || !rawY?.trim() || !rawZoom?.trim()) return null;
+        if (!rawX?.trim() || !rawY?.trim()) return null;
 
+        let zoom = null;
+        if (!!rawZoom?.trim()) zoom = Number(rawZoom);
         const X = Number(rawX);
         const Y = Number(rawY);
-        const zoom = Number(rawZoom);
+        
 
         if (!validateCoord(X) || !validateCoord(Y)) return null;
 
@@ -90,7 +92,7 @@ function executeURLAction(action) {
 
   switch (action.type) {
     case 'point':
-      map.setView([action.lat, action.lng], action.zoom);
+      map.setView([action.lat, action.lng], action.zoom ?? mapZoomDelta(map.getZoom()));
       break;
 
     case 'marker':
