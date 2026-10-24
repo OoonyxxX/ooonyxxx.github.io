@@ -14,18 +14,21 @@ function parseURL() {
     case 'point': {
         const rawX = params.get('X') ?? params.get('lng');
         const rawY = params.get('Y') ?? params.get('lat');
+        const rawZoom = params.get('scale') ?? params.get('zoom');
 
-        if (!rawX?.trim() || !rawY?.trim()) return null;
+        if (!rawX?.trim() || !rawY?.trim() || !rawZoom?.trim()) return null;
 
         const X = Number(rawX);
         const Y = Number(rawY);
+        const zoom = Number(rawZoom);
 
         if (!validateCoord(X) || !validateCoord(Y)) return null;
 
         return {
           type: 'point',
           lat: Y,
-          lng: X
+          lng: X,
+          zoom: zoom
         };
     }
 
@@ -60,6 +63,7 @@ export function generateURL(action) {
       url.searchParams.set('action', 'point');
       url.searchParams.set('X', action.lng);
       url.searchParams.set('Y', action.lat);
+      url.searchParams.set('zoom', action.zoom);
       break;
 
     case 'marker':
@@ -86,7 +90,7 @@ function executeURLAction(action) {
 
   switch (action.type) {
     case 'point':
-      map.setView([action.lat, action.lng], mapZoomDelta(map.getZoom()));
+      map.setView([action.lat, action.lng], action.zoom);
       break;
 
     case 'marker':
@@ -134,11 +138,12 @@ export async function copyMarkerURL(marker_id) {
   }
 }
 
-export async function copyPointURL(point) {
+export async function copyPointURL(point, zoom) {
   const url = generateURL({
     type: 'point',
     lat: point.lat,
-    lng: point.lng
+    lng: point.lng,
+    zoom: zoom
   });
 
   if (!url) return false;
@@ -158,7 +163,8 @@ const URLCopyErrorEvent = new Event("urlCopyError");
 async function shareMapPointHendler(e) {
   TOOLSTATE.pointShare = false;
   const point = e.latlng;
-  if(await copyPointURL(point)) {
+  const zoom = map.getZoom()
+  if(await copyPointURL(point, zoom)) {
     document.dispatchEvent(URLCopiedEvent);
   } else {
     document.dispatchEvent(URLCopyErrorEvent);
